@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","toastr","index"]);
+		
+		GISTONE.Loader.loadScript(["jquery","bootstrap","toastr","validate","public","index"]);
+		if(window.top!==window.self){window.top.location=window.location};
+
+		var tplink= document.createElement("link");
+		tplink.rel = "shortcut icon";
+		tplink.href = "magimg/内蒙古-favicon.ico";
+	    document.getElementsByTagName("HEAD")[0].appendChild(tplink);
+	</script>
+    <base target="_blank">
+</head>
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1>内蒙古自治区精准扶贫云平台</h1>
+                    </div>
+                    <h4></h4>
+                    <div class="m-b"></div>
+                   <div class="left">
+
+<!-- 						<div align="left"> -->
+<!-- 							<h4>扫描二维码下载安卓版精准扶贫帮扶通</h4> -->
+							
+<!-- 							<div align="left" id="ewmimg"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<dd> -->
+<!-- 							<div align="left"> -->
+<!-- 								<h4></h4> -->
+<!-- 								<h5 align="left" style="display:inline;">工作平台Q群：</h5> -->
+<!-- 								<h6 align="right" style="display:inline;"></h6><br/> -->
+<!-- 								<h5 align="left" style="display:inline;">技术支持QQ：</h5> -->
+<!-- 								<h6 align="right" style="display:inline;"></h6><br> -->
+<!-- 							</div> -->
+<!-- 						</dd> -->
+					</div> 
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <form  id="loginForm">
+                    <h4 class="no-margins">登录：</h4>
+                    <p class="m-t-md">内蒙古自治区精准扶贫云平台</p>
+                    <input type="text" name="name" id="name" required="required" class="form-control uname" placeholder="用户名"  autocomplete="off"/>
+                    <input type="password" name="pass" id="pass" required="required" class="form-control pword m-b" placeholder="密码" autocomplete="off" />
+                    <button id="loginFormButton" class="btn btn-success btn-block" >登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2016 All Rights Reserved. 内蒙古自治区扶贫开发(革命老区建设)办公室
+            </div>
+        </div>
+    </div>
+</body>
+</html>

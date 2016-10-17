@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","validate","toastr","hd-main"]);
+	</script>
+    <base target="_blank">
+</head>
+  
+<body class="gray-bg top-navigation">
+	<div id="wrapper" style="height: 100%;">
+		<!-- <div id="page-wrapper" class="gray-bg" style="height: 100%;"> -->
+	        
+	        <div class="hd-main clearfix navbar-fixed-top" id="header">
+				<a class="logo" href=""></a>
+			    <div class="navs">
+			        <span class="separate"></span>
+					<a class="def-nav zidingyiA" id="z_z_1">概况</a>
+					<span class="separate"></span>
+					<a class="def-nav" onclick="window.open('http://cpadisc1.cpad.gov.cn/cpad/');">基础数据</a>
+					<span class="separate"></span>
+					<a class="def-nav" id="z_z_2">统计分析</a>
+			        <span class="separate"></span>
+					<a class="def-nav" id="z_z_3">地理信息</a>
+			        <span class="separate"></span>
+			        
+				</div>
+				<div class="info">
+					<ul>
+						<li class="info-i user-name has-pulldown">
+							<em class="f-icon pull-arroww"></em>
+							<a style="background-image: url(../img/ren.png);background-repeat: no-repeat;position:absolute;top:0;left:0;height:24px;width:24px;"></a>&nbsp;&nbsp;
+							<span class="name top-username" id="username"></span><!-- display: block; display: none; -->
+							<div class="pulldown user-info" style="height:135px;">
+								<em class="arroww"></em>
+								<div class="content" style="height:121px;">
+									<span class="li"><a><img src="../img/ren1.png" height="18" width="18" style=" margin-top:7px; margin-right:5px;  float:left;" />个人资料</a></span>
+									<span class="li"><a>设置信息</a></span>
+									<span class="separate-li no-height"></span>
+									<span class="li"><a id="signout">退出</a></span>
+								</div>
+							</div>
+						</li>
+						<li class="info-i default-text">
+							<a class="notice" id="notificationTrigger" onclick="window.location.href = '../home.html';">返回平台</a>
+							<em class="f-icon notice-nu" id="noticeNoParent">
+								<b class="f-icon" id="noticeNo"></b>
+							</em>
+						</li>
+					<!-- <li class="info-i no-separate default-text has-pulldown">
+							<em class="f-icon pull-arroww"></em>
+							<span class="more" hideFocus="hideFocus">更多</span>
+							<div class="pulldown more-info">
+								<em class="arroww"></em>
+								<div class="content">
+									<span class="separate-li no-height"></span>
+									<span class="li"><a href="">收藏工具</a></span>
+									<span class="li"><a href="">历史记录</a></span>
+									<span class="li"><a href="">版本更新</a></span>
+								</div>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+	        <!-- 头部菜单 -->
+	        
+	        
+	        <div class="row J_mainContent" id="content-main" style="margin-top: 60px;width:100%;height: calc(100% - 96px);margin-left: 0px;">
+	            <iframe class="J_iframe" name="iframe0" id="iframe0" width="100%" height="100%" src="Z1.html" frameborder="0" data-id="Z1.html" seamless></iframe>
+	        </div>
+
+			<!-- 尾部 -->
+            <div class="footer fixed" id="weibu_title">
+            	<div class="pull-right">技术支持：北京山海础石信息技术有限公司</div>
+            	<div>
+            		<strong>Copyright</strong>&nbsp;&nbsp;&nbsp;
+            		<i class="fa fa-copyright"></i>&nbsp;&nbsp;&nbsp;2016&nbsp;&nbsp;&nbsp;内蒙古自治区扶贫开发(革命老区建设)办公室&nbsp;&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;蒙ICP备13001436号
+            	</div>
+            </div>
+            <!-- 尾部 -->
+            
+        <!-- </div> -->
+    </div>
+
+    <!-- 弹出窗口使用 -->
+    <div id="gray"></div>
+	<!-- 修改密码页面 -->
+	<div id="gray_2"></div>
+	<div class="popup" id="popup_2"></div>
+	
+	<!-- <div class="col-lg-8">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div>
+                                        <span class="pull-right text-right">
+                                        <small>在过去的一个月销售的平均值：<strong>山东</strong></small><br/> 所有销售： 162,862</span>
+                                        <h3 class="font-bold no-margins">半年收入利润率</h3>
+                                        <small>市场部</small>
+                                    </div>
+
+                                    <div class="m-t-sm">
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div>
+                                                    <canvas id="lineChart" height="114"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="stat-list m-t-lg">
+                                                    <li>
+                                                        <h2 class="no-margins">2,346</h2>
+                                                        <small>总订单</small>
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" style="width: 48%;"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="no-margins ">4,422</h2>
+                                                        <small>最近一个月订单</small>
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" style="width: 60%;"></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="m-t-md">
+                                        <small class="pull-right">
+                                        <i class="fa fa-clock-o"> </i>
+                                        2015.02.30更新
+                                    </small>
+                                        <small>
+                                        <strong>说明：</strong> 本期销售额比上期增长了23%。
+                                    </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div> -->
+	
+	
+	
+	<script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","toastr","public","WxApp_home"]);
+	</script>
+  </body>
+</html>

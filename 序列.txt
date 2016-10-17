@@ -1,0 +1,368 @@
+--帮扶单位
+create sequence DA_COMPANY_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 25      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--当前收支
+create sequence DA_CURRENT_EXPENDITURE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--当前收支
+create sequence DA_CURRENT_INCOME_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--帮扶目标计划等内容	
+create sequence DA_HELP_INFO_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+
+--帮扶措施	
+create sequence DA_HELP_MEASURES_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--脱贫计划	
+create sequence DA_HELP_PLAN_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 5     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶成效	
+create sequence DA_HELP_RESULTS_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶措施
+create sequence DA_HELP_TZ_MEASURES_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶人走访情况记录
+create sequence DA_HELP_VISIT_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 51003     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+
+--帮扶后支出情况
+create sequence DA_HELPBACK_EXPENDITURE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶后收入情况
+create sequence DA_HELPBACK_INCOME_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--贫困户信息，只存户主信息，结构与国家系统导出表一致
+create sequence DA_HOUSEHOLD_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--贫困户基本信息补充内容
+create sequence DA_HOUSEHOLD_BASIC_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--贫困户基本信息补充内容
+create sequence DA_HOUSEHOLD_DEL_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--贫困户???
+create sequence DA_HOUSEHOLD_DEL_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--异地扶贫搬迁工程情况
+create sequence DA_HOUSEHOLD_MOVE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+
+--生活条件
+create sequence DA_LIFE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--家庭成员表，结构与国家系统导出表一致
+create sequence DA_MEMBER_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 450825     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--家庭成员表?????
+create sequence DA_MEMBER_DEL_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--易地扶贫搬迁统计
+create sequence DA_MOVE_STATISTICS_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--图片表
+create sequence DA_PIC_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 13366     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--生产条件
+create sequence DA_PRODUCTION_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 346877     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--日志表
+create sequence DA_RECORD_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 33     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--保存H5-6页面中的数据，用于前台页面快速显示。
+create sequence DA_STATISTICS_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 9817     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--工作台账
+create sequence DA_WORK_TZ_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 1     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--METADATA_ST
+create sequence METADATA_ST_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 6     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--METADATA_TABLE
+create sequence METADATA_TABLE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 34     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--METADATA_TABLE_ST
+create sequence METADATA_TABLE_ST_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 6     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--METADATA_UP
+create sequence METADATA_UP_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 430     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--METADATA_VIEW
+create sequence METADATA_VIEW_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 10     --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--SYS_COMPANY_FUNCTION_MANY
+create sequence SYS_COMPANY_FUNCTION_MANY_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 99    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--系统功能，细化到按钮级
+create sequence SYS_FUNCTION_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 32    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+--系统权限
+create sequence SYS_PERMISSION_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 4    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--角色与权限关系
+create sequence SYS_PERMISSION_ROLE_MANY_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 7    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+--帮扶个人与单位信息
+create sequence SYS_PERSONAL_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 23    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶个人与贫困户关系表（多对多）
+create sequence SYS_PERSONAL_H_M_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 20    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20;  
+
+
+--帮扶个人与贫困户关系表（多对多）
+create sequence SYS_ROLE_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 8    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+
+--系统用户，包含单位与帮扶人
+create sequence SYS_USER_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 9    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 
+
+
+--系统用户，包含单位与帮扶人
+create sequence SYS_USER_ROLE_MANY_SEQ
+minvalue 1        --最小值
+nomaxvalue        --不设置最大值
+start with 7    		--从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+cache 20; 

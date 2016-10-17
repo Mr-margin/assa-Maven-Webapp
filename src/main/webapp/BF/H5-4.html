@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","validate","toastr","iCheck","openandclose","public","5-4"]);
+	</script>
+    <base target="_blank">
+    	<style>
+		.c_red {
+			font-size: 13px;
+			background-color: #FFF;
+			color: red;
+			font-weight: bold;
+		}
+		.c_green {
+			font-size: 13px;
+			background-color: #FFF;
+			color: #1ab394;
+			font-weight: bold;
+		}
+		.updatePass {
+			-webkit-appearance: none;
+		    background: #36a803;
+		    border: none;
+		    border-radius: 2px;
+		    cursor: pointer;
+		    letter-spacing: 0.05em;
+		    text-align: center;
+		    text-transform: uppercase;
+		    transition: background 0.3s ease-in-out;
+		    width: 220px;
+			font-weight: bold;
+		}
+	</style>
+    <style>
+        .lightBoxGallery img {
+            margin: 5px;
+            width: 160px;
+        }
+    </style>
+  </head>
+  
+  <body class="gray-bg top-navigation">
+	<div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+        
+        	<!-- 头部菜单 -->
+            <div class="row border-bottom white-bg">
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <div class="navbar-header" id="headerimg">
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar">
+                    </div>
+                </nav>
+            </div><!-- 头部菜单 -->
+            
+            
+			<!-- 中间部分 -->           
+            <div id="show-content" class="wrapper wrapper-content">
+                <div class="container">
+                    <div class="row">
+                    	<div class="col-sm-12">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-8">
+                    		按钮说明：此按钮是针对所有用户的，当关闭某个功能后，所有的用户都不能进行使用。
+                    		</div>
+                    		<div class="col-sm-3">
+                    			<div class='checkbox i-checks'>样式：
+                                        <label><input type='radio' name="yangshi" checked="checked"> </label>炫黑版
+                                        <label><input type='radio' name="yangshi"> <i></i></label>象牙白
+				                </div>
+                    		</div>
+                    	</div><br><br><br><br>
+                    </div>
+                    <div class="row" id="hei">
+                    
+						<div class="col-sm-12" style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">基本情况</div>
+                    		<div class="col-sm-2 " style="margin-top:27px;">
+								<label class="button" >
+								  <input type="checkbox" id="jbqk">
+								  <span style="color:#fff;padding-top:15px;">基本情况</span>
+								  <span></span>
+								  <span></span>
+								</label>
+                    		</div>
+                    		<div class="col-sm-2"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">当前收支</div>
+                    		<div class="col-sm-2" style="margin-top:27px;">
+								<label class="button" >
+								  <input type="checkbox" id="dqsz">
+								  <span style="color:#fff;padding-top:15px;">当前收支</span>
+								  <span></span>
+								  <span></span>
+								</label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    	</div>
+
+                    	
+                   		<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+	                   		<div class="col-sm-1"></div>
+	                   		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶单位和责任人</div>
+	                   		<div class="col-sm-2" style="margin-top:27px;">
+								<label class="button" >
+								  <input type="checkbox" id="bfdwr">
+								  <span style="color:#fff;padding-top:15px;">帮扶单位和责任人</span>
+								  <span></span>
+								  <span></span>
+								</label>
+	                   		</div>
+	                   		<div class="col-sm-2"></div>
+	                   		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶措施</div>
+                    		<div class="col-sm-2" style="margin-top:27px;">
+                    			<label class="button"  >
+								  <input type="checkbox" id="bfcs">
+								  <span style="color:#fff;padding-top:15px;">帮扶措施</span>
+								  <span></span>
+								  <span></span>
+								</label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    	</div>
+                    	
+                    	
+                    	<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">走访情况</div>
+                    		<div class="col-sm-2" style="margin-top:27px;">
+								<label class="button" >
+								  <input type="checkbox" id="zfqk">
+								  <span style="color:#fff;padding-top:15px;">走访情况</span>
+								  <span></span>
+								  <span></span>
+								</label>
+                    		</div>
+                    		<div class="col-sm-2"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶成效</div>
+                    		<div class="col-sm-2" style="margin-top:27px;">
+								<label class="button" >
+								  <input type="checkbox" id="bfcx">
+								  <span style="color:#fff;padding-top:15px;">帮扶成效</span>
+								  <span></span>
+								  <span></span>
+								</label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    	</div>
+                    	
+                    	<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-bottom: 1px solid #e7eaec;	border-right: 1px solid #e7eaec;height:87px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶后收支分析</div>
+                    		<div class="col-sm-2" style="margin-top:27px;" >
+								<label class="button" >
+								  <input type="checkbox" id="bfhsz">
+								  <span style="color:#fff;padding-top:15px;">帮扶后收支分析</span>
+								  <span></span>
+								  <span></span>
+								</label>
+							</div>
+                    		<div class="col-sm-1"></div>
+                    	</div>
+                    </div>
+                    
+                    <div class="row" style="display:none;" id="bai">
+                    	<div class="col-sm-12" style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">基本情况</div>
+                    		<div class="col-sm-3 switch demo3" >
+<!-- 	              			 	<div class="switch demo3"> -->
+									<input id="jbqk1"  type="checkbox" checked="checked" >
+									<label><i ></i></label>
+<!-- 								</div> -->
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">当前收支</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="dqsz1"  type="checkbox" checked="checked">
+									<label><i></i></label>
+                    		</div>
+                    		
+                    	</div>
+                    	
+                    	
+                    	<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶单位和责任人</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="bfdwr1"  type="checkbox" checked="checked">
+									<label><i></i></label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶措施</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="bfcs1"  type="checkbox" checked="checked">
+									<label><i></i></label>
+                    		</div>
+                    	</div>
+                    	
+                    	
+                    	<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-right: 1px solid #e7eaec;height:90px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">走访情况</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="zfqk1"  type="checkbox" checked="checked">
+									<label><i></i></label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶成效</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="bfcx1" type="checkbox" checked="checked">
+									<label><i></i></label>
+                    		</div>
+                    	</div>
+                    	
+                    	
+                    	<div class="col-sm-12"  style="border-top: 1px solid #e7eaec;border-left: 1px solid #e7eaec;border-bottom: 1px solid #e7eaec;	border-right: 1px solid #e7eaec;height:87px;">
+                    		<div class="col-sm-1"></div>
+                    		<div class="col-sm-2" style="margin-top:20px;font-size:20px;">帮扶后收支分析</div>
+                    		<div class="col-sm-3 switch demo3">
+									<input id="bfhsz1" type="checkbox" checked >
+									<label><i></i></label>
+                    		</div>
+                    		<div class="col-sm-1"></div>
+                    	</div>
+                    	
+                    </div>
+                 </div>
+            </div><!-- 中间部分 -->
+            
+            
+            <!-- 尾部 -->
+            <div class="footer" id="weibu_title"></div><!-- 尾部 -->
+            
+            
+        </div>
+    </div>
+ 
+	<!-- 修改密码页面 -->
+	<div id="gray_2"></div>
+	<div class="popup" id="popup_2"></div>
+	<script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","toastr","iCheck","openandclose","public","5-4"]);
+	</script>
+  </body>
+</html>

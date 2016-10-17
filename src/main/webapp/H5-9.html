@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title></title>
+<!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+<script src="js/public/gistone.loader.js"></script>
+<script>
+	GISTONE.Loader.loadStyle([ "jquery", "bootstrap", "slimscroll", "flot",
+			"bootstrap-table", "validate", "toastr", "sweetalert", "iCheck",
+			"treeview", "public", "5-9" ]);
+</script>
+<base target="_blank">
+<style>
+.c_red {
+	font-size: 13px;
+	background-color: #FFF;
+	color: red;
+	font-weight: bold;
+}
+.c_green {
+	font-size: 13px;
+	background-color: #FFF;
+	color: #1ab394;
+	font-weight: bold;
+}
+.updatePass {
+	-webkit-appearance: none;
+	background: #36a803;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	letter-spacing: 0.05em;
+	text-align: center;
+	text-transform: uppercase;
+	transition: background 0.3s ease-in-out;
+	width: 220px;
+	font-weight: bold;
+}
+.modal {
+top:17%;
+}
+</style>
+</head>
+
+<body class="gray-bg top-navigation">
+	<div id="wrapper">
+		<div id="page-wrapper" class="gray-bg">
+			<!-- 头部菜单 -->
+			<div class="row border-bottom white-bg">
+				<nav class="navbar navbar-static-top" role="navigation">
+					<div class="navbar-header" id="headerimg"></div>
+					<div class="navbar-collapse collapse" id="navbar"></div>
+				</nav>
+			</div>
+			<!-- 头部菜单 -->
+			<!-- tree -->
+			<div id="show-content"class="row wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>帮扶单位及帮扶责任人</h5>
+						</div>
+						<div class="ibox-content">
+							<div class="row row-lg">
+								<div class="col-sm-4" style="height:650px;overflow-y:auto; ">
+									<div id="treeview" class="test"></div>
+								</div>
+								<div class="col-sm-8">
+									<div class="ibox">
+										<div class="ibox-content">
+											<h5>
+												<code id="title_name"></code>
+											</h5>
+											<div class="input-group">
+												<input type="text" id="chazhao_input" placeholder="查找帮扶单位"
+													class="input form-control"> <span
+													class="input-group-btn">
+													<button type="button" id="chazhao_button"
+														onclick="chazhao_danwei();" class="btn  btn-primary">
+														<i class="fa fa-search"></i>搜索
+													</button>
+												</span>
+											</div>
+											<div class="clients-list">
+												<ul class="nav nav-tabs">
+													<li class="active" id="bfdw_li"><a id="bfdw_a"
+														data-toggle="tab" href="#tab-1"
+														onclick="dianji_bfdw_button();"><i
+															class="fa fa-briefcase"></i> 帮扶单位</a></li>
+													<li class="" id="bfr_li" style="display: none;"><a id="bfr_a"
+														data-toggle="tab" href="#tab-2"
+														onclick="dianji_bfr_button();"><i class="fa fa-user">
+														</i> 帮扶人</a></li>
+													<button id="addbfdw" class="btn btn-primary"
+														onclick="addbfdw_1();" style="float: right;">
+														添加帮扶单位</button>
+												</ul>
+												<div class="tab-content">
+													<div id="tab-1" class="tab-pane active">
+														<div class="full-height-scroll">
+															<div class="table-responsive"
+																style="height: 500px;overflow-y:auto;">
+																<table class="table table-striped table-hover">
+																	<tr>
+																		<th style="text-align:center;" width="30%">帮扶单位名称</th>
+																		<th style="text-align:center;" width="30%">领导姓名</th>
+																		<th style="text-align:center;" width="40%">操作</th>
+																	</tr>
+																	<tbody style="text-align:center;" id="bfdw_tbody">
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+													<div id="tab-2" class="tab-pane ">
+														<div class="full-height-scroll">
+															<div class="table-responsive"
+																style="height: 500px;overflow-y:auto;">
+																<table class="table table-striped table-hover">
+																	<tr>
+																		<th style="text-align:center;" width="30%">帮扶人姓名</th>
+																		<th style="text-align:center;" width="30%">电话</th>
+																		<th style="text-align:center;" width="40%">操作</th>
+																	</tr>
+																	<tbody style="text-align:center;" id="bfr_tbody">
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 尾部 -->
+		<div class="footer" id="weibu_title"></div>
+		<!-- 尾部 -->
+		
+		<!--  添加新帮扶单位-->
+	    <div class="modal inmodal" id="add_bfdw_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title">添加帮扶单位</h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="col-sm-4 control-label" style="text-align:right;margin-top: 10px;">帮扶单位名称：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入帮扶单位名称"class="form-control m-b" id="add_bfdw_mc">
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label" style="text-align:right;margin-top: 10px;">单位地址：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入帮扶单位地址" class="form-control m-b" id="add_bfdw_dz">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label"
+									style="text-align:right;margin-top: 10px;">分管领导姓名：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入本帮扶单位分管领导姓名" class="form-control m-b" id="add_bfdw_ldxm">
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label" style="text-align:right;margin-top: 10px;">分管领导电话：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入分管领导联系方式" class="form-control m-b" id="add_bfdw_lddh">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"  onclick="addBfdw_2();">保存</button>
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaotianjia_dw();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  添加新的帮扶单位结束 -->
+		<!--  修改帮扶单位-->
+	    <div class="modal inmodal" id="up_bfdw_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title" id="xiugai_bfdw_title">修改帮扶单位</h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<input id="update_dw_id" style="display:none;">
+							<div class="col-sm-12">
+								<label class="col-sm-4 control-label"
+									style="text-align:right;margin-top: 10px;">帮扶单位名称：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入帮扶单位名称"class="form-control m-b" id="up_bfdw_mc">
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label"
+									style="text-align:right;margin-top: 10px;">单位地址：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入单位地址"class="form-control m-b" id="up_bfdw_dz">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label"style="text-align:right;margin-top: 10px;">分管领导姓名：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入本单位分管领导姓名"class="form-control m-b" id="up_bfdw_ldxm">
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<label class="col-sm-4 control-label"
+									style="text-align:right;margin-top: 10px;">分管领导电话：</label>
+								<div class="col-sm-6">
+									<input type="text" placeholder="请输入分管领导联系方式"class="form-control m-b" id="up_bfdw_lddh">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"  onclick="upBfdw_2();">保存</button>
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaoxiugai_dw();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  修改帮扶单位结束 -->
+		<!--  查看帮扶单位详细信息-->
+	    <div class="modal inmodal" id="kan_bfdw_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title" id="chakan_bfdw_title"></h2>
+					</div>
+					<div class="modal-body">
+						<div class="row" style="margin-top: 10px;">
+							<h3 class="col-sm-3"style="text-align:right;">分管领导姓名:</h3>
+							<h3 class="col-sm-3" id="kan_bfdw_ldxm"></h5>
+							<h3 class="col-sm-3"style="text-align:right;">联系方式:</h3>
+							<h3 class="col-sm-3" id="kan_bfdw_lddh"></h5>
+						</div>
+						<div class="row" style="margin-top: 10px;">
+							<h3 class="col-sm-3"style="text-align:right;">单位地址:</label>
+							<h3 class="col-sm-9" id="kan_bfdw_dz"></h5>
+						</div>
+							
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaochakan_dw();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  查看帮扶单位详细信息结束 -->
+		<!--  添加帮扶人-->
+	    <div class="modal inmodal" id="add_bfr_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title" id="add_bfr_title"></h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<input type="text" placeholder="单位ID" class="form-control"
+								style="display: none;" id="dw_pkid" name="dw_pkid">
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;padding-left: 0;padding-right: 0;">姓名：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="请填写干部姓名" class="form-control m-b" id="col_name">
+								</div>
+							</div>
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;padding-left: 0;padding-right: 0;">职务：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="请填写干部职务"class="form-control m-b" id="col_post">
+								</div>
+							</div>
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;padding-left: 0;padding-right: 0;">性别：</h3>
+								<div class="col-sm-7">
+									<select class="form-control" id="v1" name="v1" value="">
+										<option>请选择</option>
+										<option>男</option>
+										<option>女</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12"style="margin-top: 27px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;padding-left: 0;padding-right: 0;">政治面貌：</h3>
+								<div class="col-sm-7">
+									<select class="form-control" id="v3" name="v3" value="">
+										<option>请选择</option>
+										<option>中共党员</option>
+										<option>共青团员</option>
+										<option>群众</option>
+										<option>民主党派成员</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 27px; padding-left: 9px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;padding-left: 0;padding-right: 0;">联系电话：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="请填写帮扶干部联系方式" class="form-control m-b" id="telephone">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"  onclick="add_Bfr_xinxi();">保存</button>
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaotianjia_r();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  添加帮扶人结束 -->
+		<!--  修改帮扶人-->
+	    <div class="modal inmodal" id="up_bfr_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title" id="xiugai_bfr_title"></h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<input type="text" placeholder="人ID" class="form-control"style="display: none;" id="up_r_pkid" name="up_r_pkid">
+							<input type="text" placeholder="单位ID" class="form-control"style="display: none;" id="up_dw_pkid" name="up_dw_pkid">
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;">姓名：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="请填写干部姓名"class="form-control m-b" id="up_col_name" name="up_col_name">
+								</div>
+							</div>
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;">职务：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="请填写干部职务"class="form-control m-b" id="up_col_post" name="up_col_post">
+								</div>
+							</div>
+							<div class="col-sm-12"style="margin-top: 10px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;">性别：</h3>
+								<div class="col-sm-7">
+									<select class="form-control" id="up_v1" name="up_v1">
+										<option>请选择</option>
+										<option>男</option>
+										<option>女</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 27px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;">政治面貌：</h3>
+								<div class="col-sm-7">
+									<select class="form-control" id="up_v3" name="up_v3">
+										<option>请选择</option>
+										<option>中共党员</option>
+										<option>共青团员</option>
+										<option>群众</option>
+										<option>民主党派成员</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12" style="margin-top: 27px;">
+								<h3 class="col-sm-3 control-label"style="text-align:right;">联系电话：</h3>
+								<div class="col-sm-7">
+									<input type="text" placeholder="联系电话"class="form-control m-b" id="up_telephone">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"  onclick="up_Bfr_xinxi();">保存</button>
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaoxiugai_r();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  修改帮扶人结束 -->
+		<!--  查看帮扶人信息-->
+	    <div class="modal inmodal" id="kan_bfr_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content animated bounceInRight">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+	                    </button>
+	                    <h2 class="modal-title" id="chakan_bfr_title"></h2>
+					</div>
+					<div class="modal-body">
+						<div class="row" style="margin-top: 10px;">
+							<h3 class="col-sm-3" style="text-align:right;">政治面貌：</h3>
+							<h3 class="col-sm-3" id="kan_v3" ></h3>
+							<h3 class="col-sm-3" style="text-align:right;">联系电话：</h3>
+							<h3 class="col-sm-3" id="kan_telephone" ></h3>
+						</div>
+						<div class="row" style="margin-top: 10px;">
+							<h3 class="col-sm-3" style="text-align:right;">性别：</h3>
+							<h3 class="col-sm-3" id="kan_v1" ></h3>
+							<h3 class="col-sm-3" style="text-align:right;">职务：</h3>
+							<h3 class="col-sm-3" id="kan_col_post" ></h3>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-outline" data-dismiss="modal"onclick="quxiaochakan_r();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div><!--  查看帮扶人结束 -->
+		
+	</div>
+	<!-- 修改密码页面 -->
+	<div id="gray_2"></div>
+	<div class="popup" id="popup_2"></div>
+	<script>
+		GISTONE.Loader.loadScript([ "jquery", "bootstrap", "slimscroll",
+				"flot", "bootstrap-table", "validate", "toastr", "sweetalert",
+				"iCheck", "treeview", "public", "5-9" ]);
+	</script>
+</body>
+</html>

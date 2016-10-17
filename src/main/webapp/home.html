@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta http-equiv="Cache" content="no-cache">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<title></title>
+		
+		<!--[if lt IE 8]>
+	    <meta http-equiv="refresh" content="0;ie.html" />
+	    <![endif]-->
+	    
+		<script src="js/public/gistone.loader.js"></script>
+		<script>
+			GISTONE.Loader.loadStyle(["index"]);
+		</script>
+		<style type="text/css" media="screen">
+			* {margin: 0; padding: 0; }
+			body {
+				font-family: Ubuntu, arial, verdana;
+				background:url(img/pic01.jpg)  fixed center center no-repeat;
+				background-size: cover;
+			 	width: 100%;
+			}
+			/*----------
+			Blocks
+			--------
+			*/
+			/*Pricing table and price blocks*/
+			.pricing_table {
+				line-height: 150%; 
+				font-size: 12px; 
+				margin: 24%; /*margin: 0 auto;*/
+				width: 75%; 
+				max-width: 1600px; 
+				margin-top: 8%;
+			}
+			.price_block {
+				text-align: center; 
+				width: 100%; 
+				color: #fff; 
+				float: left; 
+				list-style-type: none; 
+				transition: all 0.25s; 
+				position: relative; 
+				box-sizing: border-box;
+				cursor: pointer;
+				margin-bottom: 10px; 
+				border-bottom: 1px solid transparent; 
+			}
+			/*Price heads*/
+			.pricing_table h3 {
+				text-transform: uppercase; 
+				padding: 5px 0; 
+				background: #333; 
+				margin: -10px 0 1px 0;
+			}
+			/*Price tags*/
+			.price {
+				display: table; 
+				background: #6067fc; 
+				width: 100%; 
+				height: 70px; 
+			}
+			.price_figure {
+				font-size: 24px; 
+				text-transform: uppercase; 
+				vertical-align: middle; 
+				display: table-cell;
+			}
+			.price_number {
+				font-weight: bold; 
+				display: block;
+			}
+			.price_tenure {
+				font-size: 11px; 
+			}
+			
+			/*Features*/
+			.features {
+				background: #DEF0F4; 
+				color: #000;
+			}
+			.features li {
+				padding: 0px 0px;
+				border-bottom: 1px solid #666; 
+				font-size: 11px; 
+				list-style-type: none;
+			}
+			
+			.anniwz {
+				padding: 15px; 
+				background: #DEF0F4;
+			}
+			.action_button {
+				text-decoration: none; 
+				color: #fff; 
+				font-weight: bold; 
+				border-radius: 5px; 
+				background: linear-gradient(#666, #333); 
+				padding: 5px 20px; 
+				font-size: 11px; 
+				text-transform: uppercase;
+			}
+			
+			.price_block:hover {
+				box-shadow: 0 0 0px 5px rgba(0, 0, 0, 0.5); 
+				transform: scale(1.04) translateY(-5px); 
+				z-index: 1; 
+				border-bottom: 0 none;
+			}
+			.price_block:hover .price {
+				background:linear-gradient(#DB7224, #F9B84A); 
+				box-shadow: inset 0 0 45px 1px #DB7224;
+			}
+			.price_block:hover h3 {
+				background: #222;
+			}
+			.price_block:hover .action_button {
+				background: linear-gradient(#F9B84A, #DB7224); 
+			}
+			@media only screen and (min-width : 480px) and (max-width : 768px) {
+				.price_block {width: 50%;}
+				.price_block:nth-child(odd) {border-right: 1px solid transparent;}
+				.price_block:nth-child(3) {clear: both;}
+				.price_block:nth-child(odd):hover {border: 0 none;}
+			}
+			@media only screen and (min-width : 768px){
+				.price_block { padding:5px;
+					width: 16.65%;
+				}
+				.price_block {border-right: 0px solid transparent; border-bottom: 0 none;}
+				.price_block:last-child {border-right: 0 none;}
+				.price_block:hover {border: 0 none;}
+			}
+		</style>
+	</head>
+	
+<body>
+
+	<div class="hd-main clearfix" id="header">
+		<a class="logo" href=""></a>
+	    <!-- <div class="navs">
+	        <span class="separate"></span>
+			<a class="def-nav" href="">统计分析</a>
+			<span class="separate"></span>
+			<a class="def-nav" href="">帮扶对象</a>
+			<span class="separate"></span>
+			<a class="def-nav" href="">帮扶措施</a>
+	        <span class="separate"></span>
+	        <a class="def-nav" href="">扶贫成效</a>
+	        <span class="separate"></span>
+		</div> -->
+		<div class="info">
+			<ul>
+				<li class="info-i user-name has-pulldown">
+					<em class="f-icon pull-arrow"></em>
+					<a style="background-image: url(img/ren.png);background-repeat: no-repeat;position:absolute;top:0;left:0;height:24px;width:24px;"></a>&nbsp;&nbsp;
+					<span class="name top-username" id="username"></span>
+					<div class="pulldown user-info">
+						<em class="arrow"></em>
+						<div class="content">
+							<span class="li"><a><img src="img/ren1.png" height="18" width="18" style=" margin-top:7px; margin-right:5px;  float:left;" />个人资料</a></span>
+							<span class="li"><a>设置信息</a></span>
+							<span class="separate-li no-height"></span>
+							<span class="li"><a id="signout">退出</a></span>
+						</div>
+					</div>
+				</li>
+				<li class="info-i default-text">
+					<a class="notice" href="" id="notificationTrigger"></a>
+					<em class="f-icon notice-nu" id="noticeNoParent">
+						<b class="f-icon" id="noticeNo"></b>
+					</em>
+				</li>
+<!-- 				<li class="info-i no-separate default-text has-pulldown">
+					<em class="f-icon pull-arrow"></em>
+					<span class="more" hideFocus="hideFocus">更多</span>
+					<div class="pulldown more-info">
+						<em class="arrow"></em>
+						<div class="content">
+							<span class="separate-li no-height"></span>
+							<span class="li"><a href="">收藏工具</a></span>
+							<span class="li"><a href="">历史记录</a></span>
+							<span class="li"><a href="">版本更新</a></span>
+						</div>
+					</div>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+
+	<ul class="pricing_table">
+		<li class="price_block " onclick="window.location.href = 'WxApp/home.html';"> <!-- window.open('http://cpadisc1.cpad.gov.cn/cpad/') -->
+			<ul class="features">
+				<li style="height:280px; background-color:#d13438;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx1.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>扶贫对象</strong></div>
+	            </li>
+			</ul>
+			<div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#d13438;">
+				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th scope="col">贫困人口:</th>
+							<td style="font-size:16px;transform: scale(1,1.2);"><strong>802068</strong></td>
+							<th>人</th>
+				    	</tr>
+					    <tr>
+					        <th scope="row">贫困户：</th>
+					        <td style="font-size:16px;transform: scale(1,1.2);"><strong>357581</strong></td>
+					        <th>户</th>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+		</li>
+		<li class="price_block" onclick="window.location.href = 'WyApp/home.html';">
+			<ul class="features">
+				<li style="height:280px; background-color:#10893e;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx2.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>扶贫主体</strong></div>
+	            </li>
+			</ul>
+			<div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#10893e;">
+				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+				    	<tr>
+				      		<th scope="col">帮扶干部:</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">152041</td>
+				      		<th>人</th>
+				    	</tr>
+				    	<tr>
+				      		<th scope="row">落实比例：</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">100</td>
+				      		<th>%</th>
+				    	</tr>
+					</tbody>
+				</table>
+			</div>
+		</li>
+		
+  		<li class="price_block" >  <!-- onclick="window.location.href = 'WtApp/home.html';" -->
+			<ul class="features">
+				<li style="height:280px; background-color:#ff8c00;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx3.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>帮扶措施</strong></div>
+	            </li>
+			</ul>
+			<!-- <div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00;">
+				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+				    	<tr>
+				      		<th scope="col">贫困发生率:</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">5.85</td>
+				      		<th>%</th>
+				    	</tr>
+				    	<tr>
+				      		<th scope="row">因病致贫：</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">40</td>
+				      		<th>%</th>
+				    	</tr>
+					</tbody>
+				</table>
+			</div> -->
+			<div class="anniwz" style="color:#FFFFFF; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00; height:50px;">
+      			<img src="img/lock.png">
+			</div>
+		</li>
+  		
+  		<li class="price_block">
+			<ul class="features">
+				<li style="height:280px; background-color:#107c10;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx4.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>帮扶成效</strong></div>
+	            </li>
+			</ul>
+			<!-- <div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#107c10;">
+				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+				    	<tr>
+				      		<th scope="col">十个全覆盖:</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">2834</td>
+				      		<th>嘎查村</th>
+				    	</tr>
+				    	<tr>
+				      		<th scope="row">六个一批：</th>
+				      		<td style="font-size:16px;transform: scale(1,1.2);">100</td>
+				      		<th>%</th>
+				    	</tr>
+					</tbody>
+				</table>
+			</div> -->
+			<div class="anniwz" style="color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#107c10; height:50px;">
+      			<img src="img/lock.png">
+			</div>
+		</li>
+    	<!-- <li class="price_block">
+			<ul class="features">
+				<li style="height:280px; background-color:#1a4385;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx5.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>行业数据对接</strong></div>
+	            </li>
+			</ul>
+			<div class="anniwz" style="color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#1a4385; height:50px;">
+      			<img src="img/lock.png">
+			</div>
+		</li>
+    	<li class="price_block">
+			<ul class="features">
+				<li style="height:280px; background-color:#80397b;">
+	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx6.png"></div>
+	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>项目与资金管理</strong></div>
+	            </li>
+			</ul>
+			<div class="anniwz" style="color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#80397b; height:50px;">
+      			<img src="img/lock.png">
+			</div>
+		</li> -->
+	</ul>
+	
+	<script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","toastr","prefixfree","public"]);
+	</script>
+</body>
+</html>

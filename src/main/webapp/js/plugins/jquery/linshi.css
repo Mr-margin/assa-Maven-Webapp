@@ -1,0 +1,27 @@
+.c_red {
+	font-size: 13px;
+	background-color: #FFF;
+	color: red;
+	font-weight: bold;
+}
+
+.c_green {
+	font-size: 13px;
+	background-color: #FFF;
+	color: #1ab394;
+	font-weight: bold;
+}
+
+.updatePass {
+	-webkit-appearance: none;
+	background: #36a803;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	letter-spacing: 0.05em;
+	text-align: center;
+	text-transform: uppercase;
+	transition: background 0.3s ease-in-out;
+	width: 220px;
+	font-weight: bold;
+}
