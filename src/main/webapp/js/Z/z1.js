@@ -31,6 +31,8 @@ $(function () {
 		$(".xianjiyixia").show();
 	});
 	bar1();
+	bar2();
+	bar3();
 });
 
 function ajax_async_t(url,data,dataType,async){
@@ -212,4 +214,111 @@ function bar1(){
 	option.series[3].data=count5;
 	myChart1.setOption(option_ring);
 	//myChart.setOption(option);
+}
+//贫困人口状况
+function bar2(){
+	var myChart = echarts.init(document.getElementById('pkrkzk'));//声明id为mapChart的div为图形dom
+	var option = {//柱状图
+			title: {
+				text: '贫困人口状况',
+				x:'center',
+				textStyle:{fontWeight:'500',fontSize:'17'}
+			},
+			legend: {
+				data:['贫困人口状况'],
+				y:'bottom'
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer : {// 坐标轴指示器，坐标轴触发有效
+					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+				},
+				formatter : '{b}<br/>{a0}: {c0}户<br/>{a1}: {c1}人'
+			},
+			grid: {
+				left: '0%',
+				right: '3%',
+				bottom: '10%',
+				containLabel: true
+			},
+			color:['#6495ED','#C1232B'],
+			xAxis: {
+				axisLabel:{//坐标轴文本标签选项
+					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
+					rotate:10,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+					margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+				},
+				data:["国家重点旗县","自治区重点旗县","牧业旗县","革命老区旗县","边境旗县"
+				      ]
+			},
+			yAxis: {
+				axisLabel: {
+					formatter: '{value}'
+				}
+			},
+			series: [
+			         {
+			        	 name: "贫困户数",
+			        	 type: 'bar',
+			        	 data: ["250475","82454","103358","247803","28608"]
+			         },
+			         {
+			        	 name: "贫困人口数",
+			        	 type: 'bar',
+			        	 data: ["563505","182225","232587","554701","63817"]
+			         }
+			         ]
+	};
+	myChart.setOption(option);
+}
+//各盟市减贫摘帽计划表
+function bar3(){
+	var myChart = echarts.init(document.getElementById('jpzmjh'));//声明id为mapChart的div为图形dom
+	var option = {//柱状图
+			title: {
+				text: '2016年各盟市减贫摘帽计划',
+				subtext: '贫困人口减贫（人）',
+				subtextStyle: {
+					color: 'black'
+				},
+				x:'center',
+				textStyle:{fontWeight:'500',fontSize:'17'}
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer : {// 坐标轴指示器，坐标轴触发有效
+					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+				},
+				formatter : '{b}<br/>{a0}: {c0}人'
+			},
+			grid: {
+				left: '0%',
+				right: '3%',
+				bottom: '10%',
+				containLabel: true
+			},
+			color:['#6495ED','#C1232B'],
+			xAxis: {
+				axisLabel:{//坐标轴文本标签选项
+					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
+					rotate:0,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+					margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+				},
+				data:["呼和浩特市","包头市","呼伦贝尔市","兴安盟","通辽市","赤峰市","锡林郭勒盟","乌兰察布市","鄂尔多斯市","巴彦淖尔市","乌海市","阿拉善盟"
+				      ]
+			},
+			yAxis: {
+				axisLabel: {
+					formatter: '{value}'
+				}
+			},
+			series: [
+			         {
+			        	 name: "贫困人口减贫",
+			        	 type: 'bar',
+			        	 data: ["10690","6972","22302","22224","33911","52791","5668","28294","6474","18505","758","2933"]
+			         }
+			         ]
+	};
+	myChart.setOption(option);
 }
