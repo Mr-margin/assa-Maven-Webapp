@@ -1,6 +1,7 @@
 package com.gistone.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.gistone.util.OverallSituation;
-
 /**
  * 使用注解标注过滤器
  * @WebFilter将一个实现了javax.servlet.Filter接口的类定义为过滤器
@@ -28,7 +27,7 @@ public class MyFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-        System.out.println("过滤器销毁");
+        //System.out.println("过滤器销毁");
     }
 	
 	
@@ -36,52 +35,58 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         
-        HttpServletRequest hrequest = (HttpServletRequest) request;
-        HttpServletResponse hresponse = (HttpServletResponse) response;
+    	HttpServletRequest myrequest = (HttpServletRequest)request;
+		HttpServletResponse myresponse = (HttpServletResponse)response;
+		HttpSession session = myrequest.getSession();
+		
+        String url = myrequest.getServletPath();
+//        String currentURL = hrequest.getRequestURI();
+//        System.out.println(currentURL);
+        boolean tongguo = false;
+        Map special  = new HashMap();
+        special.put("getLogin_massage.do", "getLogin_massage.do");//session获取用户登陆信息
+        special.put("img.do", "img.do");//验证码
+        special.put("loginin.do", "loginin.do");//登录验证
         
-        String url = hrequest.getServletPath();
+        special.put("anuser.html", "anuser.html");//用户扫码查看详细信息
+        special.put("anGetPk.do", "anGetPk.do");//用户扫码查看详细信息
         
-        chain.doFilter(request, response);
-//        Map special  = new HashMap();
-//        special.put("getLogin_massage.do", "getLogin_massage.do");//session获取用户登陆信息
-//        special.put("loginin.do", "loginin.do");//登录验证
-//        
-//        
-//        if(!url.endsWith(OverallSituation.index)){//排除登录界面
-//        	if(url.endsWith(OverallSituation.page)||url.endsWith(OverallSituation.servlet)){//只有页面和后台需要处理
-//        		
-//        		System.out.println(hrequest.getServletPath());
-//        		
-//        		for (Object key : special.keySet()) {//循环所有的特例
-//        			if(!url.endsWith(special.get(key).toString())){//是否是特例需要处理
-//        				
-//        				HttpSession session = hrequest.getSession();
-//        				if(session.getAttribute("Login_map")!=null){//验证session不为空
-//        					System.out.println("登录，通过");
-//        					chain.doFilter(request, response);
-//        				}else{
-//        					System.out.println("未登录，过滤");
-//        					hresponse.sendRedirect("/"+OverallSituation.index);
-//        				}
-//        				
-//        			}else{
-//        				System.out.println("特例，通过");
-//        				chain.doFilter(request, response);
-//        			}
-//        		}
-//        		
-//        	}else{
-//        		chain.doFilter(request, response);
-//        	}
-//        }else{
-//        	chain.doFilter(request, response);
-//        }
-        
+        if(url.indexOf("/index.html") == -1){
+        	if(url.indexOf(".do") != -1||url.indexOf(".html") != -1){
+        		if(session == null || session.getAttribute("Login_map")==null){
+        			for (Object key : special.keySet()) {//循环所有的特例
+            			if(url.indexOf(special.get(key).toString()) != -1){
+            				tongguo = true;
+            			}
+            		}
+            		if(!tongguo){
+            			PrintWriter out = response.getWriter();
+        				StringBuilder builder = new StringBuilder();
+        				builder.append("<script type=\"text/javascript\" charset=\"UTF-8\">");
+        				builder.append("window.location.href=\"");
+        				String path = myrequest.getContextPath();
+        				builder.append(path);
+        				builder.append("/index.html\";</script>");
+        				response.setContentType("text/html;charset=utf-8");
+        				out.print(builder.toString());
+        				out.close();// 普通 jsp页面session过期处理
+            		}else{
+            			chain.doFilter(request, response);
+            		}
+        		}else{
+        			chain.doFilter(request, response);
+        		}
+        	}else{
+        		chain.doFilter(request, response);
+        	}
+        }else{
+        	chain.doFilter(request, response);
+        }
     }
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        System.out.println("过滤器初始化");
+        //System.out.println("过滤器初始化");
     }
     
 }
