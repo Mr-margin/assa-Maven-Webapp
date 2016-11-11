@@ -78,8 +78,13 @@ $(window).scroll(function(e){
 //var jsondata;//用户session中的全部信息
 
 function login_tiaozhuan(){
-	var user = JSON.parse(window.sessionStorage.getItem("user"));
-	if(user){//已经登录
+	var data = ajax_async_t("getLogin_massage.do",{},"text");
+	if (data == "weidenglu") {//如果未登录
+		window.sessionStorage.clear();
+		jsondata = null;
+	}else{//如果登录成功，显示用户信息
+		jsondata = eval("("+data+")");
+		window.sessionStorage.setItem("user",JSON.stringify(data));
 		window.location.href = "home.html";
 	}
 }

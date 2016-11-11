@@ -50,7 +50,7 @@ public class MyFilter implements Filter {
         
         special.put("anuser.html", "anuser.html");//用户扫码查看详细信息
         special.put("anGetPk.do", "anGetPk.do");//用户扫码查看详细信息
-        
+
         if(url.indexOf("/index.html") == -1){
         	if(url.indexOf(".do") != -1||url.indexOf(".html") != -1){
         		if(session == null || session.getAttribute("Login_map")==null){
@@ -60,6 +60,7 @@ public class MyFilter implements Filter {
             			}
             		}
             		if(!tongguo){
+            			System.out.println(url);
             			PrintWriter out = response.getWriter();
         				StringBuilder builder = new StringBuilder();
         				builder.append("<script type=\"text/javascript\" charset=\"UTF-8\">");
