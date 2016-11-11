@@ -72,6 +72,14 @@ public class WyApp_y3{
 		String sql = "select pkid,v6,v9,v21,v22,v23 from (select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid"
 				+ " where t2.pkid="+pkid+") t3 join DA_HOUSEHOLD t4 on t3.v4=t4.v4 and t3.v5=t4.v5  ";
 		
+		/*SELECT pkid,v6,v21,v22,v23 FROM(
+				SELECT AAC001,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001=(
+				SELECT COM_CODE FROM SYS_COMPANY WHERE PKID=717
+				) AND AAR040='2015'
+				)a1 LEFT JOIN (
+				SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NM09_AB01 WHERE  AAR040='2015' AND AAB006=01
+				)a2 ON a1.AAC001=A2.AAC001*/ //sql语句替换的
+		
 		JSONArray json = new JSONArray();
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		if (list.size() > 0) {
