@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="../../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","validate","toastr","echarts","public"]);
+	</script>
+    <base target="_blank">
+</head>
+  
+<body class="gray-bg" style="background-color: #fff;">
+	<div class="wrapper wrapper-content animated fadeInRight">
+       	<div class="row" >
+			<div class="col-sm-6">
+       			<div class="" id="pie" style=" height:500px;"></div>
+       		</div>
+       		<div class="col-sm-6">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="bfzrrTable">
+						<thead>
+						<h3 style="text-align: center;">贫困户主要燃料类型统计</h3>
+							<tr>
+								<th style="text-align:center;">序号</th>
+								<th style="text-align:center;">行政区划</th>
+								<th style="text-align:center;">总户数</th>
+								<th style="text-align:center;">柴草户数（户）</th>
+								<th style="text-align:center;">干畜粪户数（户）</th>
+								<th style="text-align:center;">煤炭户数（户）</th>
+								<th style="text-align:center;">清洁能源户数（户）</th>
+								<th style="text-align:center;">其它（户）</th>
+							</tr>
+						</thead>
+						<tbody id="sr_table"></tbody>
+					</table>
+				</div>
+			</div>
+       		<div class="col-sm-12">
+       			<div class="" id="container" style=" height:600px;"></div>
+       		</div>
+		</div>
+	</div>
+	
+	<script>
+		GISTONE.Loader.loadScript([ "jquery", "bootstrap", "slimscroll", "validate","toastr", "public", "echarts","highcharts", "table", "f_1_2_8" ]);
+	</script>
+  </body>
+</html>

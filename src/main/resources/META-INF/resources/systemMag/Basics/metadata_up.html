@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+    <title>元数据内容</title>
+    
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+	<script src="../../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","bootstrap-table","toastr","sweetalert"]);
+	</script>
+	<base target="_blank">
+</head>
+  
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		
+		<div class="row">
+			<div class="ibox float-e-margins"><!-- 外层面板 -->
+	    		<div class="ibox-title">
+	                <h5>系统实际使用的数据表</h5>
+	                <div class="ibox-tools">
+	                    <a class="collapse-link">
+	                        <i class="fa fa-chevron-up"></i>
+	                    </a>
+	                </div>
+	            </div>
+	            <div class="ibox-content"><!-- 面板内容 -->
+	            	<div class="row row-lg">
+	                	<div class="col-sm-12">
+	                		<div class="example-wrap">
+	                            <div class="example">
+	                            	<div class=" " id="Toolbar_table" role="group">
+	                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal_table"> 添加</button>
+					                	<button type="button" class="btn btn-primary" data-toggle="modal" id="up_button_1" name="up_button_1"> 修改</button>
+					                	<button type="button" class="btn btn-primary" data-toggle="modal" id="up_button_2" name="up_button_2" data-target="#upModal_table" style="display: none;"> 修改</button>
+					                	<button type="button" class="btn btn-primary" id="del_button_table"> 删除</button>
+					                	<button type="button" class="btn btn-primary" id="retrieval_button_table"> 检索</button>
+	                                </div>
+	                                <table id="metTable"></table>
+	                            </div>
+	                        </div>
+	                	</div>
+	                </div>
+	            </div><!-- 面板内容 -->
+			</div>	<!-- 外层面板 -->
+		</div>
+		
+		
+		<div class="row">
+			<div class="ibox float-e-margins"><!-- 外层面板 -->
+	    		<div class="ibox-title">
+	                <h5>数据表的结构</h5>
+	                <div class="ibox-tools">
+	                    <a class="collapse-link">
+	                        <i class="fa fa-chevron-up"></i>
+	                    </a>
+	                </div>
+	            </div>
+	            <div class="ibox-content"><!-- 面板内容 -->
+	            	<div class="row row-lg">
+	                	<div class="col-sm-12" id="assistant">
+	                		<div class="example-wrap">
+	                            <div class="example">
+	                            	<div class=" " id="Toolbar_col" role="group">
+	                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_col_Modal"> 添加</button>
+					                	<button type="button" class="btn btn-primary" data-toggle="modal" id="up_col_button_1" name="up_col_button_1"> 修改</button>
+					                	<button type="button" class="btn btn-primary" data-toggle="modal" id="up_col_button_2" name="up_col_button_2" data-target="#update_col_Modal" style="display: none;"> 修改</button>
+					                	<button type="button" class="btn btn-primary" id="del_col_button"> 删除</button>
+	                                </div>
+	                                <table id="metTable_col"></table>
+	                            </div>
+	                        </div>
+	                	</div>
+	                </div>
+	            </div><!-- 面板内容 -->
+			</div>	<!-- 外层面板 -->
+		</div>
+		<div id="diermaodian"></div>
+	</div>
+
+	<!--  添加新的数据表 -->
+    <div class="modal inmodal" id="addModal_table" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <h2 class="modal-title">添加新的数据表</h2>
+				</div>
+                <div class="modal-body" id="add_Modal_form"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" id="close_add_button_table">关闭</button>
+                    <button type="button" class="btn btn-primary" id="add_button_table">保存</button>
+                </div>
+			</div>
+		</div>
+	</div><!--  添加新的数据表 -->
+
+	<!--  修改数据表 -->
+    <div class="modal inmodal" id="upModal_table" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <h2 class="modal-title">修改数据表</h2>
+				</div>
+                <div class="modal-body" id="up_Modal_form"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" id="close_up_button_table">关闭</button>
+                    <button type="button" class="btn btn-primary" id="up_button_table">保存</button>
+                </div>
+			</div>
+		</div>
+	</div><!--  修改数据表 -->
+	
+	<!--  添加元数据结构 -->
+    <div class="modal inmodal" id="add_col_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <h2 class="modal-title">添加元数据内容</h2>
+				</div>
+                <div class="modal-body" id="add_col_Modal_form"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" id="close_add_button_col">关闭</button>
+                    <button type="button" class="btn btn-primary" id="add_button_col">保存</button>
+                </div>
+			</div>
+		</div>
+	</div><!--  添加元数据结构 -->
+	
+	<!--  修改元数据结构 -->
+    <div class="modal inmodal" id="update_col_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <h2 class="modal-title">修改元数据内容</h2>
+				</div>
+                <div class="modal-body" id="up_col_Modal_form"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" id="close_up_button_col">关闭</button>
+                    <button type="button" class="btn btn-primary" id="up_button_col">保存</button>
+                </div>
+			</div>
+		</div>
+	</div><!--  修改元数据结构 -->
+    
+    <script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","bootstrap-table","validate","toastr","sweetalert","metadata_up"]);
+	</script>
+</body>
+</html>
