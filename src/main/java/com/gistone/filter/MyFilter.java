@@ -64,7 +64,7 @@ public class MyFilter implements Filter {
             			PrintWriter out = response.getWriter();
         				StringBuilder builder = new StringBuilder();
         				builder.append("<script type=\"text/javascript\" charset=\"UTF-8\">");
-        				builder.append("window.location.href=\"");
+        				builder.append("window.top.location.href=\"");
         				String path = myrequest.getContextPath();
         				builder.append(path);
         				builder.append("/index.html\";</script>");
