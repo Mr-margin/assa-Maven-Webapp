@@ -36,139 +36,147 @@ public class SW4_Controller{
 	//30:是否独生子女户   31:是否双女户      21:脱贫标志(脱贫属性)
 	public String mianZhuan(String mid,String type) {
 		Map map = new HashMap();
-		int a=Integer.parseInt(mid);
-		if (type.equals("11")) { //民族
-			if (a==99) {
-				a=57;
+		if (!mid.equals("")) {
+			
+		
+			int a=Integer.parseInt(mid);
+			if (type.equals("11")) { //民族
+				if (a==99) {
+					a=57;
+				}
+				String[] arrayStr={"汉族","满族", "回族", "蒙古族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "侗族", "瑶族", "白族", "土家族", 
+						"哈尼族", "哈萨克族", "傣族", "黎族", "僳僳族", "佤族", "畲族", "高山族", "拉祜族","水族","东乡族","纳西族","景颇族","柯尔克孜族","土族",
+						"达斡尔族","仫佬族","羌族","布朗族","撒拉族","毛南族","仡佬族","锡伯族","阿昌族","普米族","塔吉克族","怒族","乌孜别克族","俄罗斯族",
+						"鄂温克族","德昂族","保安族","裕固族","京族","塔塔尔族","独龙族","鄂伦春族","赫哲族","门巴族","珞巴族","基诺族","其他"};
+				for(int i=0;i<58;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("7")) { //性别
+				if (a==9) {
+					a=3;
+				}
+				String[] arrayStr={"男性","女性","未说明的性别"};
+				for(int i=0;i<4;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("10")) { //户主关系
+				if (a==99) {
+					a=21;
+				}
+				String[] arrayStr={"户主","配偶","之子","之女","之儿媳","之女婿","之孙子","之孙女","之外孙子","之外孙女","之父","之母","之岳父","之岳母","之公公",
+									"之婆婆","之祖父","之祖母","之外祖父","之外祖母","其他"};
+				for(int i=0;i<22;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("12")) { //12:文化程度 
+				String[] arrayStr={"文盲或半文盲","小学","初中","高中","大专及以上","学龄前儿童"};
+				for(int i=0;i<7;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("13")) {  //13:在校生状况
+				String[] arrayStr={"非在校生","学前教育","小学","七年级","八年级","九年级","高中一年级","高中二年级","高中三年级","中职一年级","中职二年级","中职三年级",
+									"高职一年级","高职二年级","高职三年级","大专及以上"};
+				for(int i=0;i<17;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("15")) {
+				String[] arrayStr={"普通劳动力","技能劳动力","丧失劳动力","无劳动力"};
+				for(int i=0;i<5;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("16")) {
+				if (a==99) {
+					a=5;
+				}
+				String[] arrayStr={"乡（镇）内务工","乡（镇）外县内务工","县外省内务工","省外务工","其他"};
+				for(int i=0;i<6;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if(type.equals("14")){
+				String[] arrayStr={"健康","长期慢性病","患有大病","残疾"};
+				for(int i=0;i<5;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("32")) {
+				if (a==0) {
+					return "否";
+				}else {
+					return "是";
+				}
+			}else if (type.equals("18")) {
+				if (a==0) {
+					return "没参加";
+				}else {
+					return "参加";
+				}
+			}else if (type.equals("19")) {
+				if (a==0) {
+					return "没参加";
+				}else {
+					return "参加";
+				}
+			}else if (type.equals("20")) {
+				if (a==0) {
+					return "没参加";
+				}else {
+					return "参加";
+				}
+			}else if (type.equals("sys_standard")) {
+				String[] arrayStr={"国家标准","省定标准","市定标准"};
+				for(int i=0;i<4;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("22")) {
+				String[] arrayStr={"一般贫困户","低保户","五保户","低保贫困户","低收入农户（是否可以去掉）"};
+				for(int i=0;i<6;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("23")){
+				if (a==99) {
+					a=12;
+				}
+				String[] arrayStr={"因病","因残","因学","因灾","缺土地","缺水","缺技术","缺劳力","缺资金","交通条件落后","自身发展动力不足","其他"};
+				for(int i=0;i<13;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("33")) {
+				String[] arrayStr={"因病","因残","因学","因灾","缺土地","缺水","缺技术","缺劳力","缺资金","交通条件落后","自身发展动力不足","因婚","其他"};
+				for(int i=0;i<14;i++){
+					map.put(i, arrayStr[i]);
+				}
+			}else if (type.equals("29")) {
+				if (a==0) {
+					return "否";
+				}else {
+					return "是";
+				}
+			}else if (type.equals("30")) {
+				if (a==0) {
+					return "否";
+				}else {
+					return "是";
+				}
+			}else if (type.equals("31")) {
+				if (a==0) {
+					return "否";
+				}else {
+					return "是";
+				}
+			}else if (type.equals("21")) {
+				String[] arrayStr={"未脱贫","脱贫","预脱贫","返贫"};
+				for(int i=0;i<5;i++){
+					map.put(i, arrayStr[i]);
+				}
 			}
-			String[] arrayStr={"汉族","满族", "回族", "蒙古族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "侗族", "瑶族", "白族", "土家族", 
-					"哈尼族", "哈萨克族", "傣族", "黎族", "僳僳族", "佤族", "畲族", "高山族", "拉祜族","水族","东乡族","纳西族","景颇族","柯尔克孜族","土族",
-					"达斡尔族","仫佬族","羌族","布朗族","撒拉族","毛南族","仡佬族","锡伯族","阿昌族","普米族","塔吉克族","怒族","乌孜别克族","俄罗斯族",
-					"鄂温克族","德昂族","保安族","裕固族","京族","塔塔尔族","独龙族","鄂伦春族","赫哲族","门巴族","珞巴族","基诺族","其他"};
-			for(int i=0;i<58;i++){
-				map.put(i, arrayStr[i]);
+			else{
+				return "";
 			}
-		}else if (type.equals("7")) { //性别
-			if (a==9) {
-				a=3;
-			}
-			String[] arrayStr={"男性","女性","未说明的性别"};
-			for(int i=0;i<4;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("10")) { //户主关系
-			if (a==99) {
-				a=21;
-			}
-			String[] arrayStr={"户主","配偶","之子","之女","之儿媳","之女婿","之孙子","之孙女","之外孙子","之外孙女","之父","之母","之岳父","之岳母","之公公",
-								"之婆婆","之祖父","之祖母","之外祖父","之外祖母","其他"};
-			for(int i=0;i<22;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("12")) { //12:文化程度 
-			String[] arrayStr={"文盲或半文盲","小学","初中","高中","大专及以上","学龄前儿童"};
-			for(int i=0;i<7;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("13")) {  //13:在校生状况
-			String[] arrayStr={"非在校生","学前教育","小学","七年级","八年级","九年级","高中一年级","高中二年级","高中三年级","中职一年级","中职二年级","中职三年级",
-								"高职一年级","高职二年级","高职三年级","大专及以上"};
-			for(int i=0;i<17;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("15")) {
-			String[] arrayStr={"普通劳动力","技能劳动力","丧失劳动力","无劳动力"};
-			for(int i=0;i<5;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("16")) {
-			if (a==99) {
-				a=5;
-			}
-			String[] arrayStr={"乡（镇）内务工","乡（镇）外县内务工","县外省内务工","省外务工","其他"};
-			for(int i=0;i<6;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if(type.equals("14")){
-			String[] arrayStr={"健康","长期慢性病","患有大病","残疾"};
-			for(int i=0;i<5;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("32")) {
-			if (a==0) {
-				return "否";
-			}else {
-				return "是";
-			}
-		}else if (type.equals("18")) {
-			if (a==0) {
-				return "没参加";
-			}else {
-				return "参加";
-			}
-		}else if (type.equals("19")) {
-			if (a==0) {
-				return "没参加";
-			}else {
-				return "参加";
-			}
-		}else if (type.equals("20")) {
-			if (a==0) {
-				return "没参加";
-			}else {
-				return "参加";
-			}
-		}else if (type.equals("sys_standard")) {
-			String[] arrayStr={"国家标准","省定标准","市定标准"};
-			for(int i=0;i<4;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("22")) {
-			String[] arrayStr={"一般贫困户","低保户","五保户","低保贫困户","低收入农户（是否可以去掉）"};
-			for(int i=0;i<6;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("23")){
-			if (a==99) {
-				a=12;
-			}
-			String[] arrayStr={"因病","因残","因学","因灾","缺土地","缺水","缺技术","缺劳力","缺资金","交通条件落后","自身发展动力不足","其他"};
-			for(int i=0;i<13;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("33")) {
-			String[] arrayStr={"因病","因残","因学","因灾","缺土地","缺水","缺技术","缺劳力","缺资金","交通条件落后","自身发展动力不足","因婚","其他"};
-			for(int i=0;i<14;i++){
-				map.put(i, arrayStr[i]);
-			}
-		}else if (type.equals("29")) {
-			if (a==0) {
-				return "否";
-			}else {
-				return "是";
-			}
-		}else if (type.equals("30")) {
-			if (a==0) {
-				return "否";
-			}else {
-				return "是";
-			}
-		}else if (type.equals("31")) {
-			if (a==0) {
-				return "否";
-			}else {
-				return "是";
-			}
-		}else if (type.equals("21")) {
-			String[] arrayStr={"未脱贫","脱贫","预脱贫","返贫"};
-			for(int i=0;i<5;i++){
-				map.put(i, arrayStr[i]);
-			}
+			
+			return (String) map.get(a);
+			
+		}else {
+			return "";
 		}
-		
-		return (String) map.get(a);
-		
-		
 			
 	}
 	
