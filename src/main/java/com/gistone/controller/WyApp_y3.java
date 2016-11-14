@@ -69,28 +69,28 @@ public class WyApp_y3{
 	public void getWyApp_y3_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String pkid = request.getParameter("pkid");
 		
-		String sql = "select pkid,v6,v9,v21,v22,v23 from (select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid"
+		String sql = "SELECT a1.AAC001 acid,pkid,v6,v21,v22,v23 FROM("+
+				" SELECT AAC001,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001=(SELECT COM_CODE FROM SYS_COMPANY WHERE PKID='"+pkid+"') AND AAR040='2015'"+
+				" )a1 LEFT JOIN ("+
+				"SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NM09_AB01 WHERE  AAR040='2015' AND AAB006=01 )a2 ON a1.AAC001=A2.AAC001"; //sql语句替换的
+				
+				/*"select pkid,v6,v9,v21,v22,v23 from (select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid"
 				+ " where t2.pkid="+pkid+") t3 join DA_HOUSEHOLD t4 on t3.v4=t4.v4 and t3.v5=t4.v5  ";
+		*/
 		
-		/*SELECT pkid,v6,v21,v22,v23 FROM(
-				SELECT AAC001,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001=(
-				SELECT COM_CODE FROM SYS_COMPANY WHERE PKID=717
-				) AND AAR040='2015'
-				)a1 LEFT JOIN (
-				SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NM09_AB01 WHERE  AAR040='2015' AND AAB006=01
-				)a2 ON a1.AAC001=A2.AAC001*/ //sql语句替换的
-		
+		SW4_Controller sw4=new SW4_Controller();
 		JSONArray json = new JSONArray();
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		if (list.size() > 0) {
 			for ( int i = 0 ; i < list.size() ; i ++){
 				JSONObject obj = new JSONObject();
+				obj.put("acid", "".equals(list.get(i).get("ACID")) || list.get(i).get("ACID") == null ? "" : list.get(i).get("ACID").toString());
 				obj.put("pkid", "".equals(list.get(i).get("PKID")) || list.get(i).get("PKID") == null ? "" : list.get(i).get("PKID").toString());
 				obj.put("v6", "".equals(list.get(i).get("V6")) || list.get(i).get("V6") == null ? "" : list.get(i).get("V6").toString());
 //				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
-				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
-				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" : list.get(i).get("V22").toString());
-				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : list.get(i).get("V23").toString());
+				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : sw4.mianZhuan(list.get(i).get("V21").toString(), "21"));
+				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" : sw4.mianZhuan(list.get(i).get("V22").toString(), "22"));
+				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : sw4.mianZhuan(list.get(i).get("V23").toString(), "23"));
 				json.add(obj);
 			}
 			response.getWriter().write(json.toString());

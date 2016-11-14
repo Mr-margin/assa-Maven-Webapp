@@ -914,17 +914,21 @@ function show_pinkuncun(com_pkid){
 			v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
 		}else if(item.v22=="低收入农户"){
 			v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+		}else if(item.v22=="低保户"){
+			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+		}else if(item.v22=="五保户"){
+			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
 		}else{
 			v22 = "<span class=\"badge\">暂无</span>";
 		}
     	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
+    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
 	});
 	$("#zpyy").html(zpyy_data);
 }
 
 //查看贫苦户的详细信息
-function chakan_info(pkid){
+function chakan_info(pkid,acid){
 	//先清空
 	$("#bfzrr_table").html('');
 	$('#show_hz_phone').text("");//电话
@@ -977,12 +981,12 @@ function chakan_info(pkid){
 	$("#exportExcel_all_dengdai").show();
 	$("#tablew4").hide();
 	
-	savePoorMessage(pkid);
+	savePoorMessage(pkid,acid);
 	//document.getElementById('yeqian').scrollIntoView();
 	
 }
 var all_pkid;
-function savePoorMessage(pkid){
+function savePoorMessage(pkid,acid){ //acid 贫困户编号
 	$("#myModal5").modal();
 	all_pkid=pkid;
 	var html="";
@@ -991,12 +995,12 @@ function savePoorMessage(pkid){
 	        type: "POST",
 	        async:true,
 	        dataType: "json",
-	        data:{pkid:pkid,},
+	        data:{pkid:pkid,acid:acid},
 	        success: function (data) {
 	        	//基本信息
-	        	$('#show_hz_address3').text((data.data1[0].V3));
-	        	$('#show_hz_address4').text((data.data1[0].V4));
-	        	$('#show_hz_address5').text(data.data1[0].V5);
+	        	/*$('#show_hz_address3').text((data.data1[0].V3));
+	        	$('#show_hz_address4').text((data.data1[0].V4)); 
+	        	$('#show_hz_address5').text(data.data1[0].V5);*/ //地址
 	        	
 	        	$('#show_hz_phone').text(data.data1[0].V25);//电话
 	        	$('#show_hz_bank').text(data.data1[0].V26);//开户银行
@@ -1012,7 +1016,7 @@ function savePoorMessage(pkid){
 	        	//家庭成员
 	        	var jtcy;
 	        	
-	        	jtcy+='<tr><td><code style="color: #000">1</code></td><td><code style="color: #000">'+data.data1[0].V6+'</code></td>';
+	        	/*jtcy+='<tr><td><code style="color: #000">1</code></td><td><code style="color: #000">'+data.data1[0].V6+'</code></td>';
 	        	if(data.data1[0].V7==undefined||data.data1[0].V7==null){
 	        		jtcy+='<td><code style="color: #000"></code></td>';
 	        	}else{
@@ -1080,7 +1084,7 @@ function savePoorMessage(pkid){
 	        	}else{
 	        		jtcy+='<td><code style="color: #000">'+data.data1[0].V19+'</code></td>';
 	        	}	
-	        	jtcy+='</tr>';
+	        	jtcy+='</tr>';*/
 	        	if(data.data2==""||data.data2==null||data.data2==undefined){
 	        		
 	        	}else{
@@ -1157,7 +1161,7 @@ function savePoorMessage(pkid){
 	        			}else{
 	        				v32=item.V32;
 	        			}
-	            		jtcy+='<tr><td><code style="color: #000">'+(i+2)+'</code></td><td><code style="color: #000">'+v6+'</code></td><td><code style="color: #000">'+v7+'</code></td><td><code style="color: #000">'+v8+'</code></td><td><code style="color: #000">'
+	            		jtcy+='<tr><td><code style="color: #000">'+(i+1)+'</code></td><td><code style="color: #000">'+v6+'</code></td><td><code style="color: #000">'+v7+'</code></td><td><code style="color: #000">'+v8+'</code></td><td><code style="color: #000">'
 	        	    			+v10+'</code></td></code></td><td><code style="color: #000">'+v11+'</code></td>'+
 	        	    			'<td><code style="color: #000">'+v28+'</code></td><td><code style="color: #000">'+v12+'</code></td><td><code style="color: #000">'+v13+'</code></td><td><code style="color: #000">'+v14+'</code></td><td><code style="color: #000">'
 	            				+v15+'</code></td>'+
@@ -1201,7 +1205,7 @@ function savePoorMessage(pkid){
 	        	$("#show_wbj").text(data.data5[0].V43);//五保金
 	        	$("#shoow_zyxsr").text(data.data5[0].V22);//转移性收入
 	        	$("#show_ylbx").text(data.data5[0].V14);//养老保险金
-	        	var v2;var v4;var v6;var v8;var v10;var v12;var v14;var v16;var v18;var v20;
+	        	/*var v2;var v4;var v6;var v8;var v10;var v12;var v14;var v16;var v18;var v20;
 	        	if(data.data8[0].V2==""||data.data8[0].V2==null){
 	        		v2=0;
 	        	}else{
@@ -1246,8 +1250,8 @@ function savePoorMessage(pkid){
 	        		v18=0;
 	        	}else{
 	        		v18=data.data8[0].V18;
-	        	}
-	        	$("#show_scjy").text((v2+v4+v6+v8+v10+v12+v14+v16+v18));//生产经营性支出
+	        	}*/
+	        	$("#show_scjy").text(data.data5[0].V44);//生产经营性支出
 	        	
 	        	
 	        	//生产条件
@@ -1283,7 +1287,7 @@ function savePoorMessage(pkid){
 	            	$('#show_wscs').text(data.data4[0].V12);//有无卫生厕所
 	        	}
 	        	
-	        	//易地搬迁户需求
+	        	/*//易地搬迁户需求
 	        	if(data.data6==""||data.data6==null||data.data6==undefined){
 	        	}else{
 	        		$('#show_sfbqh').text(data.data6[0].VV3);//是否搬迁户
@@ -1361,8 +1365,8 @@ function savePoorMessage(pkid){
 	        					'<td><code style="color: #000">'+btelephone+'</code></td>'+
 	        					'</tr>';
 	        			}
-	        	});
-	        	$("#bfzrr_table").html(html1);
+	        	});*/
+	        	//$("#bfzrr_table").html(html1);
 	        	$("#neirong_jiben").show();
 	        	$("#exportExcel_all_dengdai").hide();
 	        	$("#tablew4").show();
