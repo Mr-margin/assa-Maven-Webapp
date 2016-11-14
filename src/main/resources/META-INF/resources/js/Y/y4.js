@@ -98,6 +98,10 @@ $(function() {
 				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
 			}else if(item.v22=="低收入农户"){
 				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+			}else if(item.v22=="低保户"){
+				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+			}else if(item.v22=="五保户"){
+				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
 			}else{
 				v22 = "<span class=\"badge\">暂无</span>";
 			}
