@@ -21,7 +21,7 @@ import com.gistone.MyBatis.config.GetBySqlMapper;
 public class WyApp_y4 {
 	@Autowired
 	private GetBySqlMapper getBySqlMapper;
-	
+	SW4_Controller sw4=new SW4_Controller();
 	/**
 	 * 按照村级显示贫困户信息
 	 */
@@ -29,11 +29,16 @@ public class WyApp_y4 {
 	public void getWyApp_y4_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String pkid = request.getParameter("pkid");
 		
-		String sql = "select pkid,v6,v9,v21,v22,v23,com,pic_path from "
-				+ "(select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid where t2.pkid="+pkid+") t3 "
-				+ "join DA_HOUSEHOLD t4 on t3.v4=t4.v4 and t3.v5=t4.v5 "
-				+ "left join (select DA_HOUSEHOLD_ID,count(*) as com from DA_HELP_VISIT group by DA_HOUSEHOLD_ID) t5 on t4.pkid=t5.DA_HOUSEHOLD_ID "
-				+ "left join (select pic_pkid,pic_path from DA_PIC where pic_type=7) t6 on t4.pkid=t6.pic_pkid";
+		String sql = "select v21,v22,v23,v6,v9,pic_path from "+
+				" (select COM_CODE from SYS_COMPANY  where pkid="+pkid+") t3 "+
+				" join (select NM09_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8,COUNT(NM09_AC01.AAC001) v9 from NM09_AC01 join NM09_AB01 on NM09_AC01.AAC001=NM09_AB01.AAC001 where NM09_AC01.AAR040='2015' and AAB006=01 group BY NM09_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004)"+ 
+				" t4 on t3.COM_CODE=t4.AAR008  join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD";
+		
+		/*"select pkid,v6,v9,v21,v22,v23,com,pic_path from "
+		+ "(select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid where t2.pkid="+pkid+") t3 "
+		+ "join DA_HOUSEHOLD t4 on t3.v4=t4.v4 and t3.v5=t4.v5 "
+		+ "left join (select DA_HOUSEHOLD_ID,count(*) as com from DA_HELP_VISIT group by DA_HOUSEHOLD_ID) t5 on t4.pkid=t5.DA_HOUSEHOLD_ID "
+		+ "left join (select pic_pkid,pic_path from DA_PIC where pic_type=7) t6 on t4.pkid=t6.pic_pkid";*/
 		JSONArray json = new JSONArray();
 //		System.out.println(sql);
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
@@ -43,10 +48,11 @@ public class WyApp_y4 {
 				obj.put("pkid", "".equals(list.get(i).get("PKID")) || list.get(i).get("PKID") == null ? "" : list.get(i).get("PKID").toString());
 				obj.put("v6", "".equals(list.get(i).get("V6")) || list.get(i).get("V6") == null ? "" : list.get(i).get("V6").toString());
 				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
-				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
-				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" : list.get(i).get("V22").toString());
-				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : list.get(i).get("V23").toString());
-				obj.put("riji_info", "".equals(list.get(i).get("COM")) || list.get(i).get("COM") == null ? "0" : list.get(i).get("COM").toString());
+				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" :sw4.mianZhuan(list.get(i).get("V21").toString(), "21") );
+				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" :sw4.mianZhuan(list.get(i).get("V22").toString(), "22") );
+				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" :sw4.mianZhuan(list.get(i).get("V23").toString(), "23") );
+				obj.put("riji_info","");
+				//obj.put("riji_info", "".equals(list.get(i).get("COM")) || list.get(i).get("COM") == null ? "0" : list.get(i).get("COM").toString());
 				obj.put("erweima", "".equals(list.get(i).get("PIC_PATH")) || list.get(i).get("PIC_PATH") == null ? "0" : list.get(i).get("PIC_PATH").toString());
 				json.add(obj);
 			}
