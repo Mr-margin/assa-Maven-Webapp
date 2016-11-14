@@ -57,14 +57,14 @@ GISTONE.Loader = {
 		    ["index","js/index/","index.js","style.css,animation.css"],//登录界面
 		    ["hd-main","js/index/","","hd-main.css"],//页面头部
 		    
-		    ["1-1","js/H1-1/","Img_load.js,H1.js,H1-1.js,H1-2.js,H1-3.js,H1-4.js,H1-5.js,H1-6.js,H1-7.js,import.js","H1-2css.css"],
-		    ["1-2","js/H1-2/","H1-2.js"],
+//		    ["1-1","js/H1-1/","Img_load.js,H1.js,H1-1.js,H1-2.js,H1-3.js,H1-4.js,H1-5.js,H1-6.js,H1-7.js,import.js","H1-2css.css"],
+//		    ["1-2","js/H1-2/","H1-2.js"],
 //		    ["4","js/H4/","H4.js"],
 //		    ["5-4","js/H5-4/","H5-4.js"],
 //		    ["5-5","js/H5-5/","H5-5.js"],
-		    ["5-6","js/H5-6/","H5-6.js"],
+//		    ["5-6","js/H5-6/","H5-6.js"],
 //		    ["5-7","js/H5-7/","H5-7.js"],
-		    ["5-9","js/H5-9/","H5-9.js"],
+//		    ["5-9","js/H5-9/","H5-9.js"],
 		    
 		    ["WtApp_home","js/T/","home.js"],
 		    ["t1","js/T/","t1.js"],

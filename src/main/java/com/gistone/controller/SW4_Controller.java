@@ -272,7 +272,6 @@ public class SW4_Controller{
 							" SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001"+ 
 							" ) a1"+ 
 							" on a1.AAC001=a2.AAC001 WHERE a1.AAC001='"+acid+"' AND AAR040='2015' GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
-		
 		//"select v6,v7,v8,v10,v11,v28,v12,v13,v14,v15,v16,v17,v32,v19 from da_member where da_household_id="+pkid
 		List<Map> xian_list=getBySqlMapper.findRecords(xian_sql);
 		if(xian_list.size()>0){

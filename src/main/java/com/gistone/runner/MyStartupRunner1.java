@@ -33,14 +33,9 @@ public class MyStartupRunner1 implements CommandLineRunner {
 	
 	@Override
     public void run(String... args) throws Exception {
-    	
-
     	//System.out.println("-------------项目启动啦-----------");
-//    	OverallSituation.compartment = this.cache_Controller.getCompartment();
-    	OverallSituation.comp = this.cache_Controller.getComp();
+    	OverallSituation.compartment = this.cache_Controller.getCompartment();
 		System.out.println("-------------加载完成-----------");
-//		System.out.println("-------------"+OverallSituation.comp.toString()+"-----------");
-//		System.out.println("-------------"+OverallSituation.compartment.toString()+"-----------");
     }
     
 

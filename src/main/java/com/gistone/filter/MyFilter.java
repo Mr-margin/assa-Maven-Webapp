@@ -47,7 +47,8 @@ public class MyFilter implements Filter {
         special.put("getLogin_massage.do", "getLogin_massage.do");//session获取用户登陆信息
         special.put("img.do", "img.do");//验证码
         special.put("loginin.do", "loginin.do");//登录验证
-        
+        special.put("yzm.do", "yzm.do");
+        special.put("cache_1.do", "cache_1.do");
         special.put("anuser.html", "anuser.html");//用户扫码查看详细信息
         special.put("anGetPk.do", "anGetPk.do");//用户扫码查看详细信息
 
@@ -60,7 +61,7 @@ public class MyFilter implements Filter {
             			}
             		}
             		if(!tongguo){
-            			System.out.println(url);
+//            			System.out.println(url);
             			PrintWriter out = response.getWriter();
         				StringBuilder builder = new StringBuilder();
         				builder.append("<script type=\"text/javascript\" charset=\"UTF-8\">");

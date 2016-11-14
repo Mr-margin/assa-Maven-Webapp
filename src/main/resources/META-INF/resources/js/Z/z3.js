@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	var cun_pkid;//当前选择的贫困村
+	var cun_code;//当前选择的贫困村
 	//折叠框折叠隐藏
 	$("#fenge").click(function(e) {
 		if($("#chaxuntiaojian").is(":hidden")){
@@ -15,70 +15,67 @@ $(document).ready(function(){
 		$("#chaxuntiaojian").toggle(500);
 	});
 	
-	var mycars1 = {};
-	show_SYS_COMPANYF();
+//	var mycars1 = {};
+//	show_SYS_COMPANYF();
 	
 	//加载市级下拉框
-	$("#v2").append("<option value='0'></option>");
-	$.each(mycars1.nodes,function(i,item){
-		$("#v2").append("<option value='"+item.href+","+item.xzqh+"'>"+item.text+"</option>");
-	});
+	if(jsondata.Login_map.COM_VD=="V1"){
+		$("#v2").append("<option value='0'></option>");
+		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+		$("#v2").append("<option value='150200000000'>包头市</option>");
+		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+		$("#v2").append("<option value='152200000000'>兴安盟</option>");
+		$("#v2").append("<option value='150500000000'>通辽市</option>");
+		$("#v2").append("<option value='150400000000'>赤峰市</option>");
+		$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+		$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+		$("#v2").append("<option value='150300000000'>乌海市</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
+	}else{
+		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	}
 	
 	//市级下拉框选择事件
 	$("#v2").change(function(){
 		$("#v3").empty();
 		$("#v4").empty();
-		$("#v5").empty();
 		if($("#v2").val()!='0'){
 			$("#v3").append("<option value='0'></option>");
-			var ss = $("#v2").val().split(",");
-			$.each(mycars1.nodes,function(i,item){
-				if(item.href==ss[0]){
-					$.each(item.nodes,function(j,one){
-						$("#v3").append("<option value='"+one.href+","+one.xzqh+"'>"+one.text+"</option>");
-					});
-				}
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
 			});
-			getBoundary(ss[0],'2',ss[1],$("#v2").find("option:selected").text());
+			getBoundary($("#v2").find("option:selected").val(),'2','内蒙古自治区'+$("#v2").find("option:selected").text());
 		}else{
-//			window.parent.frames.iframe0.location.reload();
-			getBoundary('1','1','内蒙古自治区','内蒙古自治区');
+			getBoundary('150000000000','1','内蒙古自治区');
 		}
 	});
 	
 	//县级下拉框选择事件
 	$("#v3").change(function(){
 		$("#v4").empty();
-		$("#v5").empty();
 		if($("#v3").val()!='0'){
-			var ss = $("#v3").val().split(",");
 			$("#v4").append("<option value='0'></option>");
-			$.each(mycars1.nodes,function(i,item){
-				if(item.href==$("#v2").val().split(",")[0]){
-					$.each(item.nodes,function(j,one){
-						if(one.href==ss[0]){
-							$.each(one.nodes,function(j,san){
-								$("#v4").append("<option value='"+san.href+","+san.xzqh+"'>"+san.text+"</option>");
-							});
-						}
-					});
-				}
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
 			});
-			getBoundary(ss[0],'3',ss[1],$("#v3").find("option:selected").text());
+			getBoundary($("#v3").find("option:selected").val(),'3','内蒙古自治区'+$("#v2").find("option:selected").text()+$("#v3").find("option:selected").text());
 		}else{
-			var ss = $("#v2").val().split(",");
-			getBoundary(ss[0],'2',ss[1],$("#v2").find("option:selected").text());
+			getBoundary($("#v2").find("option:selected").val(),'2','内蒙古自治区'+$("#v2").find("option:selected").text());
 		}
 	});
 	
 	//乡级下拉框选择事件
 	$("#v4").change(function(){
 		if($("#v4").val()!='0'){
-			var ss = $("#v4").val().split(",");
-			getBoundary(ss[0],'4',ss[1],$("#v4").find("option:selected").text());
+			getBoundary($("#v4").find("option:selected").val(),'4','内蒙古自治区'+$("#v2").find("option:selected").text()+$("#v3").find("option:selected").text());
 		}else{
-			var ss = $("#v3").val().split(",");
-			getBoundary(ss[0],'3',ss[1],$("#v3").find("option:selected").text());
+			getBoundary($("#v3").find("option:selected").val(),'3','内蒙古自治区'+$("#v2").find("option:selected").text()+$("#v3").find("option:selected").text());
 		}
 	});
 	
@@ -87,29 +84,30 @@ $(document).ready(function(){
 		$("#v2").get(0).selectedIndex=0;
 		$("#v3").empty();
 		$("#v4").empty();
-		getBoundary('1','1','内蒙古自治区','内蒙古自治区');
+		$('#def_info_win').hide();
+		getBoundary('150000000000','1','内蒙古自治区');
 	});
 	
-	function show_SYS_COMPANYF(){
-		if(jsondata.company_tree){
-			mycars1 = $.extend(true,{},jsondata.company_tree);
-		}else{
-			var user = JSON.parse(window.sessionStorage.getItem("user"));
-			if(user){
-				jsondata = eval("("+user+")");
-				mycars1 = $.extend(true,{},jsondata.company_tree);
-			}
-		}
-	}
+//	function show_SYS_COMPANYF(){
+//		if(jsondata.company_tree){
+//			mycars1 = $.extend(true,{},jsondata.company_tree);
+//		}else{
+//			var user = JSON.parse(window.sessionStorage.getItem("user"));
+//			if(user){
+//				jsondata = eval("("+user+")");
+//				mycars1 = $.extend(true,{},jsondata.company_tree);
+//			}
+//		}
+//	}
 	
 	//查询贫困户详细清单
 	$("#pinkunhu_info").click(function (){
-		show_pinkuncun(cun_pkid);
+		show_pinkuncun(cun_code);
 		$("#myModal4").modal();
 	});
 	
-	function show_pinkuncun(com_pkid){
-		var data = JSON.parse(ajax_async_t("../getWyApp_y3_1.do", {pkid:com_pkid}));
+	function show_pinkuncun(c_code){
+		var data = JSON.parse(ajax_async_t("../getWyApp_y3_1.do", {code:c_code}));
 		var zpyy_data = "";
 		$.each(data,function(i,item){
 			var v22;
@@ -155,32 +153,17 @@ $(document).ready(function(){
 	/**
 	 * 根据pkid 和 level 设置范围
 	 */
- 	function getBoundary(pkid,level,xzqh,text){
+ 	function getBoundary(com_code,level,xzqh){
  		
  		if(level=="4"){
- 			$.each(jsondata.company_tree.nodes,function(i,item){
- 	 			$.each(item.nodes,function(j,one){
- 	 				$.each(one.nodes,function(j,san){
- 	 					//$.each(san.nodes,function(j,si){
- 	 					if(pkid==san.href){
- 	 						cunJson = san.nodes;
- 	 					}
- 	 	 	 			//})
- 	 	 			})
- 	 			})
- 	 		});
+ 			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:com_code}, "text");
+			cunJson = eval("("+data+")");
  		}
  		
 		//添加区域覆盖物
 		map.clearOverlays();//清除地图覆盖物       
-		var areafullname="";
-		if(level=="4"){
-			areafullname=xzqh.split("-")[0]+xzqh.split("-")[1]+xzqh.split("-")[2];
-		}else{
-			areafullname=xzqh.split("-").join();
-		}
 	 	var bdary = new BMap.Boundary();  
-	    bdary.get(areafullname, function(rs){//获取行政区域  
+	    bdary.get(xzqh, function(rs){//获取行政区域  
 	        var count = rs.boundaries.length; //行政区域的点有多少个  
 	    	var pointArray= [];
 	        for(var i = 0; i < count; i++){  
@@ -195,7 +178,7 @@ $(document).ready(function(){
 	    	var zoom =map.getZoom();;
 	    	var myGeo = new BMap.Geocoder();
 	    	// 将地址解析结果显示在地图上,并调整地图视野
-	    	myGeo.getPoint(areafullname, function(point){
+	    	myGeo.getPoint(xzqh, function(point){
 	    		if (point) {
 	    			map.centerAndZoom(point, zoom);
 	    			if(level=="4"){
@@ -204,7 +187,7 @@ $(document).ready(function(){
 	    		}else{
 	    			alert("您选择地址没有解析到结果!");
 	    		}
-	    	},xzqh.split("-")[1]);
+	    	}, xzqh);
 	    });
 	}
 
@@ -215,117 +198,117 @@ $(document).ready(function(){
  		}
  		
  		$.each(cunJson,function(i,item){
- 			if(item.lat&&item.lon){
+ 			if(item.LAT&&item.LNG){
  				
- 			var point= new BMap.Point(item.lon, item.lat);
- 			var img="../img/fei.png";
- 			if(item.status){
- 				img="../img/pin.png";//贫困
- 			}else{
- 				img="../img/fei.png";//非贫困
- 			}
- 			var myIcon = new BMap.Icon(img, new BMap.Size(40,40));
- 			var marker = new BMap.Marker(point,{icon:myIcon}); 
- 			
-			//marker.setTitle(item.text);
- 			var offx=-20;
- 			if(item.text){
- 				offx=-item.text.length*14/2+12;
- 			}
-			var label = new BMap.Label(item.text,{offset:new BMap.Size(offx,13)});
-			label.setStyle({
-				 color : "#000",
-				 fontSize : "12px",
-				 height : "20px",
-				 lineHeight : "20px",
-				 fontFamily:"微软雅黑",
-				 borderColor:"rgba(255,255,255,0)",
-				 background:"rgba(255,255,255,0)"
-			 });
-			marker.setLabel(label);
-			marker.addEventListener("click",function(e) {
-				$("h3.search-title").html(item.text);
-				cun_pkid = item.href;//记录当前选择村的ID
-				
-				if(item.status){
-	 				$("span.search-sign").show();//贫困
+	 			var point= new BMap.Point(item.LNG, item.LAT);
+	 			var img="../img/fei.png";
+	 			if(item.STATUS){
+	 				img="../img/pin.png";//贫困
 	 			}else{
-	 				$("span.search-sign").hide()//非贫困
+	 				img="../img/fei.png";//非贫困
 	 			}
-				//console.log(item);
-//				alert(item.href);
-			    $.ajax({
-					url:"../getW3map.do",
-					type:"POST",
-					dataType:"json",
-					data:{"code":item.href},
-					success:function(data){
-						if(data&&data.length>0){
-							var one = data[0];
-							
-							$("#pinkunhu").html(one.hushu);//贫困户数
-							$("#pinkunhu_f").html("&nbsp;户");
-							
-							$("#pinkunrenkou").html(one.renshu);//贫困 人数
-							$("#pinkunrenkou_f").html("&nbsp;人");
-							
-							if(one.csr){
-								$("#cunshouru").html(one.csr);//村集体收入
-								$("#cunshouru_f").html("万元");
-							}else{
-								$("#cunshouru").html("&nbsp;");//村集体收入
-								$("#cunshouru_f").html("&nbsp;");
+	 			var myIcon = new BMap.Icon(img, new BMap.Size(40,40));
+	 			var marker = new BMap.Marker(point,{icon:myIcon}); 
+	 			
+				//marker.setTitle(item.text);
+	 			var offx=-20;
+	 			if(item.V9){
+	 				offx=-item.V9.length*14/2+12;
+	 			}
+				var label = new BMap.Label(item.V9,{offset:new BMap.Size(offx,13)});
+				label.setStyle({
+					 color : "#000",
+					 fontSize : "12px",
+					 height : "20px",
+					 lineHeight : "20px",
+					 fontFamily:"微软雅黑",
+					 borderColor:"rgba(255,255,255,0)",
+					 background:"rgba(255,255,255,0)"
+				 });
+				marker.setLabel(label);
+				marker.addEventListener("click",function(e) {
+					$("h3.search-title").html(item.V9);
+					cun_code = item.V10;//记录当前选择村的ID
+					
+					if(item.STATUS){
+		 				$("span.search-sign").show();//贫困
+		 			}else{
+		 				$("span.search-sign").hide()//非贫困
+		 			}
+					//console.log(item);
+	//				alert(item.href);
+				    $.ajax({
+						url:"../getW3map.do",
+						type:"POST",
+						dataType:"json",
+						data:{"code":item.V10},
+						success:function(data){
+							if(data&&data.length>0){
+								var one = data[0];
+								
+								$("#pinkunhu").html(one.hushu);//贫困户数
+								$("#pinkunhu_f").html("&nbsp;户");
+								
+								$("#pinkunrenkou").html(one.renshu);//贫困 人数
+								$("#pinkunrenkou_f").html("&nbsp;人");
+								
+								if(one.csr){
+									$("#cunshouru").html(one.csr);//村集体收入
+									$("#cunshouru_f").html("万元");
+								}else{
+									$("#cunshouru").html("&nbsp;");//村集体收入
+									$("#cunshouru_f").html("&nbsp;");
+								}
+								
+								if(one.zcgzd){
+									$("#cungongzuodui").html("是");//驻村工作队
+								}else{
+									$("#cungongzuodui").html("否");//驻村工作队
+								}
+								
+								if(one.zirancun){
+									$("#zirancun").html(one.zirancun);//自然村
+									$("#zirancun_f").html("&nbsp;个");
+								}else{
+									$("#zirancun").html("&nbsp;");//自然村
+									$("#zirancun_f").html("&nbsp;");
+								}
+								
+								if(one.aad001){
+									$("#cunbianhao").html(one.aad001);//贫困村编号
+								}else{
+									$("#cunbianhao").html("&nbsp;");//贫困村编号
+								}
+								
+								if(one.aar011){
+									$("#fuzerenname").html(one.aar011);//负责人姓名
+								}else{
+									$("#fuzerenname").html("&nbsp;");//负责人姓名
+								}
+								if(one.aar012){
+									$("#lianxidianhua").html(one.aar012);//联系电话
+								}else{
+									$("#lianxidianhua").html("&nbsp;");//联系电话
+								}
+								if(one.aad301){
+									$("#renjunchunshouru").html(one.aad301);//农民人均纯收入
+									$("#renjunchunshouru_f").html("元");
+								}else{
+									$("#renjunchunshouru").html("&nbsp;");//农民人均纯收入
+									$("#renjunchunshouru_f").html("&nbsp;");
+								}
+								$("#bangfudanwei").html("有");//帮扶单位//有无
+								$('#def_info_win').show();
+							    $('#def_info_win').removeClass().addClass('bounceInDown animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+							    	$(this).removeClass();
+								});
 							}
-							
-							if(one.zcgzd){
-								$("#cungongzuodui").html("是");//驻村工作队
-							}else{
-								$("#cungongzuodui").html("否");//驻村工作队
+						},
+						error:function(){
 							}
-							
-							if(one.zirancun){
-								$("#zirancun").html(one.zirancun);//自然村
-								$("#zirancun_f").html("&nbsp;个");
-							}else{
-								$("#zirancun").html("&nbsp;");//自然村
-								$("#zirancun_f").html("&nbsp;");
-							}
-							
-							if(one.aad001){
-								$("#cunbianhao").html(one.aad001);//贫困村编号
-							}else{
-								$("#cunbianhao").html("&nbsp;");//贫困村编号
-							}
-							
-							if(one.aar011){
-								$("#fuzerenname").html(one.aar011);//负责人姓名
-							}else{
-								$("#fuzerenname").html("&nbsp;");//负责人姓名
-							}
-							if(one.aar012){
-								$("#lianxidianhua").html(one.aar012);//联系电话
-							}else{
-								$("#lianxidianhua").html("&nbsp;");//联系电话
-							}
-							if(one.aad301){
-								$("#renjunchunshouru").html(one.aad301);//农民人均纯收入
-								$("#renjunchunshouru_f").html("元");
-							}else{
-								$("#renjunchunshouru").html("&nbsp;");//农民人均纯收入
-								$("#renjunchunshouru_f").html("&nbsp;");
-							}
-							$("#bangfudanwei").html("有");//帮扶单位//有无
-							$('#def_info_win').show();
-						    $('#def_info_win').removeClass().addClass('bounceInDown animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-						    	$(this).removeClass();
-							});
-						}
-					},
-					error:function(){
-						}
-					});
-			});
-			map.addOverlay(marker);  
+						});
+				});
+				map.addOverlay(marker);  
  			}
  		});
  		

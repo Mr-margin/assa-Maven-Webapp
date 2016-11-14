@@ -29,35 +29,35 @@ $(function() {
 		}
 	});
 	
-	$('#treeview1').treeview({
-		color: "#428bca",
-		multiSelect: false,
-		highlightSelected: true,
-		data: show_SYS_COMPANY(),
-		onNodeSelected: function(e, o) {
-			clickpbl_tree(o);
-		}
-	});
-	
-	//点击输入框弹出 div
-	$("#nm_qx").click(function (){
-		if(temp=$("#treediv").is(":hidden")){
-			$("#treediv").show();
-		}else{
-			$("#treediv").hide();
-		}
-	});
-	//判断点击的点击的位置是否在窗体内
-	$("#nm_qx,#treediv").click(function(e) {
-		e?e.stopPropagation():event.cancelBubble = true;
-		var obj=$("#treediv")[0];
-		//$($("#treediv")).width($("#nm_qx").width()+12);
-		//$($("#treediv")).css('margin-left',"80px");
-	});
-	//点击div层以外的部分隐藏div
-	$(document).click(function() {
-		$("#treediv").hide();
-	});
+//	$('#treeview1').treeview({
+//		color: "#428bca",
+//		multiSelect: false,
+//		highlightSelected: true,
+//		data: show_SYS_COMPANY(),
+//		onNodeSelected: function(e, o) {
+//			clickpbl_tree(o);
+//		}
+//	});
+//	
+//	//点击输入框弹出 div
+//	$("#nm_qx").click(function (){
+//		if(temp=$("#treediv").is(":hidden")){
+//			$("#treediv").show();
+//		}else{
+//			$("#treediv").hide();
+//		}
+//	});
+//	//判断点击的点击的位置是否在窗体内
+//	$("#nm_qx,#treediv").click(function(e) {
+//		e?e.stopPropagation():event.cancelBubble = true;
+//		var obj=$("#treediv")[0];
+//		//$($("#treediv")).width($("#nm_qx").width()+12);
+//		//$($("#treediv")).css('margin-left',"80px");
+//	});
+//	//点击div层以外的部分隐藏div
+//	$(document).click(function() {
+//		$("#treediv").hide();
+//	});
 	
 	
 	$("#fenge").click(function(e) {
@@ -169,21 +169,32 @@ $(function() {
 			p_zhuangtai = "0";
 		}
 	});
-	//行政区划单位记录
-	
-	show_SYS_COMPANY();
+//	//行政区划单位记录
+//	show_SYS_COMPANY();
 	
 	//加载市级下拉框
-	$("#v2").append("<option>全部盟市</option>");
-	$.each(mycars.nodes,function(i,item){
-		$("#v2").append("<option value='"+item.href+"'>"+item.text+"</option>");
-	});
+	if(jsondata.Login_map.COM_VD=="V1"){
+		$("#v2").append("<option>全部盟市</option>");
+		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+		$("#v2").append("<option value='150200000000'>包头市</option>");
+		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+		$("#v2").append("<option value='152200000000'>兴安盟</option>");
+		$("#v2").append("<option value='150500000000'>通辽市</option>");
+		$("#v2").append("<option value='150400000000'>赤峰市</option>");
+		$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+		$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+		$("#v2").append("<option value='150300000000'>乌海市</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
+	}else{
+		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	}
 	
 	//市级下拉框选择事件
 	$("#v2").change(function(){
 		$("#v3").empty();
 		$("#v4").empty();
-		$("#v5").empty();
 		if($("#v2").find("option:selected").text()=="全部盟市"){
 			level=1;//层级
 			tree_canshu.com=$("#v2").find("option:selected").text();
@@ -191,12 +202,10 @@ $(function() {
 		}else{
 			level=2;//层级
 			$("#v3").append("<option>全部旗区县</option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						$("#v3").append("<option value='"+one.href+"'>"+one.text+"</option>");
-					});
-				}
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
 			});
 			tree_canshu.com=$("#v2").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
@@ -206,95 +215,68 @@ $(function() {
 	//县级下拉框选择事件
 	$("#v3").change(function(){
 		$("#v4").empty();
-		$("#v5").empty();
 		if($("#v3").find("option:selected").text() == '全部旗区县'){
 			level=2;
 			tree_canshu.com=$("#v2").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-			
 		}else{
-			
-			$("#v4").append("<option>全部苏木乡</option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						if(one.href==$("#v3").val()){
-							$.each(one.nodes,function(j,san){
-								$("#v4").append("<option value='"+san.href+"'>"+san.text+"</option>");
-							});
-						}
-					});
-				}
+			level=3;//层级
+			$("#v4").append("<option>全部苏木乡镇</option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
 			});
 			tree_canshu.com=$("#v3").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-			level=3;//层级
 		}
 	});
 	
 	//乡级下拉框选择事件
 	$("#v4").change(function(){
-		if($("#v4").find("option:selected").text() == '全部苏木乡'){
+		if($("#v4").find("option:selected").text() == '全部苏木乡镇'){
 			level=3
 			tree_canshu.com=$("#v3").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
 		}else{
-			$("#v5").empty();
-			$("#v5").append("<option>请选择</option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						if(one.href==$("#v3").val()){
-							$.each(one.nodes,function(j,san){
-								if(san.href==$("#v4").val()){
-									$.each(san.nodes,function(j,si){
-										$("#v5").append("<option value='"+si.href+"'>"+si.text+"</option>");
-									});
-								}
-							});
-						}
-					});
-				}
-			});
+			level=4;//层级
 			tree_canshu.com=$("#v4").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-			level=4;//层级
 		}
 	});
 	
 	
-	$("#v5").change(function(){
-		tree_canshu.com=$("#v5").find("option:selected").text();
-		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-		level=5;//层级
-	})
+//	$("#v5").change(function(){
+//		tree_canshu.com=$("#v5").find("option:selected").text();
+//		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+//		level=5;//层级
+//	})
 	
-	//清空
-	$("#qing_but").click(function(e) {
-		$("#v2").get(0).selectedIndex=0;
-		$("#v3").empty();
-		$("#v4").empty();
-		$("#v5").empty();
-		$("#biaoge").hide();
-		$("#guodu").show();
-	});
+//	//清空
+//	$("#qing_but").click(function(e) {
+//		$("#v2").get(0).selectedIndex=0;
+//		$("#v3").empty();
+//		$("#v4").empty();
+//		$("#v5").empty();
+//		$("#biaoge").hide();
+//		$("#guodu").show();
+//	});
 	  
 	
 
-	//获取行政区划树
-	function show_SYS_COMPANY(){
-		if(jsondata.company_tree){
-			mycars = $.extend(true,{},jsondata.company_tree);
-		}else{
-			var user = JSON.parse(window.sessionStorage.getItem("user"));
-			if(user){
-				jsondata = eval("("+user+")");
-				mycars = $.extend(true,{},jsondata.company_tree);
-			}
-		}
-	}
+//	//获取行政区划树
+//	function show_SYS_COMPANY(){
+//		if(jsondata.company_tree){
+//			mycars = $.extend(true,{},jsondata.company_tree);
+//		}else{
+//			var user = JSON.parse(window.sessionStorage.getItem("user"));
+//			if(user){
+//				jsondata = eval("("+user+")");
+//				mycars = $.extend(true,{},jsondata.company_tree);
+//			}
+//		}
+//	}
 });
-var mycars = {};
 var p_zhuangtai = "0";
 var dangqian_url = "f_1_1_1.html";
 var tree_canshu = {};
@@ -309,38 +291,38 @@ tree_canshu.t1 = "0";
 tree_canshu.t2 = "1";
 
 //点击树触发方法
-function clickpbl_tree(val){
+//function clickpbl_tree(val){
+//
+////	chaxun.nm_qx = val.text; //获取区域名称
+////	chaxun.pkid = val.nodeId; //获取主键
+////	chaxun.com_level = val.com_level; //获取层级
+//	/*$("#com_level").attr({"value":val.com_level});
+//	$("#pkid").attr({"value":val.href});*/
+//	$('#nm_qx').val(val.text);
+//	$("#treediv").hide(); 
+//	tree_canshu.com = val.text;
+//	
+//	$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+//}
 
-//	chaxun.nm_qx = val.text; //获取区域名称
-//	chaxun.pkid = val.nodeId; //获取主键
-//	chaxun.com_level = val.com_level; //获取层级
-	/*$("#com_level").attr({"value":val.com_level});
-	$("#pkid").attr({"value":val.href});*/
-	$('#nm_qx').val(val.text);
-	$("#treediv").hide(); 
-	tree_canshu.com = val.text;
-	
-	$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-}
-
-function show_SYS_COMPANY(){//获取行政区划树
-	var mycars=[];
-	if(jsondata.company_tree){
-		mycars[0]= $.extend(true,{},jsondata.company_tree);
-	}else{
-		var user = JSON.parse(window.sessionStorage.getItem("user"));
-		if(user){
-			jsondata = eval("("+user+")");
-			mycars[0]= $.extend(true,{},jsondata.company_tree);
-		}
-	}
-	$.each(mycars[0].nodes,function(i,item){
-		//$.each(item.nodes,function(j,one){
-			delete item.nodes;
-		//})
-	});
-	return mycars;
-}
+//function show_SYS_COMPANY(){//获取行政区划树
+//	var mycars=[];
+//	if(jsondata.company_tree){
+//		mycars[0]= $.extend(true,{},jsondata.company_tree);
+//	}else{
+//		var user = JSON.parse(window.sessionStorage.getItem("user"));
+//		if(user){
+//			jsondata = eval("("+user+")");
+//			mycars[0]= $.extend(true,{},jsondata.company_tree);
+//		}
+//	}
+//	$.each(mycars[0].nodes,function(i,item){
+//		//$.each(item.nodes,function(j,one){
+//			delete item.nodes;
+//		//})
+//	});
+//	return mycars;
+//}
 
 function show_tree(){//bootstrap tree 获取数据的方法 
 	
@@ -655,153 +637,11 @@ function show_tree(){//bootstrap tree 获取数据的方法
     		selectable: false
         }]
 	}];
-	
-	
-	
-//	var mycars = [{
-//        text: "<span style='font-size: 16px;font-weight:900;text-shadow: #d1dade 0 1px 0;'>贫困人口</span>",
-//        href: "#parent1",
-//        state: {
-//		    expanded: true
-//		},
-//		icon: "glyphicon glyphicon-folder-close",
-//		selectable: false,
-//		title: "贫困人口综合信息查询",
-//		png: "z1_1",
-//		tags: ["10"],
-//        nodes: [{
-//            text: "基本信息",
-//            src: "f_1_1_1.html"
-//        },
-//        {
-//            text: "年龄分组",
-//            src: "f_1_1_2.html"
-//        },
-//        {
-//            text: "身体健康情况",
-//            src: "f_1_1_3.html"
-//        },
-//        {
-//            text: "文化程度情况",
-//            src: "f_1_1_4.html"
-//        },
-//        {
-//            text: "劳动能力类型",
-//            src: "f_1_1_5.html"
-//        },
-//        {
-//            text: "上一年度务工情况",
-//            src: "f_1_1_6.html"
-//        },
-//        {
-//            text: "上一年度务工时间统计",
-//            src: "f_1_1_7.html"
-//        },
-//        {
-//            text: "在校生情况",
-//            src: "f_1_1_8.html"
-//        },
-//        {
-//            text: "贫困属性",
-//            src: "f_1_1_9.html"
-//        },
-//        {
-//            text: "适龄教育情况",
-//            src: "f_1_1_10.html"
-//        }]
-//    },
-//    {
-//        text: "<span style='font-size: 16px;font-weight:900;text-shadow: #d1dade 0 1px 0;'>贫困户</span>",
-//        href: "#parent2",
-//        icon: "glyphicon glyphicon-folder-close",
-//		tags: ["15"],
-//		selectable: false,
-//		title: "贫困户综合信息查询",
-//		png: "z1_2",
-//        nodes: [{
-//            text: "基本信息",
-//            src: "f_1_2_1.html"
-//        },
-//        {
-//            text: "主要致贫原因",
-//            src: "f_1_2_2.html"
-//        },
-//        {
-//            text: "其他致贫原因",
-//            src: "f_1_2_3.html"
-//        },
-//        {
-//            text: "帮扶责任人落实情况",
-//            src: "f_1_2_4.html"
-//        },
-//        {
-//            text: "生产生活条件",
-//            src: "f_1_2_5.html"
-//        },
-//        {
-//            text: "土地资源情况",
-//            src: "f_1_2_6.html"
-//        },
-//        {
-//            text: "人均收入分组情况",
-//            src: "f_1_2_7.html"
-//        },
-//        {
-//            text: "主要燃料类型",
-//            src: "f_1_2_8.html"
-//        },
-//        {
-//            text: "入户路情况",
-//            src: "f_1_2_9.html"
-//        },
-//        {
-//            text: "上年度家庭收入情况统计",
-//            src: "f_1_2_10.html"
-//        },
-//        {
-//            text: "上年度转移性收入构成情况",
-//            src: "f_1_2_11.html"
-//        },
-//        {
-//            text: "人口规模情况",
-//            src: "f_1_2_12.html"
-//        },
-//        {
-//            text: "党员情况",
-//            src: "f_1_2_13.html"
-//        },
-//        {
-//            text: "住房面积",
-//            src: "f_1_2_14.html"
-//        },
-//        {
-//            text: "与村主干路距离",
-//            src: "f_1_2_15.html"
-//        }]
-//    },
-//    {
-//        text: "<span style='font-size: 16px;font-weight:900;text-shadow: #d1dade 0 1px 0;'>贫困村</span>",
-//        href: "#parent3",
-//		tags: ["3"],
-//		icon: "glyphicon glyphicon-folder-close",
-//		selectable: false,
-//		title: "贫困村综合信息查询",
-//		png: "z1_3",
-//        nodes: [{
-//            text: "基本信息",
-//            src: "f_1_3_1.html"
-//        },
-//        {
-//            text: "未脱贫贫困人口",
-//            src: "f_1_3_2.html"
-//        },
-//        {
-//            text: "贫困发生率",
-//            src: "f_1_3_3.html"
-//        }]
-//    }];
 	return mycars;
 }
+
+
+
 var level=1;//全局变量层级
 function setSelVal(value){
 	//console.log(value);
@@ -810,97 +650,63 @@ function setSelVal(value){
 	 var t = document.getElementById("v"+ level +""); 
      for(i=0;i<t.length;i++){//给select赋值  
          if(value == t.options[i].text){  
-        	if(level=='2'){// 层级2
-        		t.options[i].selected=true;
-        		$("#v3").empty();
-        		$("#v4").empty();
-        		$("#v5").empty();
-        		if($("#v2").find("option:selected").text()=="全部盟市"){
-        			level=1;//层级
-        			tree_canshu.com=$("#v2").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-        		}else{
+        	 if(level=='2'){// 层级2
+        		 t.options[i].selected=true;
+        		 $("#v3").empty();
+        		 $("#v4").empty();
+        		 if($("#v2").find("option:selected").text()=="全部盟市"){
+        			 level=1;//层级
+        			 tree_canshu.com=$("#v2").find("option:selected").text();
+        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }else{
         			level=2;//层级
-        			$("#v3").append("<option>全部旗区县</option>");
-        			$.each(mycars.nodes,function(i,item){
-        				if(item.href==$("#v2").val()){
-        					$.each(item.nodes,function(j,one){
-        						$("#v3").append("<option value='"+one.href+"'>"+one.text+"</option>");
-        					});
-        				}
-        			});
-        			tree_canshu.com=$("#v2").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-        		}
-        	}else if(level == '3'){ //层级3
-        		t.options[i].selected=true;
-        		$("#v4").empty();
-        		$("#v5").empty();
-        		if($("#v3").find("option:selected").text() == '全部旗区县'){
-        			level=2;
-        			tree_canshu.com=$("#v2").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-        			
-        		}else{
-        			
-        			$("#v4").append("<option>全部苏木乡</option>");
-        			$.each(mycars.nodes,function(i,item){
-        				if(item.href==$("#v2").val()){
-        					$.each(item.nodes,function(j,one){
-        						if(one.href==$("#v3").val()){
-        							$.each(one.nodes,function(j,san){
-        								$("#v4").append("<option value='"+san.href+"'>"+san.text+"</option>");
-        							});
-        						}
-        					});
-        				}
-        			});
-        			tree_canshu.com=$("#v3").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				$("#v3").append("<option>全部旗区县</option>");
+    				var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+    				var val = eval("("+data+")");
+    				$.each(val,function(i,item){
+    					$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+    				});
+    				tree_canshu.com=$("#v2").find("option:selected").text();
+    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }
+        	 }else if(level == '3'){ //层级3
+        		 t.options[i].selected=true;
+        		 $("#v4").empty();
+        		 if($("#v3").find("option:selected").text() == '全部旗区县'){
+        			 level=2;
+        			 tree_canshu.com=$("#v2").find("option:selected").text();
+        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }else{
         			level=3;//层级
-        		}
-        	}else if(level == '4'){
-        		t.options[i].selected=true;
-        		if($("#v4").find("option:selected").text() == '全部苏木乡'){
-        			level=3
-        			tree_canshu.com=$("#v3").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-        		}else{
-        			$("#v5").empty();
-        			$("#v5").append("<option>请选择</option>");
-        			$.each(mycars.nodes,function(i,item){
-        				if(item.href==$("#v2").val()){
-        					$.each(item.nodes,function(j,one){
-        						if(one.href==$("#v3").val()){
-        							$.each(one.nodes,function(j,san){
-        								if(san.href==$("#v4").val()){
-        									$.each(san.nodes,function(j,si){
-        										$("#v5").append("<option value='"+si.href+"'>"+si.text+"</option>");
-        									});
-        								}
-        							});
-        						}
-        					});
-        				}
-        			});
-        			tree_canshu.com=$("#v4").find("option:selected").text();
-        			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				$("#v4").append("<option>全部苏木乡镇</option>");
+    				var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+    				var val = eval("("+data+")");
+    				$.each(val,function(i,item){
+    					$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+    				});
+    				tree_canshu.com=$("#v3").find("option:selected").text();
+    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }
+        	 }else if(level == '4'){
+        		 t.options[i].selected=true;
+        		 if($("#v4").find("option:selected").text() == '全部苏木乡镇'){
+        			 level=3
+        			 tree_canshu.com=$("#v3").find("option:selected").text();
+        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }else{
         			level=4;//层级
-        		}
-        	}else if(level == '5'){
-        		t.options[i].selected=true;
-        		//alert($("#v5").find("option:selected").text());//名称
-        		//alert($("#v5").find("option:selected").val());//id
-        		level=4;
-//       		 	alert("这里是触发方法的地方")
-       		 	show_pinkuncun($("#v5").find("option:selected").val());
-       			$("#myModal4").modal();
-        	}
-        	
+    				tree_canshu.com=$("#v4").find("option:selected").text();
+    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        		 }
+        	 }
+//        	 else if(level == '5'){
+//        		 t.options[i].selected=true;
+//        		 level=4;
+//       		 	 show_pinkuncun($("#v5").find("option:selected").val());
+//       		 	 $("#myModal4").modal();
+//        	 }
          }  
-     }  
-//	$("#v2").find("option[text='"+value+"']").attr("selected",true);
-	
+	}  
 }
 
 function show_pinkuncun(com_pkid){

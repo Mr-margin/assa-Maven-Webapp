@@ -31,7 +31,7 @@ function ajax_async_t(url,data,dataType,async){
 	}else{
 		async=false;
 	}
-	$.ajax({  		       
+	$.ajax({
 	    url: url,
 	    type: "POST",
 	    async:false,
@@ -44,9 +44,9 @@ function ajax_async_t(url,data,dataType,async){
 	    		rel = ret;
 	    	}
 	    },
-	    error: function (ret) { 
-	    	toastr["error"]("error", "服务器异常或未查询到数据");
-	    }  
+	    error: function (ret) {
+	    	toastr["error"]("error", "服务器异常或未查询到数据"+url);
+	    }
 	});
 	return rel;
 }
@@ -67,7 +67,7 @@ function ajax_async_f(url,data,dataType){
 	    	}
 	    },
 	    error: function (ret) { 
-	    	toastr["error"]("error", "服务器异常或未查询到数据");
+	    	toastr["error"]("error", "服务器异常或未查询到数据"+url);
 	    }  
 	});
 	return rel;
@@ -75,13 +75,30 @@ function ajax_async_f(url,data,dataType){
 
 //获取单位行政区划树，默认从本地获取，没有读取浏览器
 function get_sys_company(){
-	var company_data = JSON.parse(localStorage.getItem("company_data"));
+	var company_data = JSON.parse(window.localStorage.getItem("company_data"));
 	if(company_data){
-		return company_data;
+		return eval("("+company_data+")");
 	}else{
-		var data = ajax_async_t("cache_1.do", {}, "json");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"cache_1.do", {}, "text");
 		window.localStorage.setItem("company_data",JSON.stringify(data));
-		return data;
+		return eval("("+data+")");
+	}
+}
+
+//获取登录用户信息，默认本地获取
+function get_sys_user(){
+	var user = JSON.parse(window.sessionStorage.getItem("user"));
+	if(user){
+		return eval("("+user+")");
+	}else{
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getLogin_massage.do",{},"text");
+		if (data == "weidenglu") {//如果未登录
+			window.sessionStorage.clear();
+			return null;
+		}else{
+			window.sessionStorage.setItem("user",JSON.stringify(data));
+			return eval("("+data+")");
+		}
 	}
 }
 
