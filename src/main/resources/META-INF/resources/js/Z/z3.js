@@ -121,7 +121,7 @@ $(document).ready(function(){
 				v22 = "<span class=\"badge\">暂无</span>";
 			}
 	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
+	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
 		});
 		$("#zpyy").html(zpyy_data);
 	}
