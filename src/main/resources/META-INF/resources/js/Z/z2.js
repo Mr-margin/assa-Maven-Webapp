@@ -655,7 +655,7 @@ var level=1;//全局变量层级
 function setSelVal(value){
 	//console.log(value);
 	 level+=1;
-	 console.log($("#v"+ level +"").html());
+//	 console.log($("#v"+ level +"").html());
 	 var t = document.getElementById("v"+ level +""); 
      for(i=0;i<t.length;i++){//给select赋值  
          if(value == t.options[i].text){  

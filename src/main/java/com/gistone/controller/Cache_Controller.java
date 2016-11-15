@@ -114,15 +114,23 @@ public class Cache_Controller{
 	public void getSYS_COM_V9(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");//获取选择的市级行政区划编码
 		String sql="select v9,v10,lng,lat,STATUS from SYS_COM where V8='"+code+"' group by v9,v10,lng,lat,STATUS order by v10";
+		System.out.println(sql);
 		List<Map> list=this.getBySqlMapper.findRecords(sql);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = new JSONObject();
 		
 		for(int i = 0;i<list.size();i++){
-			Map Patient_st_map = list.get(i);
-			for (Object key : Patient_st_map.keySet()) {
-				object.put(key, Patient_st_map.get(key).toString());
-			}
+			Map st_map = list.get(i);
+			
+			object.put("V9", "".equals(st_map.get("V9")) || st_map.get("V9") == null ? "" : st_map.get("V9").toString());
+			object.put("V10", "".equals(st_map.get("V10")) || st_map.get("V10") == null ? "" : st_map.get("V10").toString());
+			object.put("LNG", "".equals(st_map.get("LNG")) || st_map.get("LNG") == null ? "" : st_map.get("LNG").toString());
+			object.put("LAT", "".equals(st_map.get("LAT")) || st_map.get("LAT") == null ? "" : st_map.get("LAT").toString());
+			object.put("STATUS", "".equals(st_map.get("STATUS")) || st_map.get("STATUS") == null ? "" : st_map.get("STATUS").toString());
+			
+//			for (Object key : Patient_st_map.keySet()) {
+//				object.put(key, Patient_st_map.get(key).toString());
+//			}
 			jsonArray.add(object);
 		}
 		response.getWriter().write(jsonArray.toString());

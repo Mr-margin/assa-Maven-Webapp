@@ -158,6 +158,7 @@ $(document).ready(function(){
  		if(level=="4"){
  			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:com_code}, "text");
 			cunJson = eval("("+data+")");
+//			console.log(data);
  		}
  		
 		//添加区域覆盖物
