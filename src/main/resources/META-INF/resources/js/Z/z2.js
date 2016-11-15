@@ -719,35 +719,53 @@ function setSelVal(value){
         	 }else if(level == '5'){
         		 t.options[i].selected=true;
         		 level=4;
+        		
+        		 $("#myModal4").modal();
+        		 
        		 	 show_pinkuncun($("#v5").find("option:selected").val());
-       		 	 $("#myModal4").modal();
+       		 	 
         	 }
          }  
 	}  
 }
 
 function show_pinkuncun(com_pkid){
-	var data = JSON.parse(ajax_async_t("../getWyApp_y3_1.do", {pkid:com_pkid}));
-	var zpyy_data = "";
-	$.each(data,function(i,item){
-		var v22;
-		if(item.v22=="一般贫困户"){
-			v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
-		}else if(item.v22=="低保贫困户"){
-			v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
-		}else if(item.v22=="低收入农户"){
-			v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
-		}else if(item.v22=="低保户"){
-			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-		}else if(item.v22=="五保户"){
-			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-		}else{
-			v22 = "<span class=\"badge\">暂无</span>";
-		}
-    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
-	});
-	$("#zpyy").html(zpyy_data);
+	 $("#neirong").hide();
+	 $("#exportExcel_all_dengdai_1").show();
+	
+	 $.ajax({                 
+	        url: "../getWyApp_y3_1.do",
+	        type: "POST",
+	        async:true,
+	        dataType: "json",
+	        data:{pkid:com_pkid},
+	        success: function (data) {
+	        	
+	        	$("#neirong").show();
+	        	$("#exportExcel_all_dengdai_1").hide();
+	        	var zpyy_data = "";
+	        	$.each(data,function(i,item){ 
+	        		var v22;
+	        		if(item.v22=="一般贫困户"){
+	        			v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
+	        		}else if(item.v22=="低保贫困户"){
+	        			v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
+	        		}else if(item.v22=="低收入农户"){
+	        			v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+	        		}else if(item.v22=="低保户"){
+	        			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+	        		}else if(item.v22=="五保户"){
+	        			v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+	        		}else{
+	        			v22 = "<span class=\"badge\">暂无</span>";
+	        		}
+	            	zpyy_data += "<tr><td>"+(i+1)+"</td>";
+	            	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
+	        	});
+	        	$("#zpyy").html(zpyy_data);
+	        	}
+	        })
+	
 }
 
 //查看贫苦户的详细信息
