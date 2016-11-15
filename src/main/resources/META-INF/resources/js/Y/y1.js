@@ -102,42 +102,55 @@ $(function() {
 	
 	//显示贫困户列表数据
 	function show_pinkuncun(com_code){
-		var data = ajax_async_f("../getWyApp_y4_1.do", {code:com_code}, "text");
-		var val = eval("("+data+")");
-		var zpyy_data = "";
-		$.each(val,function(i,item){
-			var v22;
-			if(item.v22=="一般贫困户"){
-				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
-			}else if(item.v22=="低保贫困户"){
-				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
-			}else if(item.v22=="低收入农户"){
-				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
-			}else if(item.v22=="低保户"){
-				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-			}else if(item.v22=="五保户"){
-				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-			}else{
-				v22 = "<span class=\"badge\">暂无</span>";
-			}
-			var info_val = "";
-			if(item.riji_info=="0"){
-				info_val = "暂无";
-			}else{
-				info_val = "<a onclick=\"riji_info('"+item.pkid+"');\">查看详细</a>";
-			}
-			var erweima = "";
-			if(item.erweima=="0"){
-				erweima = "暂无";
-			}else{
-				erweima = "<div class=\"gallerys\" style=\"display: none;\"><img src=\""+item.erweima+"\" class=\"gallery-pic\"" +
-						" id=\"erwei_pic_"+item.pkid+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
-						"<a onclick=\"erweima_tupian("+item.pkid+");\">扫描微信二维码</a>";
-			}
-	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-	    	zpyy_data += "<td>"+item.v6+"</td><td><i class=\"fa fa-user\"></i> &nbsp;&nbsp;"+item.v9+"</td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td><td>"+erweima+"</td><td>"+info_val+"</td></tr>";
-		});
-		$("#zpyy").html(zpyy_data);
+		$("#neirong").hide();
+		 $("#exportExcel_all_dengdai_1").show();
+		
+		 $.ajax({                 
+		        url: "../getWyApp_y4_1.do",
+		        type: "POST",
+		        async:true,
+		        dataType: "json",
+		        data:{code:com_code},
+		        success: function (data) {
+		        	
+		        	$("#neirong").show();
+		        	$("#exportExcel_all_dengdai_1").hide();
+		        	var zpyy_data = "";
+		    		$.each(data,function(i,item){
+		    			var v22;
+		    			if(item.v22=="一般贫困户"){
+		    				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
+		    			}else if(item.v22=="低保贫困户"){
+		    				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
+		    			}else if(item.v22=="低收入农户"){
+		    				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+		    			}else if(item.v22=="低保户"){
+		    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+		    			}else if(item.v22=="五保户"){
+		    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+		    			}else{
+		    				v22 = "<span class=\"badge\">暂无</span>";
+		    			}
+		    			var info_val = "";
+		    			if(item.riji_info=="0"){
+		    				info_val = "暂无";
+		    			}else{
+		    				info_val = "<a onclick=\"riji_info('"+item.pkid+"');\">查看详细</a>";
+		    			}
+		    			var erweima = "";
+		    			if(item.erweima=="0"){
+		    				erweima = "暂无";
+		    			}else{
+		    				erweima = "<div class=\"gallerys\" style=\"display: none;\"><img src=\""+item.erweima+"\" class=\"gallery-pic\"" +
+		    						" id=\"erwei_pic_"+item.pkid+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
+		    						"<a onclick=\"erweima_tupian("+item.pkid+");\">扫描微信二维码</a>";
+		    			}
+		    	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
+		    	    	zpyy_data += "<td>"+item.v6+"</td><td><i class=\"fa fa-user\"></i> &nbsp;&nbsp;"+item.v9+"</td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td><td>"+erweima+"</td><td>"+info_val+"</td></tr>";
+		    		});
+		    		$("#zpyy").html(zpyy_data);
+		        	}
+		        })
 	}
 	
 });
