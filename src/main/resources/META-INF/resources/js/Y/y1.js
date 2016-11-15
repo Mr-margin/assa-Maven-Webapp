@@ -1,66 +1,65 @@
 $(function() {
 	
-	//行政区划单位记录
-	var mycars = {};
-	show_SYS_COMPANY();
-	
 	//加载市级下拉框
-	$("#v2").append("<option></option>");
-	$.each(mycars.nodes,function(i,item){
-		$("#v2").append("<option value='"+item.href+"'>"+item.text+"</option>");
-	});
+	if(jsondata.Login_map.COM_VD=="V1"){
+		$("#v2").append("<option></option>");
+		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+		$("#v2").append("<option value='150200000000'>包头市</option>");
+		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+		$("#v2").append("<option value='152200000000'>兴安盟</option>");
+		$("#v2").append("<option value='150500000000'>通辽市</option>");
+		$("#v2").append("<option value='150400000000'>赤峰市</option>");
+		$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+		$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+		$("#v2").append("<option value='150300000000'>乌海市</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
+	}else{
+		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	}
 	
 	//市级下拉框选择事件
 	$("#v2").change(function(){
 		$("#v3").empty();
 		$("#v4").empty();
 		$("#v5").empty();
-		$("#v3").append("<option></option>");
-		$.each(mycars.nodes,function(i,item){
-			if(item.href==$("#v2").val()){
-				$.each(item.nodes,function(j,one){
-					$("#v3").append("<option value='"+one.href+"'>"+one.text+"</option>");
-				});
-			}
-		});
+		if($("#v2").find("option:selected").text()==""){
+			
+		}else{
+			$("#v3").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+			});
+		}
+		
 	});
 	
 	//县级下拉框选择事件
 	$("#v3").change(function(){
 		$("#v4").empty();
 		$("#v5").empty();
-		$("#v4").append("<option></option>");
-		$.each(mycars.nodes,function(i,item){
-			if(item.href==$("#v2").val()){
-				$.each(item.nodes,function(j,one){
-					if(one.href==$("#v3").val()){
-						$.each(one.nodes,function(j,san){
-							$("#v4").append("<option value='"+san.href+"'>"+san.text+"</option>");
-						});
-					}
-				});
-			}
-		});
+		if($("#v3").find("option:selected").text() == ''){
+		}else{
+			$("#v4").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+			});
+		}
 	});
 	
 	//乡级下拉框选择事件
 	$("#v4").change(function(){
 		$("#v5").empty();
 		$("#v5").append("<option></option>");
-		$.each(mycars.nodes,function(i,item){
-			if(item.href==$("#v2").val()){
-				$.each(item.nodes,function(j,one){
-					if(one.href==$("#v3").val()){
-						$.each(one.nodes,function(j,san){
-							if(san.href==$("#v4").val()){
-								$.each(san.nodes,function(j,si){
-									$("#v5").append("<option value='"+si.href+"'>"+si.text+"</option>");
-								});
-							}
-						});
-					}
-				});
-			}
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v5").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
 		});
 	});
 	
@@ -68,8 +67,8 @@ $(function() {
 	//查询
 	$("#cha_but").click(function (){
 		
-		if($("#v5").val()!=null&&$("#v5").val()!=""){
-			show_pinkuncun($("#v5").val());
+		if($("#v5").find("option:selected").val()!=null&&$("#v5").find("option:selected").val()!=""){
+			show_pinkuncun($("#v5").find("option:selected").val());
 			
 			var display =$('#diyihang').css('display');
 			if(display == 'none'){
@@ -102,10 +101,11 @@ $(function() {
 	});
 	
 	//显示贫困户列表数据
-	function show_pinkuncun(com_pkid){
-		var data = JSON.parse(ajax_async_t("../getWyApp_y4_1.do", {pkid:com_pkid}));
+	function show_pinkuncun(com_code){
+		var data = ajax_async_f("../getWyApp_y4_1.do", {code:com_code}, "text");
+		var val = eval("("+data+")");
 		var zpyy_data = "";
-		$.each(data,function(i,item){
+		$.each(val,function(i,item){
 			var v22;
 			if(item.v22=="一般贫困户"){
 				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
@@ -138,19 +138,6 @@ $(function() {
 	    	zpyy_data += "<td>"+item.v6+"</td><td><i class=\"fa fa-user\"></i> &nbsp;&nbsp;"+item.v9+"</td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td><td>"+erweima+"</td><td>"+info_val+"</td></tr>";
 		});
 		$("#zpyy").html(zpyy_data);
-	}
-
-	//获取行政区划树
-	function show_SYS_COMPANY(){
-		if(jsondata.company_tree){
-			mycars = $.extend(true,{},jsondata.company_tree);
-		}else{
-			var user = JSON.parse(window.sessionStorage.getItem("user"));
-			if(user){
-				jsondata = eval("("+user+")");
-				mycars = $.extend(true,{},jsondata.company_tree);
-			}
-		}
 	}
 	
 });

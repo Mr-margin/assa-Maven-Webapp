@@ -26,11 +26,6 @@ toastr.options = {//弹出提示框
  */
 function ajax_async_t(url,data,dataType,async){
 	var rel;
-	if(async==""||async==undefined){
-		async=true;
-	}else{
-		async=false;
-	}
 	$.ajax({
 	    url: url,
 	    type: "POST",
