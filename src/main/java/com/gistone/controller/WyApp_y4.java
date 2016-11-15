@@ -50,7 +50,7 @@ public class WyApp_y4 {
 				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" :sw4.mianZhuan(list.get(i).get("V21").toString(), "21") );
 				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" :sw4.mianZhuan(list.get(i).get("V22").toString(), "22") );
 				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" :sw4.mianZhuan(list.get(i).get("V23").toString(), "23") );
-				obj.put("riji_info","");
+				obj.put("riji_info","0");
 				//obj.put("riji_info", "".equals(list.get(i).get("COM")) || list.get(i).get("COM") == null ? "0" : list.get(i).get("COM").toString());
 				obj.put("erweima", "".equals(list.get(i).get("PIC_PATH")) || list.get(i).get("PIC_PATH") == null ? "0" : list.get(i).get("PIC_PATH").toString());
 				json.add(obj);
