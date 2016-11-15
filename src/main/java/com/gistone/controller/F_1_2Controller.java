@@ -71,7 +71,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_1 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -156,7 +156,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_1 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -238,7 +238,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_2 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -323,7 +323,7 @@ public class F_1_2Controller{
 		String desc = request.getParameter("desc");
 		String sql = "select * from PKC_1_2_2";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -387,7 +387,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_3 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -475,7 +475,7 @@ public class F_1_2Controller{
 		String desc = request.getParameter("desc");
 		String sql = "select * from PKC_1_2_3 ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -539,7 +539,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_4 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -633,7 +633,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_5 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -721,7 +721,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_6 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -819,7 +819,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_6 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -908,7 +908,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_7 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -996,7 +996,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_7 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1085,7 +1085,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_8 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1171,7 +1171,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_9 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1257,7 +1257,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_10 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1349,7 +1349,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_15 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1436,7 +1436,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_14 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1525,7 +1525,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_13 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1613,7 +1613,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_12 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1700,7 +1700,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_11 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
@@ -1786,7 +1786,7 @@ public class F_1_2Controller{
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='"+name+"'"
 				+ ")) a2 LEFT JOIN PKC_1_2_11 a1 ON a1.COM_NAME=A2.COM_NAME ";
 		if(t1.equals("0")&&t2.equals("1")){
-			src += " WHERE  TYPE = '2' ";
+			src += " WHERE  TYPE = '0' ";
 		}else{
 			src += " WHERE  TYPE = '1' ";
 		}
