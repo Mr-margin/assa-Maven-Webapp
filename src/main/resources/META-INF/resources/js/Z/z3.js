@@ -107,23 +107,38 @@ $(document).ready(function(){
 	});
 	
 	function show_pinkuncun(c_code){
-		var data = JSON.parse(ajax_async_t("../getWyApp_y3_1.do", {code:c_code}));
-		var zpyy_data = "";
-		$.each(data,function(i,item){
-			var v22;
-			if(item.v22=="一般贫困户"){
-				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
-			}else if(item.v22=="低保贫困户"){
-				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
-			}else if(item.v22=="低收入农户"){
-				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
-			}else{
-				v22 = "<span class=\"badge\">暂无</span>";
-			}
-	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
-		});
-		$("#zpyy").html(zpyy_data);
+		
+		 $("#neirong").hide();
+		 $("#exportExcel_all_dengdai_1").show();
+		
+		 $.ajax({                 
+		        url: "../getWyApp_y3_1.do",
+		        type: "POST",
+		        async:true,
+		        dataType: "json",
+		        data:{pkid:c_code},
+		        success: function (data) {
+		        	
+		        	$("#neirong").show();
+		        	$("#exportExcel_all_dengdai_1").hide();
+		        	var zpyy_data = "";
+		    		$.each(data,function(i,item){
+		    			var v22;
+		    			if(item.v22=="一般贫困户"){
+		    				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
+		    			}else if(item.v22=="低保贫困户"){
+		    				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
+		    			}else if(item.v22=="低收入农户"){
+		    				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+		    			}else{
+		    				v22 = "<span class=\"badge\">暂无</span>";
+		    			}
+		    	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
+		    	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
+		    		});
+		    		$("#zpyy").html(zpyy_data);
+		        	}
+		        })
 	}
 	
 	//村点json
