@@ -114,7 +114,7 @@ public class Cache_Controller{
 	public void getSYS_COM_V9(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");//获取选择的市级行政区划编码
 		String sql="select v9,v10,lng,lat,STATUS from SYS_COM where V8='"+code+"' group by v9,v10,lng,lat,STATUS order by v10";
-		System.out.println(sql);
+//		System.out.println(sql);
 		List<Map> list=this.getBySqlMapper.findRecords(sql);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = new JSONObject();
