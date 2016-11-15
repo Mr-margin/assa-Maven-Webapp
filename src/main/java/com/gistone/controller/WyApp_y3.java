@@ -67,7 +67,7 @@ public class WyApp_y3{
 	 */
 	@RequestMapping("getWyApp_y3_1.do")
 	public void getWyApp_y3_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String code = request.getParameter("code");
+		String code = request.getParameter("pkid");
 		String sql = "SELECT a1.AAC001 acid,pkid,v6,v21,v22,v23 FROM("+
 				" SELECT AAC001,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001='"+code+"' AND AAR040='2015' AND AAR010='0'"+
 				" )a1 LEFT JOIN ("+
