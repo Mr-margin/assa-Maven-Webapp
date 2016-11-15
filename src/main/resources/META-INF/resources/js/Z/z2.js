@@ -243,7 +243,7 @@ $(function() {
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
 		}else{
 			$("#v5").append("<option>请选择</option>");
-			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:com_code}, "text");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
 			var val = eval("("+data+")");
 			$.each(val,function(i,item){
 				$("#v5").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
