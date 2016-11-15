@@ -429,7 +429,7 @@ function savePoorMessage(pkid,acid){
 	        	//家庭成员
 	        	var jtcy;
 	        	
-	        	jtcy+='<tr><td><code style="color: #000">1</code></td><td><code style="color: #000">'+data.data1[0].V6+'</code></td>';
+	        	/*jtcy+='<tr><td><code style="color: #000">1</code></td><td><code style="color: #000">'+data.data1[0].V6+'</code></td>';
 	        	if(data.data1[0].V7==undefined||data.data1[0].V7==null){
 	        		jtcy+='<td><code style="color: #000"></code></td>';
 	        	}else{
@@ -497,7 +497,7 @@ function savePoorMessage(pkid,acid){
 	        	}else{
 	        		jtcy+='<td><code style="color: #000">'+data.data1[0].V19+'</code></td>';
 	        	}	
-	        	jtcy+='</tr>';
+	        	jtcy+='</tr>';*/
 	        	if(data.data2==""||data.data2==null||data.data2==undefined){
 	        		
 	        	}else{
@@ -574,7 +574,7 @@ function savePoorMessage(pkid,acid){
 	        			}else{
 	        				v32=item.V32;
 	        			}
-	            		jtcy+='<tr><td><code style="color: #000">'+(i+2)+'</code></td><td><code style="color: #000">'+v6+'</code></td><td><code style="color: #000">'+v7+'</code></td><td><code style="color: #000">'+v8+'</code></td><td><code style="color: #000">'
+	            		jtcy+='<tr><td><code style="color: #000">'+(i+1)+'</code></td><td><code style="color: #000">'+v6+'</code></td><td><code style="color: #000">'+v7+'</code></td><td><code style="color: #000">'+v8+'</code></td><td><code style="color: #000">'
 	        	    			+v10+'</code></td></code></td><td><code style="color: #000">'+v11+'</code></td>'+
 	        	    			'<td><code style="color: #000">'+v28+'</code></td><td><code style="color: #000">'+v12+'</code></td><td><code style="color: #000">'+v13+'</code></td><td><code style="color: #000">'+v14+'</code></td><td><code style="color: #000">'
 	            				+v15+'</code></td>'+
