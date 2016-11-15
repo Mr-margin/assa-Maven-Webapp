@@ -195,6 +195,7 @@ $(function() {
 	$("#v2").change(function(){
 		$("#v3").empty();
 		$("#v4").empty();
+		$("#v5").empty();
 		if($("#v2").find("option:selected").text()=="全部盟市"){
 			level=1;//层级
 			tree_canshu.com=$("#v2").find("option:selected").text();
@@ -215,6 +216,7 @@ $(function() {
 	//县级下拉框选择事件
 	$("#v3").change(function(){
 		$("#v4").empty();
+		$("#v5").empty();
 		if($("#v3").find("option:selected").text() == '全部旗区县'){
 			level=2;
 			tree_canshu.com=$("#v2").find("option:selected").text();
@@ -234,11 +236,18 @@ $(function() {
 	
 	//乡级下拉框选择事件
 	$("#v4").change(function(){
+		$("#v5").empty();
 		if($("#v4").find("option:selected").text() == '全部苏木乡镇'){
 			level=3
 			tree_canshu.com=$("#v3").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
 		}else{
+			$("#v5").append("<option>请选择</option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:com_code}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v5").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+			});
 			level=4;//层级
 			tree_canshu.com=$("#v4").find("option:selected").text();
 			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
@@ -246,11 +255,11 @@ $(function() {
 	});
 	
 	
-//	$("#v5").change(function(){
-//		tree_canshu.com=$("#v5").find("option:selected").text();
-//		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
-//		level=5;//层级
-//	})
+	$("#v5").change(function(){
+		tree_canshu.com=$("#v5").find("option:selected").text();
+		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+		level=5;//层级
+	})
 	
 //	//清空
 //	$("#qing_but").click(function(e) {
@@ -654,6 +663,7 @@ function setSelVal(value){
         		 t.options[i].selected=true;
         		 $("#v3").empty();
         		 $("#v4").empty();
+        		 $("#v5").empty();
         		 if($("#v2").find("option:selected").text()=="全部盟市"){
         			 level=1;//层级
         			 tree_canshu.com=$("#v2").find("option:selected").text();
@@ -672,6 +682,7 @@ function setSelVal(value){
         	 }else if(level == '3'){ //层级3
         		 t.options[i].selected=true;
         		 $("#v4").empty();
+        		 $("#v5").empty();
         		 if($("#v3").find("option:selected").text() == '全部旗区县'){
         			 level=2;
         			 tree_canshu.com=$("#v2").find("option:selected").text();
@@ -694,17 +705,23 @@ function setSelVal(value){
         			 tree_canshu.com=$("#v3").find("option:selected").text();
         			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
         		 }else{
+        			 $("#v5").empty();
+         			 $("#v5").append("<option>请选择</option>");
+        			 var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
+    				 var val = eval("("+data+")");
+    				 $.each(val,function(i,item){
+    					 $("#v5").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+    				 });
         			level=4;//层级
     				tree_canshu.com=$("#v4").find("option:selected").text();
     				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
         		 }
+        	 }else if(level == '5'){
+        		 t.options[i].selected=true;
+        		 level=4;
+       		 	 show_pinkuncun($("#v5").find("option:selected").val());
+       		 	 $("#myModal4").modal();
         	 }
-//        	 else if(level == '5'){
-//        		 t.options[i].selected=true;
-//        		 level=4;
-//       		 	 show_pinkuncun($("#v5").find("option:selected").val());
-//       		 	 $("#myModal4").modal();
-//        	 }
          }  
 	}  
 }
