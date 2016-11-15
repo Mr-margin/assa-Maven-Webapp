@@ -378,12 +378,12 @@ function chakan_info(pkid,acid){
 	$("#exportExcel_all_dengdai").show();
 	$("#tablew4").hide();
 	
-	savePoorMessage(pkid);
+	savePoorMessage(pkid,acid);
 	//document.getElementById('yeqian').scrollIntoView();
 	
 }
 var all_pkid;
-function savePoorMessage(pkid){
+function savePoorMessage(pkid,acid){
 	$("#myModal5").modal();
 	all_pkid=pkid;
 	var html="";
