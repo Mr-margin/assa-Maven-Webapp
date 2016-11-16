@@ -1,5 +1,13 @@
 $(document).ready(function(){
-	
+	var cunJson;
+	var company_tree =jsondata.company_tree;
+	// 百度地图API功能
+	var map = new BMap.Map("map",{
+		mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]
+	});    // 创建Map实例
+	map.addControl(new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]}));  //添加地图类型控件
+	map.centerAndZoom("内蒙古",6);   // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 	var cun_code;//当前选择的贫困村
 	//折叠框折叠隐藏
 	$("#fenge").click(function(e) {
@@ -33,8 +41,18 @@ $(document).ready(function(){
 		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
 		$("#v2").append("<option value='150300000000'>乌海市</option>");
 		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
+		area(jsondata.Login_map.COM_VD);
 	}else{
+		console.log(jsondata.Login_map.COM_NAME);
+
 		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		$("#v3").append("<option value='0'></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+		area(jsondata.Login_map.COM_VD,jsondata.Login_map.SYS_COM_CODE,'2','内蒙古自治区'+jsondata.Login_map.COM_NAME);
 	}
 	
 	//市级下拉框选择事件
@@ -141,7 +159,7 @@ $(document).ready(function(){
 		        })
 	}
 	
-	//村点json
+	/*//村点json
 	var cunJson;
 	var company_tree =jsondata.company_tree;
 	// 百度地图API功能
@@ -163,7 +181,7 @@ $(document).ready(function(){
 	        }
 	        map.centerAndZoom(new BMap.Point(117.5352285, 45.455135), 6);
 	    });
-	});
+	});*/
 	
 	/**
 	 * 根据pkid 和 level 设置范围
@@ -206,7 +224,57 @@ $(document).ready(function(){
 	    	}, xzqh);
 	    });
 	}
-
+ 	//区划
+ 	function area(id,com_code,level,xzqh){
+ 		//村点json
+	 		
+ 		if(id=="V1"){
+ 			
+ 	 		map.addEventListener("load",function(){
+ 	 		 	var bdary = new BMap.Boundary();  
+ 	 		    bdary.get("内蒙古自治区", function(rs){       //获取行政区域  
+ 	 		        var count = rs.boundaries.length; //行政区域的点有多少个  
+ 	 		        for(var i = 0; i < count; i++){  
+ 	 		            var ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 4, strokeColor: "#ef0b0b"}); //建立多边形覆盖物  
+ 	 		            ply.setFillOpacity(0.0001); 
+ 	 		            map.addOverlay(ply);  //添加覆盖物  
+ 	 		        }
+ 	 		        map.centerAndZoom(new BMap.Point(117.5352285, 45.455135), 6);
+ 	 		    });
+ 	 		});
+ 		}else{
+ 			map.addEventListener("load",function(){
+	 			var bdary = new BMap.Boundary();  
+	 		    bdary.get(xzqh, function(rs){//获取行政区域  
+	 		        var count = rs.boundaries.length; //行政区域的点有多少个  
+	 		    	var pointArray= [];
+	 		        for(var i = 0; i < count; i++){  
+	 		            var ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 4, strokeColor: "#ef0b0b"}); //建立多边形覆盖物  
+	 		            ply.setFillOpacity(0.0001); 
+	 		            map.addOverlay(ply);  //添加覆盖物  
+	 		            pointArray = pointArray.concat(ply.getPath());
+	 		        }
+	 		        //定位最大矩形边界
+	 		        map.setViewport(pointArray); 
+	 		       
+	 		    	var zoom =map.getZoom();;
+	 		    	var myGeo = new BMap.Geocoder();
+	 		    	// 将地址解析结果显示在地图上,并调整地图视野
+	 		    	myGeo.getPoint(xzqh, function(point){
+	 		    		if (point) {
+	 		    			map.centerAndZoom(point, zoom);
+	 		    			if(level=="4"){
+	 		    				addCunPoint();//加载村点;
+	 		    			}
+	 		    		}else{
+	 		    			alert("您选择地址没有解析到结果!");
+	 		    		}
+	 		    	}, xzqh);
+	 		    });
+ 			});
+ 		}
+ 		
+ 	}
  	//加载村点
  	function addCunPoint(){
  		if(!cunJson){
