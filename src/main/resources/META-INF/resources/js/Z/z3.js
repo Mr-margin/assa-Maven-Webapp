@@ -43,8 +43,6 @@ $(document).ready(function(){
 		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
 		area(jsondata.Login_map.COM_VD);
 	}else{
-		console.log(jsondata.Login_map.COM_NAME);
-
 		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
 		$("#v3").append("<option value='0'></option>");
 		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
