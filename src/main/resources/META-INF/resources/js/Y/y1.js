@@ -2,7 +2,7 @@ $(function() {
 	
 	//加载市级下拉框
 	if(jsondata.Login_map.COM_VD=="V1"){
-		$("#v2").append("<option></option>");
+		/*$("#v2").append("<option></option>");
 		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
 		$("#v2").append("<option value='150200000000'>包头市</option>");
 		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
@@ -14,14 +14,29 @@ $(function() {
 		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
 		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
 		$("#v2").append("<option value='150300000000'>乌海市</option>");
-		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
-	}else{
-		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");*/
+	}else if(jsondata.Login_map.COM_VD=='V3'){
+		$("#v2").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
 		$("#v3").append("<option></option>");
 		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
 		var val = eval("("+data+")");
 		$.each(val,function(i,item){
 			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+	}else if(jsondata.Login_map.COM_VD=='V5'){
+		var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
+		var t = document.getElementById("v2"); 
+	    for(i=0;i<t.length;i++){//给select赋值  
+	        if(number == t[i].value){  
+	        	 $("#v2").html("<option value='"+number+"'>"+t.options[i].text+"</option>");
+	        }
+	    }
+	    $("#v3").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	    $("#v4").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
 		});
 	}
 	
