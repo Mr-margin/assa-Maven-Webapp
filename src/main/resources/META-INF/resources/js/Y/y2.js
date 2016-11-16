@@ -1,5 +1,5 @@
 $(function () {
-	var gohome = '<div class="gohome"><a class="animated bounceInUp" id="xzqh_xuanze" title="选择行政区划"><i class="fa fa-map-marker"></i></a></div>';
+//	var gohome = '<div class="gohome"><a class="animated bounceInUp" id="xzqh_xuanze" title="选择行政区划"><i class="fa fa-map-marker"></i></a></div>';
 	//$("body").append(gohome);
 	
 //	$('#y_y_2', parent.document).addClass('zidingyiA');
@@ -110,6 +110,7 @@ $(function () {
 		if(flag&&loading.text()=="只有这么多了！"){
 			return false;
 		}
+		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,pkid:tree_pkid});
 		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,pkid:tree_pkid},"json",true);
 		
 		if (typeof sqlJson.error == "undefined") {
@@ -167,75 +168,82 @@ $(function () {
 	 loadData("");
 	 number++;//分页数加1
 	
-	//行政区划单位记录
-		
-		show_SYS_COMPANY();
-		
-		//加载市级下拉框
-		$("#v2").append("<option value='0'></option>");
-		$.each(mycars.nodes,function(i,item){
-			$("#v2").append("<option value='"+item.href+"'>"+item.text+"</option>");
-		});
+	//加载市级下拉框
+		if(jsondata.Login_map.COM_VD=="V1"){
+			$("#v2").append("<option value='0'></option>");
+			$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+			$("#v2").append("<option value='150200000000'>包头市</option>");
+			$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+			$("#v2").append("<option value='152200000000'>兴安盟</option>");
+			$("#v2").append("<option value='150500000000'>通辽市</option>");
+			$("#v2").append("<option value='150400000000'>赤峰市</option>");
+			$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+			$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+			$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+			$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+			$("#v2").append("<option value='150300000000'>乌海市</option>");
+			$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
+		}else{
+			$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		}
 		
 		//市级下拉框选择事件
 		$("#v2").change(function(){
-			level=2;
 			$("#v3").empty();
 			$("#v4").empty();
 			$("#v5").empty();
-			$("#v3").append("<option value='0'></option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						$("#v3").append("<option value='"+one.href+"'>"+one.text+"</option>");
-					});
-				}
-			});
+			if($("#v2").find("option:selected").text()==""){
+				level=1;
+			}else{
+				level=2;
+				$("#v3").append("<option value='0'></option>");
+				var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+				var val = eval("("+data+")");
+				$.each(val,function(i,item){
+					$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+				});
+			}
 		});
 		
 		//县级下拉框选择事件
 		$("#v3").change(function(){
-			level=3;
 			$("#v4").empty();
 			$("#v5").empty();
-			$("#v4").append("<option value='0'></option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						if(one.href==$("#v3").val()){
-							$.each(one.nodes,function(j,san){
-								$("#v4").append("<option value='"+san.href+"'>"+san.text+"</option>");
-							});
-						}
-					});
-				}
-			});
+			if($("#v3").find("option:selected").text() == ''){
+				level=2;
+			}else{
+				level=3;
+				$("#v4").append("<option value='0'></option>");
+				var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+				var val = eval("("+data+")");
+				$.each(val,function(i,item){
+					$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+				});
+			}
 		});
 		
 		//乡级下拉框选择事件
 		$("#v4").change(function(){
-			level=4;
 			$("#v5").empty();
-			$("#v5").append("<option value='0'></option>");
-			$.each(mycars.nodes,function(i,item){
-				if(item.href==$("#v2").val()){
-					$.each(item.nodes,function(j,one){
-						if(one.href==$("#v3").val()){
-							$.each(one.nodes,function(j,san){
-								if(san.href==$("#v4").val()){
-									$.each(san.nodes,function(j,si){
-										$("#v5").append("<option value='"+si.href+"'>"+si.text+"</option>");
-									});
-								}
-							});
-						}
-					});
-				}
-			});
+			if($("#v4").find("option:selected").text() == ''){
+				level=3;
+			}else{
+				level=4;
+				$("#v5").append("<option value='0'></option>");
+				var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
+				var val = eval("("+data+")");
+				$.each(val,function(i,item){
+					$("#v5").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+				});
+			}
 		});
 		
 		$("#v5").change(function(){
-			level=5;//层级
+			if($("#v5").find("option:selected").text() == ''){
+				level=4;
+			}else{
+				level=5;//层级
+			}
 		})
 		//查询
 		$("#cha_but").click(function (){
@@ -266,20 +274,20 @@ $(function () {
 
 		
 
-		//获取行政区划树
-		function show_SYS_COMPANY(){
-			if(jsondata.company_tree){
-				mycars = $.extend(true,{},jsondata.company_tree);
-			}else{
-				var user = JSON.parse(window.sessionStorage.getItem("user"));
-				if(user){
-					jsondata = eval("("+user+")");
-					mycars = $.extend(true,{},jsondata.company_tree);
-				}
-			}
-		}
+//		//获取行政区划树
+//		function show_SYS_COMPANY(){
+//			if(jsondata.company_tree){
+//				mycars = $.extend(true,{},jsondata.company_tree);
+//			}else{
+//				var user = JSON.parse(window.sessionStorage.getItem("user"));
+//				if(user){
+//					jsondata = eval("("+user+")");
+//					mycars = $.extend(true,{},jsondata.company_tree);
+//				}
+//			}
+//		}
 });
-var mycars = {};
+//var mycars = {};
 var level=0;//层级
 //弹窗显示地图
 function open_map(title){
@@ -361,22 +369,22 @@ function clickpbl_tree(node){
 	window.location.href="y2.html?xzqh="+node.text+"&level="+node.com_level+"&pkid="+node.href;
 }
 
-function show_SYS_COMPANY(){//获取行政区划树
-	var mycars=[];
-	if(jsondata.company_tree){
-		mycars[0]= $.extend(true,{},jsondata.company_tree);
-	}else{
-		var user = JSON.parse(window.sessionStorage.getItem("user"));
-		if(user){
-			jsondata = eval("("+user+")");
-			mycars[0]= $.extend(true,{},jsondata.company_tree);
-		}
-	}
-	//$.each(mycars[0].nodes,function(i,item){
-		//$.each(item.nodes,function(j,one){
-			//delete item.nodes;
-		//})
-	//});
-	return mycars;
-}
+//function show_SYS_COMPANY(){//获取行政区划树
+//	var mycars=[];
+//	if(jsondata.company_tree){
+//		mycars[0]= $.extend(true,{},jsondata.company_tree);
+//	}else{
+//		var user = JSON.parse(window.sessionStorage.getItem("user"));
+//		if(user){
+//			jsondata = eval("("+user+")");
+//			mycars[0]= $.extend(true,{},jsondata.company_tree);
+//		}
+//	}
+//	//$.each(mycars[0].nodes,function(i,item){
+//		//$.each(item.nodes,function(j,one){
+//			//delete item.nodes;
+//		//})
+//	//});
+//	return mycars;
+//}
 

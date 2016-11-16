@@ -83,30 +83,30 @@ public class WyApp_y2 {
 		
 		String sheji_count_sql = "select count(*) from(select t2.da_household_id from (select * from da_pic where pic_type=2) t3 "
 				+ "join da_help_visit t2 on t3.pic_pkid = t2.pkid join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id group by t2.da_household_id) aa";
-		
+//		
 //		System.out.println(sql);
-		String rizhi_sql = "select * from(";
-		rizhi_sql += " select count(*) as ri from  ";
-		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-		rizhi_sql += "  where v1=to_char(sysdate,'yyyy-mm-dd')) w1,( ";
-		rizhi_sql += " select count(*) as zhou from  ";
-		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'d')+1,'yyyy-mm-dd') and to_char(trunc(sysdate,'d')+7,'yyyy-mm-dd') ";
-		rizhi_sql += " ) w2,(select count(*) as yue from  ";
-		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'mm'),'yyyy-mm-dd') and to_char(last_day(trunc(sysdate)),'yyyy-mm-dd')) w3 ";
+//		String rizhi_sql = "select * from(";
+//		rizhi_sql += " select count(*) as ri from  ";
+//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
+//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
+//		rizhi_sql += "  where v1=to_char(sysdate,'yyyy-mm-dd')) w1,( ";
+//		rizhi_sql += " select count(*) as zhou from  ";
+//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
+//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
+//		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'d')+1,'yyyy-mm-dd') and to_char(trunc(sysdate,'d')+7,'yyyy-mm-dd') ";
+//		rizhi_sql += " ) w2,(select count(*) as yue from  ";
+//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
+//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
+//		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'mm'),'yyyy-mm-dd') and to_char(last_day(trunc(sysdate)),'yyyy-mm-dd')) w3 ";
 		
 		int count = this.getBySqlMapper.findrows(count_sql);//总记录条数
 		int pinkuncount = this.getBySqlMapper.findrows(whereSQL.replaceAll("t1.pkid","count(*)"));//总贫困户树
 		int shejicount = this.getBySqlMapper.findrows(sheji_count_sql);//涉及的贫困户数
 		
-		List<Map> rizhi_List = this.getBySqlMapper.findRecords(rizhi_sql);
-		int ri = Integer.parseInt(rizhi_List.get(0).get("RI").toString());
-		int zhou = Integer.parseInt(rizhi_List.get(0).get("ZHOU").toString());
-		int yue = Integer.parseInt(rizhi_List.get(0).get("YUE").toString());
+//		List<Map> rizhi_List = this.getBySqlMapper.findRecords(rizhi_sql);
+//		int ri = Integer.parseInt(rizhi_List.get(0).get("RI").toString());
+//		int zhou = Integer.parseInt(rizhi_List.get(0).get("ZHOU").toString());
+//		int yue = Integer.parseInt(rizhi_List.get(0).get("YUE").toString());
 		
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
@@ -129,9 +129,9 @@ public class WyApp_y2 {
 			val_ret.put("data2", count);//日记数量
 			val_ret.put("data3", shejicount);//涉及到的贫困户数
 			val_ret.put("data4", pinkuncount);//贫困户的总数
-			val_ret.put("ri", ri);
-			val_ret.put("zhou", zhou);
-			val_ret.put("yue", yue);
+//			val_ret.put("ri", ri);
+//			val_ret.put("zhou", zhou);
+//			val_ret.put("yue", yue);
 			response.getWriter().write(val_ret.toString());
 		}else{
 			JSONObject val_ret = new JSONObject();
