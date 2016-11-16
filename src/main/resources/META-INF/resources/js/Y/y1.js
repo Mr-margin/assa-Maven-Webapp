@@ -17,6 +17,12 @@ $(function() {
 		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
 	}else{
 		$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		$("#v3").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
 	}
 	
 	//市级下拉框选择事件
