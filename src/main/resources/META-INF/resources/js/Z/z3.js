@@ -199,7 +199,7 @@ $(document).ready(function(){
 		    				v22 = "<span class=\"badge\">暂无</span>";
 		    			}
 		    	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-		    	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
+		    	    	zpyy_data += "<td><a onclick=\"chakan_info('"+item.pkid+"','"+item.acid+"','"+item.code+"');\">"+item.v6+"</a></td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td></tr>";
 		    		});
 		    		$("#zpyy").html(zpyy_data);
 		        	}
@@ -456,7 +456,7 @@ $(document).ready(function(){
 });
 
 //查看贫苦户的详细信息
-function chakan_info(pkid,acid){
+function chakan_info(pkid,acid,code){
 	//先清空
 	$("#bfzrr_table").html('');
 	$('#show_hz_phone').text("");//电话
@@ -509,12 +509,12 @@ function chakan_info(pkid,acid){
 	$("#exportExcel_all_dengdai").show();
 	$("#tablew4").hide();
 	
-	savePoorMessage(pkid,acid);
+	savePoorMessage(pkid,acid,code);
 	//document.getElementById('yeqian').scrollIntoView();
 	
 }
 var all_pkid;
-function savePoorMessage(pkid,acid){
+function savePoorMessage(pkid,acid,code){
 	$("#myModal5").modal();
 	all_pkid=pkid;
 	var html="";
@@ -523,12 +523,13 @@ function savePoorMessage(pkid,acid){
 	        type: "POST",
 	        async:true,
 	        dataType: "json",
-	        data:{pkid:pkid,acid:acid},
+	        data:{pkid:pkid,acid:acid,code:code},
 	        success: function (data) {
 	        	//基本信息
-	        	$('#show_hz_address3').text((data.data1[0].V3));
-	        	$('#show_hz_address4').text((data.data1[0].V4));
-	        	$('#show_hz_address5').text(data.data1[0].V5);
+	        	$('#show_hz_address2').text((data.data6[0].SHI));
+	        	$('#show_hz_address3').text((data.data6[0].XIAN));
+	        	$('#show_hz_address4').text((data.data6[0].XIANG)); 
+	        	$('#show_hz_address5').text(data.data6[0].CUN); //地址
 	        	
 	        	$('#show_hz_phone').text(data.data1[0].V25);//电话
 	        	$('#show_hz_bank').text(data.data1[0].V26);//开户银行
