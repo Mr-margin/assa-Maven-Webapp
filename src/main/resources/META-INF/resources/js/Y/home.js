@@ -9,7 +9,7 @@ $(document).ready(function(){
     });
 	
 	$('#y_y_2').click(function(){
-		$('#iframe0').attr('src','y2.html?xzqh=内蒙古自治区&level=1&pkid=1');
+		$('#iframe0').attr('src','y2.html');
 		$('#y_y_2').addClass('zidingyiA');
 		$('#y_y_1').removeClass('zidingyiB');
 		$('#y_y_3').removeClass('zidingyiA');

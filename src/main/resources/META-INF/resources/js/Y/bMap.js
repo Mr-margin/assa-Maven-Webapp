@@ -14,7 +14,7 @@ var point = new BMap.Point(109.727775, 39.575628);
 map.centerAndZoom(point, 13);
 
 //创建地址解析器实例
-var myGeo = new BMap.Geocoder();
+//var myGeo = new BMap.Geocoder();
 
 
 

@@ -47,42 +47,39 @@ public class WyApp_y2 {
 		
 		String level = request.getParameter("level");
 		String xzqh = request.getParameter("xzqh");
-		String pkid = request.getParameter("pkid");
 		
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber)*size;
 		int page = number == 0 ? 1 : (number/size)+1;
 		
-//		System.out.println(number+"--"+(number+size));
+		System.out.println(number+"--"+(number+size));
+		System.out.println();
 		
-		String whereSQL = "";
+		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
-		if(level.equals("1")){
-			whereSQL = "select t1.pkid from da_household t1 where t1.v1='"+xzqh+"'";
-		}else if(level.equals("2")){
-			whereSQL = "select t1.pkid from da_household t1 where t1.v2='"+xzqh+"'";
-		}else if(level.equals("3")){
-			whereSQL = "select t1.pkid from da_household t1 where t1.v3='"+xzqh+"'";
-		}else if(level.equals("4")){
-			whereSQL = "select t1.pkid from da_household t1 where t1.v4='"+xzqh+"'";
-		}else if(level.equals("5")){
-			whereSQL = "select t1.pkid from da_household t1 join (select w1.com_name as v4,w2.com_name as v5 from SYS_COMPANY w1 join SYS_COMPANY w2 "
-					+ "on w1.pkid=w2.com_f_pkid where w2.pkid="+pkid+") t2 on t1.v4=t2.v4 and t1.v5=t2.v5";
-		}
+//		if(level.equals("1")){
+//			whereSQL = "select v10 from SYS_COM where v"+Integer.parseInt(level)*2+"='"+xzqh+"' group by v10";
+//		}else if(level.equals("2")){
+//			whereSQL = "select v10 from SYS_COM where v4='"+xzqh+"' group by v10";
+//		}else if(level.equals("3")){
+//			whereSQL = "select v10 from SYS_COM where v6='"+xzqh+"' group by v10";
+//		}else if(level.equals("4")){
+//			whereSQL = "select v10 from SYS_COM where v8='"+xzqh+"' group by v10";
+//		}else if(level.equals("5")){
+//			whereSQL = "select v10 from SYS_COM where v10='"+xzqh+"' group by v10";
+//		}
 		
-		String sql ="SELECT * FROM (select ROWNUM AS rowno,t4.col_name as title,t2.v3 as intro,t2.v1 as v1date,t3.pic_path as src,t0.BASIC_ADDRESS as writer "
-				+ "from (select * from da_pic where pic_type=2) t3 "
-				+ "join da_help_visit t2 on t3.pic_pkid = t2.pkid "
-				+ "join SYS_PERSONAL t4 on t2.SYS_PERSONAL_ID=t4.pkid "
-				+ "join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id "
-				+ "join da_household_basic t0 on t0.da_household_id=t2.da_household_id where ROWNUM <= "+(number+size)+" order by t2.v1 desc ) "
-				+ "table_alias WHERE table_alias.rowno > "+number+" order by v1date desc";
+		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH from ( "
+				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number "
+				+ " where AAR008 in("+whereSQL+") order by v1 desc "
+				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number+" ";
 		
-		String count_sql = " select count(*) from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid "
-				+ "join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id";
+		String count_sql = " select count(*) from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
 		
-		String sheji_count_sql = "select count(*) from(select t2.da_household_id from (select * from da_pic where pic_type=2) t3 "
-				+ "join da_help_visit t2 on t3.pic_pkid = t2.pkid join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id group by t2.da_household_id) aa";
+//		String pingkun_count_sql = "select count(*) from (select AAC001 from NM09_AC01 where AAR040='2015' AND AAR010='0' and AAR008 in("+whereSQL+") group by AAC001) t1";
+		
+		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
+				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
 //		
 //		System.out.println(sql);
 //		String rizhi_sql = "select * from(";
@@ -100,7 +97,7 @@ public class WyApp_y2 {
 //		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'mm'),'yyyy-mm-dd') and to_char(last_day(trunc(sysdate)),'yyyy-mm-dd')) w3 ";
 		
 		int count = this.getBySqlMapper.findrows(count_sql);//总记录条数
-		int pinkuncount = this.getBySqlMapper.findrows(whereSQL.replaceAll("t1.pkid","count(*)"));//总贫困户树
+//		int pinkuncount = this.getBySqlMapper.findrows(pingkun_count_sql);//总贫困户数
 		int shejicount = this.getBySqlMapper.findrows(sheji_count_sql);//涉及的贫困户数
 		
 //		List<Map> rizhi_List = this.getBySqlMapper.findRecords(rizhi_sql);
@@ -112,14 +109,18 @@ public class WyApp_y2 {
 		if(Patient_st_List.size()>0){
 			JSONArray jsa=new JSONArray();
 			for(int i = 0;i<Patient_st_List.size();i++){
-				Map Patient_st_map = Patient_st_List.get(i);
+				Map st_map = Patient_st_List.get(i);
 				JSONObject val = new JSONObject();
 				
-				val.put("title", Patient_st_map.get("TITLE"));
-				val.put("intro", Patient_st_map.get("INTRO"));
-				val.put("src", Patient_st_map.get("SRC"));
-				val.put("writer", Patient_st_map.get("WRITER"));
-				val.put("date", Patient_st_map.get("V1DATE"));
+				val.put("title", "".equals(st_map.get("PERSONAL_NAME")) || st_map.get("PERSONAL_NAME") == null ? "" : st_map.get("PERSONAL_NAME").toString());
+				val.put("intro", "".equals(st_map.get("V3")) || st_map.get("V3") == null ? "" : st_map.get("V3").toString());
+				val.put("src", "".equals(st_map.get("PIC_PATH")) || st_map.get("PIC_PATH") == null ? "" : st_map.get("PIC_PATH").toString());
+				val.put("writer", "".equals(st_map.get("ADDRESS")) || st_map.get("ADDRESS") == null ? "" : st_map.get("ADDRESS").toString());
+				val.put("date", "".equals(st_map.get("V1")) || st_map.get("V1") == null ? "" : st_map.get("V1").toString());
+				val.put("lng", "".equals(st_map.get("LNG")) || st_map.get("LNG") == null ? "" : st_map.get("LNG").toString());
+				val.put("lat", "".equals(st_map.get("LAT")) || st_map.get("LAT") == null ? "" : st_map.get("LAT").toString());
+				val.put("phone", "".equals(st_map.get("PERSONAL_PHONE")) || st_map.get("PERSONAL_PHONE") == null ? "" : st_map.get("PERSONAL_PHONE").toString());
+				val.put("house", "".equals(st_map.get("HOUSEHOLD_NAME")) || st_map.get("HOUSEHOLD_NAME") == null ? "" : st_map.get("HOUSEHOLD_NAME").toString());
 				
 				jsa.add(val);
 			}
@@ -128,7 +129,7 @@ public class WyApp_y2 {
 			val_ret.put("data1", jsa);
 			val_ret.put("data2", count);//日记数量
 			val_ret.put("data3", shejicount);//涉及到的贫困户数
-			val_ret.put("data4", pinkuncount);//贫困户的总数
+//			val_ret.put("data4", pinkuncount);//贫困户的总数
 //			val_ret.put("ri", ri);
 //			val_ret.put("zhou", zhou);
 //			val_ret.put("yue", yue);
