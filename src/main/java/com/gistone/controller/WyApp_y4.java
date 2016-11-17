@@ -31,7 +31,7 @@ public class WyApp_y4 {
 		
 		String sql = "select v21,v22,v23,v6,v9,pic_path from "+
 					" (select NM09_AC01.AAC001,NM09_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NM09_AC01 join NM09_AB01 on NM09_AC01.AAC001=NM09_AB01.AAC001 where  NM09_AC01.AAR040='2015' and AAB006=01 and AAR010=0 and NM09_AC01.AAR008='"+code+"' group BY NM09_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NM09_AC01.AAC001) t4"+
-					" join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD join (select COUNT(*) v9,AAC001 from (SELECT aac001,aab002 FROM NM09_AB01  GROUP BY aab002,AAC001 ) GROUP BY AAC001) t5 on T4.AAC001=t5.AAC001 GROUP BY v21,v22,v23,v6,v9,pic_path";
+					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (select COUNT(*) v9,AAC001 from (SELECT aac001,aab002 FROM NM09_AB01  GROUP BY aab002,AAC001 ) GROUP BY AAC001) t5 on T4.AAC001=t5.AAC001 GROUP BY v21,v22,v23,v6,v9,pic_path";
 		
 		/*"select pkid,v6,v9,v21,v22,v23,com,pic_path from "
 		+ "(select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid where t2.pkid="+pkid+") t3 "
