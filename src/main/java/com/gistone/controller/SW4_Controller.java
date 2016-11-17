@@ -233,11 +233,17 @@ public class SW4_Controller{
 	
 	@RequestMapping("getTz_1.do")
 	public void getTz_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+		/*select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid 
+				from SYS_COMPANY where com_code='150121001035')a left join 
+				(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join 
+					(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join 
+						 (select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join 
+						 (select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid*/
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String pkid=request.getParameter("pkid");
-		String acid=request.getParameter("acid");
+		String pkid=request.getParameter("pkid");//贫困人id
+		String acid=request.getParameter("acid");//贫困户id
+		String code=request.getParameter("code");//地区编码
 		String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   ("+
 					" SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  "+
 					") a2  join  NM09_AB01 a1  on a1.AAC001=a2.AAC001 WHERE AAB001='"+pkid+"' AND AAR040='2015'";
@@ -365,6 +371,32 @@ public class SW4_Controller{
 				
 		}
 		
+		//所在地区
+		JSONArray jsonArray6 =new JSONArray();
+		String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+code+"')a left join"+ 
+				"(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join "+
+					"(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join "+
+						 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
+						 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";
+				
+		//"SELECT v5,v7,v6,v1,v8,v9,v10,v11,v12 FROM da_life where da_household_id="+pkid;
+		List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);
+		if(dq_list.size()>0){
+			for(int i=0;i<dq_list.size();i++){
+				
+				JSONObject obj=new JSONObject();
+				obj.put("SHENG", "".equals(dq_list.get(i).get("SHENG")) || dq_list.get(i).get("SHENG") == null ? "" : dq_list.get(i).get("SHENG").toString());
+				obj.put("SHI", "".equals(dq_list.get(i).get("SHI")) || dq_list.get(i).get("SHI") == null ? "" : dq_list.get(i).get("SHI").toString());
+				obj.put("XIAN", "".equals(dq_list.get(i).get("XIAN")) || dq_list.get(i).get("XIAN") == null ? "" : dq_list.get(i).get("XIAN").toString());
+				obj.put("XIANG", "".equals(dq_list.get(i).get("XIANG")) || dq_list.get(i).get("XIANG") == null ? "" : dq_list.get(i).get("XIANG").toString());
+				obj.put("CUN", "".equals(dq_list.get(i).get("CUN")) || dq_list.get(i).get("CUN") == null ? "" : dq_list.get(i).get("CUN").toString());
+				
+				jsonArray6.add(obj);
+				
+			}
+				
+		}
+		
 		/*//易地搬迁户需求
 		JSONArray jsonArray6 =new JSONArray();
 		String ydbq_sql="SELECT * FROM (select v3 vv3,da_household_id from da_life)a  LEFT JOIN da_household_move b  ON a.da_household_id=b.da_household_id WHERE a.da_household_id="+pkid;
@@ -428,7 +460,7 @@ public class SW4_Controller{
 				",\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+
 				",\"data4\":"+jsonArray4.toString()+",\"data5\":"+jsonArray5.toString()+"," +
 				"\"data6\":"+jsonArray6.toString()+",\"data7\":"+jsonArray7.toString()+",\"data8\":"+jsonArray8.toString()+"}");*/
-		response.getWriter().write("{\"data1\":"+jsonArray1.toString() +",\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+",\"data4\":"+jsonArray4.toString()+",\"data5\":"+jsonArray5.toString()+"}");
+		response.getWriter().write("{\"data1\":"+jsonArray1.toString() +",\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+",\"data4\":"+jsonArray4.toString()+",\"data5\":"+jsonArray5.toString()+",\"data6\":"+jsonArray6.toString()+"}");
 		response.getWriter().close();
 	}
 	/**

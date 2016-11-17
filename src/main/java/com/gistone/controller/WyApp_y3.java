@@ -68,8 +68,8 @@ public class WyApp_y3{
 	@RequestMapping("getWyApp_y3_1.do")
 	public void getWyApp_y3_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("pkid");
-		String sql = "SELECT a1.AAC001 acid,pkid,v6,v21,v22,v23 FROM("+
-				" SELECT AAC001,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001='"+code+"' AND AAR040='2015' AND AAR010='0'"+
+		String sql = "SELECT a1.AAC001 acid,a1.AAR008 code,pkid,v6,v21,v22,v23 FROM("+
+				" SELECT AAC001,AAR008,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001='"+code+"' AND AAR040='2015' AND AAR010='0'"+
 				" )a1 LEFT JOIN ("+
 				"SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NM09_AB01 WHERE  AAR040='2015' AND AAB006=01 )a2 ON a1.AAC001=A2.AAC001"; //sql语句替换的
 		SW4_Controller sw4=new SW4_Controller();
@@ -85,6 +85,7 @@ public class WyApp_y3{
 				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : sw4.mianZhuan(list.get(i).get("V21").toString(), "21"));
 				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" : sw4.mianZhuan(list.get(i).get("V22").toString(), "22"));
 				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : sw4.mianZhuan(list.get(i).get("V23").toString(), "23"));
+				obj.put("code", "".equals(list.get(i).get("CODE")) || list.get(i).get("CODE") == null ? "" : list.get(i).get("CODE").toString());
 				json.add(obj);
 			}
 			response.getWriter().write(json.toString());
