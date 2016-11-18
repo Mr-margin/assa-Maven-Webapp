@@ -33,156 +33,161 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 //表格数据
 function table(){
 	var data = ajax_async_t("/assa/getBfdxHuc_15.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:'asc'},"json");
-	var html = "";
-	var A1=0,A2=0,A3=0,A4=0,A5=0,A6=0,A7=0,A8=0,A9=0,A10=0;
-	$.each(data,function(i,item){
+	if(data=='' || data == null || data==undefined){
+		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+	}else{
+		var html = "";
+		var A1=0,A2=0,A3=0,A4=0,A5=0,A6=0,A7=0,A8=0,A9=0,A10=0;
+		$.each(data,function(i,item){
 
-		html +='<tr><td>'+(i+1)+'</td><td>'+item.name+'</td><td>'+item.z_hu+'</td>'+
-		'<td>'+item.v1+'</td>'+
-		'<td>'+item.v2+'</td>'+
-		'<td>'+item.v3+'</td>'+
-		'<td>'+item.v4+'</td>'+
-		'<td>'+item.v5+'</td>'+
-		'<td>'+item.v6+'</td>'+
-		'<td>'+item.v7+'</td>'+
-		'<td>'+item.v8+'</td>'+
-		'<td>'+item.value+'</td>'+
+			html +='<tr><td>'+(i+1)+'</td><td>'+item.name+'</td><td>'+item.z_hu+'</td>'+
+			'<td>'+item.v1+'</td>'+
+			'<td>'+item.v2+'</td>'+
+			'<td>'+item.v3+'</td>'+
+			'<td>'+item.v4+'</td>'+
+			'<td>'+item.v5+'</td>'+
+			'<td>'+item.v6+'</td>'+
+			'<td>'+item.v7+'</td>'+
+			'<td>'+item.v8+'</td>'+
+			'<td>'+item.value+'</td>'+
+			'</tr>';
+			if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
+				
+			}else{
+				A1+=parseInt(item.z_hu)
+				
+			}
+			if(item.v1 == '' || item.v1 == null || item.v1 == undefined){
+				
+			}else{
+				A2+=parseInt(item.v1);
+				
+			}
+			if(item.v2 == '' || item.v2 == null || item.v2 == undefined){
+				
+			}else{
+				A3+=parseInt(item.v2);
+				
+			}
+			if(item.v3 == '' || item.v3 == null || item.v3 == undefined){
+				
+			}else{
+				A4+=parseInt(item.v3);
+				
+			}
+			if(item.v4 == '' || item.v4 == null || item.v4 == undefined){
+				
+			}else{
+				A5+=parseInt(item.v4);
+				
+			}
+			if(item.v5 == '' || item.v5 == null || item.v5 == undefined){
+				
+			}else{
+				A6+=parseInt(item.v5);
+				
+			}
+			if(item.v6 == '' || item.v6 == null || item.v6 == undefined){
+				
+			}else{
+				A7+=parseFloat(item.v6);
+				
+			}
+			if(item.z_ren == '' || item.z_ren == null || item.z_ren == undefined){
+				
+			}else{
+				A10+=parseInt(item.z_ren);
+				
+			}
+//			A1+=parseInt(item.z_hu);
+//			A2+=parseFloat(item.v1);
+//			A3+=parseFloat(item.v2);
+//			A4+=parseFloat(item.v3);
+//			A5+=parseFloat(item.v4);
+//			A6+=parseFloat(item.v5);
+//			A7+=parseFloat(item.v6);
+			A8=parseFloat(item.v7)*parseFloat(item.z_hu)+A8;
+			A9=parseFloat(item.v8)*parseFloat(item.z_hu)+A9;
+//			A10+=parseInt(item.z_ren);
+		})
+
+		A3=(floatDiv(A2,A1)).toFixed(2);
+		A8=(floatDiv(A8,A1)).toFixed(2);
+		A10=(floatDiv(A9,A10)).toFixed(2);
+		A9=(floatDiv(A9,A1)).toFixed(2);
+
+
+		html +='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td>'+
+		'<td><strong>'+A1+'</strong></td>'+
+		'<td><strong>'+parseFloat(A2).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A3)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A4).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A5).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A6).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A7).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A8).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A9).toFixed(2)+'</strong></td>'+
+		'<td><strong>'+parseFloat(A10).toFixed(2)+'</strong></td>'+
 		'</tr>';
-		if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
-			
-		}else{
-			A1+=parseInt(item.z_hu)
-			
+		$("#sr_table").html(html);
+		$("#sr_table td").css("text-align","center");
+		
+		var option = {//环形图
+				title : {
+					text: '贫困户各类型收入占比',
+					x:'center',
+					textStyle:{fontWeight:'500',fontSize:'17'}
+				},
+				tooltip : {
+					trigger: 'item',
+					formatter: "{b} : {c}元({d}%)"
+				},
+				legend: {
+					orient : 'vertical',
+					x : 'left',
+					y : 'bottom',
+					data:['生产经营性收入','务工收入','财产性收入','转移性收入']
+				},
+				color:[
+				       '#27727B','#FCCE10','#E87C25','#B5C334',
+				       '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+				       '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+				       ],
+				       calculable : true,
+				       series : [{
+				    	   name:'内蒙古自治区',
+				    	   type:'pie',
+				    	   radius: ['0%', '70%'],
+				    	   center: ['50%', '50%'],
+				    	   avoidLabelOverlap: true,
+				    	   label: {
+				    		   normal: {
+				    			   show: true,
+				    			   formatter:'{b}: {d}%'
+				    		   },
+				    		   emphasis: {
+				    			   show: true,
+				    			   formatter:'{b}: {d}%',
+				    			   textStyle: {
+				    				   fontSize: '15',
+				    				   fontWeight: 'bold'
+				    			   }
+				    		   }
+				    	   },
+				    	   data:[
+				    	         {name:'生产经营性收入',value:parseFloat(A4).toFixed(2)},
+				    	         {name:'务工收入',value:parseFloat(A5).toFixed(2)},
+				    	         {name:'财产性收入',value:parseFloat(A6).toFixed(2)},
+				    	         {name:'转移性收入',value:parseFloat(A7).toFixed(2)}
+				    	         ]
+				       }]
 		}
-		if(item.v1 == '' || item.v1 == null || item.v1 == undefined){
-			
-		}else{
-			A2+=parseInt(item.v1);
-			
-		}
-		if(item.v2 == '' || item.v2 == null || item.v2 == undefined){
-			
-		}else{
-			A3+=parseInt(item.v2);
-			
-		}
-		if(item.v3 == '' || item.v3 == null || item.v3 == undefined){
-			
-		}else{
-			A4+=parseInt(item.v3);
-			
-		}
-		if(item.v4 == '' || item.v4 == null || item.v4 == undefined){
-			
-		}else{
-			A5+=parseInt(item.v4);
-			
-		}
-		if(item.v5 == '' || item.v5 == null || item.v5 == undefined){
-			
-		}else{
-			A6+=parseInt(item.v5);
-			
-		}
-		if(item.v6 == '' || item.v6 == null || item.v6 == undefined){
-			
-		}else{
-			A7+=parseFloat(item.v6);
-			
-		}
-		if(item.z_ren == '' || item.z_ren == null || item.z_ren == undefined){
-			
-		}else{
-			A10+=parseInt(item.z_ren);
-			
-		}
-//		A1+=parseInt(item.z_hu);
-//		A2+=parseFloat(item.v1);
-//		A3+=parseFloat(item.v2);
-//		A4+=parseFloat(item.v3);
-//		A5+=parseFloat(item.v4);
-//		A6+=parseFloat(item.v5);
-//		A7+=parseFloat(item.v6);
-		A8=parseFloat(item.v7)*parseFloat(item.z_hu)+A8;
-		A9=parseFloat(item.v8)*parseFloat(item.z_hu)+A9;
-//		A10+=parseInt(item.z_ren);
-	})
-
-	A3=(floatDiv(A2,A1)).toFixed(2);
-	A8=(floatDiv(A8,A1)).toFixed(2);
-	A10=(floatDiv(A9,A10)).toFixed(2);
-	A9=(floatDiv(A9,A1)).toFixed(2);
-
-
-	html +='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td>'+
-	'<td><strong>'+A1+'</strong></td>'+
-	'<td><strong>'+parseFloat(A2).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A3)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A4).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A5).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A6).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A7).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A8).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A9).toFixed(2)+'</strong></td>'+
-	'<td><strong>'+parseFloat(A10).toFixed(2)+'</strong></td>'+
-	'</tr>';
-	$("#sr_table").html(html);
-	$("#sr_table td").css("text-align","center");
-	
-	var option = {//环形图
-			title : {
-				text: '贫困户各类型收入占比',
-				x:'center',
-				textStyle:{fontWeight:'500',fontSize:'17'}
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{b} : {c}元({d}%)"
-			},
-			legend: {
-				orient : 'vertical',
-				x : 'left',
-				y : 'bottom',
-				data:['生产经营性收入','务工收入','财产性收入','转移性收入']
-			},
-			color:[
-			       '#27727B','#FCCE10','#E87C25','#B5C334',
-			       '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-			       '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-			       ],
-			       calculable : true,
-			       series : [{
-			    	   name:'内蒙古自治区',
-			    	   type:'pie',
-			    	   radius: ['0%', '70%'],
-			    	   center: ['50%', '50%'],
-			    	   avoidLabelOverlap: true,
-			    	   label: {
-			    		   normal: {
-			    			   show: true,
-			    			   formatter:'{b}: {d}%'
-			    		   },
-			    		   emphasis: {
-			    			   show: true,
-			    			   formatter:'{b}: {d}%',
-			    			   textStyle: {
-			    				   fontSize: '15',
-			    				   fontWeight: 'bold'
-			    			   }
-			    		   }
-			    	   },
-			    	   data:[
-			    	         {name:'生产经营性收入',value:parseFloat(A4).toFixed(2)},
-			    	         {name:'务工收入',value:parseFloat(A5).toFixed(2)},
-			    	         {name:'财产性收入',value:parseFloat(A6).toFixed(2)},
-			    	         {name:'转移性收入',value:parseFloat(A7).toFixed(2)}
-			    	         ]
-			       }]
+		
+		myChart_2 = echarts.init(document.getElementById('bar1'));
+		
+		myChart_2.setOption(option);
 	}
-	
-	myChart_2 = echarts.init(document.getElementById('bar1'));
-	
-	myChart_2.setOption(option);
+	 
 }
 
 //饼图
@@ -272,74 +277,79 @@ var option_map = {
 };
 function bar2(){
 	var data = ajax_async_t("/assa/getBfdxHuc_15.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"desc"},"json");
-	var v7 = []; 
-	var com_name = [];
-	$.each(data,function(i,item){
-		com_name [i] = item.name;
-		v7 [i] = parseInt(item.v7);
-	})
+	if(data=='' || data == null || data==undefined){
+		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+	}else{
+		var v7 = []; 
+		var com_name = [];
+		$.each(data,function(i,item){
+			com_name [i] = item.name;
+			v7 [i] = parseInt(item.v7);
+		})
 
-	var option = {
-		color: ['#7cb5ec'],
-		title : {
-			text: '贫困户生产经营性支出',
-			subtext: '单位：元',
-			subtextStyle: {
-				color: 'black'
+		var option = {
+			color: ['#7cb5ec'],
+			title : {
+				text: '贫困户生产经营性支出',
+				subtext: '单位：元',
+				subtextStyle: {
+					color: 'black'
+				},
+				x:'center',
+				textStyle:{fontWeight:'500',fontSize:'17'}
 			},
-			x:'center',
-			textStyle:{fontWeight:'500',fontSize:'17'}
-		},
-		tooltip : {
-			trigger: 'axis',
-		},
-		legend: {
-			data:['住房面']
-		},
-		grid: {
-			left: '0%',
-			right: '2%',
-			bottom: '8%',
-			containLabel: true
-		},
-		calculable : true,
-		xAxis :{
-			type: "category",//坐标轴类型，横轴默认为category，纵轴默认为数值型value
-			axisLabel:{//坐标轴文本标签选项
-				interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
-				rotate:25,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
-				margin:2,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+			tooltip : {
+				trigger: 'axis',
 			},
-			splitLine: {show: false},//分隔线，默认是显示，show来控制显示状态
-			data:com_name //X轴的坐标
-		},
-		yAxis : {
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series : {
-			name:'收入情况',
-			type:'bar',
-			label: {
-				normal: {
-					show: true,
-					position: 'top',
-					formatter: '{c}',
-					textStyle: {
-						color:"black"
-					}
+			legend: {
+				data:['住房面']
+			},
+			grid: {
+				left: '0%',
+				right: '2%',
+				bottom: '8%',
+				containLabel: true
+			},
+			calculable : true,
+			xAxis :{
+				type: "category",//坐标轴类型，横轴默认为category，纵轴默认为数值型value
+				axisLabel:{//坐标轴文本标签选项
+					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
+					rotate:25,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+					margin:2,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+				},
+				splitLine: {show: false},//分隔线，默认是显示，show来控制显示状态
+				data:com_name //X轴的坐标
+			},
+			yAxis : {
+				axisLabel: {
+					formatter: '{value}'
 				}
 			},
-			data:v7
-		}
-	};
-	myChart_3 = echarts.init(document.getElementById('bar2'));
-	//点击事件
-	myChart_3.on('click', function (params) {
-		console.log(params);
-	    diqu=params.name;
-	    parent.setSelVal(diqu);
-	});
-	myChart_3.setOption(option);
+			series : {
+				name:'收入情况',
+				type:'bar',
+				label: {
+					normal: {
+						show: true,
+						position: 'top',
+						formatter: '{c}',
+						textStyle: {
+							color:"black"
+						}
+					}
+				},
+				data:v7
+			}
+		};
+		myChart_3 = echarts.init(document.getElementById('bar2'));
+		//点击事件
+		myChart_3.on('click', function (params) {
+			console.log(params);
+		    diqu=params.name;
+		    parent.setSelVal(diqu);
+		});
+		myChart_3.setOption(option);
+	}
+	
 }
