@@ -113,24 +113,13 @@ $(function() {
 			$("#v4").empty();
 			$("#v5").empty();
 		}else if(jsondata.Login_map.COM_VD=="V3"){
-			$("#v3").empty();
+			$("#v3").get(0).selectedIndex=0;
 			$("#v4").empty();
 			$("#v5").empty();
-			$("#v3").append("<option></option>");
-			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
-			var val = eval("("+data+")");
-			$.each(val,function(i,item){
-				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
-			});
 		}else if(jsondata.Login_map.COM_VD=="V5"){
-			$("#v4").empty();
+			$("#v3").get(0).selectedIndex=0;
 			$("#v5").empty();
-			$("#v4").append("<option></option>");
-			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
-			var val = eval("("+data+")");
-			$.each(val,function(i,item){
-				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
-			});
+			
 		}
 		var display =$('#diyihang').css('display');
 		if(display == 'none'){
