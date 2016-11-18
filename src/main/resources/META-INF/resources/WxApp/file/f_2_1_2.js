@@ -15,7 +15,7 @@ function biaoge(){
 	var v2=0;
 	var data = ajax_async_t("/assa/getFccs.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json");
 	if(data==0){
-		$("#xiafangzongbiao").html('<h3>暂无数据</h3>');
+		$("#biaoge").html('');
 	}else{
 		var html="";
     	$.each(data, function(i,item) {
@@ -68,7 +68,7 @@ function pkcsbbz(){
 	var count5=[];
 
 	if(data==0){
-		$("#cyfz").html('<h3>暂无数据</h3>');
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
 	}
 	var option = {
 			title: {

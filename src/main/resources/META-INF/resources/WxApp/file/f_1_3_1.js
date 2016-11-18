@@ -21,8 +21,7 @@ function biaoge(){
 
 	var data = ajax_async_t("/assa/getpkc.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json");
 	if(data == '0'){
-		toastr["warning"]("warning", "查询数据为空");
-		$("#xiafangzongbiao").html('<h3>暂无数据</h3>');
+		$("#biaoge").html('');
 	}else{
 		var html="";
 		$.each(data, function(i,item) {
@@ -81,8 +80,7 @@ function pkcsbbz(){
 	myChart = echarts.init(document.getElementById('sbbz'));//声明id为mapChart的div为图形dom 
 	var data = ajax_async_t("/assa/getpkc.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json"); //调用ajax通用方法
 	if(data == '0'){
-		$('#sbbz').html('<h3>暂无数据</h3>')
-		$("#xiafangzongbiao").html('<h3>暂无数据</h3>');
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
 	}else{
 		var count=[];
 		var count2=[];

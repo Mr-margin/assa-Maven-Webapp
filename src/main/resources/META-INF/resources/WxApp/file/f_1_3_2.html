@@ -25,37 +25,39 @@
 
 <body class="gray-bg" style="background-color: #fff;">
 	<div class="wrapper wrapper-content animated fadeInRight">
-		<div class="row ">
-			<div class="col-sm-5">
-				<div id="wtpr" style="height:450px;"></div>
+		<div id="z">
+			<div class="row ">
+				<div class="col-sm-5">
+					<div id="wtpr" style="height:450px;"></div>
+				</div>
+				<div class="col-sm-7" id="bioage">
+					<table class="table table-bordered">
+						<h3 style="text-align: center;"></h3>
+						<thead>
+							<tr id="sy_xfbg_1">
+								<th style="text-align:center;">序号</th>
+								<th class="text-center" id="index_er_title">行政区划</th>
+								<th class="text-center">总户数（户）</th>
+								<th class="text-center">总人数（人）</th>
+								<th class="text-center">贫困村户数（户）</th>
+								<th class="text-center">贫困村人数（人）</th>
+								<th class="text-center">非贫困村户数（户）</th>
+								<th class="text-center">非贫困村人数（人）</th>
+							</tr>
+						</thead>
+						<tbody id="xiafangzongbiao">
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<div class="col-sm-7">
-				<table class="table table-bordered">
-					<h3 style="text-align: center;"></h3>
-					<thead>
-						<tr id="sy_xfbg_1">
-							<th style="text-align:center;">序号</th>
-							<th class="text-center" id="index_er_title">行政区划</th>
-							<th class="text-center">总户数（户）</th>
-							<th class="text-center">总人数（人）</th>
-							<th class="text-center">贫困村户数（户）</th>
-							<th class="text-center">贫困村人数（人）</th>
-							<th class="text-center">非贫困村户数（户）</th>
-							<th class="text-center">非贫困村人数（人）</th>
-						</tr>
-					</thead>
-					<tbody id="xiafangzongbiao">
-					</tbody>
-				</table>
+			<div class="row">
+				<!-- <div class="col-sm-3">
+				    <div  style=" height:400px;width: 110%"><p><h2>图表说明：</h2></p>
+				    <h3>  统计未脱贫的人口数量</h3>
+				    </div>
+				</div> -->
+				<div class="col-sm-12" id="wtph" style=" height:500px;width: 100%">贫困村识别标准统计表</div>
 			</div>
-		</div>
-		<div class="row">
-			<!-- <div class="col-sm-3">
-			    <div  style=" height:400px;width: 110%"><p><h2>图表说明：</h2></p>
-			    <h3>  统计未脱贫的人口数量</h3>
-			    </div>
-			</div> -->
-			<div class="col-sm-12" id="wtph" style=" height:500px;width: 100%">贫困村识别标准统计表</div>
 		</div>
 	</div>
 	<script>

@@ -16,7 +16,7 @@ function biaoge(){
 	var xu=0;
 	var data = ajax_async_t("/assa/getBfzrr.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json");
 	if(data==0){
-		$("#xiafangzongbiao").html('<h3>暂无数据</h3>');
+		$("#biaoge").html('');
 	}else{
 		var html="";
 		var html1="";
@@ -59,6 +59,9 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function pkcsbbz(){
 	 myChart = echarts.init(document.getElementById('wfgz'));//声明id为mapChart的div为图形dom 
 	var data = ajax_async_t("/assa/getBfzrr.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json"); //调用ajax通用方法
+	if(data==0){
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+	}
 	var count=[];//名称
 	var count2=[];//总数
 	var count3=[];//贫困户
