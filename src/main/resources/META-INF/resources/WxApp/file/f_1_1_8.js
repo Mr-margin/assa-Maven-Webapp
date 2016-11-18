@@ -18,6 +18,10 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function a1(){
 	myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_8.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
+	if(data==0){
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		
+	}else{
 	var com_name;
 	var tables="";//对表格赋值的变量
 	if(data[0].V1=="合计"){
@@ -142,4 +146,5 @@ function a1(){
 			         ]
 	};
 	myChart_1.setOption(option);
+	}
 }

@@ -31,6 +31,10 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function a_2(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_3.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
+	if(data==0){
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		
+	}else{
 	var com_name;
 	var count = [];
 	var count_2 = [];
@@ -225,6 +229,7 @@ var option_map = {
 			},
 			data:[]
 		}]
+	}
 };
 function a_3(){
 	var mapdatajson;//定义地图JSON
