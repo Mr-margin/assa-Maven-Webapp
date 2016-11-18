@@ -117,7 +117,7 @@ $(function() {
 			$("#v4").empty();
 			$("#v5").empty();
 		}else if(jsondata.Login_map.COM_VD=="V5"){
-			$("#v3").get(0).selectedIndex=0;
+			$("#v4").get(0).selectedIndex=0;
 			$("#v5").empty();
 			
 		}

@@ -122,31 +122,11 @@ $(document).ready(function(){
 			$('#def_info_win').hide();
 			getBoundary('150000000000','1','内蒙古自治区');
 		}else if(jsondata.Login_map.COM_VD=="V3"){
-			$("#v3").empty();
+			$("#v3").get(0).selectedIndex=0;
 			$("#v4").empty();
-			$("#v3").append("<option value='0'></option>");
-			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
-			var val = eval("("+data+")");
-			$.each(val,function(i,item){
-				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
-			});
 			getBoundary(jsondata.Login_map.SYS_COM_CODE,'2','内蒙古自治区'+jsondata.Login_map.COM_NAME);
 		}else if(jsondata.Login_map.COM_VD=="V5"){
-			$("#v4").empty();
-			var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';//获取市级名称
-			var t = document.getElementById("v2"); 
-		    for(i=0;i<t.length;i++){//给select赋值  
-		        if(number == t[i].value){  
-		        	$("#v2").html("<option value='"+number+"'>"+t.options[i].text+"</option>"); //获取选项中市的名称
-		        }
-		    }
-		    $("#v3").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
-		    $("#v4").append("<option value='0'></option>");
-			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
-			var val = eval("("+data+")");
-			$.each(val,function(i,item){
-				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
-			});
+			$("#v4").get(0).selectedIndex=0;
 			getBoundary(jsondata.Login_map.SYS_COM_CODE,'2','内蒙古自治区'+jsondata.Login_map.COM_NAME);
 			$("#qing_but").html('<i class="fa fa-search"></i> 全县');//按键名称
 		}
