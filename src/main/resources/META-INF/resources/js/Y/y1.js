@@ -182,7 +182,7 @@ $(function() {
 			        	}else{
 			        		$("#neirong").show();
 				        	$("#exportExcel_all_dengdai_1").hide();
-				        	$("#neirong").html("<div class=\"center\"><h2 >暂无数据</h2></div>");
+				        	$("#neirong").html('<img class="center-block" src="../img/wu.jpg">');
 			        	}
 		        	}		
 		        })
