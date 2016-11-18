@@ -244,11 +244,7 @@ public class SW4_Controller{
 		String pkid=request.getParameter("pkid");//贫困人id
 		String acid=request.getParameter("acid");//贫困户id
 		String code=request.getParameter("code");//地区编码
-		String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   ("+
-					" SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  "+
-					") a2 left join  NM09_AB01 a1  on a1.AAC001=a2.AAC001 WHERE AAB001='"+pkid+"' AND AAR040='2015'";
-		
-				
+		String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   (SELECT aac001 from NM09_AB01 where AAB001='"+pkid+"' AND AAR040='2015') a1 left join  ( SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  ) a2   on a1.AAC001=a2.AAC001";
 				//"select v1,v2,v3,v4,v5,v6,v7,v8,v10,v11,v28,v12,v13,v14,v15,v16,v17,v19,v32,v25,v26,v27,sys_standard,v22,v29,v30,v31,v23,v33 from da_household where pkid="+pkid
 		List<Map> list=this.getBySqlMapper.findRecords(sql);
 		//户主信息
@@ -274,10 +270,11 @@ public class SW4_Controller{
 		}
 		//家庭成员
 		JSONArray jsonArray2 =new JSONArray();
-		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001 FROM NM09_AC01 ) a2  join  ("+
+		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 left join  ( SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 ) a1 on a1.AAC001=a2.AAC001  GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
+				/*"select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001 FROM NM09_AC01 ) a2  join  ("+
 							" SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001"+ 
 							" ) a1"+ 
-							" on a1.AAC001=a2.AAC001 WHERE a1.AAC001='"+acid+"' AND AAR040='2015' GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
+							" on a1.AAC001=a2.AAC001 WHERE a1.AAC001='"+acid+"' AND AAR040='2015' GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";*/
 		//"select v6,v7,v8,v10,v11,v28,v12,v13,v14,v15,v16,v17,v32,v19 from da_member where da_household_id="+pkid
 		List<Map> xian_list=getBySqlMapper.findRecords(xian_sql);
 		if(xian_list.size()>0){
