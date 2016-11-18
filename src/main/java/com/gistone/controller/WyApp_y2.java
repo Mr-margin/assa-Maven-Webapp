@@ -52,8 +52,8 @@ public class WyApp_y2 {
 		int number = Integer.parseInt(pageNumber)*size;
 		int page = number == 0 ? 1 : (number/size)+1;
 		
-		System.out.println(number+"--"+(number+size));
-		System.out.println();
+//		System.out.println(number+"--"+(number+size));
+//		System.out.println();
 		
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		

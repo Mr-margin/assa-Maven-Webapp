@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$("#map").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
+	
 	var cunJson;
 	var company_tree =jsondata.company_tree;
 	// 百度地图API功能
@@ -21,6 +23,7 @@ $(document).ready(function(){
 //			$("#quyu2").css("height", "calc(100% - 78px)");
 		}
 		$("#chaxuntiaojian").toggle(500);
+		$("#map").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
 	});
 	
 //	var mycars1 = {};
