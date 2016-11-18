@@ -164,7 +164,8 @@ $(document).ready(function(){
 		        data:{pkid:c_code},
 		        success: function (data) {
 		        	if(data!=0){
-				        	
+			        		$("#neirong").show();
+				        	$("#exportExcel_all_dengdai_1").hide();
 				        	var zpyy_data = "";
 				    		$.each(data,function(i,item){
 				    			var v22;
