@@ -89,6 +89,8 @@ public class WyApp_y3{
 				json.add(obj);
 			}
 			response.getWriter().write(json.toString());
+		}else{
+			response.getWriter().write("0");
 		}
 	}
 }

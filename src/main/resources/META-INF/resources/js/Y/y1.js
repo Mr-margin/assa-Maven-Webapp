@@ -107,11 +107,31 @@ $(function() {
 	
 	//清空
 	$("#qing_but").click(function(e) {
-//		$("#v2").get(0).selectedIndex=0;
-//		$("#v3").empty();
-//		$("#v4").empty();
-//		$("#v5").empty();
-		
+		if(jsondata.Login_map.COM_VD=="V1"){
+			$("#v2").get(0).selectedIndex=0;
+			$("#v3").empty();
+			$("#v4").empty();
+			$("#v5").empty();
+		}else if(jsondata.Login_map.COM_VD=="V3"){
+			$("#v3").empty();
+			$("#v4").empty();
+			$("#v5").empty();
+			$("#v3").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+			});
+		}else if(jsondata.Login_map.COM_VD=="V5"){
+			$("#v4").empty();
+			$("#v5").empty();
+			$("#v4").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+			});
+		}
 		var display =$('#diyihang').css('display');
 		if(display == 'none'){
 			$("#biaoge").hide();
@@ -133,45 +153,51 @@ $(function() {
 		        dataType: "json",
 		        data:{code:com_code},
 		        success: function (data) {
-		        	
-		        	$("#neirong").show();
-		        	$("#exportExcel_all_dengdai_1").hide();
-		        	var zpyy_data = "";
-		    		$.each(data,function(i,item){
-		    			var v22;
-		    			if(item.v22=="一般贫困户"){
-		    				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
-		    			}else if(item.v22=="低保贫困户"){
-		    				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
-		    			}else if(item.v22=="低收入农户"){
-		    				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
-		    			}else if(item.v22=="低保户"){
-		    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-		    			}else if(item.v22=="五保户"){
-		    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
-		    			}else{
-		    				v22 = "<span class=\"badge\">暂无</span>";
-		    			}
-		    			var info_val = "";
-		    			if(item.riji_info=="0"){
-		    				info_val = "暂无";
-		    			}else{
-		    				info_val = "<a onclick=\"riji_info('"+item.pkid+"');\">查看详细</a>";
-		    			}
-		    			var erweima = "";
-		    			if(item.erweima=="0"){
-		    				erweima = "暂无";
-		    			}else{
-		    				erweima = "<div class=\"gallerys\" style=\"display: none;\"><img src=\""+item.erweima+"\" class=\"gallery-pic\"" +
-		    						" id=\"erwei_pic_"+item.pkid+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
-		    						"<a onclick=\"erweima_tupian("+item.pkid+");\">扫描微信二维码</a>";
-		    			}
-		    	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
-		    	    	zpyy_data += "<td>"+item.v6+"</td><td><i class=\"fa fa-user\"></i> &nbsp;&nbsp;"+item.v9+"</td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td><td>"+erweima+"</td><td>"+info_val+"</td></tr>";
-		    		});
-		    		$("#zpyy").html(zpyy_data);
-		        	}
+			        if(data!=0){
+			        	$("#neirong").show();
+			        	$("#exportExcel_all_dengdai_1").hide();
+			        	var zpyy_data = "";
+			    		$.each(data,function(i,item){
+			    			var v22;
+			    			if(item.v22=="一般贫困户"){
+			    				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
+			    			}else if(item.v22=="低保贫困户"){
+			    				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
+			    			}else if(item.v22=="低收入农户"){
+			    				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+			    			}else if(item.v22=="低保户"){
+			    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+			    			}else if(item.v22=="五保户"){
+			    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+			    			}else{
+			    				v22 = "<span class=\"badge\">暂无</span>";
+			    			}
+			    			var info_val = "";
+			    			if(item.riji_info=="0"){
+			    				info_val = "暂无";
+			    			}else{
+			    				info_val = "<a onclick=\"riji_info('"+item.pkid+"');\">查看详细</a>";
+			    			}
+			    			var erweima = "";
+			    			if(item.erweima=="0"){
+			    				erweima = "暂无";
+			    			}else{
+			    				erweima = "<div class=\"gallerys\" style=\"display: none;\"><img src=\""+item.erweima+"\" class=\"gallery-pic\"" +
+			    						" id=\"erwei_pic_"+item.pkid+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
+			    						"<a onclick=\"erweima_tupian("+item.pkid+");\">扫描微信二维码</a>";
+			    			}
+			    	    	zpyy_data += "<tr><td>"+(i+1)+"</td>";
+			    	    	zpyy_data += "<td>"+item.v6+"</td><td><i class=\"fa fa-user\"></i> &nbsp;&nbsp;"+item.v9+"</td><td>"+item.v21+"</td><td>"+v22+"</td><td>"+item.v23+"</td><td>"+erweima+"</td><td>"+info_val+"</td></tr>";
+			    		});
+			    		$("#zpyy").html(zpyy_data);
+			        	}else{
+			        		$("#neirong").show();
+				        	$("#exportExcel_all_dengdai_1").hide();
+				        	$("#neirong").html("<div class=\"center\"><h2 >暂无数据</h2></div>");
+			        	}
+		        	}		
 		        })
+		   
 	}
 	
 });
