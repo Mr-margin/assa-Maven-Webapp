@@ -9,10 +9,10 @@ function show_jbqk(){
 	pkid=Request['pkid']; 
 //alert(pkid);
 	var data = ajax_async_t("anGetPk.do",{pkid:pkid},"json");
-	$('#show_hz_v2').text(data.data1[0].v2);
-	$('#show_hz_v3').text(data.data1[0].v3);
-	$('#show_hz_v4').text(data.data1[0].v4);
-	$('#show_hz_v5').text(data.data1[0].v5);
+	$('#show_hz_v2').text(data.data4[0].SHI);
+	$('#show_hz_v3').text(data.data4[0].XIAN);
+	$('#show_hz_v4').text(data.data4[0].XIANG);
+	$('#show_hz_v5').text(data.data4[0].CUN);
 	$('#show_hz_v6').text(data.data1[0].v6);
 	
 	$('#show_hz_sbbz').text(data.data1[0].sys_standard);//识别标准
