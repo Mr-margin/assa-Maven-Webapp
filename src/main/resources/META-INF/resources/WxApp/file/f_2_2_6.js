@@ -31,6 +31,9 @@ function biaoge(){
     		'<td class="text-center">'+item.b15+'%</td></tr>';
     	});
     	v3=(floatDiv(v2,v1)*100).toFixed(2);
+    	if(isNaN(v3)){
+    		v3='0';
+		}
     	xu=xu+1;
     	html+='<tr><td class="text-center">'+xu+'</td><td class="text-center"><strong>汇总</strong></td><td class="text-center"><strong>'+v1+'</strong></td><td class="text-center"><strong>'+v2+'</strong></td><td class="text-center"><strong>'+v3+'%</strong></td></tr>';
     	html1='常住人口社会保障任务:新增医保'+v1+'人，其中贫困'+v2+'人'

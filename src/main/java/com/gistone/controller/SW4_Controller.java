@@ -233,12 +233,6 @@ public class SW4_Controller{
 	
 	@RequestMapping("getTz_1.do")
 	public void getTz_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/*select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid 
-				from SYS_COMPANY where com_code='150121001035')a left join 
-				(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join 
-					(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join 
-						 (select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join 
-						 (select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid*/
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String pkid=request.getParameter("pkid");//贫困人id
