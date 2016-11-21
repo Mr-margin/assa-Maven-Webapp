@@ -33,11 +33,6 @@ public class WyApp_y4 {
 					" (select NM09_AC01.AAC001,NM09_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NM09_AC01 join NM09_AB01 on NM09_AC01.AAC001=NM09_AB01.AAC001 where  NM09_AC01.AAR040='2015' and AAB006=01 and AAR010=0 and NM09_AC01.AAR008='"+code+"' group BY NM09_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NM09_AC01.AAC001) t4"+
 					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (select COUNT(*) v9,AAC001 from (SELECT aac001,aab002 FROM NM09_AB01  GROUP BY aab002,AAC001 ) GROUP BY AAC001) t5 on T4.AAC001=t5.AAC001 GROUP BY v21,v22,v23,v6,v9,pic_path";
 		
-		/*"select pkid,v6,v9,v21,v22,v23,com,pic_path from "
-		+ "(select t1.com_name v4,t2.com_name v5 from SYS_COMPANY t1 join SYS_COMPANY t2 on t1.pkid=t2.com_f_pkid where t2.pkid="+pkid+") t3 "
-		+ "join DA_HOUSEHOLD t4 on t3.v4=t4.v4 and t3.v5=t4.v5 "
-		+ "left join (select DA_HOUSEHOLD_ID,count(*) as com from DA_HELP_VISIT group by DA_HOUSEHOLD_ID) t5 on t4.pkid=t5.DA_HOUSEHOLD_ID "
-		+ "left join (select pic_pkid,pic_path from DA_PIC where pic_type=7) t6 on t4.pkid=t6.pic_pkid";*/
 		JSONArray json = new JSONArray();
 //		System.out.println(sql);
 		List<Map> list = this.getBySqlMapper.findRecords(sql);

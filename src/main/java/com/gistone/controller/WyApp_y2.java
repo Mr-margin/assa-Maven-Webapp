@@ -57,18 +57,6 @@ public class WyApp_y2 {
 		
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
-//		if(level.equals("1")){
-//			whereSQL = "select v10 from SYS_COM where v"+Integer.parseInt(level)*2+"='"+xzqh+"' group by v10";
-//		}else if(level.equals("2")){
-//			whereSQL = "select v10 from SYS_COM where v4='"+xzqh+"' group by v10";
-//		}else if(level.equals("3")){
-//			whereSQL = "select v10 from SYS_COM where v6='"+xzqh+"' group by v10";
-//		}else if(level.equals("4")){
-//			whereSQL = "select v10 from SYS_COM where v8='"+xzqh+"' group by v10";
-//		}else if(level.equals("5")){
-//			whereSQL = "select v10 from SYS_COM where v10='"+xzqh+"' group by v10";
-//		}
-		
 		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number "
 				+ " where AAR008 in("+whereSQL+") order by v1 desc "
@@ -76,25 +64,8 @@ public class WyApp_y2 {
 		
 		String count_sql = " select count(*) from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
 		
-//		String pingkun_count_sql = "select count(*) from (select AAC001 from NM09_AC01 where AAR040='2015' AND AAR010='0' and AAR008 in("+whereSQL+") group by AAC001) t1";
-		
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
-//		
-//		System.out.println(sql);
-//		String rizhi_sql = "select * from(";
-//		rizhi_sql += " select count(*) as ri from  ";
-//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-//		rizhi_sql += "  where v1=to_char(sysdate,'yyyy-mm-dd')) w1,( ";
-//		rizhi_sql += " select count(*) as zhou from  ";
-//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-//		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'d')+1,'yyyy-mm-dd') and to_char(trunc(sysdate,'d')+7,'yyyy-mm-dd') ";
-//		rizhi_sql += " ) w2,(select count(*) as yue from  ";
-//		rizhi_sql += " (select t2.v1 from (select * from da_pic where pic_type=2) t3 join da_help_visit t2 on t3.pic_pkid = t2.pkid ";
-//		rizhi_sql += " join ("+whereSQL+") t1 on t1.pkid=t2.da_household_id) y2 ";
-//		rizhi_sql += "  where v1 between to_char(trunc(sysdate,'mm'),'yyyy-mm-dd') and to_char(last_day(trunc(sysdate)),'yyyy-mm-dd')) w3 ";
 		
 		int count = this.getBySqlMapper.findrows(count_sql);//总记录条数
 //		int pinkuncount = this.getBySqlMapper.findrows(pingkun_count_sql);//总贫困户数
