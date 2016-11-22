@@ -29,19 +29,18 @@ public class AnUserController  extends MultiActionController{
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String pkid=request.getParameter("pkid");
+		String pkid=request.getParameter("pkid");//aac001
 		String acid="";//aac001
 		String code="";//地区编码
 //		String sql="select * from da_household a left join da_household_basic b on a.pkid=b.da_household_id "+
 //				"LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=4 ) c ON a.pkid=c.pic_pkid  where a.pkid="+pkid;
 		SW4_Controller sw4 =new SW4_Controller();
-		String sql = "select PKID,ACID,V6,V7,V8,V9,V11,V12,V13,V14,V15,V16,V17,V32,V18,V19,SYS_STANDARD,V22,V23,V29,V33,PIC_PATH,CODE from "+
-				" (select AAB001 pkid,AAC001 acid,AAB002 v6,AAB003 v7,AAB004 v8,aab007 v11,AAB008 v12,AAB009 v13,AAB017 v14,AAB010 v15,AAB011 v16,AAB012 v17,AAB019 V32 from NM09_AB01 where AAB001='"+pkid+"' AND AAR040='2015') a1"+
+		String sql = "select PKID,ACID,V6,V7,V8,V9,V11,V12,V13,V14,V15,V16,V17,V32,V18,V19,SYS_STANDARD,V22,V23,V29,V33,CODE from "+
+				" (select AAB001 pkid,AAC001 acid,AAB002 v6,AAB003 v7,AAB004 v8,aab007 v11,AAB008 v12,AAB009 v13,AAB017 v14,AAB010 v15,AAB011 v16,AAB012 v17,AAB019 V32 from NM09_AB01 where AAC001='"+pkid+"' AND AAR040='2015' AND aab006='01') a1"+
 				" LEFT JOIN ( SELECT AAB001,AAB013 v18,AAB014 v19 from NM09_AB02 ) a2 on A1.pkid=A2.AAB001 "+
 				" LEFT JOIN  ( SELECT AAC001,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC008 v33,AAR008 code from NM09_AC01 where AAR040='2015' ) a3 ON a1.acid=a3.AAC001"+
 				" LEFT JOIN  (select COUNT(*) v9,AAC001 from (SELECT aac001,aab002 FROM NM09_AB01  GROUP BY aab002,AAC001 ) GROUP BY AAC001) a5 on a1.acid=a5.AAC001"+
-				" LEFT JOIN ( select aab001,PIC_PATH from DA_PIC_CODE ) a4 ON a4.pkid=a1.AAB001 "+
-				" GROUP BY PKID,ACID,V6,V7,V8,V11,V12,V13,V14,V15,V16,V17,V32,V18,V19,SYS_STANDARD,V22,V23,V29,V33,v9,PIC_PATH,CODE";
+				" GROUP BY PKID,ACID,V6,V7,V8,V11,V12,V13,V14,V15,V16,V17,V32,V18,V19,SYS_STANDARD,V22,V23,V29,V33,v9,CODE";
 				
 				/*"select a.PKID,V2,V3,V4,V5,V6,V7,V9,V11,V12,V13,V14,V15,V16,V17,V18,V19,V22,V23,V28,V29,V30,V31,V 32,V33,c.PIC_PATH from "
 						+ "da_household a LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=4 ) c ON a.pkid=c.pic_pkid  where a.pkid="+pkid;*/
@@ -88,7 +87,7 @@ public class AnUserController  extends MultiActionController{
 //			obj.put("v28",val.get("V28")==null?"":val.get("V28"));//政治面貌 新表没有
 //			obj.put("basic_address",val.get("basic_address")==null?"":val.get("basic_address"));//家庭住址
 //			obj.put("basic_explain",val.get("BASIC_EXPLAIN")==null?"":val.get("BASIC_EXPLAIN"));//致贫原因说明
-			obj.put("pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//致贫原因说明
+//			obj.put("pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//致贫原因说明
 			jsonArray1.add(obj);
 			
 		}
@@ -98,7 +97,7 @@ public class AnUserController  extends MultiActionController{
 
 		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19 from "+  
 				" (SELECT AAC001 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 "+
-				" left join  ( SELECT NM09_AB01.AAB001 pkid,AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB013 v18,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 where AAB006!='01' ) a1 on a1.AAC001=a2.AAC001 "+ 
+				" left join  ( SELECT NM09_AB01.AAB001 pkid,AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB013 v18,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 where AAB006!='01' AND NM09_AB01.AAR040='2015' ) a1 on a1.AAC001=a2.AAC001 "+ 
 				" GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19";
 				/*"select a.*,b.pic_path from (select PKID,V6,V7,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V28,V32 from da_member where da_household_id="+pkid+") a "
 						+ "LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=5 ) b ON a.pkid=b.pic_pkid";*/
@@ -137,7 +136,7 @@ public class AnUserController  extends MultiActionController{
 						 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
 						 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";
 				
-		//"SELECT v5,v7,v6,v1,v8,v9,v10,v11,v12 FROM da_life where da_household_id="+pkid;
+		//"SELECT v5,v7,v6,v1,v8,v9,v10,v11,v12 FROM da_life where da_h	ousehold_id="+pkid;
 		List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);
 		if(dq_list.size()>0){
 			for(int i=0;i<dq_list.size();i++){

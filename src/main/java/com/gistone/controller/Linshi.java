@@ -1,6 +1,8 @@
 package com.gistone.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,31 +45,58 @@ public class Linshi {
 	 */
 	@RequestMapping("getLinshi_2.do")
 	public void getLinshi_2(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
-		String text = "http://www.gistone.cn/assa/anuser.html?pkid=";
+		// "http://www.gistone.cn/assa/anuser.html?pkid="; //原路径
+		String text = "http://192.168.0.16:8081/assa/anuser.html?pkid="; //localhost 改成本机的测试
 		// 文件保存目录路径  
-        String savePath = request.getServletContext().getRealPath("/")+ "attached/7/";
+        String savePath =""; //   需要改成/7/下面的路径 request.getServletContext().getRealPath("/")+ "attached/7/"
         // 文件保存目录URL  
-        String saveUrl = request.getContextPath() + "/attached/7/";
-        
-        
-		String sql = "select pkid,v6 from da_household";
+        String saveUrl = "";
+       
+        //这里少个未脱贫条件
+		String sql = "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR040='2015' AND AAR010='0' AND AAC001='100000469602755' ) a1"+ 
+					 " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' ) a2 ON A1.PKID=A2.AAC001"; //加条件筛选 2015年 未脱贫的 "select pkid,v6 from da_household"
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
-			for(int i = 0;i<Patient_st_List.size();i++){
+			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
+												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID")+"_"+Patient_st_map.get("V6")+".jpg", true);
+				String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+Patient_st_map.get("CODE")+"')a left join"+ 
+						"(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join "+
+							"(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join "+
+								 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
+								 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";
+				List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);
+				savePath = request.getServletContext().getRealPath("/")+ "attached/7/"+dq_list.get(0).get("SHI")+"/"+dq_list.get(0).get("XIAN")+"/"+dq_list.get(0).get("XIANG")+"/"+dq_list.get(0).get("CUN")+"/";
+				saveUrl	 =request.getContextPath() + "/attached/7/"+dq_list.get(0).get("SHI")+"/"+dq_list.get(0).get("XIAN")+"/"+dq_list.get(0).get("XIANG")+"/"+dq_list.get(0).get("CUN")+"/";
+				for(int j = 0;j<savePath.length();j++){ //创建文件夹
+					getLinshi_6(savePath);
+				}	
 				
-				String sql_i ="INSERT INTO da_pic(pic_type,pic_pkid,pic_path,pic_format) VALUES"+
-						"('7','"+Patient_st_map.get("PKID")+"','"+saveUrl+Patient_st_map.get("PKID")+"_"+Patient_st_map.get("V6")+".jpg"+"','jpg')";
+				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
 				
-				this.getBySqlMapper.insert(sql_i);
+				String sql_i ="INSERT INTO da_pic_code(AAC001,HOUSEHOLD_NAME,HOUSEHOLD_CARD,PIC_PATH) VALUES"+
+						"('"+Patient_st_map.get("PKID")+"','"+Patient_st_map.get("V6")+"','"+Patient_st_map.get("V8")+"','"+saveUrl+Patient_st_map.get("PKID")+".jpg"+"')";  //saveURL中要加个参数 路径或者名称
+				
+				/*String sql_i ="INSERT INTO da_pic(pic_type,pic_pkid,pic_path,pic_format) VALUES"+
+				"('7','"+Patient_st_map.get("PKID")+"','"+saveUrl+Patient_st_map.get("PKID")+"_"+Patient_st_map.get("V6")+".jpg"+"','jpg')";*/  //saveURL中要加个参数 路径或者名称
+				
+				this.getBySqlMapper.insert(sql_i);    //插入数据用的
 				System.out.println(sql_i);
 			}
 		}
 		System.out.println("========结束========");
 		
 		
+	}
+	
+	//新建文件夹
+	public void getLinshi_6(String str_path) throws Exception {
+		File uploadDir = new File(str_path);  
+        if (!uploadDir.isDirectory()) {  
+        	if(!uploadDir.exists()){
+        		uploadDir.mkdirs();
+        	}
+        }
 	}
 	
 	/**

@@ -73,7 +73,7 @@ function show_jbqk(){
 		html += '<div class="col-xs-6">务工时间</div><div class="val-xs-6"><code>'+item.cy_v17+'</code></div></div>';
 		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">新农合</div><div class="val-xs-6"><code>'+item.cy_v18+'</code></div>';
 		html += '<div class="col-xs-6">养老保险</div><div class="val-xs-6"><code>'+item.cy_v19+'</code></div>';
-		html += '<div class="col-xs-6">政治面貌</div><div class="val-xs-6"><code>'+item.cy_v28+'</code></div>';
+		/*html += '<div class="col-xs-6">政治面貌</div><div class="val-xs-6"><code>'+item.cy_v28+'</code></div>';*/
 		html += '<div class="col-xs-6">现役军人</div><div class="val-xs-6"><code>'+item.cy_v32+'</code></div></div>';
 		html += '</div></div></div></div>';
 	});
