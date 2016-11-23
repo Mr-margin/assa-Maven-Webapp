@@ -53,21 +53,22 @@ public class Linshi {
         String saveUrl = "";
        
         //这里少个未脱贫条件
-		String sql = "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR040='2015' AND AAR010='0' AND AAC001='100000469602755' ) a1"+ 
-					 " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' ) a2 ON A1.PKID=A2.AAC001"; //加条件筛选 2015年 未脱贫的 "select pkid,v6 from da_household"
+		String sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join (select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR040='2015' AND AAR010='0' AND AAC001='3000305089' ) a1"+
+					 " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' ) a2 ON A1.PKID=A2.AAC001) t2"+
+					 " on t1.v10=t2.CODE";
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
 			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-				String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+Patient_st_map.get("CODE")+"')a left join"+ 
+			/*	String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+Patient_st_map.get("CODE")+"')a left join"+ 
 						"(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join "+
 							"(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join "+
 								 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
-								 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";
-				List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);
-				savePath = request.getServletContext().getRealPath("/")+ "attached/7/"+dq_list.get(0).get("SHI")+"/"+dq_list.get(0).get("XIAN")+"/"+dq_list.get(0).get("XIANG")+"/"+dq_list.get(0).get("CUN")+"/";
-				saveUrl	 =request.getContextPath() + "/attached/7/"+dq_list.get(0).get("SHI")+"/"+dq_list.get(0).get("XIAN")+"/"+dq_list.get(0).get("XIANG")+"/"+dq_list.get(0).get("CUN")+"/";
+								 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";*/
+				/*List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);*/
+				savePath = request.getServletContext().getRealPath("/")+ "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
+				saveUrl	 =request.getContextPath() + "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
 				for(int j = 0;j<savePath.length();j++){ //创建文件夹
 					getLinshi_6(savePath);
 				}	
