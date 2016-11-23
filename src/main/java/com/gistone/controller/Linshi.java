@@ -61,17 +61,9 @@ public class Linshi {
 			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-			/*	String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+Patient_st_map.get("CODE")+"')a left join"+ 
-						"(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join "+
-							"(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join "+
-								 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
-								 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";*/
-				/*List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);*/
 				savePath = request.getServletContext().getRealPath("/")+ "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
 				saveUrl	 =request.getContextPath() + "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
-				for(int j = 0;j<savePath.length();j++){ //创建文件夹
-					getLinshi_6(savePath);
-				}	
+				getLinshi_6(savePath); //创建文件夹
 				
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
 				
