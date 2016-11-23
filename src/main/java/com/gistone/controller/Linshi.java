@@ -75,7 +75,7 @@ public class Linshi {
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
 				
 				String sql_i ="INSERT INTO da_pic_code(AAC001,HOUSEHOLD_NAME,HOUSEHOLD_CARD,PIC_PATH) VALUES"+
-						"('"+Patient_st_map.get("PKID")+"','"+Patient_st_map.get("V6")+"','"+Patient_st_map.get("V8")+"','"+saveUrl+Patient_st_map.get("PKID")+".jpg"+"')";  //saveURL中要加个参数 路径或者名称
+						"('"+Patient_st_map.get("PKID")+"','"+Patient_st_map.get("V6")+"','"+Patient_st_map.get("V8")+"','"+saveUrl+Patient_st_map.get("PKID")+"_"+ Patient_st_map.get("V6")+".jpg"+"')";  //saveURL中要加个参数 路径或者名称
 				
 				/*String sql_i ="INSERT INTO da_pic(pic_type,pic_pkid,pic_path,pic_format) VALUES"+
 				"('7','"+Patient_st_map.get("PKID")+"','"+saveUrl+Patient_st_map.get("PKID")+"_"+Patient_st_map.get("V6")+".jpg"+"','jpg')";*/  //saveURL中要加个参数 路径或者名称
