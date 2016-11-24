@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -28,8 +31,9 @@ import com.gistone.MyBatis.config.GetBySqlMapper;
 @RestController
 @RequestMapping
 public class Singleton {
+	
 	@Autowired
-	private  GetBySqlMapper getBySqlMapper;
+	private GetBySqlMapper getBySqlMapper;
 
 	/**
 	 * @method 获取当前系统时间
@@ -76,7 +80,8 @@ public class Singleton {
 	// 读取excel
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("readExcel.do")
-	private void readExcel() throws BiffException, IOException {
+//	private void readExcel() throws BiffException, IOException {
+	public void readExcel(HttpServletRequest request,HttpServletResponse response) throws BiffException,IOException{
 		// 创建一个list 用来存储读取的内容
 		List list = new ArrayList();
 		String table_name = "";// 数据库表名
