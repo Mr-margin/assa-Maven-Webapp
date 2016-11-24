@@ -48,6 +48,7 @@ GISTONE.Loader = {
 		    //["public","js/public/","tanchu.js,Interface.js,Method.js,login.js,select.js"],
 		    
 		    ["public","js/public/","p0.js,p1.js,p2.js"],
+		    ["password","js/public/","password.js"],
 		    
 		    ["table","js/public/","table.js"],//后台表格通用
 		    ["xialakuang","js/public/","select.js"],//后台下拉框选择条件通用
