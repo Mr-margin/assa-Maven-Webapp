@@ -66,7 +66,7 @@ GISTONE.Loader = {
 //		    ["5-7","js/H5-7/","H5-7.js"],
 //		    ["5-9","js/H5-9/","H5-9.js"],
 		    
-		    ["home","js/public/","home.js"],
+		    ["home","js/public/","home.js"], // 登录后的homejs
 		    
 		    ["WtApp_home","js/T/","home.js"],
 		    ["t1","js/T/","t1.js"],
