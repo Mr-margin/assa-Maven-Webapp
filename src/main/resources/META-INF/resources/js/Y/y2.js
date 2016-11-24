@@ -174,8 +174,58 @@ $(function () {
 		
 	});
 	
-	var tree_xzqh = '150000000000';
-	var tree_level = '1';
+	var tree_xzqh = '';
+	var tree_level = '';
+	
+	//加载市级下拉框
+	if(jsondata.Login_map.COM_VD=="V1"){
+		/*$("#v2").append("<option value='0'></option>");
+		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+		$("#v2").append("<option value='150200000000'>包头市</option>");
+		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+		$("#v2").append("<option value='152200000000'>兴安盟</option>");
+		$("#v2").append("<option value='150500000000'>通辽市</option>");
+		$("#v2").append("<option value='150400000000'>赤峰市</option>");
+		$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+		$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+		$("#v2").append("<option value='150300000000'>乌海市</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");*/
+		tree_xzqh = '150000000000';
+		tree_level = '1';
+	}else if(jsondata.Login_map.COM_VD=="V3"){
+		$("#v2").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		$("#v3").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+		tree_xzqh=jsondata.Login_map.SYS_COM_CODE;
+		tree_level='2';
+	}else if(jsondata.Login_map.COM_VD=="V5"){
+		var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
+		var t = document.getElementById("v2"); 
+	    for(i=0;i<t.length;i++){//给select赋值  
+	        if(number == t[i].value){  
+	        	 $("#v2").html("<option value='"+number+"'>"+t.options[i].text+"</option>");
+	        }
+	    }
+	    $("#v3").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	    $("#v4").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+		});
+		tree_xzqh=jsondata.Login_map.SYS_COM_CODE;
+		tree_level='3';
+	}
+	
+	
+	
+	
 	
 	//加载数据
 	function loadData(flag){
@@ -241,24 +291,7 @@ $(function () {
 	 loadData("");
 	 number++;//分页数加1
 	
-	//加载市级下拉框
-		if(jsondata.Login_map.COM_VD=="V1"){
-			$("#v2").append("<option value='0'></option>");
-			$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
-			$("#v2").append("<option value='150200000000'>包头市</option>");
-			$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
-			$("#v2").append("<option value='152200000000'>兴安盟</option>");
-			$("#v2").append("<option value='150500000000'>通辽市</option>");
-			$("#v2").append("<option value='150400000000'>赤峰市</option>");
-			$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
-			$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
-			$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
-			$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
-			$("#v2").append("<option value='150300000000'>乌海市</option>");
-			$("#v2").append("<option value='152900000000'>阿拉善盟</option>");
-		}else{
-			$("#v2").append("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
-		}
+	
 		
 		//市级下拉框选择事件
 		$("#v2").change(function(){
@@ -347,15 +380,27 @@ $(function () {
 		
 		//清空
 		$("#qing_but").click(function(e) {
-			$("#v2").get(0).selectedIndex=0;
-			$("#v3").empty();
-			$("#v4").empty();
-			$("#v5").empty();
-//			$("#biaoge").hide();
-//			$("#guodu").show();
-			$("#xzqh_title").html("");
-			container.masonry('destroy');
-	    	$("#waterfull").children("ul").children("li").remove();
+			if(jsondata.Login_map.COM_VD=="V1"){
+				$("#v2").get(0).selectedIndex=0;
+				$("#v3").empty();
+				$("#v4").empty();
+				$("#v5").empty();
+			}else if(jsondata.Login_map.COM_VD=="V3"){
+				$("#v3").get(0).selectedIndex=0;
+				$("#v4").empty();
+				$("#v5").empty();
+			}else if(jsondata.Login_map.COM_VD=="V5"){
+				$("#v4").get(0).selectedIndex=0;
+				$("#v5").empty();
+				
+			}
+			var display =$('#diyihang').css('display');
+			if(display == 'none'){
+				$("#biaoge").hide();
+				$("#diyihang").toggle(500);
+				$("#disanhang").toggle(500);
+				$("#disihang").toggle(500);
+			}
 		});
 
 		
