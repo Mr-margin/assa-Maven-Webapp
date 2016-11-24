@@ -1,7 +1,16 @@
 $(document).ready(function(){
-	
+	var yemian=''; //跳转的页面
+	if(jsondata.Login_map.COM_VD=="V1"){
+		yemian='Z1.html';
+	}else if(jsondata.Login_map.COM_VD=="V3"){
+		yemian='Z5.html';
+	}else if(jsondata.Login_map.COM_VD=="V5"){
+		yemian='Z6.html';
+	}	
+	$('#iframe0').attr('src',yemian);
 	$('#z_z_1').click(function(){
-		$('#iframe0').attr('src','Z1.html');
+		
+		$('#iframe0').attr('src',yemian);
 		$('#z_z_1').addClass('zidingyiA');
 		$('#z_z_2').removeClass('zidingyiA');
 		$('#z_z_3').removeClass('zidingyiA');
