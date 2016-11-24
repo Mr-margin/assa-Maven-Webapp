@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","treeview","validate","toastr","echarts","photo","y4"]);
+	</script>
+    <base target="_blank">
+</head>
+  
+<body class="gray-bg" style="background-color: #eceef3;">
+		
+	<div class="wrapper wrapper-content animated fadeInRight">
+       	<div class="container">
+       	
+			<!-- 第一行 -->
+			<div class="row" id="diyihang"><br><br>
+			
+				
+				<div class="col-md-6">
+					<div class="ibox float-e-margins">
+                        <div class="ibox-content">
+							<div>
+                                <h2 class="font-bold no-margins"><img src="img/bt1.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="label label-warning" style="font-size: 75%;">152041</span> 人</h2>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-6">
+					<div class="ibox float-e-margins">
+                        <div class="ibox-content">
+							<div>
+                                <h2 class="font-bold no-margins"><img src="img/bt2.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="label label-warning" style="font-size: 75%;">357724</span> 户</h2>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-6">
+					<div class="ibox float-e-margins">
+                        <div class="ibox-content">
+							<div>
+                                <h2 class="font-bold no-margins"><img src="img/bt3.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="label label-warning" style="font-size: 75%;">100%</span></h2>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-6">
+					<div class="ibox float-e-margins">
+                        <div class="ibox-content">
+							<div>
+                                <h2 class="font-bold no-margins"><img src="img/bt4.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="label label-warning" style="font-size: 75%;">802068</span> 人</h2>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				
+				
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title" style="height:60px;">
+							<img src="img/bt10.jpg">
+                        </div>
+                        <div class="ibox-content">
+                        	<div class="row">
+	                        	<div class="col-sm-10">
+	                        		<div class="row form-group">
+								        <label class="col-sm-2 control-label" style="margin-top: 8px;">盟市：</label>
+								        <div class="col-sm-4">
+								            <select class="form-control" id="v2" name="v2">
+								            	<option></option>
+												<option value='150100000000'>呼和浩特市</option>
+												<option value='150200000000'>包头市</option>
+												<option value='150700000000'>呼伦贝尔市</option>
+												<option value='152200000000'>兴安盟</option>
+												<option value='150500000000'>通辽市</option>
+												<option value='150400000000'>赤峰市</option>
+												<option value='152500000000'>锡林郭勒盟</option>
+												<option value='150900000000'>乌兰察布市</option>
+												<option value='150600000000'>鄂尔多斯市</option>
+												<option value='150800000000'>巴彦淖尔市</option>
+												<option value='150300000000'>乌海市</option>
+												<option value='152900000000'>阿拉善盟</option>
+								            </select>
+								        </div>
+								        <label class="col-sm-2 control-label" style="margin-top: 8px;">旗区县：</label>
+								        <div class="col-sm-4">
+								            <select class="form-control" id="v3" name="v3"></select>
+								        </div>
+								    </div>
+								    <div class="row form-group">
+								        <label class="col-sm-2 control-label" style="margin-top: 8px;">苏木乡：</label>
+								        <div class="col-sm-4">
+								            <select class="form-control" id="v4" name="v4"></select>
+								        </div>
+								        <label class="col-sm-2 control-label" style="margin-top: 8px;">嘎查村：</label>
+								        <div class="col-sm-4">
+								            <select class="form-control" id="v5" name="v5"></select>
+								        </div>
+								    </div>
+	                        	</div>
+	                        	<div class="col-sm-2">
+	                        		<button class="btn btn-primary btn-lg" type="button" id="cha_but" style="height: 90px;">查询</button>
+	                        		<button class="btn btn-warning btn-lg" type="button" id="qing_but" style="height: 90px;">清空</button>
+	                        	</div>
+                        	</div>
+                        	<div class="ibox-content" style="display: none;" id="biaoge">
+                        		<div style="display: inline-block;display:none;text-align:center;"
+									id="exportExcel_all_dengdai_1">
+									<div class="sk-spinner sk-spinner-fading-circle"
+										style="display: inline-block;">
+										<div class="sk-circle1 sk-circle"></div>
+										<div class="sk-circle2 sk-circle"></div>
+										<div class="sk-circle3 sk-circle"></div>
+										<div class="sk-circle4 sk-circle"></div>
+										<div class="sk-circle5 sk-circle"></div>
+										<div class="sk-circle6 sk-circle"></div>
+										<div class="sk-circle7 sk-circle"></div>
+										<div class="sk-circle8 sk-circle"></div>
+										<div class="sk-circle9 sk-circle"></div>
+										<div class="sk-circle10 sk-circle"></div>
+										<div class="sk-circle11 sk-circle"></div>
+										<div class="sk-circle12 sk-circle"></div>
+									</div>
+									<div style="text-align:center;display: inline-block;">正在加载,请稍后......</div>
+								</div>
+                        		
+                        		<div class="table-responsive" id="neirong">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+				                                <th>序号</th>
+				                                <th>户主姓名</th>
+				                                <th>家庭人口（人）</th>
+				                                <th>脱贫属性</th>
+				                                <th>贫困类型</th>
+				                                <th>主要致贫原因</th>
+				                                <th>二维码</th>
+				                                <th>帮扶情况</th>
+				                            </tr>
+		                        		</thead>
+		                        		<tbody id="zpyy"></tbody>
+									</table>
+								</div>
+                        	</div>
+                        	
+                        </div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 第二行 -->
+            <div class="row" id="disanhang">
+            	<div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                    	<!-- <div class="ibox-title" style="height:60px;">
+                        </div> -->
+                        <div class="ibox-content">
+                        	<div class="row">
+                        		<div class="col-md-6">
+	                        		<img src="../img/sjt3.jpg">
+	                        	</div>
+	                        	<div class="col-md-6">
+	                        		<img src="../img/sjt4.jpg">
+	                        	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- 第二行 -->
+			
+				
+			<div class="row" id="disihang">
+				<div class="col-md-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+                            <!-- <h5>自治区各级干部帮扶贫困户统计</h5> -->
+                            <img src="img/bt5.jpg">
+                        </div>
+						<div class="ibox-content">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+                                            <th>行政级别</th>
+                                            <th>2015年底贫困户数</th>
+                                            <th>落实帮扶责任人数</th>
+                                            <th>落实帮扶责任人比例</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>呼和浩特市</td>
+                                            <td>12236</td>
+                                            <td>25357</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>包 头 市</td>
+                                            <td>6572</td>
+                                            <td>4469</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>呼伦贝尔市</td>
+                                            <td>697</td>
+                                            <td>606</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>兴安盟</td>
+                                            <td>112382</td>
+                                            <td>39070</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>通 辽 市</td>
+                                            <td>54099</td>
+                                            <td>5406</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>赤峰市</td>
+                                            <td>5194</td>
+                                            <td>4508</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>锡林郭勒盟</td>
+                                            <td>25666</td>
+                                            <td>14571</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>乌兰察布市</td>
+                                            <td>19409</td>
+                                            <td>8825</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>鄂尔多斯市</td>
+                                            <td>61104</td>
+                                            <td>25337</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>巴彦淖尔市</td>
+                                            <td>48309</td>
+                                            <td>19230</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>乌海市</td>
+                                            <td>9156</td>
+                                            <td>3499</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>阿拉善盟</td>
+                                            <td>2757</td>
+                                            <td>1147</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>总   计</td>
+                                            <td>357581</td>
+                                            <td>152041</td>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			<!-- 第一行 -->
+               
+			
+
+		</div>
+	</div>
+	<!-- 帮扶日记详细信息 -->
+	<div class="modal inmodal fade" id="xiangxi_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <h4 class="modal-title" id="map_title">帮扶日记</h4>
+				</div>
+                <div class="modal-body" style="height: 600px;overflow:scroll;">
+                
+                	<div class="container" style="width: 860px;">
+						<div class="main">
+							<ul class="cbp_tmtimeline" id="container"></ul>
+						</div>
+					</div>
+                </div>
+			</div>
+		</div>
+	</div>
+	<!-- 帮扶日记详细信息 -->
+	
+	<script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","treeview","toastr","echarts","photo","public","y1"]);
+	</script>
+  </body>
+</html>
