@@ -8,6 +8,7 @@ $(document).ready(function(){
 		yemian='Z6.html';
 	}	
 	$('#iframe0').attr('src',yemian);
+	$('#iframe0').attr('data-id',yemian);
 	$('#z_z_1').click(function(){
 		
 		$('#iframe0').attr('src',yemian);

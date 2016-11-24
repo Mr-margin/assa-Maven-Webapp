@@ -9,7 +9,7 @@ $(document).ready(function(){
 		yemian='y6.html';
 	}	
 	$('#iframe0').attr('src',yemian);
-	
+	$('#iframe0').attr('data-id',yemian);
 	$('#y_y_1').click(function(){
 		$('#iframe0').attr('src',yemian);
 		$('#y_y_1').addClass('zidingyiB');
