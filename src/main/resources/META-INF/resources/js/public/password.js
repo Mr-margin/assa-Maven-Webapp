@@ -53,12 +53,11 @@ function xiugaimima_anniu(){
 function up_password(pkid,new_pass){
 	var data = ajax_async_t(GISTONE.Loader.basePath+"upPassword.do",{pkid:pkid,password:new_pass},"text");
 	if (data == "1") {
-		toastr["success"]("success", "密码已修改");
 		shuaxin_xiugaimima();
 		$('#p').modal('hide');
 		swal({
-            title: "太帅了",
-            text: "小手一抖就打开了一个框",
+            title: "密码修改成功",
+            text: "您已将密码修改",
             type: "success"
         });
 	}else{
