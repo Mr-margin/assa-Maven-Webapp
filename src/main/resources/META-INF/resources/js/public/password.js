@@ -55,7 +55,12 @@ function up_password(pkid,new_pass){
 	if (data == "1") {
 		toastr["success"]("success", "密码已修改");
 		shuaxin_xiugaimima();
-		$(".guanbi").click();//关闭弹窗
+		$('#p').modal('hide');
+		swal({
+            title: "太帅了",
+            text: "小手一抖就打开了一个框",
+            type: "success"
+        });
 	}else{
 		toastr["warning"]("warning", "修改失败，检查数据后重试");
 		shuaxin_xiugaimima();
