@@ -32,7 +32,7 @@ public class PassWordController{
 		String id = request.getParameter("pkid");//获取用户ID
 		String password = request.getParameter("password");//获取密码
 		password = Tool.md5(password);
-		String people_sql = "update sys_user set col_password='"+password+"' where pkid="+id;
+		String people_sql = "update sys_user set COL_PASSWORD='"+password+"' where COL_ACCOUNT='"+id+"'";
 		try{
 			this.getBySqlMapper.update(people_sql);
 			response.getWriter().write("1");
@@ -52,10 +52,10 @@ public class PassWordController{
 	 */
 	@RequestMapping("o_password.do")
 	public void o_password(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		String password1 = request.getParameter("val");
-		String id = request.getParameter("pkid");
+		String username=request.getParameter("username");
+		String val=request.getParameter("val");
 
-		String sql = "SELECT count(*) FROM sys_user WHERE pkid='" + id + "' and col_password = '" + Tool.md5(password1) + "'";
+		String sql = "SELECT count(*) FROM sys_user WHERE COL_ACCOUNT='" + username + "' and COL_PASSWORD = '" + Tool.md5(val) + "'";
 		int resultSize = getBySqlMapper.findrows(sql);
 		if (resultSize == 0){
 			response.getWriter().print("0");

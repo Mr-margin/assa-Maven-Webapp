@@ -17,7 +17,7 @@
 	    
 		<script src="js/public/gistone.loader.js"></script>
 		<script>
-			GISTONE.Loader.loadStyle(["index"]);
+			GISTONE.Loader.loadStyle(["bootstrap","index"]);
 		</script>
 		<style type="text/css" media="screen">
 			* {margin: 0; padding: 0; }
@@ -268,7 +268,7 @@
 					</tbody>
 				</table>
 			</div> -->
-			<div class="anniwz" style="color:#FFFFFF; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00; height:50px;">
+			<div class="anniwz" style="color:#FFFFFF; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00; height:80px;">
       			<img src="img/lock.png">
 			</div>
 		</li>
@@ -296,7 +296,7 @@
 					</tbody>
 				</table>
 			</div> -->
-			<div class="anniwz" style="color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#107c10; height:50px;">
+			<div class="anniwz" style="color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#107c10; height:80px;">
       			<img src="img/lock.png">
 			</div>
 		</li>
@@ -323,7 +323,48 @@
 			</div>
 		</li> -->
 	</ul>
-	
+	<div class="modal inmodal fade" style="margin-top: 100px" id="p" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" style="width: 40%" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h2>修改密码</h2>
+				</div>
+				<div class="modal-body" style="overflow:scroll;">
+					<div class="">
+						<div class="">
+							<form  id="changepassword_form" onsubmit="return false" >
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请输入原密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+				                         <input type="password" name="old_pass" id="old_pass" style="" required="required" cp="true"  placeholder="原密码" autocomplete="off" class="form-control">
+				                     </div>
+								</div>
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请输入新密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+										<input type="password" name="new_pass" id="new_pass" style="" required="required"  placeholder="新密码" autocomplete="off" class="form-control">
+				                    </div>
+								</div>
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请再次输入密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+										<input type="password" name="new_pass_2" id="new_pass_2" style="" required equalTo="#new_pass" placeholder="请再次输入新密码" autocomplete="off" class="form-control">
+				                    </div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-w-m btn-info" style="" onclick="xiugaimima_anniu();" value="修&nbsp;改&nbsp;密&nbsp;码">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		GISTONE.Loader.loadScript(["jquery","bootstrap","validate","toastr","prefixfree","public","home","password"]);
 	</script>

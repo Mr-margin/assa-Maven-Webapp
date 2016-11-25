@@ -78,6 +78,8 @@ public class Index_Controller{
 		}
     }  
 	
+
+	
 	//判断单位层级，生成单位树结构
 	public Object[] get_company_tree(String com_level, String sys_company_id, String pkid, String com_name){
 		Object[] obj = new Object[2];

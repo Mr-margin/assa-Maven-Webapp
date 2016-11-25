@@ -52,7 +52,7 @@
 								<em class="arroww"></em>
 								<div class="content" style="height:121px;">
 									<!-- <span class="li"><a><img src="../img/ren1.png" height="18" width="18" style=" margin-top:7px; margin-right:5px;  float:left;" />个人资料</a></span> -->
-									<span class="li"><a>修改密码</a></span>
+									<span class="li" onclick="xiugaimima()"><a>修改密码</a></span>
 									<span class="separate-li no-height"></span>
 									<span class="li"><a id="signout">退出</a></span>
 								</div>
@@ -86,13 +86,50 @@
             
         <!-- </div> -->
     </div>
+	<!--  地图 -->
 
-    <!-- 弹出窗口使用 -->
-    <div id="gray"></div>
-	<!-- 修改密码页面 -->
-	<div id="gray_2"></div>
-	<div class="popup" id="popup_2"></div>
-	
+	<div class="modal inmodal fade" style="margin-top: 100px" id="p" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" style="width: 40%" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h2>修改密码</h2>
+				</div>
+				<div class="modal-body" style="overflow:scroll;">
+					<div class="main">
+						<div class="">
+							<form  id="changepassword_form" onsubmit="return false" >
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请输入原密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+				                         <input type="password" name="old_pass" id="old_pass" style="" required="required" cp="true"  placeholder="原密码" autocomplete="off" class="form-control">
+				                     </div>
+								</div>
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请输入新密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+										<input type="password" name="new_pass" id="new_pass" style="" required="required"  placeholder="新密码" autocomplete="off" class="form-control">
+				                    </div>
+								</div>
+								<div class="col-sm-12 form-group">
+									<label class="col-sm-4 control-label"  style="margin-top: 3px;"><h3>请再次输入密码:</h3></label>
+									<div class="col-sm-8" id="data_1">
+										<input type="password" name="new_pass_2" id="new_pass_2" style="" required equalTo="#new_pass" placeholder="请再次输入新密码" autocomplete="off" class="form-control">
+				                    </div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-w-m btn-info" style="" onclick="xiugaimima_anniu();" value="修&nbsp;改&nbsp;密&nbsp;码">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- <div class="col-lg-8">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-content">
@@ -146,11 +183,11 @@
                                 </div>
                             </div>
                         </div> -->
-	
-	
+                        
+
 	
 	<script>
-		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","toastr","public","WyApp_home"]);
+		GISTONE.Loader.loadScript(["jquery","bootstrap","validate","slimscroll","toastr","public","WyApp_home","password"]);
 	</script>
   </body>
 </html>
