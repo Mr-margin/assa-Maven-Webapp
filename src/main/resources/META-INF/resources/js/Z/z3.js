@@ -167,6 +167,11 @@ $(document).ready(function(){
 		        data:{pkid:c_code},
 		        success: function (data) {
 		        	if(data!=0){
+			        		$("#neirong").html("<table class=\"table table-striped\">" +
+				        			"<thead><tr>" +
+				        			" <th>序号</th><th>户主姓名</th><th>脱贫属性</th><th>贫困类型</th><th>主要致贫原因</th>" +
+				        			"</tr></thead>" +
+				        			"<tbody id=\"zpyy\"></tbody></table>")
 			        		$("#neirong").show();
 				        	$("#exportExcel_all_dengdai_1").hide();
 				        	var zpyy_data = "";
