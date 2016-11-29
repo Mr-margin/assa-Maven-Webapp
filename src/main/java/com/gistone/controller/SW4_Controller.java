@@ -369,11 +369,12 @@ public class SW4_Controller{
 		
 		//所在地区
 		JSONArray jsonArray6 =new JSONArray();
-		String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+code+"')a left join"+ 
+		String dq_sql="select v1 sheng,v3 shi,v5 xian,v7 xiang,v9 cun from sys_com where v10='"+code+"'";
+			/*	"select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+code+"')a left join"+ 
 				"(select pkid,com_f_pkid,com_name xiang from SYS_COMPANY ) b ON a.com_f_pkid=b.pkid left join "+
 					"(select pkid,com_f_pkid,com_name xian from SYS_COMPANY )c ON b.com_f_pkid= c.pkid left join "+
 						 "(select pkid,com_f_pkid,com_name shi from SYS_COMPANY )d ON c.com_f_pkid = d.pkid left join "+
-						 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";
+						 "(select pkid,com_name sheng from SYS_COMPANY )e ON d.com_f_pkid=e.pkid";*/
 		List<Map> dq_list=getBySqlMapper.findRecords(dq_sql);
 		if(dq_list.size()>0){
 			for(int i=0;i<dq_list.size();i++){
