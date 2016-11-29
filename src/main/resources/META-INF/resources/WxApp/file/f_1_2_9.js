@@ -39,34 +39,34 @@ function table(){
 					A1+=parseInt(item.z_hu)
 					
 				}
-				if(item.v1 == '' || item.v1 == null || item.v1 == undefined){
+				if(item.value == '' || item.value == null || item.value == undefined){
 					
 				}else{
-					A2+=parseInt(item.v1);
+					A2+=parseInt(item.value);
+					
+				}
+				if(item.v2 == '' || item.v2 == null || item.v2 == undefined){
+					
+				}else{
+					A3+=parseFloat(item.v2);
 					
 				}
 				if(item.v3 == '' || item.v3 == null || item.v3 == undefined){
 					
 				}else{
-					A3+=parseInt(item.v3);
+					A4+=parseInt(item.v3);
+					
+				}
+				if(item.v4 == '' || item.v4 == null || item.v4 == undefined){
+					
+				}else{
+					A5+=parseInt(item.v4);
 					
 				}
 				if(item.v5 == '' || item.v5 == null || item.v5 == undefined){
 					
 				}else{
-					A4+=parseInt(item.v5);
-					
-				}
-				if(item.v7 == '' || item.v7 == null || item.v7 == undefined){
-					
-				}else{
-					A5+=parseInt(item.v7);
-					
-				}
-				if(item.v9 == '' || item.v9 == null || item.v9 == undefined){
-					
-				}else{
-					A6+=parseInt(item.v9);
+					A6+=parseInt(item.v5);
 					
 				}
 //				A1+=parseInt(item.z_hu)
