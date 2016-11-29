@@ -238,11 +238,11 @@ public class SW4_Controller{
 		String pkid=request.getParameter("pkid");//贫困人id
 		String acid=request.getParameter("acid");//贫困户id
 		String code=request.getParameter("code");//地区编码
-		String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   (SELECT aac001 from NM09_AB01 where AAB001='"+pkid+"' AND AAR040='2015') a1 left join  ( SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  ) a2   on a1.AAC001=a2.AAC001";
-		List<Map> list=this.getBySqlMapper.findRecords(sql);
+		/*String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   (SELECT aac001 from NM09_AB01 where AAB001='"+pkid+"' AND AAR040='2015') a1 left join  ( SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  ) a2   on a1.AAC001=a2.AAC001";
+		List<Map> list=this.getBySqlMapper.findRecords(sql);*/
 		//户主信息
 		SW4_Controller sw4=new SW4_Controller();
-		JSONArray jsonArray1 =new JSONArray();
+		/*JSONArray jsonArray1 =new JSONArray();
 		if(list.size()>0){
 			
 			for(int i = 0;i<list.size();i++){
@@ -260,10 +260,17 @@ public class SW4_Controller{
 				
 				jsonArray1.add(obj);
 			}
-		}
+		}*/
 		//家庭成员
 		JSONArray jsonArray2 =new JSONArray();
-		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 left join  ( SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 ) a1 on a1.AAC001=a2.AAC001  GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
+		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19,v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from  "+ 
+						" (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 "+
+						" left join  "+
+						" ( SELECT AAC001,a3.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  (select  AAB001,AAC001,AAR040,AAB002,AAB003,AAB004,AAB006,AAB007,AAB008,AAB009,AAB010,AAB011,AAB012,AAB017,AAB019 FROM NM09_AB01 WHERE AAC001='"+acid+"' AND AAR040='2015') a3 LEFT join NM09_AB02 on NM09_AB02.AAB001=a3.AAB001 ) a1 on a1.AAC001=a2.AAC001 "+ 
+						" GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19,v25,v26,v27,sys_standard,v22,v23,v29,v30,v33";
+		
+				//"select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 left join  ( SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 ) a1 on a1.AAC001=a2.AAC001  GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
+		
 		List<Map> xian_list=getBySqlMapper.findRecords(xian_sql);
 		if(xian_list.size()>0){
 			for(int i=0;i<xian_list.size();i++){
@@ -282,7 +289,16 @@ public class SW4_Controller{
 					obj.put("V17", "".equals(xian_list.get(i).get("V17")) || xian_list.get(i).get("V17") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V17").toString(), "17"));
 					obj.put("V32", "".equals(xian_list.get(i).get("V32")) || xian_list.get(i).get("V32") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V32").toString(), "32"));
 					obj.put("V19", "".equals(xian_list.get(i).get("V19")) || xian_list.get(i).get("V19") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V19").toString(), "19"));
-					
+					obj.put("V25", "".equals(xian_list.get(i).get("V25")) || xian_list.get(i).get("V25") == null ? "" : xian_list.get(i).get("V25").toString());
+					obj.put("V26", "".equals(xian_list.get(i).get("V26")) || xian_list.get(i).get("V26") == null ? "" : xian_list.get(i).get("V26").toString());
+//					obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
+					obj.put("V27", "".equals(xian_list.get(i).get("V27")) || xian_list.get(i).get("V27") == null ? "" : xian_list.get(i).get("V27").toString());
+					obj.put("V22", "".equals(xian_list.get(i).get("V22")) || xian_list.get(i).get("V22") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V22").toString(), "22"));
+					obj.put("V23", "".equals(xian_list.get(i).get("V23")) || xian_list.get(i).get("V23") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V23").toString(), "23"));
+					obj.put("SYS_STANDARD", "".equals(xian_list.get(i).get("SYS_STANDARD")) || xian_list.get(i).get("SYS_STANDARD") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("SYS_STANDARD").toString(), "sys_standard"));
+					obj.put("V29", "".equals(xian_list.get(i).get("V29")) || xian_list.get(i).get("V29") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V29").toString(), "29"));
+					obj.put("V30", "".equals(xian_list.get(i).get("V30")) || xian_list.get(i).get("V30") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V30").toString(), "30"));
+					obj.put("V33", "".equals(xian_list.get(i).get("V33")) || xian_list.get(i).get("V33") == null ? "" : sw4.mianZhuan(xian_list.get(i).get("V33").toString(), "33"));
 					
 					jsonArray2.add(obj);
 				
@@ -375,7 +391,7 @@ public class SW4_Controller{
 				
 		}
 		
-		response.getWriter().write("{\"data1\":"+jsonArray1.toString() +",\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+",\"data4\":"+jsonArray4.toString()+",\"data5\":"+jsonArray5.toString()+",\"data6\":"+jsonArray6.toString()+"}");
+		response.getWriter().write("{\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+",\"data4\":"+jsonArray4.toString()+",\"data5\":"+jsonArray5.toString()+",\"data6\":"+jsonArray6.toString()+"}");
 		response.getWriter().close();
 	}
 //	/**

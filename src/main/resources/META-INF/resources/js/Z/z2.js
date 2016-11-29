@@ -878,18 +878,18 @@ function savePoorMessage(pkid,acid,code){ //acid 贫困户编号 pkid 贫困人�
 	        	$('#show_hz_address3').text((data.data6[0].XIAN));
 	        	$('#show_hz_address4').text((data.data6[0].XIANG)); 
 	        	$('#show_hz_address5').text(data.data6[0].CUN); //地址
-	        	
-	        	$('#show_hz_phone').text(data.data1[0].V25);//电话
-	        	$('#show_hz_bank').text(data.data1[0].V26);//开户银行
-	        	$('#show_hz_banknum').text(data.data1[0].V27);//银行卡号
-	        	$('#show_hz_pkgsx').text(data.data1[0].V22);//贫困户属性
-	        	$('#show_hz_sfjls').text(data.data1[0].V29);//是否军烈属
-	        	$('#show_hz_dsznh').text(data.data1[0].V30);//是否独生子女户
-	        	$('#show_hz_snh').text(data.data1[0].V31);//是否双女户
-	        	$('#show_zyzp').text(data.data1[0].V23);//主要致贫原因
-	        	$('#show_qtzp').text(data.data1[0].V33);//其他致贫原因
+	        	/*
+	        	$('#show_hz_phone').text(data.data2[0].V25);//电话
+	        	$('#show_hz_bank').text(data.data2[0].V26);//开户银行
+	        	$('#show_hz_banknum').text(data.data2[0].V27);//银行卡号
+	        	$('#show_hz_pkgsx').text(data.data2[0].V22);//贫困户属性
+	        	$('#show_hz_sfjls').text(data.data2[0].V29);//是否军烈属
+	        	$('#show_hz_dsznh').text(data.data2[0].V30);//是否独生子女户
+	        	$('#show_hz_snh').text(data.data2[0].V31);//是否双女户
+	        	$('#show_zyzp').text(data.data2[0].V23);//主要致贫原因
+	        	$('#show_qtzp').text(data.data2[0].V33);//其他致贫原因
 	        	$('#show_hz_sbbz').text(data.data1[0].SYS_STANDARD);//识别标准
-	        	
+*/	        	
 	        	//家庭成员
 	        	var jtcy;
 	        	
@@ -968,6 +968,18 @@ function savePoorMessage(pkid,acid,code){ //acid 贫困户编号 pkid 贫困人�
 	        		var v6;var v7;var v8;var v10;var v11;var v12;var v13;var v14;var v28;var v15;var v16;var v17;var v32;var v19;
 	        		
 	        		$.each(data.data2,function(i,item){
+	        			if(item.V10=='户主'){
+		        			$('#show_hz_phone').text(data.data2[0].V25);//电话
+		    	        	$('#show_hz_bank').text(data.data2[0].V26);//开户银行
+		    	        	$('#show_hz_banknum').text(data.data2[0].V27);//银行卡号
+		    	        	$('#show_hz_pkgsx').text(data.data2[0].V22);//贫困户属性
+		    	        	$('#show_hz_sfjls').text(data.data2[0].V29);//是否军烈属
+		    	        	$('#show_hz_dsznh').text(data.data2[0].V30);//是否独生子女户
+		    	        	$('#show_hz_snh').text(data.data2[0].V31);//是否双女户
+		    	        	$('#show_zyzp').text(data.data2[0].V23);//主要致贫原因
+		    	        	$('#show_qtzp').text(data.data2[0].V33);//其他致贫原因
+		    	        	$('#show_hz_sbbz').text(data.data2[0].SYS_STANDARD);//识别标准
+	        			}
 	        			if(item.V6==null||item.V6==undefined){
 	        				v6="";
 	        			}else{
