@@ -972,6 +972,7 @@ public class Singleton {
 		Alist.add(jisuan(renshu,wbpkrs).toString());
 		return Alist;
 	}
+	
 	/**
 	 * @method 人均住房面积
 	 * @param datainfo2
@@ -997,6 +998,7 @@ public class Singleton {
 		}
 		return rj;
 	} 
+	
 	/**
 	 * @method 贫困户土地资源情况
 	 * @param datainfo2
@@ -1195,13 +1197,13 @@ public class Singleton {
 
 		return Alist;
 	}
+	
 	/**
 	 * @method 贫困户党员情况
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
 	 */
-
 	private ArrayList<String> caozuo1_2_15(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
