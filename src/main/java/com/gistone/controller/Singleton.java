@@ -30,8 +30,9 @@ import com.gistone.MyBatis.config.GetBySqlMapper;
 
 @RestController
 @RequestMapping
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class Singleton {
-	
+
 	@Autowired
 	private GetBySqlMapper getBySqlMapper;
 
@@ -48,18 +49,22 @@ public class Singleton {
 	 *  存储.xls名称
 	 */
 	private static ArrayList<String> filelist = new ArrayList<String>();
+
 	/**
 	 *  存储  pkc   出错表的名称和错误的列
 	 */
 	private static ArrayList<String> filelist_err = new ArrayList<String>();
+
 	/**
 	 *  存储 帮扶人   出错表的名称和错误的列
 	 */
 	private static ArrayList<String> filelist_err_2 = new ArrayList<String>();
+
 	/**
 	 *  存储 坐标      出错表的名称和错误的列
 	 */
 	private static ArrayList<String> filelist_err_3 = new ArrayList<String>();
+
 	/**
 	 *  存储 bfr 每个表的所有信息，作为计算该表总计所用
 	 */
@@ -87,7 +92,7 @@ public class Singleton {
 	}
 
 	/**
-	 * @method 计算占比
+	 * @method 计算int占比
 	 * @param num_1
 	 * @param num_2
 	 * @return
@@ -95,8 +100,12 @@ public class Singleton {
 	 * @date 2016年11月28日
 	 */
 	private Object jisuan(int num_1, int num_2) {
-		DecimalFormat df = new DecimalFormat("0.00");//格式化小数  
-		return df.format(100*(float)num_2/(float)num_1);//返回的是String类型 
+		if(num_1==0 || num_2==0){
+			return "0";
+		}else{
+			DecimalFormat df = new DecimalFormat("0.00");//格式化小数  
+			return df.format(100*(float)num_2/(float)num_1);//返回的是String类型 
+		}
 	}
 
 	/**
@@ -106,20 +115,40 @@ public class Singleton {
 	 * @return
 	 * @author 张晓翔
 	 */
-	private Object jisuan_2(Float float1, Float float2) {
-		DecimalFormat df = new DecimalFormat("0.00");//格式化小数  
-		return df.format(float2/float1);//返回的是String类型 
+	private String jisuan_2(Float float1, Float float2) {
+		if(float1==0.0 || float2==0.0){
+			return "0";
+		}else{
+			DecimalFormat df = new DecimalFormat("0.00");//格式化小数  
+			return df.format(float2/float1);//返回的是String类型 
+		}
 	}
 
 	/**
 	 * @method 计算乘积
-	 * @param hu
-	 * @param parseFloat
+	 * @param string
+	 * @param d
 	 * @return
 	 * @author 张晓翔
 	 */
-	private float jisuan_3(int hu, float parseFloat) {
-		return ((float)hu*(float)parseFloat);//返回的是String类型 
+	private double jisuan_3(int intr, Float d) {
+		return (intr*d);//返回的是Float类型 
+	}
+
+	/**
+	 * @method 计算浮点数占比
+	 * @param qt
+	 * @param hjzyxsr
+	 * @return
+	 * @author 张晓翔
+	 */
+	private String jisuan4(float qt, float hjzyxsr) {
+		if(qt==0.0 || hjzyxsr==0.0){
+			return "0";
+		}else{
+			DecimalFormat df = new DecimalFormat("0.00");//格式化小数  
+			return df.format(100*qt/hjzyxsr);//返回的是String类型 
+		}
 	}
 
 	/**
@@ -183,9 +212,7 @@ public class Singleton {
 	 * @throws IOException
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping("readExcel.do")
-//	private void readExcel() throws BiffException, IOException {
 	public void readExcel(HttpServletRequest request,HttpServletResponse response) throws BiffException,IOException{
 		// 创建一个list 用来存储读取的内容
 		List list = new ArrayList();
@@ -309,16 +336,16 @@ public class Singleton {
 								}
 							}
 							if(insert_fuzhu.indexOf("1")>-1){
-								insert_value += insert_fuzhu;
+								insert_value = insert_fuzhu;
 								filelist_err.add("\r\nExcel列数与数据库表列数不对应--》"+table_name +file_name);
 								System.err.println(table_name + file_name + "——Excel列数与数据库表列数不对应");
 							}
 							if(insert_fuzhu.indexOf("2")>-1){
-								insert_value += insert_fuzhu;
+								insert_value = insert_fuzhu;
 								filelist_err.add("\r\n数据格式不符合要求--》"+file_name+"-->"+insert_fz_2);
 							}
 							if(insert_fuzhu.indexOf("3")>-1){
-								insert_value += insert_fuzhu;
+								insert_value = insert_fuzhu;
 								filelist_err.add("\r\n行政区划代码存在问题--》"+file_name+"-->"+insert_fz_2);
 							}
 						}
@@ -432,63 +459,66 @@ public class Singleton {
 						if(datainfo.isEmpty()){
 							filelist_err.add("\r\n(此表读取不到数据)-"+file_name);
 						}else{
-							//行政区划编码
-							String code = geshihua(datainfo.get(0))[0].substring(0, 9)+"000";
-							//查询行政区划名称sql语句
-							String sql_xzqh ="SELECT COM_NAME,COM_CODE FROM SYS_COMPANY WHERE COM_CODE='"+code+"'";
-							//行政区划名称
-							String name ="";
-							try {
-								List<Map> list_pd = this.getBySqlMapper.findRecords(sql_xzqh);
-								if(list_pd.size()>0){
-									name=list_pd.get(0).get("COM_NAME").toString();
-								}else{
-									System.err.println("没有该行政区划编码");
-									filelist_err.add("\r\n(没有该行政区划编码)-"+file_name+"--"+code);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-								System.err.println("查询行政区划名称出错");
-								filelist_err.add("\r\n(查询行政区划名称出错)-"+file_name+"--"+code);
-							}
-							//存放的是计算后的乡一级数据
-							ArrayList<String> arry = count_r(datainfo,table_name);
-							if(arry.isEmpty()){
-								filelist_err.add("\r\n(乡级数据计算错误)-"+file_name);
-							}else{
-								//将乡数据插入到数据库
-								//先查询库里有没有这个乡的数据
-								String chaxiang_sql = "SELECT * FROM "+table_name+" WHERE "+insert_z.split(",")[1]+"='"+code+"' AND V99="+data_year;
-								List<Map> list_cs = this.getBySqlMapper.findRecords(chaxiang_sql);
-								String sql = "";
-								if(list_cs.size()>0){//有就执行updata
-									sql = "UPDATE "+table_name+" SET ";
-									for(int c = 0; c < arry.size(); c++){
-										if (c != 0) {
-											sql += ",";
-										}
-										sql += insert_z.split(",")[c+3] + "='"+arry.get(c)+"'";
-									}
-									sql += " WHERE "+insert_z.split(",")[1]+"="+code+" AND V99 ="+data_year;
-								}else{
-									//获取ID
-									String add_xsql = "SELECT max(PKID)+1 PKID FROM "+table_name;
-									String max_id_x = this.getBySqlMapper.findRecords(add_xsql).get(0).get("PKID").toString();
-									//执行插入语句
-									sql = "insert into " + table_name +"(" + insert_z
-											+ ",V99,V98) values(" + max_id_x + ",'" + code + "','" +name;
-									for(int x=0;x<arry.size();x++){
-										sql += "','"+arry.get(x);
-									}
-									sql += "','0',"+data_year+",'4')";
-								}
+							String xzqhbm = geshihua(datainfo.get(0))[0];
+							if(!xzqhbm.equals("") && xzqhbm.matches("^\\d{12}$")){
+								//行政区划编码
+								String code = xzqhbm.substring(0, 9)+"000";
+								//查询行政区划名称sql语句
+								String sql_xzqh ="SELECT COM_NAME,COM_CODE FROM SYS_COMPANY WHERE COM_CODE='"+code+"'";
+								//行政区划名称
+								String name ="";
 								try {
-									this.getBySqlMapper.findRecords(sql);
-									System.out.println("成功！ 乡"+file_name);
+									List<Map> list_pd = this.getBySqlMapper.findRecords(sql_xzqh);
+									if(list_pd.size()>0){
+										name=list_pd.get(0).get("COM_NAME").toString();
+									}else{
+										System.err.println("没有该行政区划编码");
+										filelist_err.add("\r\n(没有该行政区划编码)-"+file_name+"--"+code);
+									}
 								} catch (Exception e) {
 									e.printStackTrace();
-									System.err.println("失败！ 乡"+file_name+"，语句为：" + sql);
-									filelist_err.add("\r\n(添加乡失败)-》-"+file_name+"--"+sql);
+									System.err.println("查询行政区划名称出错");
+									filelist_err.add("\r\n(查询行政区划名称出错)-"+file_name+"--"+code);
+								}
+								//存放的是计算后的乡一级数据
+								ArrayList<String> arry = count_r(datainfo,table_name);
+								if(arry.isEmpty()){
+									filelist_err.add("\r\n(乡级数据计算错误)-"+file_name);
+								}else{
+									//将乡数据插入到数据库
+									//先查询库里有没有这个乡的数据
+									String chaxiang_sql = "SELECT * FROM "+table_name+" WHERE "+insert_z.split(",")[1]+"='"+code+"' AND V99="+data_year;
+									List<Map> list_cs = this.getBySqlMapper.findRecords(chaxiang_sql);
+									String sql = "";
+									if(list_cs.size()>0){//有就执行updata
+										sql = "UPDATE "+table_name+" SET ";
+										for(int c = 0; c < arry.size(); c++){
+											if (c != 0) {
+												sql += ",";
+											}
+											sql += insert_z.split(",")[c+3] + "='"+arry.get(c)+"'";
+										}
+										sql += " WHERE "+insert_z.split(",")[1]+"="+code+" AND V99 ="+data_year;
+									}else{
+										//获取ID
+										String add_xsql = "SELECT max(PKID)+1 PKID FROM "+table_name;
+										String max_id_x = this.getBySqlMapper.findRecords(add_xsql).get(0).get("PKID").toString();
+										//执行插入语句
+										sql = "insert into " + table_name +"(" + insert_z
+												+ ",V99,V98) values(" + max_id_x + ",'" + code + "','" +name;
+										for(int x=0;x<arry.size();x++){
+											sql += "','"+arry.get(x);
+										}
+										sql += "','0',"+data_year+",'4')";
+									}
+									try {
+										this.getBySqlMapper.findRecords(sql);
+										System.out.println("成功!");
+									} catch (Exception e) {
+										e.printStackTrace();
+										System.err.println("失败！ 乡"+file_name+"，语句为：" + sql);
+										filelist_err.add("\r\n(添加乡失败)-》-"+file_name+"--"+sql);
+									}
 								}
 							}
 						}
@@ -535,7 +565,6 @@ public class Singleton {
 	 * @throws IOException
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List duqu_excel(String file_name) throws BiffException, IOException {
 		List list = new ArrayList();
 		Workbook rwb = null;
@@ -798,7 +827,7 @@ public class Singleton {
 			table_all = caozuo(changdu,datainfo2);
 			break;
 		case "PKC_1_2_13":
-
+			table_all = caozuo1_2_15(datainfo2);
 			break;
 		case "PKC_1_2_14":
 			changdu = 9;
@@ -809,28 +838,29 @@ public class Singleton {
 			table_all = caozuo(changdu,datainfo2);
 			break;
 		case "PKC_1_3_1":
-
+			changdu = 4;
+			table_all = caozuo(changdu,datainfo2);
 			break;
 		case "PKC_1_3_2":
-
+			table_all = caozuo1_3_2(datainfo2);
 			break;
 		case "PKC_1_3_3":
-
+			table_all = caozuo1_3_3(datainfo2);
 			break;
 		case "PKC_2_1_1":
-
+			changdu = 8;
+			table_all = caozuo_alladd(changdu,datainfo2);
 			break;
 		case "PKC_2_2_1":
-
-			break;
-		case "PKC_2_3_1":
-
+			changdu = 23;
+			table_all = caozuo_alladd(changdu,datainfo2);
 			break;
 		case "PKC_3_1_1":
-
+			table_all = caozuo3_1_1(datainfo2);
 			break;
 		case "PKC_3_1_2":
-
+			changdu = 11;
+			table_all = caozuo_alladd(changdu,datainfo2);
 			break;
 
 		default:
@@ -842,38 +872,11 @@ public class Singleton {
 
 
 	/**
-	 * @method 上年度转移性收入
-	 * @param datainfo2
-	 * @return
-	 * @author 张晓翔
-	 */
-	private ArrayList<String> caozuo1_2_11(ArrayList<String> datainfo2) {
-		//集合-存结果
-		ArrayList Alist =new ArrayList<String>();
-		int hu = 0;
-		float hjzyxsr = 0;
-		float jhsyj = 0;
-		float lqdbj = 0;
-		float lqylj = 0;
-		float lqstbcj = 0;
-		for(int i=0; i<datainfo2.size(); i++){
-			//格式化String 为 String[]
-			String [] str_sz = geshihua(datainfo2.get(i));
-			
-		}
-
-
-
-		return Alist;
-	}
-
-	/**
 	 * @method 计算汇总的主操作
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<String> caozuo(int changdu, ArrayList<String> datainfo2)throws IOException{
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
@@ -907,11 +910,16 @@ public class Singleton {
 			for(int i=1; i<changdu-1; i++){
 				Smap_f.put("a"+i, jisuan(Smap.get("num_1"),Smap.get("num_"+(i+1))).toString());
 			}
+		}else{
+			for(int i=1; i<changdu-1; i++){
+				Smap_f.put("a"+i, "");
+			}
 		}
+		
 		//拼接成sql语句
 		for(int i=1; i<changdu; i++){
 			Alist.add(Smap.get("num_"+(i)).toString());
-			if(i<changdu-1){
+			if(i<(changdu-1)){
 				Alist.add(Smap_f.get("a"+(i)).toString());
 			}
 		}
@@ -924,7 +932,6 @@ public class Singleton {
 	 * @return
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<String> caozuo2_1(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
@@ -996,7 +1003,6 @@ public class Singleton {
 	 * @return
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private ArrayList<String> caozuo1_2_6(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
@@ -1055,16 +1061,15 @@ public class Singleton {
 	 * @return
 	 * @author 张晓翔
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<String> caozuo2(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
 		int hu = 0;
 		float zgl = (float) 0.0;
-		int ntl = 0;
-		int ssgl = 0;
-		int sngl = 0;
-		int lqgl = 0;
+		float ntl = 0;
+		float ssgl = 0;
+		float sngl = 0;
+		float lqgl = 0;
 		//取得这个苏木乡总的数据
 		for(int i=0; i<datainfo2.size(); i++){
 
@@ -1072,10 +1077,10 @@ public class Singleton {
 			if(datainfo.length>7){
 				hu += Integer.parseInt(datainfo[2].toString());
 				zgl += Float.parseFloat(datainfo[3].toString());
-				ntl += Integer.parseInt(datainfo[4].toString());
-				ssgl += Integer.parseInt(datainfo[5].toString());
-				sngl += Integer.parseInt(datainfo[6].toString());
-				lqgl += Integer.parseInt(datainfo[7].toString());
+				ntl += Float.parseFloat(datainfo[4].toString());
+				ssgl += Float.parseFloat(datainfo[5].toString());
+				sngl += Float.parseFloat(datainfo[6].toString());
+				lqgl += Float.parseFloat(datainfo[7].toString());
 			}
 		}
 
@@ -1095,20 +1100,19 @@ public class Singleton {
 	 * @author 张晓翔
 	 * @date 2016年11月28日
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private ArrayList<String> caozuo1_2_10(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
 		int hu = 0;
 		int ren = 0;
-		float nsr = (float) 0.00;
-		float scjyxsr = (float) 0.00;
-		float wgsr = (float) 0.00;
-		float ccxsr = (float) 0.00;
-		float zyxsr = (float) 0.00;
-		float hjscjyxzc = (float) 0.00;
-		float hjcsr = (float) 0.00;
-		float rjcsr = (float) 0.00;
+		float nsr = 0;
+		float scjyxsr = 0;
+		float wgsr = 0;
+		float ccxsr = 0;
+		float zyxsr = 0;
+		float hjscjyxzc = 0;
+		float hjcsr = 0;
+		float rjcsr = 0;
 		//取得这个苏木乡总的数据
 		for(int i=0; i<datainfo2.size(); i++){
 			//格式化String 为 String[]
@@ -1120,23 +1124,222 @@ public class Singleton {
 			wgsr += Float.parseFloat(chukong(str_sz[7]));
 			ccxsr += Float.parseFloat(chukong(str_sz[8]));
 			zyxsr += Float.parseFloat(chukong(str_sz[9]));
-			hjscjyxzc += jisuan_3(hu,Float.parseFloat(chukong(str_sz[10])));
-			hjcsr += jisuan_3(hu,Float.parseFloat(chukong(str_sz[11])));
-			rjcsr += jisuan_3(ren,Float.parseFloat(chukong(str_sz[12])));
+			hjscjyxzc += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[10])));
+			hjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[11])));
+			rjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[12])));
 		}
-
 		Alist.add(String.valueOf(hu));
 		Alist.add(String.valueOf(ren));
 		Alist.add(String.valueOf(nsr));
-		Alist.add(String.valueOf(nsr/hu));
+		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), nsr)));;
 		Alist.add(String.valueOf(scjyxsr));
 		Alist.add(String.valueOf(wgsr));
 		Alist.add(String.valueOf(ccxsr));
 		Alist.add(String.valueOf(zyxsr));
-		Alist.add(String.valueOf(hjscjyxzc/hu));
-		Alist.add(String.valueOf(hjcsr/hu));
-		Alist.add(String.valueOf(rjcsr/ren));
+		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjscjyxzc)));
+		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjcsr)));
+		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), rjcsr)));
 
+		return Alist;
+	}
+
+	/**
+	 * @method 上年度转移性收入
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+	private ArrayList<String> caozuo1_2_11(ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		int hu = 0;
+		int hus = 0;
+		float hjzyxsr = 0;
+		float jhsyj = 0;
+		float lqdbj = 0;
+		float lqylj = 0;
+		float lqstbcj = 0;
+		String a1,a2,a3,a4;
+		for(int i=0; i<datainfo2.size(); i++){
+			//格式化String 为 String[]
+			String [] str_sz = geshihua(datainfo2.get(i));
+			hus = Integer.parseInt(chukong(str_sz[2]));
+			hu += hus;
+			hjzyxsr += jisuan_3(hus,Float.parseFloat(chukong(str_sz[3])));
+			jhsyj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[4])));
+			lqdbj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[6])));
+			lqylj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[8])));
+			lqstbcj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[10])));
+		}
+		hjzyxsr = Float.parseFloat(jisuan_2((float) hu,hjzyxsr)) ;
+		jhsyj = Float.parseFloat(jisuan_2((float) hu,jhsyj));
+		lqdbj = Float.parseFloat(jisuan_2((float) hu,lqdbj));
+		lqylj = Float.parseFloat(jisuan_2((float) hu,lqylj));
+		lqstbcj = Float.parseFloat(jisuan_2((float) hu,lqstbcj));
+
+		a1 = jisuan4(jhsyj,hjzyxsr);//计划生育
+		a2 = jisuan4(lqdbj,hjzyxsr);//领取低保金
+		a3 = jisuan4(lqylj,hjzyxsr);//领取养老保险
+		a4 = jisuan4(lqstbcj,hjzyxsr);//生态补偿金
+
+		Alist.add(String.valueOf(hu));
+		Alist.add(String.valueOf(hjzyxsr));
+		Alist.add(String.valueOf(jhsyj));
+		Alist.add(a1);
+		Alist.add(String.valueOf(lqdbj));
+		Alist.add(a2);
+		Alist.add(String.valueOf(lqylj));
+		Alist.add(a3);
+		Alist.add(String.valueOf(lqstbcj));
+		Alist.add(a4);
+
+		return Alist;
+	}
+	/**
+	 * @method 贫困户党员情况
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+
+	private ArrayList<String> caozuo1_2_15(ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		int hu = 0, ren = 0, dyhs = 0, dyrs = 0, ybdyhs = 0, ybdyrs = 0;
+
+		for(int i=0; i<datainfo2.size(); i++){
+			String [] str_sz = geshihua(datainfo2.get(i));
+			hu += Integer.parseInt(chukong(str_sz[2]));
+			ren += Integer.parseInt(chukong(str_sz[3]));
+			dyhs += Integer.parseInt(chukong(str_sz[4]));
+			dyrs += Integer.parseInt(chukong(str_sz[6]));
+			ybdyhs += Integer.parseInt(chukong(str_sz[8]));
+			ybdyrs += Integer.parseInt(chukong(str_sz[10]));
+		}
+		Alist.add(String.valueOf(hu));
+		Alist.add(String.valueOf(ren));
+		Alist.add(String.valueOf(dyhs));
+		Alist.add(jisuan(hu,dyhs));
+		Alist.add(String.valueOf(dyrs));
+		Alist.add(jisuan(ren,dyrs));
+		Alist.add(String.valueOf(ybdyhs));
+		Alist.add(jisuan(hu,ybdyhs));
+		Alist.add(String.valueOf(ybdyrs));
+		Alist.add(jisuan(ren,ybdyrs));
+		return Alist;
+	}
+
+	/**
+	 * @method 村人口统计表
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+	private ArrayList<String> caozuo1_3_2(ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0, a5 = 0, a6 = 0;
+		for(int i=0; i<datainfo2.size(); i++){
+			String [] str_sz = geshihua(datainfo2.get(i));
+			a1 += Integer.parseInt(chukong(str_sz[2]));
+			a2 += Integer.parseInt(chukong(str_sz[3]));
+			a3 += Integer.parseInt(chukong(str_sz[4]));
+			a4 += Integer.parseInt(chukong(str_sz[6]));
+			a5 += Integer.parseInt(chukong(str_sz[8]));
+			a6 += Integer.parseInt(chukong(str_sz[10]));
+		}
+		Alist.add(String.valueOf(a1));
+		Alist.add(String.valueOf(a2));
+		Alist.add(String.valueOf(a3));
+		Alist.add(jisuan(a3,a1));
+		Alist.add(String.valueOf(a4));
+		Alist.add(jisuan(a4,a2));
+		Alist.add(String.valueOf(a5));
+		Alist.add(jisuan(a5,a1));
+		Alist.add(String.valueOf(a6));
+		Alist.add(jisuan(a6,a2));
+		return Alist;
+	}
+
+	/**
+	 * @method 村贫困发生率
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+	private ArrayList<String> caozuo1_3_3(ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0;
+		for(int i=0; i<datainfo2.size(); i++){
+			String [] str_sz = geshihua(datainfo2.get(i));
+			a1 += Integer.parseInt(chukong(str_sz[2]));
+			a2 += Integer.parseInt(chukong(str_sz[3]));
+			a3 += Integer.parseInt(chukong(str_sz[4]));
+			a4 += Integer.parseInt(chukong(str_sz[6]));
+		}
+		Alist.add(String.valueOf(a1));
+		Alist.add(String.valueOf(a2));
+		Alist.add(String.valueOf(a3));
+		Alist.add(jisuan(a2,a3));
+		Alist.add(String.valueOf(a4));
+		Alist.add(jisuan(a2,a3));
+		return Alist;
+	}
+
+	/**
+	 * @method 全都是相加
+	 * @param changdu
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+	private ArrayList<String> caozuo_alladd(int changdu, ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		//集合-存人数
+		Map<String, Float> Smap = new HashMap<String, Float>();
+		//初始化
+		for(int i=1; i<changdu; i++){
+			Smap.put("num_"+i, (float) 0);
+		}
+		//取得这个苏木乡总的数据
+		for(int i=0; i<datainfo2.size(); i++){
+			//格式化String 为 String[]
+			String [] str_sz = geshihua(datainfo2.get(i));
+			if(str_sz.length>=changdu){
+				for(int y=1; y<changdu; y++){
+					float num = Smap.get("num_"+y);
+					num += Float.parseFloat(chukong(str_sz[(y+1)]));
+					Smap.put("num_"+y,(float)num);
+				}
+			}
+		}
+		//拼接成sql语句
+		for(int i=1; i<changdu; i++){
+			Alist.add(String.valueOf(Smap.get("num_"+i)).replace(".0", ""));
+		}
+		return Alist;
+	}
+
+	/**
+	 * @method 帮扶责任人统计表
+	 * @param datainfo2
+	 * @return
+	 * @author 张晓翔
+	 */
+	private ArrayList<String> caozuo3_1_1(ArrayList<String> datainfo2) {
+		//集合-存结果
+		ArrayList Alist =new ArrayList<String>();
+		int a1 = 0, a2 = 0;
+		for(int i=0; i<datainfo2.size(); i++){
+			String [] str_sz = geshihua(datainfo2.get(i));
+			a1 += Integer.parseInt(chukong(str_sz[2]));
+			a2 += Integer.parseInt(chukong(str_sz[3]));
+		}
+		Alist.add(String.valueOf(a1));
+		Alist.add(String.valueOf(a2));
+		Alist.add("100");
 		return Alist;
 	}
 }
