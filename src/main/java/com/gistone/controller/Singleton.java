@@ -224,6 +224,7 @@ public class Singleton {
 		String bfr_phone = "";//帮扶人电话
 		String pkh_name = "";//贫困户名
 		String pkh_card = "";//贫困户的证件号
+		String file_name = "";//路径
 
 		filelist_err.clear();
 		filelist_err_2.clear();
@@ -234,7 +235,7 @@ public class Singleton {
 			list.clear ();
 
 			//依次获取表名
-			String file_name = s.getdata().get(a);
+			file_name = s.getdata().get(a);
 			//通过表名，获取数据库表名
 			table_name = hq_bm(file_name).get("table_name").toString();
 			insert_z = hq_bm(file_name).get("insert_z").toString();
@@ -294,14 +295,14 @@ public class Singleton {
 								if(j == 0){//验证行政区划代码
 									if(!str_2.equals("") && str_2.matches("^\\d{12}$")){
 									}else{
-										insert_fuzhu += ",3";
+										insert_fuzhu += "3";
 										insert_fz_2 += "\r\n第-"+(i+2)+"-行，第-"+(j+1)+"-列";
 									}
 								}else if(j == 1){//跳过行政区划名称
 								}else{//验证需要填的东西
 									if(str_2.equals("") || str_2.matches("^\\d+$|^\\d+\\.\\d+$")){
 									}else{
-										insert_fuzhu += ",2";
+										insert_fuzhu += "2";
 										insert_fz_2 += "\r\n第-"+(i+2)+"-行，第-"+(j+1)+"-列";
 									}
 								}
@@ -330,22 +331,22 @@ public class Singleton {
 									}else{
 										String sta_1 = str_2.replace(" ","");
 										if(!sta_1.equals("")){
-											insert_fuzhu += ",1";
+											insert_fuzhu += "1";
 										}
 									}
 								}
 							}
 							if(insert_fuzhu.indexOf("1")>-1){
-								insert_value = insert_fuzhu;
+								insert_value = "";
 								filelist_err.add("\r\nExcel列数与数据库表列数不对应--》"+table_name +file_name);
 								System.err.println(table_name + file_name + "——Excel列数与数据库表列数不对应");
 							}
 							if(insert_fuzhu.indexOf("2")>-1){
-								insert_value = insert_fuzhu;
+								insert_value = "";
 								filelist_err.add("\r\n数据格式不符合要求--》"+file_name+"-->"+insert_fz_2);
 							}
 							if(insert_fuzhu.indexOf("3")>-1){
-								insert_value = insert_fuzhu;
+								insert_value = "";
 								filelist_err.add("\r\n行政区划代码存在问题--》"+file_name+"-->"+insert_fz_2);
 							}
 						}
@@ -528,15 +529,22 @@ public class Singleton {
 				System.err.println("读取到了没有用到的表");
 			}
 		}
-
+		String file_a = file_name.split("\\\\")[2].toString();
 		//将获取到的错误生成txt文档--贫困村
 		if(filelist_err.size()!=0){
-			FileOutputStream fs = new FileOutputStream(new File("g:\\bugpkc-"+getime()+".txt"));
+			FileOutputStream fs = new FileOutputStream(new File("g:\\BUG_list\\"+file_a+"_"+getime()+".txt"));
 			PrintStream p = new PrintStream(fs);
 			p.print(filelist_err);
 			p.close();
 			System.err.println("PKC表出现错误次数："+filelist_err.size());
+		}else{
+			FileOutputStream fs = new FileOutputStream(new File("g:\\BUG_list\\"+file_a+"_无错误.txt"));
+			PrintStream p = new PrintStream(fs);
+			p.print(filelist_err);
+			p.close();
+			System.err.println("没有错误");
 		}
+		
 		//将获取到的错误生成txt文档--帮扶人
 		if(filelist_err_2.size()!=0){
 			FileOutputStream fs2 = new FileOutputStream(new File("g:\\bugbfr-"+getime()+".txt"));
@@ -744,62 +752,62 @@ public class Singleton {
 		switch (table_name) {
 		case "PKC_1_1_0":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_1":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_2":
 			changdu = 6;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_3":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_4":
 			changdu = 6;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_5":
 			changdu = 7;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_6":
 			changdu = 14;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_7":
 			changdu = 18;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_8":
 			changdu = 5;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_1_9":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_1":
 			table_all = caozuo2_1(datainfo2);
 			break;
 		case "PKC_1_2_2":
 			changdu = 13;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_3":
 			changdu = 15;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_4":
 			changdu = 3;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_5":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			table_all.add(rjzfmj(datainfo2));//人均住房面积
 			break;
 		case "PKC_1_2_6":
@@ -807,45 +815,45 @@ public class Singleton {
 			break;
 		case "PKC_1_2_7":
 			changdu = 9;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_8":
 			changdu = 7;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_9":
 			table_all = caozuo2(datainfo2);
 			break;
 		case "PKC_1_2_10":
-			table_all = caozuo1_2_10(datainfo2);
+			table_all = caozuo1_2_10(datainfo2,table_name);
 			break;
 		case "PKC_1_2_11":
-			table_all = caozuo1_2_11(datainfo2);
+			table_all = caozuo1_2_11(datainfo2,table_name);
 			break;
 		case "PKC_1_2_12":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_13":
-			table_all = caozuo1_2_15(datainfo2);
+			table_all = caozuo1_2_15(datainfo2,table_name);
 			break;
 		case "PKC_1_2_14":
 			changdu = 9;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_2_15":
 			changdu = 8;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_3_1":
 			changdu = 4;
-			table_all = caozuo(changdu,datainfo2);
+			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_3_2":
 			table_all = caozuo1_3_2(datainfo2);
 			break;
 		case "PKC_1_3_3":
-			table_all = caozuo1_3_3(datainfo2);
+			table_all = caozuo1_3_3(datainfo2,table_name);
 			break;
 		case "PKC_2_1_1":
 			changdu = 8;
@@ -876,14 +884,17 @@ public class Singleton {
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 */
-	private ArrayList<String> caozuo(int changdu, ArrayList<String> datainfo2)throws IOException{
+	private ArrayList<String> caozuo(int changdu, ArrayList<String> datainfo2, String table_name)throws IOException{
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
 		//集合-存人数
 		Map<String, Integer> Smap = new HashMap<String, Integer>();
 		//集合-存占比
 		Map<String, String> Smap_f = new HashMap<String, String>();
+		//判断是否有误
+		int pd = 0;
 		//初始化
 		for(int i=1; i<changdu; i++){
 			Smap.put("num_"+i, 0);
@@ -894,34 +905,42 @@ public class Singleton {
 			String [] str_sz = geshihua(datainfo2.get(i));
 			if(str_sz.length>=changdu){
 				for(int y=1; y<changdu; y++){
-					int num = Smap.get("num_"+y);
-					if(y==1){
-						num += Integer.parseInt(chukong(str_sz[2]));
-						Smap.put("num_1", num);
-					}else{
-						num += Integer.parseInt(chukong(str_sz[y+y-1]));
-						Smap.put("num_"+y, num);
+					try {
+						int num = Smap.get("num_"+y);
+						if(y==1){
+							num += Integer.parseInt(chukong(str_sz[2]));
+							Smap.put("num_1", num);
+						}else{
+							num += Integer.parseInt(chukong(str_sz[y+y-1]));
+							Smap.put("num_"+y, num);
+						}
+					} catch (Exception e) {
+						filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+						pd += 1;
 					}
 				}
 			}
 		}
-		//计算出这个嘎查乡总的占比
-		if(Smap.get("num_1") != 0){
-			for(int i=1; i<changdu-1; i++){
-				Smap_f.put("a"+i, jisuan(Smap.get("num_1"),Smap.get("num_"+(i+1))).toString());
+		if(pd == 0){
+			//计算出这个嘎查乡总的占比
+			if(Smap.get("num_1") != 0){
+				for(int i=1; i<changdu-1; i++){
+					Smap_f.put("a"+i, jisuan(Smap.get("num_1"),Smap.get("num_"+(i+1))).toString());
+				}
+			}else{
+				for(int i=1; i<changdu-1; i++){
+					Smap_f.put("a"+i, "");
+				}
+			}
+			//拼接成sql语句
+			for(int i=1; i<changdu; i++){
+				Alist.add(Smap  .get("num_"+(i)).toString());
+				if(i<(changdu-1)){
+					Alist.add(Smap_f.get("a"+(i)).toString());
+				}
 			}
 		}else{
-			for(int i=1; i<changdu-1; i++){
-				Smap_f.put("a"+i, "");
-			}
-		}
-		
-		//拼接成sql语句
-		for(int i=1; i<changdu; i++){
-			Alist.add(Smap.get("num_"+(i)).toString());
-			if(i<(changdu-1)){
-				Alist.add(Smap_f.get("a"+(i)).toString());
-			}
+			Alist.clear();
 		}
 		return Alist;
 	}
@@ -935,6 +954,7 @@ public class Singleton {
 	private ArrayList<String> caozuo2_1(ArrayList<String> datainfo2) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
+		int pd = 0;
 		Integer hushu = 0;//户数
 		Integer renshu = 0;//人数
 		Integer ybpkhs = 0;//一般贫困户户数
@@ -946,33 +966,44 @@ public class Singleton {
 		for(int i=0; i<datainfo2.size(); i+=1){
 			String [] str_sz = geshihua(datainfo2.get(i));
 			if(str_sz.length < 17){
-				hushu += Integer.parseInt(chukong(str_sz[2]));
-				renshu += Integer.parseInt(chukong(str_sz[3]));
-				ybpkhs += Integer.parseInt(chukong(str_sz[4]));
-				ybpkrs += Integer.parseInt(chukong(str_sz[6]));
-				dbpkhs += Integer.parseInt(chukong(str_sz[8]));
-				dbpkrs += Integer.parseInt(chukong(str_sz[10]));
-				wbpkhs += Integer.parseInt(chukong(str_sz[12]));
-				wbpkrs += Integer.parseInt(chukong(str_sz[14]));
+				try {
+					hushu += Integer.parseInt(chukong(str_sz[2]));
+					renshu += Integer.parseInt(chukong(str_sz[3]));
+					ybpkhs += Integer.parseInt(chukong(str_sz[4]));
+					ybpkrs += Integer.parseInt(chukong(str_sz[6]));
+					dbpkhs += Integer.parseInt(chukong(str_sz[8]));
+					dbpkrs += Integer.parseInt(chukong(str_sz[10]));
+					wbpkhs += Integer.parseInt(chukong(str_sz[12]));
+					wbpkrs += Integer.parseInt(chukong(str_sz[14]));
+				} catch (Exception e) {
+					filelist_err.add("\r\n(2.1) 贫困户属性统计表-》-第"+(i+2)+"行数据格式出现问题");
+					pd += 1;
+				}
+
 			}
 		}
-		Alist.add(hushu.toString());
-		Alist.add(renshu.toString());
-		Alist.add(ybpkhs.toString());
-		Alist.add(jisuan(hushu,ybpkhs).toString());
-		Alist.add(ybpkrs.toString());
-		Alist.add(jisuan(renshu,ybpkrs).toString());
-		Alist.add(dbpkhs.toString());
-		Alist.add(jisuan(hushu,dbpkhs).toString());
-		Alist.add(dbpkrs.toString());
-		Alist.add(jisuan(renshu,dbpkrs).toString());
-		Alist.add(wbpkhs.toString());
-		Alist.add(jisuan(hushu,wbpkhs).toString());
-		Alist.add(wbpkrs.toString());
-		Alist.add(jisuan(renshu,wbpkrs).toString());
+		if(pd == 0){
+			Alist.add(hushu.toString());
+			Alist.add(renshu.toString());
+			Alist.add(ybpkhs.toString());
+			Alist.add(jisuan(hushu,ybpkhs).toString());
+			Alist.add(ybpkrs.toString());
+			Alist.add(jisuan(renshu,ybpkrs).toString());
+			Alist.add(dbpkhs.toString());
+			Alist.add(jisuan(hushu,dbpkhs).toString());
+			Alist.add(dbpkrs.toString());
+			Alist.add(jisuan(renshu,dbpkrs).toString());
+			Alist.add(wbpkhs.toString());
+			Alist.add(jisuan(hushu,wbpkhs).toString());
+			Alist.add(wbpkrs.toString());
+			Alist.add(jisuan(renshu,wbpkrs).toString());
+		}else{
+			Alist.clear();
+		}
+
 		return Alist;
 	}
-	
+
 	/**
 	 * @method 人均住房面积
 	 * @param datainfo2
@@ -998,7 +1029,7 @@ public class Singleton {
 		}
 		return rj;
 	} 
-	
+
 	/**
 	 * @method 贫困户土地资源情况
 	 * @param datainfo2
@@ -1100,13 +1131,13 @@ public class Singleton {
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 * @date 2016年11月28日
 	 */
-	private ArrayList<String> caozuo1_2_10(ArrayList<String> datainfo2) {
+	private ArrayList<String> caozuo1_2_10(ArrayList<String> datainfo2, String table_name) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
-		int hu = 0;
-		int ren = 0;
+		int hu = 0, ren = 0 , pd=0;
 		float nsr = 0;
 		float scjyxsr = 0;
 		float wgsr = 0;
@@ -1117,31 +1148,39 @@ public class Singleton {
 		float rjcsr = 0;
 		//取得这个苏木乡总的数据
 		for(int i=0; i<datainfo2.size(); i++){
-			//格式化String 为 String[]
-			String [] str_sz = geshihua(datainfo2.get(i));
-			hu += Integer.parseInt(chukong(str_sz[2]));
-			ren += Integer.parseInt(chukong(str_sz[3]));
-			nsr += Float.parseFloat(chukong(str_sz[4]));
-			scjyxsr += Float.parseFloat(chukong(str_sz[6]));
-			wgsr += Float.parseFloat(chukong(str_sz[7]));
-			ccxsr += Float.parseFloat(chukong(str_sz[8]));
-			zyxsr += Float.parseFloat(chukong(str_sz[9]));
-			hjscjyxzc += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[10])));
-			hjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[11])));
-			rjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[12])));
+			try {
+				//格式化String 为 String[]
+				String [] str_sz = geshihua(datainfo2.get(i));
+				hu += Integer.parseInt(chukong(str_sz[2]));
+				ren += Integer.parseInt(chukong(str_sz[3]));
+				nsr += Float.parseFloat(chukong(str_sz[4]));
+				scjyxsr += Float.parseFloat(chukong(str_sz[6]));
+				wgsr += Float.parseFloat(chukong(str_sz[7]));
+				ccxsr += Float.parseFloat(chukong(str_sz[8]));
+				zyxsr += Float.parseFloat(chukong(str_sz[9]));
+				hjscjyxzc += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[10])));
+				hjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[11])));
+				rjcsr += jisuan_3(Integer.parseInt(chukong(str_sz[2])),Float.parseFloat(chukong(str_sz[12])));
+			} catch (Exception e) {
+				pd += 1;
+				filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+			}
 		}
-		Alist.add(String.valueOf(hu));
-		Alist.add(String.valueOf(ren));
-		Alist.add(String.valueOf(nsr));
-		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), nsr)));;
-		Alist.add(String.valueOf(scjyxsr));
-		Alist.add(String.valueOf(wgsr));
-		Alist.add(String.valueOf(ccxsr));
-		Alist.add(String.valueOf(zyxsr));
-		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjscjyxzc)));
-		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjcsr)));
-		Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), rjcsr)));
-
+		if(pd==0){
+			Alist.add(String.valueOf(hu));
+			Alist.add(String.valueOf(ren));
+			Alist.add(String.valueOf(nsr));
+			Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), nsr)));;
+			Alist.add(String.valueOf(scjyxsr));
+			Alist.add(String.valueOf(wgsr));
+			Alist.add(String.valueOf(ccxsr));
+			Alist.add(String.valueOf(zyxsr));
+			Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjscjyxzc)));
+			Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), hjcsr)));
+			Alist.add(String.valueOf(jisuan_2(Float.parseFloat(String.valueOf(hu)), rjcsr)));
+		}else{
+			Alist.clear();
+		}
 		return Alist;
 	}
 
@@ -1150,12 +1189,12 @@ public class Singleton {
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 */
-	private ArrayList<String> caozuo1_2_11(ArrayList<String> datainfo2) {
+	private ArrayList<String> caozuo1_2_11(ArrayList<String> datainfo2, String table_name) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
-		int hu = 0;
-		int hus = 0;
+		int hu = 0, hus = 0, pd=0;
 		float hjzyxsr = 0;
 		float jhsyj = 0;
 		float lqdbj = 0;
@@ -1163,71 +1202,89 @@ public class Singleton {
 		float lqstbcj = 0;
 		String a1,a2,a3,a4;
 		for(int i=0; i<datainfo2.size(); i++){
-			//格式化String 为 String[]
-			String [] str_sz = geshihua(datainfo2.get(i));
-			hus = Integer.parseInt(chukong(str_sz[2]));
-			hu += hus;
-			hjzyxsr += jisuan_3(hus,Float.parseFloat(chukong(str_sz[3])));
-			jhsyj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[4])));
-			lqdbj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[6])));
-			lqylj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[8])));
-			lqstbcj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[10])));
+			try {
+				//格式化String 为 String[]
+				String [] str_sz = geshihua(datainfo2.get(i));
+				hus = Integer.parseInt(chukong(str_sz[2]));
+				hu += hus;
+				hjzyxsr += jisuan_3(hus,Float.parseFloat(chukong(str_sz[3])));
+				jhsyj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[4])));
+				lqdbj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[6])));
+				lqylj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[8])));
+				lqstbcj += jisuan_3(hus,Float.parseFloat(chukong(str_sz[10])));
+			} catch (Exception e) {
+				pd+=1;
+				filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+			}
 		}
-		hjzyxsr = Float.parseFloat(jisuan_2((float) hu,hjzyxsr)) ;
-		jhsyj = Float.parseFloat(jisuan_2((float) hu,jhsyj));
-		lqdbj = Float.parseFloat(jisuan_2((float) hu,lqdbj));
-		lqylj = Float.parseFloat(jisuan_2((float) hu,lqylj));
-		lqstbcj = Float.parseFloat(jisuan_2((float) hu,lqstbcj));
+		if(pd == 0){
+			hjzyxsr = Float.parseFloat(jisuan_2((float) hu,hjzyxsr)) ;
+			jhsyj = Float.parseFloat(jisuan_2((float) hu,jhsyj));
+			lqdbj = Float.parseFloat(jisuan_2((float) hu,lqdbj));
+			lqylj = Float.parseFloat(jisuan_2((float) hu,lqylj));
+			lqstbcj = Float.parseFloat(jisuan_2((float) hu,lqstbcj));
 
-		a1 = jisuan4(jhsyj,hjzyxsr);//计划生育
-		a2 = jisuan4(lqdbj,hjzyxsr);//领取低保金
-		a3 = jisuan4(lqylj,hjzyxsr);//领取养老保险
-		a4 = jisuan4(lqstbcj,hjzyxsr);//生态补偿金
+			a1 = jisuan4(jhsyj,hjzyxsr);//计划生育
+			a2 = jisuan4(lqdbj,hjzyxsr);//领取低保金
+			a3 = jisuan4(lqylj,hjzyxsr);//领取养老保险
+			a4 = jisuan4(lqstbcj,hjzyxsr);//生态补偿金
 
-		Alist.add(String.valueOf(hu));
-		Alist.add(String.valueOf(hjzyxsr));
-		Alist.add(String.valueOf(jhsyj));
-		Alist.add(a1);
-		Alist.add(String.valueOf(lqdbj));
-		Alist.add(a2);
-		Alist.add(String.valueOf(lqylj));
-		Alist.add(a3);
-		Alist.add(String.valueOf(lqstbcj));
-		Alist.add(a4);
-
+			Alist.add(String.valueOf(hu));
+			Alist.add(String.valueOf(hjzyxsr));
+			Alist.add(String.valueOf(jhsyj));
+			Alist.add(a1);
+			Alist.add(String.valueOf(lqdbj));
+			Alist.add(a2);
+			Alist.add(String.valueOf(lqylj));
+			Alist.add(a3);
+			Alist.add(String.valueOf(lqstbcj));
+			Alist.add(a4);
+		}else{
+			Alist.clear();
+		}
 		return Alist;
 	}
-	
+
 	/**
 	 * @method 贫困户党员情况
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 */
-	private ArrayList<String> caozuo1_2_15(ArrayList<String> datainfo2) {
+	private ArrayList<String> caozuo1_2_15(ArrayList<String> datainfo2, String table_name) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
-		int hu = 0, ren = 0, dyhs = 0, dyrs = 0, ybdyhs = 0, ybdyrs = 0;
+		int hu = 0, ren = 0, dyhs = 0, dyrs = 0, ybdyhs = 0, ybdyrs = 0, pd = 0;
 
 		for(int i=0; i<datainfo2.size(); i++){
-			String [] str_sz = geshihua(datainfo2.get(i));
-			hu += Integer.parseInt(chukong(str_sz[2]));
-			ren += Integer.parseInt(chukong(str_sz[3]));
-			dyhs += Integer.parseInt(chukong(str_sz[4]));
-			dyrs += Integer.parseInt(chukong(str_sz[6]));
-			ybdyhs += Integer.parseInt(chukong(str_sz[8]));
-			ybdyrs += Integer.parseInt(chukong(str_sz[10]));
+			try {
+				String [] str_sz = geshihua(datainfo2.get(i));
+				hu += Integer.parseInt(chukong(str_sz[2]));
+				ren += Integer.parseInt(chukong(str_sz[3]));
+				dyhs += Integer.parseInt(chukong(str_sz[4]));
+				dyrs += Integer.parseInt(chukong(str_sz[6]));
+				ybdyhs += Integer.parseInt(chukong(str_sz[8]));
+				ybdyrs += Integer.parseInt(chukong(str_sz[10]));
+			} catch (Exception e) {
+				pd += 1;
+				filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+			}
 		}
-		Alist.add(String.valueOf(hu));
-		Alist.add(String.valueOf(ren));
-		Alist.add(String.valueOf(dyhs));
-		Alist.add(jisuan(hu,dyhs));
-		Alist.add(String.valueOf(dyrs));
-		Alist.add(jisuan(ren,dyrs));
-		Alist.add(String.valueOf(ybdyhs));
-		Alist.add(jisuan(hu,ybdyhs));
-		Alist.add(String.valueOf(ybdyrs));
-		Alist.add(jisuan(ren,ybdyrs));
+		if(pd == 0){
+			Alist.add(String.valueOf(hu));
+			Alist.add(String.valueOf(ren));
+			Alist.add(String.valueOf(dyhs));
+			Alist.add(jisuan(hu,dyhs));
+			Alist.add(String.valueOf(dyrs));
+			Alist.add(jisuan(ren,dyrs));
+			Alist.add(String.valueOf(ybdyhs));
+			Alist.add(jisuan(hu,ybdyhs));
+			Alist.add(String.valueOf(ybdyrs));
+			Alist.add(jisuan(ren,ybdyrs));
+		}else{
+			Alist.clear();
+		}
 		return Alist;
 	}
 
@@ -1268,24 +1325,34 @@ public class Singleton {
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 */
-	private ArrayList<String> caozuo1_3_3(ArrayList<String> datainfo2) {
+	private ArrayList<String> caozuo1_3_3(ArrayList<String> datainfo2, String table_name) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
-		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0;
+		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0, pd = 0;
 		for(int i=0; i<datainfo2.size(); i++){
-			String [] str_sz = geshihua(datainfo2.get(i));
-			a1 += Integer.parseInt(chukong(str_sz[2]));
-			a2 += Integer.parseInt(chukong(str_sz[3]));
-			a3 += Integer.parseInt(chukong(str_sz[4]));
-			a4 += Integer.parseInt(chukong(str_sz[6]));
+			try {
+				String [] str_sz = geshihua(datainfo2.get(i));
+				a1 += Integer.parseInt(chukong(str_sz[2]));
+				a2 += Integer.parseInt(chukong(str_sz[3]));
+				a3 += Integer.parseInt(chukong(str_sz[4]));
+				a4 += Integer.parseInt(chukong(str_sz[6]));
+			} catch (Exception e) {
+				filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+				pd += 1;
+			}
 		}
-		Alist.add(String.valueOf(a1));
-		Alist.add(String.valueOf(a2));
-		Alist.add(String.valueOf(a3));
-		Alist.add(jisuan(a2,a3));
-		Alist.add(String.valueOf(a4));
-		Alist.add(jisuan(a2,a3));
+		if(pd==0){
+			Alist.add(String.valueOf(a1));
+			Alist.add(String.valueOf(a2));
+			Alist.add(String.valueOf(a3));
+			Alist.add(jisuan(a2,a3));
+			Alist.add(String.valueOf(a4));
+			Alist.add(jisuan(a2,a3));
+		}else{
+			Alist.clear();
+		}
 		return Alist;
 	}
 
