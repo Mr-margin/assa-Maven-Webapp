@@ -293,10 +293,14 @@ public class Singleton {
 							for (int j = 0; j < str.length; j++) {
 								String str_2 = str[j].replace(" ", "");
 								if(j == 0){//验证行政区划代码
-									if(!str_2.equals("") && str_2.matches("^\\d{12}$")){
+									String str_1 = str[1].replace(" ", "");
+									if(str_2.equals("") && str_1.equals("")){
+										insert_fuzhu += "4";
 									}else{
-										insert_fuzhu += "3";
-										insert_fz_2 += "\r\n第-"+(i+2)+"-行，第-"+(j+1)+"-列";
+										if(str_2.equals("") || !str_2.matches("^\\d{12}$")){
+											insert_fuzhu += "3";
+											insert_fz_2 += "\r\n第-"+(i+2)+"-行，第-1-列";
+										}
 									}
 								}else if(j == 1){//跳过行政区划名称
 								}else{//验证需要填的东西
@@ -336,6 +340,7 @@ public class Singleton {
 									}
 								}
 							}
+
 							if(insert_fuzhu.indexOf("1")>-1){
 								insert_value = "";
 								filelist_err.add("\r\nExcel列数与数据库表列数不对应--》"+table_name +file_name);
@@ -348,6 +353,9 @@ public class Singleton {
 							if(insert_fuzhu.indexOf("3")>-1){
 								insert_value = "";
 								filelist_err.add("\r\n行政区划代码存在问题--》"+file_name+"-->"+insert_fz_2);
+							}
+							if(insert_fuzhu.indexOf("4")>-1){
+								insert_value = "";
 							}
 						}
 
@@ -544,7 +552,7 @@ public class Singleton {
 			p.close();
 			System.err.println("没有错误");
 		}
-		
+
 		//将获取到的错误生成txt文档--帮扶人
 		if(filelist_err_2.size()!=0){
 			FileOutputStream fs2 = new FileOutputStream(new File("g:\\bugbfr-"+getime()+".txt"));
@@ -850,7 +858,7 @@ public class Singleton {
 			table_all = caozuo(changdu,datainfo2,table_name);
 			break;
 		case "PKC_1_3_2":
-			table_all = caozuo1_3_2(datainfo2);
+			table_all = caozuo1_3_2(datainfo2,table_name);
 			break;
 		case "PKC_1_3_3":
 			table_all = caozuo1_3_3(datainfo2,table_name);
@@ -1293,30 +1301,41 @@ public class Singleton {
 	 * @param datainfo2
 	 * @return
 	 * @author 张晓翔
+	 * @param table_name 
 	 */
-	private ArrayList<String> caozuo1_3_2(ArrayList<String> datainfo2) {
+	private ArrayList<String> caozuo1_3_2(ArrayList<String> datainfo2, String table_name) {
 		//集合-存结果
 		ArrayList Alist =new ArrayList<String>();
-		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0, a5 = 0, a6 = 0;
+		int a1 = 0 , a2 = 0, a3 = 0, a4 = 0, a5 = 0, a6 = 0, pd = 0;
 		for(int i=0; i<datainfo2.size(); i++){
-			String [] str_sz = geshihua(datainfo2.get(i));
-			a1 += Integer.parseInt(chukong(str_sz[2]));
-			a2 += Integer.parseInt(chukong(str_sz[3]));
-			a3 += Integer.parseInt(chukong(str_sz[4]));
-			a4 += Integer.parseInt(chukong(str_sz[6]));
-			a5 += Integer.parseInt(chukong(str_sz[8]));
-			a6 += Integer.parseInt(chukong(str_sz[10]));
+			try {
+				String [] str_sz = geshihua(datainfo2.get(i));
+				a1 += Integer.parseInt(chukong(str_sz[2]));
+				a2 += Integer.parseInt(chukong(str_sz[3]));
+				a3 += Integer.parseInt(chukong(str_sz[4]));
+				a4 += Integer.parseInt(chukong(str_sz[6]));
+				a5 += Integer.parseInt(chukong(str_sz[8]));
+				a6 += Integer.parseInt(chukong(str_sz[10]));
+			} catch (Exception e) {
+				pd += 1;
+				filelist_err.add("\r\n("+table_name+")-》-第"+(i+2)+"行数据格式出现问题");
+			}
 		}
-		Alist.add(String.valueOf(a1));
-		Alist.add(String.valueOf(a2));
-		Alist.add(String.valueOf(a3));
-		Alist.add(jisuan(a3,a1));
-		Alist.add(String.valueOf(a4));
-		Alist.add(jisuan(a4,a2));
-		Alist.add(String.valueOf(a5));
-		Alist.add(jisuan(a5,a1));
-		Alist.add(String.valueOf(a6));
-		Alist.add(jisuan(a6,a2));
+		if(pd == 0){
+			Alist.add(String.valueOf(a1));
+			Alist.add(String.valueOf(a2));
+			Alist.add(String.valueOf(a3));
+			Alist.add(jisuan(a3,a1));
+			Alist.add(String.valueOf(a4));
+			Alist.add(jisuan(a4,a2));
+			Alist.add(String.valueOf(a5));
+			Alist.add(jisuan(a5,a1));
+			Alist.add(String.valueOf(a6));
+			Alist.add(jisuan(a6,a2));
+		}else{
+			Alist.clear();
+		}
+		
 		return Alist;
 	}
 
