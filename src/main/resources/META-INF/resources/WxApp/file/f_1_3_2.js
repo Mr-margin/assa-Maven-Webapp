@@ -159,7 +159,7 @@ function pkcwtp(){
 						    if (index === 0) {
 						    	data=0
 						    }else{
-						    	data= Number(value)/Number(wan)+"万户";
+						    	data= Number(value)+"户";
 						    }
 						    return data;
 						}
@@ -222,7 +222,7 @@ function pkcwtp(){
 						    if (index === 0) {
 						    	data=0
 						    }else{
-						    	data= Number(value)/Number(wan)+"万人";
+						    	data= Number(value)+"人";
 						    }
 						    return data;
 						}
