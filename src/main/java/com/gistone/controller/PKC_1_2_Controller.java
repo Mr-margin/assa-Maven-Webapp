@@ -213,7 +213,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select vf1,vf2,vf3,vf4,vf41 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VF1=b.COM_NAME ";
+		String sql = "select vf1,vf2,vf3,vf4,NVL(vf41, '0') vf41 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VF1=b.COM_NAME ";
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
 		}else{
@@ -259,7 +259,7 @@ public class PKC_1_2_Controller {
 		if(order==null||order.trim().equals("")){
 			sql+=" order by c.PKID";
 		}else{
-			sql+=" order by to_number(c."+order+") DESC";
+			sql+=" order by to_number("+order+") DESC";
 		}
 		List<Map> sql_list = this.getBySqlMapper.findRecords(sql);
 		JSONObject val = new JSONObject();
