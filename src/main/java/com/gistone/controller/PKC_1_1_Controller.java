@@ -143,22 +143,64 @@ public class PKC_1_1_Controller {
 	public void getPKC_1_1_2(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");// 行政区划
+		String year = request.getParameter("year");// 统计年度
+		String q1 = request.getParameter("q1");// 旗县分类-国家重点旗县
+		String q2 = request.getParameter("q2");// 旗县分类-自治区重点旗县
+		String q3 = request.getParameter("q3");// 旗县分类-革命老区旗县
+		String q4 = request.getParameter("q4");// 旗县分类-牧业旗县
+		String q5 = request.getParameter("q5");// 旗县分类-边境旗县
 		String t1 = request.getParameter("t1");// 脱贫标志-返贫
 		String t2 = request.getParameter("t2");// 脱贫标志-现贫
 		String src = "";
-		String sql = "SELECT * FROM PKC_1_1_1 WHERE ";
 		if (name.equals("全部盟市")) {
 			name = "内蒙古自治区";
 		}
-		if (name.equals("内蒙古自治区")) {
-			src += " PKID = 13 or PKID = 20 ";
-		} else {
-			src += " V1 = '" + name + "' ";
-		}
+		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
+				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
+				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
+				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V1=A2.COM_NAME ";
+
 		if (t1.equals("0") || t2.equals("1")) {
-			src += " AND  V9 = '0' ";
+			src += " WHERE  V9 = '0' ";
 		} else {
-			src += " AND  V9 = '1' ";
+			src += " WHERE  V9 = '1' ";
+		}
+
+		if (!name.equals("内蒙古自治区")) {
+			if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+					|| q4.equals("1") || q5.equals("1")) {
+				src += "AND(";
+
+				if (q1.equals("1")) {
+					src += "GJZDQX ='1' ";
+				}
+				if (q2.equals("1")) {
+					if (q1.equals("1")) {
+						src += " OR ";
+					}
+					src += " ZZQZDQX ='1'";
+				}
+				if (q3.equals("1")) {
+					if (q1.equals("1") || q2.equals("1")) {
+						src += " OR ";
+					}
+					src += " GMLQQX ='1'";
+				}
+				if (q4.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")) {
+						src += " OR ";
+					}
+					src += " MYQX ='1'";
+				}
+				if (q5.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+							|| q4.equals("1")) {
+						src += " OR ";
+					}
+					src += " BJQX ='1'";
+				}
+				src += ")";
+			}
 		}
 		sql = sql + src;
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
@@ -770,22 +812,64 @@ public class PKC_1_1_Controller {
 	public void getPKC_1_1_7(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");// 行政区划
+		String year = request.getParameter("year");// 统计年度
+		String q1 = request.getParameter("q1");// 旗县分类-国家重点旗县
+		String q2 = request.getParameter("q2");// 旗县分类-自治区重点旗县
+		String q3 = request.getParameter("q3");// 旗县分类-革命老区旗县
+		String q4 = request.getParameter("q4");// 旗县分类-牧业旗县
+		String q5 = request.getParameter("q5");// 旗县分类-边境旗县
 		String t1 = request.getParameter("t1");// 脱贫标志-返贫
 		String t2 = request.getParameter("t2");// 脱贫标志-现贫
 		String src = "";
 		if (name.equals("全部盟市")) {
 			name = "内蒙古自治区";
 		}
-		String sql = "SELECT * FROM PKC_1_1_6 WHERE ";
-		if (name.equals("内蒙古自治区")) {
-			src += " PKID = 13 or PKID = 20 ";
-		} else {
-			src += " V1 = '" + name + "' ";
-		}
+		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
+				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
+				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
+				+ ")) a2 LEFT JOIN PKC_1_1_6 a1 ON a1.V1=A2.COM_NAME ";
+
 		if (t1.equals("0") || t2.equals("1")) {
-			src += " AND  V9 = '0' ";
+			src += " WHERE  V9 = '0' ";
 		} else {
-			src += " AND  V9 = '1' ";
+			src += " WHERE  V9 = '1' ";
+		}
+
+		if (!name.equals("内蒙古自治区")) {
+			if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+					|| q4.equals("1") || q5.equals("1")) {
+				src += "AND(";
+
+				if (q1.equals("1")) {
+					src += "GJZDQX ='1' ";
+				}
+				if (q2.equals("1")) {
+					if (q1.equals("1")) {
+						src += " OR ";
+					}
+					src += " ZZQZDQX ='1'";
+				}
+				if (q3.equals("1")) {
+					if (q1.equals("1") || q2.equals("1")) {
+						src += " OR ";
+					}
+					src += " GMLQQX ='1'";
+				}
+				if (q4.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")) {
+						src += " OR ";
+					}
+					src += " MYQX ='1'";
+				}
+				if (q5.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+							|| q4.equals("1")) {
+						src += " OR ";
+					}
+					src += " BJQX ='1'";
+				}
+				src += ")";
+			}
 		}
 		sql = sql + src;
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
@@ -817,22 +901,64 @@ public class PKC_1_1_Controller {
 	public void getPKC_1_1_8(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");// 行政区划
+		String year = request.getParameter("year");// 统计年度
+		String q1 = request.getParameter("q1");// 旗县分类-国家重点旗县
+		String q2 = request.getParameter("q2");// 旗县分类-自治区重点旗县
+		String q3 = request.getParameter("q3");// 旗县分类-革命老区旗县
+		String q4 = request.getParameter("q4");// 旗县分类-牧业旗县
+		String q5 = request.getParameter("q5");// 旗县分类-边境旗县
 		String t1 = request.getParameter("t1");// 脱贫标志-返贫
 		String t2 = request.getParameter("t2");// 脱贫标志-现贫
 		String src = "";
 		if (name.equals("全部盟市")) {
 			name = "内蒙古自治区";
 		}
-		String sql = "SELECT * FROM PKC_1_1_7 WHERE ";
-		if (name.equals("内蒙古自治区")) {
-			src += " PKID = 13 or PKID = 20 ";
-		} else {
-			src += " V1 = '" + name + "' ";
-		}
+		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
+				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
+				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
+				+ ")) a2 LEFT JOIN PKC_1_1_7 a1 ON a1.V1=A2.COM_NAME ";
+
 		if (t1.equals("0") || t2.equals("1")) {
-			src += " AND  V9 = '0' ";
+			src += " WHERE  V9 = '0' ";
 		} else {
-			src += " AND  V9 = '1' ";
+			src += " WHERE  V9 = '1' ";
+		}
+
+		if (!name.equals("内蒙古自治区")) {
+			if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+					|| q4.equals("1") || q5.equals("1")) {
+				src += "AND(";
+
+				if (q1.equals("1")) {
+					src += "GJZDQX ='1' ";
+				}
+				if (q2.equals("1")) {
+					if (q1.equals("1")) {
+						src += " OR ";
+					}
+					src += " ZZQZDQX ='1'";
+				}
+				if (q3.equals("1")) {
+					if (q1.equals("1") || q2.equals("1")) {
+						src += " OR ";
+					}
+					src += " GMLQQX ='1'";
+				}
+				if (q4.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")) {
+						src += " OR ";
+					}
+					src += " MYQX ='1'";
+				}
+				if (q5.equals("1")) {
+					if (q1.equals("1") || q2.equals("1") || q3.equals("1")
+							|| q4.equals("1")) {
+						src += " OR ";
+					}
+					src += " BJQX ='1'";
+				}
+				src += ")";
+			}
 		}
 		sql = sql + src;
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
