@@ -275,12 +275,12 @@ public class Singleton {
 							//坐标
 							code = str[0].replace(" ", "");
 							if(!code.equals("")){
-								if(str[2].indexOf(",")>-1){
-									lat = str[2].split(",")[0];
-									lon = str[2].split(",")[1];
+								if(str[1].indexOf(",")>-1){
+									lat = str[1].split(",")[1];
+									lon = str[1].split(",")[0];
 								}else{
-									lat = str[2];
-									lon = str[3];
+									lat = str[1];
+									lon = str[2];
 								}
 							}else{
 								code="";
@@ -567,7 +567,7 @@ public class Singleton {
 			PrintStream p2 = new PrintStream(fs2);
 			p2.print(filelist_err_3);
 			p2.close();
-			System.err.println("bfr表出现错误次数："+filelist_err_3.size());
+			System.err.println("zb表出现错误次数："+filelist_err_3.size());
 		}
 		filelist.clear();
 
@@ -733,7 +733,7 @@ public class Singleton {
 		} else if (file_name.indexOf("帮扶责任清单") > -1){
 			Smap_f.put("table_name", "SYS_PERSONAL_HOUSEHOLD_MANY");
 			Smap_f.put("insert_z", "PKID,PERSONAL_NAME,HOUSEHOLD_NAME,PERSONAL_PHONE,HOUSEHOLD_CARD,PASSWORD");
-		} else if (file_name.indexOf("村坐标") > -1){
+		} else if (file_name.indexOf("内蒙古坐标") > -1){
 			Smap_f.put("table_name", "SYS_COMPANY");
 			Smap_f.put("insert_z", "LAT,LON");
 		} else {
