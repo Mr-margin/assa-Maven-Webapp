@@ -329,7 +329,7 @@ public class F_1_2Controller{
 		}
 		
 		if(name.equals("内蒙古自治区")){
-			src += " AND  COM_NAME='汇总'";
+			src += " AND  v98='2'";
 		}else{
 			src += " AND  COM_NAME='"+name+"'";
 		}
@@ -337,28 +337,76 @@ public class F_1_2Controller{
 		sql = sql+src; 
 		JSONArray json = new JSONArray();
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
-		if(list.size() > 0) {
+		int v =0;int v1 = 0;int v3 = 0;int v5 = 0;int v7 = 0;int v9 = 0;int v11 = 0;int v13 = 0;int v15 = 0;int v17 = 0;int v19= 0;int v21=0;
+		if(name.equals("内蒙古自治区")){
 			for ( int i = 0 ; i < list.size() ; i ++ ){
-				JSONObject obj = new JSONObject();
-				obj.put("com_name", "".equals(list.get(i).get("COM_NAME")) || list.get(i).get("COM_NAME") == null ? "" : list.get(i).get("COM_NAME").toString());
-				obj.put("z_hu", "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "" : list.get(i).get("Z_HU").toString());
-				obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
-				obj.put("v3", "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "" : list.get(i).get("V3").toString());
-				obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "" : list.get(i).get("V5").toString());
-				obj.put("v7", "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "" : list.get(i).get("V7").toString());
-				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
-				obj.put("v11", "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "" : list.get(i).get("V11").toString());
-				obj.put("v13", "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "" : list.get(i).get("V13").toString());
-				obj.put("v15", "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "" : list.get(i).get("V15").toString());
-				obj.put("v17", "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "" : list.get(i).get("V17").toString());
-				obj.put("v19", "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "" : list.get(i).get("V19").toString());
-				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
-				json.add(obj);
+				String a = "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "0" : list.get(i).get("Z_HU").toString();
+				String a1 = "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "0" : list.get(i).get("V1").toString();
+				String a3 = "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "0" : list.get(i).get("V3").toString();
+				String a5 ="".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "0" : list.get(i).get("V5").toString();
+				String a7 = "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "0" : list.get(i).get("V7").toString();
+				String a9 = "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "0" : list.get(i).get("V9").toString();
+				String a11 = "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "0" : list.get(i).get("V11").toString();
+				String a13 = "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "0" : list.get(i).get("V13").toString();
+				String a15 = "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "0" : list.get(i).get("V15").toString();
+				String a17 = "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "0" : list.get(i).get("V17").toString();
+				String a19 = "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "0" : list.get(i).get("V19").toString();
+				String a21 = "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "0" : list.get(i).get("V21").toString();
+				v = v+Integer.parseInt(a);
+				v1 = v1 + Integer.parseInt(a1);
+				v3 = v3 + Integer.parseInt(a3);
+				v5 = v5 + Integer.parseInt(a5);
+				v7 = v7 + Integer.parseInt(a7);
+				v9 = v9 + Integer.parseInt(a9);
+				v11 = v11 + Integer.parseInt(a11);
+				v13 = v13 + Integer.parseInt(a13);
+				v15 = v15 + Integer.parseInt(a15);
+				v17 = v17 + Integer.parseInt(a17);
+				v19 = v19 + Integer.parseInt(a19);
+				v21 = v21 + Integer.parseInt(a21);
 			}
+			JSONObject obj = new JSONObject();
+			obj.put("com_name","汇总");
+			obj.put("z_hu",v);
+			obj.put("v1", v1);
+			obj.put("v3", v3);
+			obj.put("v5", v5);
+			obj.put("v7", v7);
+			obj.put("v9", v9);
+			obj.put("v11", v11);
+			obj.put("v13", v13);
+			obj.put("v15", v15);
+			obj.put("v17", v17);
+			obj.put("v19", v19);
+			obj.put("v21", v21);
+			json.add(obj);
 			response.getWriter().write(json.toString());
-		}else{
-			response.getWriter().write("0");
+		}else {
+			if(list.size() > 0) {
+				for ( int i = 0 ; i < list.size() ; i ++ ){
+					JSONObject obj = new JSONObject();
+					obj.put("com_name", "".equals(list.get(i).get("COM_NAME")) || list.get(i).get("COM_NAME") == null ? "" : list.get(i).get("COM_NAME").toString());
+					obj.put("z_hu", "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "" : list.get(i).get("Z_HU").toString());
+					obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
+					obj.put("v3", "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "" : list.get(i).get("V3").toString());
+					obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "" : list.get(i).get("V5").toString());
+					obj.put("v7", "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "" : list.get(i).get("V7").toString());
+					obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
+					obj.put("v11", "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "" : list.get(i).get("V11").toString());
+					obj.put("v13", "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "" : list.get(i).get("V13").toString());
+					obj.put("v15", "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "" : list.get(i).get("V15").toString());
+					obj.put("v17", "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "" : list.get(i).get("V17").toString());
+					obj.put("v19", "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "" : list.get(i).get("V19").toString());
+					obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
+					json.add(obj);
+				}
+				response.getWriter().write(json.toString());
+			}else{
+				response.getWriter().write("0");
+			}
 		}
+
+		
 	}
 	/**
 	 * 其他致贫原因-表格
@@ -480,37 +528,90 @@ public class F_1_2Controller{
 			src += " WHERE  TYPE = '1' ";
 		}
 		if (name.equals("内蒙古自治区")){
-			src += " AND  COM_NAME='汇总'";
+			src += " AND  v98='2'";
 		}else{
 			src += " AND  COM_NAME='"+name+"'";
 		}
 		sql = sql+src; 
 		JSONArray json = new JSONArray();
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
-		if(list.size() > 0) {
+		int v =0;int v1 = 0;int v3 = 0;int v5 = 0;int v7 = 0;int v9 = 0;int v11 = 0;int v13 = 0;int v15 = 0;int v17 = 0;int v19= 0;int v21=0;int v23 =0; int v25 = 0;
+		if(name.equals("内蒙古自治区")){
 			for ( int i = 0 ; i < list.size() ; i ++ ){
-				JSONObject obj = new JSONObject();
-				obj.put("com_name", "".equals(list.get(i).get("COM_NAME")) || list.get(i).get("COM_NAME") == null ? "" : list.get(i).get("COM_NAME").toString());
-				obj.put("z_hu", "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "" : list.get(i).get("Z_HU").toString());
-				obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
-				obj.put("v3", "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "" : list.get(i).get("V3").toString());
-				obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "" : list.get(i).get("V5").toString());
-				obj.put("v7", "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "" : list.get(i).get("V7").toString());
-				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
-				obj.put("v11", "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "" : list.get(i).get("V11").toString());
-				obj.put("v13", "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "" : list.get(i).get("V13").toString());
-				obj.put("v15", "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "" : list.get(i).get("V15").toString());
-				obj.put("v17", "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "" : list.get(i).get("V17").toString());
-				obj.put("v19", "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "" : list.get(i).get("V19").toString());
-				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
-				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : list.get(i).get("V23").toString());
-				obj.put("v25", "".equals(list.get(i).get("V25")) || list.get(i).get("V25") == null ? "" : list.get(i).get("V25").toString());
-				json.add(obj);
+				String a = "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "0" : list.get(i).get("Z_HU").toString();
+				String a1 = "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "0" : list.get(i).get("V1").toString();
+				String a3 = "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "0" : list.get(i).get("V3").toString();
+				String a5 ="".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "0" : list.get(i).get("V5").toString();
+				String a7 = "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "0" : list.get(i).get("V7").toString();
+				String a9 = "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "0" : list.get(i).get("V9").toString();
+				String a11 = "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "0" : list.get(i).get("V11").toString();
+				String a13 = "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "0" : list.get(i).get("V13").toString();
+				String a15 = "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "0" : list.get(i).get("V15").toString();
+				String a17 = "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "0" : list.get(i).get("V17").toString();
+				String a19 = "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "0" : list.get(i).get("V19").toString();
+				String a21 = "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "0" : list.get(i).get("V21").toString();
+				String a23 = "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "0" : list.get(i).get("V23").toString();
+				String a25 = "".equals(list.get(i).get("V25")) || list.get(i).get("V25") == null ? "0" : list.get(i).get("V25").toString();
+				v = v+Integer.parseInt(a);
+				v1 = v1 + Integer.parseInt(a1);
+				v3 = v3 + Integer.parseInt(a3);
+				v5 = v5 + Integer.parseInt(a5);
+				v7 = v7 + Integer.parseInt(a7);
+				v9 = v9 + Integer.parseInt(a9);
+				v11 = v11 + Integer.parseInt(a11);
+				v13 = v13 + Integer.parseInt(a13);
+				v15 = v15 + Integer.parseInt(a15);
+				v17 = v17 + Integer.parseInt(a17);
+				v19 = v19 + Integer.parseInt(a19);
+				v21 = v21 + Integer.parseInt(a21);
+				v23 = v23 + Integer.parseInt(a23);
+				v25 = v23 + Integer.parseInt(a25);
 			}
+			JSONObject obj = new JSONObject();
+			obj.put("com_name","汇总");
+			obj.put("z_hu",v);
+			obj.put("v1", v1);
+			obj.put("v3", v3);
+			obj.put("v5", v5);
+			obj.put("v7", v7);
+			obj.put("v9", v9);
+			obj.put("v11", v11);
+			obj.put("v13", v13);
+			obj.put("v15", v15);
+			obj.put("v17", v17);
+			obj.put("v19", v19);
+			obj.put("v21", v21);
+			obj.put("v23", v23);
+			obj.put("v25", v25);
+			json.add(obj);
 			response.getWriter().write(json.toString());
-		}else{
-			response.getWriter().write("0");
+		}else {
+			if(list.size() > 0) {
+				for ( int i = 0 ; i < list.size() ; i ++ ){
+					JSONObject obj = new JSONObject();
+					obj.put("com_name", "".equals(list.get(i).get("COM_NAME")) || list.get(i).get("COM_NAME") == null ? "" : list.get(i).get("COM_NAME").toString());
+					obj.put("z_hu", "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "" : list.get(i).get("Z_HU").toString());
+					obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
+					obj.put("v3", "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "" : list.get(i).get("V3").toString());
+					obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "" : list.get(i).get("V5").toString());
+					obj.put("v7", "".equals(list.get(i).get("V7")) || list.get(i).get("V7") == null ? "" : list.get(i).get("V7").toString());
+					obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
+					obj.put("v11", "".equals(list.get(i).get("V11")) || list.get(i).get("V11") == null ? "" : list.get(i).get("V11").toString());
+					obj.put("v13", "".equals(list.get(i).get("V13")) || list.get(i).get("V13") == null ? "" : list.get(i).get("V13").toString());
+					obj.put("v15", "".equals(list.get(i).get("V15")) || list.get(i).get("V15") == null ? "" : list.get(i).get("V15").toString());
+					obj.put("v17", "".equals(list.get(i).get("V17")) || list.get(i).get("V17") == null ? "" : list.get(i).get("V17").toString());
+					obj.put("v19", "".equals(list.get(i).get("V19")) || list.get(i).get("V19") == null ? "" : list.get(i).get("V19").toString());
+					obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" : list.get(i).get("V21").toString());
+					obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" : list.get(i).get("V23").toString());
+					obj.put("v25", "".equals(list.get(i).get("V25")) || list.get(i).get("V25") == null ? "" : list.get(i).get("V25").toString());
+					json.add(obj);
+				}
+				response.getWriter().write(json.toString());
+			}else{
+				response.getWriter().write("0");
+			}
 		}
+		
 	}
 	/**
 	 * 贫困户帮扶责任人落实情况-表格
