@@ -38,7 +38,7 @@ public class WyApp_y3{
 		String code = request.getParameter("code");
 		String sql1="";
 		
-		sql1="SELECT * FROM zhang_05 WHERE com_code='"+code+"'";
+		sql1="SELECT * FROM zhang_06 WHERE com_code='"+code+"'";
 		List<Map> list = this.getBySqlMapper.findRecords(sql1);
 		JSONArray json = new JSONArray();
 		if(list.size() > 0){
