@@ -97,7 +97,6 @@ public class Singleton {
 	 * @param num_2
 	 * @return
 	 * @author 张晓翔
-	 * @date 2016年11月28日
 	 */
 	private Object jisuan(int num_1, int num_2) {
 		if(num_1==0 || num_2==0){
