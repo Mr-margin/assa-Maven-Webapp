@@ -119,6 +119,7 @@ function a1(){
 				axisPointer : {// 坐标轴指示器，坐标轴触发有效
 					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
 				},
+				formatter : '{b}<br/>{a0}:{c0}%<br/>{a1}:{c1}%<br/>{a2}:{c2}%<br/>{a3}:{c3}%'
 			},
 			color:['#2ec7c9','#b6a2de','#5ab1ef','red','#d87a80'],
 			grid: {

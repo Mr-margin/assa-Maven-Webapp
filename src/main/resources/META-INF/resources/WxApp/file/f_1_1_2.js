@@ -27,33 +27,44 @@ function a_1(){
 	myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_2.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
 	if(data==0){
-		$("#table_div").html('');
-		$("#tu_2").html('');
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
 	}else{
-		var com_name;
-		if(data[0].V1=="合计"){
-			com_name="内蒙古自治区";
-		}else{
-			com_name=data[0].V1;
-		}
-		
-		if(typeof data[0].V3 == 'undefined'){
-			data[0].V3='';
-		}
-		if(typeof data[0].V4 == 'undefined'){
-			data[0].V4='';
-		}
-		if(typeof data[0].V5 == 'undefined'){
-			data[0].V5='';
-		}
-		if(typeof data[0].V6 == 'undefined'){
-			data[0].V6='';
-		}
-		if(typeof data[0].V7 == 'undefined'){
-			data[0].V7='';
-		}
-		if(typeof data[0].V8 == 'undefined'){
-			data[0].V8='';
+		var V2=0,V3=0,V4=0,V5=0,V6=0,V7=0,V8=0;
+		var V1 = obj.com;
+		if(data.length>0){
+			for(var i=0; i<data.length; i++){
+
+				if(typeof data[i].V3 == 'undefined'){
+					V3 += 0;
+				}else{
+					V3 += parseInt(data[i].V3);
+				}
+				if(typeof data[i].V4 == 'undefined'){
+					V4 += 0;
+				}else{
+					V4 += parseInt(data[i].V4);
+				}
+				if(typeof data[i].V5 == 'undefined'){
+					V5 += 0;
+				}else{
+					V5 += parseInt(data[i].V5);
+				}
+				if(typeof data[i].V6 == 'undefined'){
+					V6 += 0;
+				}else{
+					V6 += parseInt(data[i].V6);
+				}
+				if(typeof data[i].V7 == 'undefined'){
+					V7 += 0;
+				}else{
+					V7 += parseInt(data[i].V7);
+				}
+				if(typeof data[i].V8 == 'undefined'){
+					V8 += 0;
+				}else{
+					V8 += parseInt(data[i].V8);
+				}
+			}
 		}
 		
 		var option = {//柱状图
@@ -95,7 +106,7 @@ function a_1(){
 				},
 				series: [
 				         {
-				        	 name: com_name,
+				        	 name: V1,
 				        	 type: 'bar',
 				        	 itemStyle: {
 				        		 normal: {
@@ -120,7 +131,7 @@ function a_1(){
 					        		 }
 				        		 }
 				        	 },
-				        	 data: [data[0].V3,data[0].V4,data[0].V5,data[0].V6,data[0].V7,data[0].V8]
+				        	 data: [V3,V4,V5,V6,V7,V8]
 				         }
 				         ]
 		};
