@@ -73,7 +73,7 @@ public class AExport{
 							"'"+V1+"','"+V2+"','"+V5+"','"+V6+"','"+V9+"','"+V10+"','"+V98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
 				}
-				//					System.out.println(sql);
+				//System.out.println(sql);
 			}
 		}
 	}
