@@ -36,61 +36,61 @@ function table(){
 				'<td>'+item.v13+'</td>'+
 				'</tr>';
 				if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
-					
+					A1=0+parseInt(A1);
 				}else{
 					A1=parseInt(item.z_hu)+parseInt(A1);
 					
 				}
 				if(item.v1 == '' || item.v1 == null || item.v1 == undefined){
-					
+					A2=0+parseInt(A2);
 				}else{
 					A2=parseInt(item.v1)+parseInt(A2);
 					
 				}
 				if(item.v3 == '' || item.v3 == null || item.v3 == undefined){
-					
+					A3=0+parseInt(A3);
 				}else{
 					A3=parseInt(item.v3)+parseInt(A3);
 					
 				}
 				if(item.v5 == '' || item.v5 == null || item.v5 == undefined){
-					
+					A4=0+parseInt(A4);
 				}else{
 					A4=parseInt(item.v5)+parseInt(A4);
 					
 				}
 				if(item.v7 == '' || item.v7 == null || item.v7 == undefined){
-					
+					A5=0+parseInt(A5);
 				}else{
 					A5=parseInt(item.v7)+parseInt(A5);
 					
 				}
 				if(item.v9 == '' || item.v9 == null || item.v9 == undefined){
-					
+					A6=0+parseInt(A6);
 				}else{
 					A6=parseInt(item.v9)+parseInt(A6);
 					
 				}
 				if(item.v11 == '' || item.v11 == null || item.v11 == undefined){
-					
+					A7=0+parseInt(A7);
 				}else{
 					A7=parseInt(item.v11)+parseInt(A7);
 					
 				}
 				if(item.v13 == '' || item.v13 == null || item.v13 == undefined){
-					
+					A8=0+parseInt(A8);
 				}else{
 					A8=parseInt(item.v13)+parseInt(A8);
 					
 				}
-				A1+=parseInt(item.z_hu)
-				A2+=parseFloat(item.v1)
-				A3+=parseFloat(item.v3)
-				A4+=parseFloat(item.v5)
-				A5+=parseFloat(item.v7)
-				A6+=parseFloat(item.v9)
-				A7+=parseFloat(item.v11)
-				A8+=parseFloat(item.v13)
+//				A1+=parseInt(item.z_hu)
+//				A2+=parseFloat(item.v1)
+//				A3+=parseFloat(item.v3)
+//				A4+=parseFloat(item.v5)
+//				A5+=parseFloat(item.v7)
+//				A6+=parseFloat(item.v9)
+//				A7+=parseFloat(item.v11)
+//				A8+=parseFloat(item.v13)
 		})
 		html +='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td>'+
 		'<td><strong>'+A1+'</strong></td>'+

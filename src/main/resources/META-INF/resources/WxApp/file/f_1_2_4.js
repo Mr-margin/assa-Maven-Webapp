@@ -33,19 +33,19 @@ function table(){
 				'<td>'+item.v1+'</td><td>'+item.BILI+'%</td>'+
 				'</tr>';
 				if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
-					
+					A1=0+parseInt(A1);
 				}else{
 					A1=parseInt(item.z_hu)+parseInt(A1);
 					
 				}
 				if(item.v1 == '' || item.v1 == null || item.v1 == undefined){
-					
+					A2=0+parseInt(A2);
 				}else{
 					A2=parseInt(item.v1)+parseInt(A2);
 					
 				}
-				A1=parseInt(item.z_hu)+parseInt(A1);
-				A2=parseInt(item.v1)+parseInt(A2);
+//				A1=parseInt(item.z_hu)+parseInt(A1);
+//				A2=parseInt(item.v1)+parseInt(A2);
 			}
 		})
 		a1=A2/A1;
