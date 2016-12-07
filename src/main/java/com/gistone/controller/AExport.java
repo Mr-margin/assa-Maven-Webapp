@@ -164,7 +164,7 @@ public class AExport{
 				sql +=")Q7 ON Q1.XZ=Q7.AAR00"+ar+" ";
 
 				List<Map> in_list = this.getBySqlMapper.findRecords(sql);
-
+				System.out.println(sql);
 				for( int a = 0 ; a < in_list.size(); a++ ) {
 					String V1 = "".equals(in_list.get(a).get("XZQH")) || in_list.get(a).get("XZQH") == null ? "" : in_list.get(a).get("XZQH").toString();
 					String V2 = "".equals(in_list.get(a).get("NUM")) || in_list.get(a).get("NUM") == null ? "" : in_list.get(a).get("NUM").toString();
@@ -177,7 +177,7 @@ public class AExport{
 					String V8_1 =  "".equals(in_list.get(a).get("AA70ZB")) || in_list.get(a).get("AA70ZB") == null ? "" : in_list.get(a).get("AA70ZB").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String insql = "insert into PKC_1_1_1 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V8_1,V9,V10,V98,V99) VALUES (PKC_1_1_1_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V8_1+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+//					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
@@ -300,7 +300,7 @@ public class AExport{
 				sql +=") WHERE AAR00"+ar+" IS NOT NULL  GROUP BY AAR00"+ar;
 				sql +=")AA left join (";
 				sql +="select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+"  WHERE XZQH IS NOT NULL)Q1 left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK01 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK01 from (";//文盲半文盲
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
@@ -309,7 +309,7 @@ public class AExport{
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q2 ON Q1.XZ=Q2.AAR00"+ar+" ";
 				sql +="left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK02 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK02 from (";//小学
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
@@ -318,7 +318,7 @@ public class AExport{
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q3 ON Q1.XZ=Q3.AAR00"+ar+" ";
 				sql +="left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK03 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK03 from (";//初中
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
@@ -327,7 +327,7 @@ public class AExport{
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q4 ON Q1.XZ=Q4.AAR00"+ar+" ";
 				sql +="left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK04 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK04 from (";//高中
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";  
 				sql +=") a LEFT JOIN (";
@@ -336,7 +336,7 @@ public class AExport{
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q5 ON Q1.XZ=Q5.AAR00"+ar+" ";
 				sql +="left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK05 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK05 from (";//大专
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";  
 				sql +=") a LEFT JOIN (";
@@ -345,7 +345,7 @@ public class AExport{
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q6 ON Q1.XZ=Q6.AAR00"+ar+" ";
 				sql +="left join (";
-				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK06 from (";
+				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK06 from (";//学龄前
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";  
 				sql +=") a LEFT JOIN (";
@@ -361,15 +361,15 @@ public class AExport{
 				for( int a = 0 ; a < in_list.size(); a++ ) {
 					String V1 = "".equals(in_list.get(a).get("XZQH")) || in_list.get(a).get("XZQH") == null ? "" : in_list.get(a).get("XZQH").toString();
 					String V2 = "".equals(in_list.get(a).get("NUM")) || in_list.get(a).get("NUM") == null ? "" : in_list.get(a).get("NUM").toString();
-					String V7 =  "".equals(in_list.get(a).get("JK01")) || in_list.get(a).get("JK01") == null ? "" : in_list.get(a).get("JK01").toString();
-					String V4 =  "".equals(in_list.get(a).get("JK02")) || in_list.get(a).get("JK02") == null ? "" : in_list.get(a).get("JK02").toString();
-					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
-					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
+					String V4 =  "".equals(in_list.get(a).get("JK01")) || in_list.get(a).get("JK01") == null ? "" : in_list.get(a).get("JK01").toString();
+					String V5 =  "".equals(in_list.get(a).get("JK02")) || in_list.get(a).get("JK02") == null ? "" : in_list.get(a).get("JK02").toString();
+					String V6 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
+					String V7 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V8 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V3 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String insql = "insert into PKC_1_1_3 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES (PKC_1_1_3_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
@@ -980,7 +980,7 @@ public class AExport{
 				sql +="left join (";
 				sql +="select t1.AAR00"+ar+",count(t1.AAR00"+ar+") as JK03 from (";
 				sql +="select AAR00"+ar+",b.AAB001 from(";
-				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'  AND AAC006='05'";
+				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'  AND AAC006='06'";
 				sql +=") a LEFT JOIN (";
 				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4')";
 				sql +=") b on a.AAC001=b.AAC001 ";
@@ -1041,7 +1041,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=2013  AND \"SUBSTR\"(AAB005, 0, 4)>=2010";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=2013  AND \"SUBSTR\"(AAB005, 0, 4)>2010";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q2 ON Q1.XZ=Q2.AAR00"+ar+" ";
@@ -1050,7 +1050,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<2010  AND \"SUBSTR\"(AAB005, 0, 4)>=2001";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=2010  AND \"SUBSTR\"(AAB005, 0, 4)>2001";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q3 ON Q1.XZ=Q3.AAR00"+ar+" ";
@@ -1059,7 +1059,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<2001  AND \"SUBSTR\"(AAB005, 0, 4)>=1998";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=2001  AND \"SUBSTR\"(AAB005, 0, 4)>1998";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q4 ON Q1.XZ=Q4.AAR00"+ar+" ";
@@ -1068,7 +1068,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";  
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<1998  AND \"SUBSTR\"(AAB005, 0, 4)>=1994";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=1998  AND \"SUBSTR\"(AAB005, 0, 4)>1994";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q5 ON Q1.XZ=Q5.AAR00"+ar+" ";
@@ -1077,7 +1077,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<1994  AND \"SUBSTR\"(AAB005, 0, 4)>=1956";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=1994  AND \"SUBSTR\"(AAB005, 0, 4)>1956";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q6 ON Q1.XZ=Q6.AAR00"+ar+" ";
@@ -1086,7 +1086,7 @@ public class AExport{
 				sql +="select AAR00"+ar+",b.AAB001 from(";
 				sql +="select AAC001,AAR00"+ar+" from NM09_AC01 where AAR100= '1' and AAR040='"+V99+"' and AAR010='"+str+"'";
 				sql +=") a LEFT JOIN (";
-				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<1956";
+				sql +="select AAB001,AAC001 from NM09_AB01 where AAR040='"+V99+"' and AAB015 IN ('1','4') AND \"SUBSTR\"(AAB005, 0, 4)<=1956";
 				sql +=") b on a.AAC001=b.AAC001 ";
 				sql +=") t1 where t1.AAB001 is not null group by t1.AAR00"+ar+"";
 				sql +=")Q7 ON Q1.XZ=Q7.AAR00"+ar+" ";
@@ -1106,7 +1106,7 @@ public class AExport{
 					String V8 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String insql = "insert into PKC_1_1_9 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES (PKC_1_1_9_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
