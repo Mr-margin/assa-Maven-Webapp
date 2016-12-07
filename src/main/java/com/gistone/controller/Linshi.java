@@ -54,7 +54,7 @@ public class Linshi {
        
         //这里少个未脱贫条件
 		String sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ("
-				+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR040='2015' AND AAR010='0') a1 "
+				+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 ='0' and (AAR010='0' and NVL(AAC016,AAR040) = '2015')) a1 "
 				+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' "
 				+ ") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE";
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
@@ -62,8 +62,8 @@ public class Linshi {
 			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-				savePath = request.getServletContext().getRealPath("/")+ "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
-				saveUrl	 =request.getContextPath() + "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
+				savePath = "D:/attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
+				saveUrl	 ="D:/attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
