@@ -483,7 +483,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select c.VB1,c.VB2,c.VB3,c.VB4,a1.vh1,a1.vh2,a1.vh3,a1.vh4,a1.vh5,a1.vh6,a1.vh7,a1.vh8,a1.vh9,a1.vh10, round(VB3/VB2,4)*100 AS b5 from PKC_3_1_1 c join" +
+		String sql = "select c.VB1,c.VB2,c.VB3,c.VB4,a1.vh1,a1.vh2,a1.vh3,a1.vh4,a1.vh5,a1.vh6,a1.vh7,a1.vh8,a1.vh9,a1.vh10, round(VB3/(case when VB2='0' then '1' else VB2 end),4)*100 AS b5 from PKC_3_1_1 c join" +
 					" (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VB1=b.COM_NAME "+
 					" LEFT JOIN PKC_3_1_2 a1 ON  a1.vh0=c.vb1 ";
 		
