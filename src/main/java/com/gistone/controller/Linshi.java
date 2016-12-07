@@ -63,7 +63,7 @@ public class Linshi {
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
 				savePath = "D:/attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
-				saveUrl	 ="D:/attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
+				saveUrl	 =request.getContextPath() + "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
