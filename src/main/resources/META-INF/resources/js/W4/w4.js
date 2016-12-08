@@ -231,7 +231,7 @@ function clickw4_tree(val){
 function show_tupian(pkid){
 	var data = ajax_async_t("tupian.do", {pkid : pkid} , "json");
 	if(data.data1.length==0){
-		toastr["warning"]("warning", "暂未生成二维码");
+		toastr["warning"]("", "暂未生成二维码");
 	}else{
 		$('#tupian').attr("src",data.data1[0].pic_path);
 		$('#myModal22').modal('show');
