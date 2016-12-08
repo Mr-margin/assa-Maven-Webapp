@@ -69,17 +69,17 @@ function biaoge(){
     		}else{
     			ee=''+item.f3+'';
     		}
-    		if(item.f4=="0"||item.f4==null){
+    		if(item.f5=="0"||item.f5==null){
     			gg='0';
     		}else{
-    			gg=''+item.f4+'';
+    			gg=''+item.f5+'';
     		}
     		//帮扶措施
     		
     		v1=parseInt(item.f1)+parseInt(v1);
     		v2=parseInt(item.f2)+parseInt(v2);
     		v3=parseInt(item.f3)+parseInt(v3);
-    		v4=parseInt(item.f4)+parseInt(v4);
+    		v4=parseInt(item.f5)+parseInt(v4);
     		
     		//循环赋值
     		html+='<tr><td class="text-center">'+aa+'</td><td class="text-center">'+cc+'</td><td class="text-center">'+bb+'</td><td class="text-center">'+dd+'</td><td class="text-center">'+ee+'</td><td class="text-center">'+gg+'</td></tr>';

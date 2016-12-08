@@ -1,4 +1,20 @@
+var title='';
 $(document).ready(function() {
+	title='贫困人口文化程度统计';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
 	canshu=Request['canshu']; 
