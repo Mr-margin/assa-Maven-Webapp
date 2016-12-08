@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困人口年龄分组';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -9,6 +27,7 @@ $(function () {
 })
 var obj;
 var myChart_1,myChart_2;
+var title='';
 window.onresize=function () { //浏览器调整大小后，自动对所有的图进行调整
 	try{
 		if(myChart_1){
@@ -69,7 +88,7 @@ function a_1(){
 		
 		var option = {//柱状图
 				title: {
-					text: '贫困人口年龄分组',
+					text: title,
 					subtext: '单位：人',
 					subtextStyle: {
 						color: 'black'
@@ -142,8 +161,7 @@ function a_2(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_2_2.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
 	if(data==0){
-		$("#table_div").html('');
-		$("#tu_2").html('');
+		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
 	}else{
 		var com_name;
 		var count = [];

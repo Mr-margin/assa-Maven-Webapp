@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困人口文化程度统计';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -7,6 +25,7 @@ $(function () {
 })
 var obj;
 var myChart_1,myChart_2;
+var title="";
 window.onresize=function () { //浏览器调整大小后，自动对所有的图进行调整
 	try{
 		if(myChart_1){
@@ -194,7 +213,7 @@ function a1(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var option = {//环形图
 			title : {
-				text: '贫困人口文化程度统计',
+				text: title,
 				textStyle:{fontWeight:'500',fontSize:'17'},
 				x:'center'
 			},

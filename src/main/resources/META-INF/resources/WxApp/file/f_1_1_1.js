@@ -1,9 +1,28 @@
+$(document).ready(function(){
+	title='贫困人口分布情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
 $(function () {
+	
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
 	canshu=Request['canshu']; 
 	obj = JSON.parse(canshu);
 	a1();
+	
 })
 var obj;
 
@@ -24,6 +43,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 };
 var diqu="";
 var a=0;
+var title='';
 function a1(){
 	
 	
@@ -167,7 +187,7 @@ function a1(){
 		}
 		var option = {//柱状图
 				title: {
-					text: '贫困人口分布情况',
+					text: title,
 					x:'center',
 					subtext: '单位：人',
 					subtextStyle: {

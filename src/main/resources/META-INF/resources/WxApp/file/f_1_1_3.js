@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困人口身体健康情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -8,6 +26,7 @@ $(function () {
 })
 var obj;
 var myChart_1,myChart_2,myChart_3;
+var title='';
 window.onresize=function () { //浏览器调整大小后，自动对所有的图进行调整
 	try{
 		if(myChart_1){
@@ -137,7 +156,7 @@ function a_2(){
 	myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
 	var option = {//图
 			title : {
-				text: '贫困人口身体健康情况 ',
+				text: title,
 				textStyle:{fontWeight:'500',fontSize:'17'},
 				x:'center'
 			},
