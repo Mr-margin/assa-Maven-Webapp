@@ -248,7 +248,19 @@ $(function () {
 				if(sqlJson){
 					for(var i in sqlJson){
 						html+="<li class='item'><div class=\"gallerys\"><a class='a-img' title='点击查看大图'><img style='width:265px;' class=\"gallery-pic\" src=\""+sqlJson[i].src+"\" onclick=\"$.openPhotoGallery(this)\" /></div></a>";   
-						html+="<h5>干部:"+sqlJson[i].title+"("+sqlJson[i].phone+")&nbsp;&nbsp;&nbsp;&nbsp;户主:"+sqlJson[i].house+"</h5><span class='sp2'>"+sqlJson[i].date+"</span>";
+						html+="<h5>干部:";
+						if( sqlJson[i].title == null || sqlJson[i].title == undefined || sqlJson[i].title == 0){
+							html+="&nbsp;&nbsp;&nbsp;&nbsp;";
+						} else {
+							html += ""+sqlJson[i].title+"("+sqlJson[i].phone+")&nbsp;&nbsp;&nbsp;&nbsp;";
+						}
+						html+="户主:"+sqlJson[i].house+"</h5>";
+						if( sqlJson[i].date == null || sqlJson[i].date == undefined ) {
+							html+="<span class='sp2'></span>";
+						}else {
+							html+="<span class='sp2'>"+sqlJson[i].date+"</span>";
+						}
+						
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
 						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+sqlJson[i].lng+"','"+sqlJson[i].lat+"','"+sqlJson[i].writer+"')\">"+sqlJson[i].writer+"</a></span></div></li>";
 					}

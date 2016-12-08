@@ -170,7 +170,7 @@ $(function() {
 			    			if(item.riji_info=="0"){
 			    				info_val = "暂无";
 			    			}else{
-			    				info_val = "<a onclick=\"riji_info('"+item.pkid+"');\">查看详细</a>";
+			    				info_val = "<a onclick=\"riji_info('"+item.v6+"','"+item.card+"');\">查看详细</a>";
 			    			}
 			    			var erweima = "";
 			    			if(item.erweima=="0"){
@@ -197,8 +197,9 @@ $(function() {
 });
 
 //点击弹出日记详细内容
-function riji_info(hu_pkid){
-	var data = JSON.parse(ajax_async_t("../getWyApp_y4_2.do", {pkid:hu_pkid}));
+function riji_info(name,house_card){
+//	$("#xiangxi_Modal").modal();
+	var data = JSON.parse(ajax_async_t("../getWyApp_y4_2.do", {name:name,card:house_card }));
 	var riji_html = "";
 	
 	$.each(data,function(i,item){
@@ -206,7 +207,7 @@ function riji_info(hu_pkid){
 		riji_html+='<li><div class="cbp_tmicon cbp_tmicon-phone"></div><div class="cbp_tmlabel"><h2 style="font-size:14px; color:#1D1D1D;">&nbsp;&nbsp;&nbsp;';
 		riji_html+='<span style="padding-left:19px;background:url(img/2.png) no-repeat;">&nbsp;&nbsp;&nbsp;'+item.v1+'  </span>&nbsp;&nbsp;｜&nbsp;&nbsp;';
 		riji_html+='<span style="padding-left:19px;background:url(img/4.png) no-repeat;">&nbsp;&nbsp;&nbsp;帮扶干部：'+item.col_name+' </span>&nbsp;&nbsp;｜&nbsp;&nbsp;';
-		riji_html+='<span style="padding-left:19px;background:url(img/1.png) no-repeat;">&nbsp;&nbsp;&nbsp;干部单位：'+item.danwei+' </span></h2>';
+		riji_html+='<span style="padding-left:19px;background:url(img/1.png) no-repeat;">&nbsp;&nbsp;&nbsp;贫困户：'+item.danwei+' </span></h2>';
 		riji_html+='<p><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>';
 		riji_html+='<th scope="col"  style="border:solid 1px #f1f1f1 ; color:#121212; padding:10px; font-size:12px; background-color:#fdfdfd;" >';
 		riji_html+='<span style="padding-left:19px;background:url(img/3.png) no-repeat;">&nbsp;&nbsp;&nbsp;'+item.v3+'</span></th></tr>';
