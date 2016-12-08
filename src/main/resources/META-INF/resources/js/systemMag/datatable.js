@@ -222,18 +222,18 @@ function del_actual(pkid){
 	        },
 		    success: function (data) {
 		    	if (data == "1") {
-		    		toastr["success"]("success", "数据已删除");
+		    		toastr["success"]("", "数据已删除");
 		    		swal("删除成功！", "您已经永久删除了这条信息。", "success");
 		    		//销毁现有表格数据
 		    		$actual.bootstrapTable('destroy');
 		    		//重新初始化数据
 		    		actual_initialization();
 		    	}else{
-		    		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		    		toastr["warning"]("", "删除失败，检查数据后重试");
 		    	}
 		    },
 		    error: function () { 
-		    	toastr["error"]("error", "服务器异常");
+		    	toastr["error"]("", "服务器异常");
 		    }  
 		});
 	}else{
@@ -259,14 +259,14 @@ function up_actual(){
 		        },
 			    success: function (data) {
 			    	if (data == "1") {
-			    		toastr["success"]("success", "记录已修改");
+			    		toastr["success"]("", "记录已修改");
 			    		//销毁现有表格数据
 			    		$actual.bootstrapTable('destroy');
 			    		//重新初始化数据
 			    		actual_initialization();
 			    		Refresh_actual();
 			    	}else{
-			    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+			    		toastr["warning"]("", "修改失败，检查数据后重试");
 			    	}
 			    },
 			    error: function () { 
@@ -299,14 +299,14 @@ function add_actual(){
 	        },
 		    success: function (data) {
 		    	if (data == "1") {
-		    		toastr["success"]("success", "新数据添加");
+		    		toastr["success"]("", "新数据添加");
 		    		//销毁现有表格数据
 		    		$actual.bootstrapTable('destroy');
 		    		//重新初始化数据
 		    		actual_initialization();
 		    		Refresh_actual();
 		    	}else{
-		    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		    		toastr["warning"]("", "修改失败，检查数据后重试");
 		    	}
 		    },
 		    error: function () { 
@@ -424,7 +424,7 @@ function col(){
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }
 	});
 	return value_obj;
@@ -451,7 +451,7 @@ function col_col(){
 		    	}
 		    },
 		    error: function () { 
-		    	toastr["error"]("error", "服务器异常");
+		    	toastr["error"]("", "服务器异常");
 		    }  
 		});
 		generate_add_up();

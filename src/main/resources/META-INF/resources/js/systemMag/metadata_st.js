@@ -161,18 +161,18 @@ function del_metTable(pkid, table_name){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "数据已删除");
+	    		toastr["success"]("", "数据已删除");
 	    		swal("删除成功！", "您已经永久删除了这条信息。", "success");
 	    		//销毁现有表格数据
 	    		$metTable.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metTable_initialization();
 	    	}else{
-	    		toastr["warning"]("warning", "删除失败，检查数据后重试");
+	    		toastr["warning"]("", "删除失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 }
@@ -190,18 +190,18 @@ function del_metTable_st(pkid, table_name){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "数据已删除");
+	    		toastr["success"]("", "数据已删除");
 	    		swal("删除成功！", "您已经永久删除了这条信息。", "success");
 	    		//销毁现有表格数据
 	    		$metTable_st.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metTable_st_initialization();
 	    	}else{
-	    		toastr["warning"]("warning", "删除失败，检查数据后重试");
+	    		toastr["warning"]("", "删除失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 }
@@ -225,18 +225,18 @@ function up_metTable(name_en,name_cn,data_type){
 	        },
 		    success: function (data) {
 		    	if (data == "1") {
-		    		toastr["success"]("success", "记录已修改");
+		    		toastr["success"]("", "记录已修改");
 		    		//销毁现有表格数据
 		    		$metTable.bootstrapTable('destroy');
 		    		//重新初始化数据
 		    		metTable_initialization();
 		    		shuaxin();
 		    	}else{
-		    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		    		toastr["warning"]("", "修改失败，检查数据后重试");
 		    	}
 		    },
 		    error: function () { 
-		    	toastr["error"]("error", "服务器异常");
+		    	toastr["error"]("", "服务器异常");
 		    }  
 		});
 		$("#close_up_button").click();
@@ -265,18 +265,18 @@ function up_metTable_st(name_en,name_cn,data_type){
 	        },
 		    success: function (data) {
 		    	if (data == "1") {
-		    		toastr["success"]("success", "记录已修改");
+		    		toastr["success"]("", "记录已修改");
 		    		//销毁现有表格数据
 		    		$metTable_st.bootstrapTable('destroy');
 		    		//重新初始化数据
 		    		metTable_st_initialization();
 		    		shuaxin_st();
 		    	}else{
-		    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		    		toastr["warning"]("", "修改失败，检查数据后重试");
 		    	}
 		    },
 		    error: function () { 
-		    	toastr["error"]("error", "服务器异常");
+		    	toastr["error"]("", "服务器异常");
 		    }  
 		});
 		$("#close_up_button_st").click();
@@ -302,14 +302,14 @@ function add_metTable(name_en,name_cn,data_type){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "新数据添加");
+	    		toastr["success"]("", "新数据添加");
 	    		//销毁现有表格数据
 	    		$metTable.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metTable_initialization();
 	    		shuaxin();
 	    	}else{
-	    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+	    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
@@ -333,18 +333,18 @@ function add_metTable_st(name_en,name_cn,data_type){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "新数据添加");
+	    		toastr["success"]("", "新数据添加");
 	    		//销毁现有表格数据
 	    		$metTable_st.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metTable_st_initialization();
 	    		shuaxin();
 	    	}else{
-	    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+	    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 	$("#close_add_button_st").click();

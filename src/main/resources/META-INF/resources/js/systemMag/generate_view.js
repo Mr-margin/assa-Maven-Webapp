@@ -136,7 +136,7 @@ function save_view(pkid, name_en, sql_val){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "语句已保存");
+	    		toastr["success"]("", "语句已保存");
 	    		//销毁现有表格数据
 	    		//$metView.bootstrapTable('destroy');
 	    		//重新初始化数据
@@ -151,11 +151,11 @@ function save_view(pkid, name_en, sql_val){
 	    		//重新初始化数据
 	    		metView_initialization();
 	    	}else{
-	    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+	    		toastr["warning"]("", "保存失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 }
@@ -174,18 +174,18 @@ function del_metView(pkid, name_en, sql_val){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "数据已删除");
+	    		toastr["success"]("", "数据已删除");
 	    		swal("删除成功！", "您已经永久删除了这条信息。", "success");
 	    		//销毁现有表格数据
 	    		$metView.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metView_initialization();
 	    	}else{
-	    		toastr["warning"]("warning", "删除失败，检查数据后重试");
+	    		toastr["warning"]("", "删除失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 }
@@ -207,18 +207,18 @@ function up_metView(name_en, name_cn, sql_val){
 	        },
 		    success: function (data) {
 		    	if (data == "1") {
-		    		toastr["success"]("success", "记录已修改");
+		    		toastr["success"]("", "记录已修改");
 		    		//销毁现有表格数据
 		    		$metView.bootstrapTable('destroy');
 		    		//重新初始化数据
 		    		metView_initialization();
 		    		Refresh_view();
 		    	}else{
-		    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		    		toastr["warning"]("", "修改失败，检查数据后重试");
 		    	}
 		    },
 		    error: function () { 
-		    	toastr["error"]("error", "服务器异常");
+		    	toastr["error"]("", "服务器异常");
 		    }  
 		});
 		$("#close_up_view_button").click();
@@ -241,18 +241,18 @@ function add_metView(name_en, name_cn){
         },
 	    success: function (data) {
 	    	if (data == "1") {
-	    		toastr["success"]("success", "新数据添加");
+	    		toastr["success"]("", "新数据添加");
 	    		//销毁现有表格数据
 	    		$metView.bootstrapTable('destroy');
 	    		//重新初始化数据
 	    		metView_initialization();
 	    		Refresh_view();
 	    	}else{
-	    		toastr["warning"]("warning", "添加失败，检查数据后重试");
+	    		toastr["warning"]("", "添加失败，检查数据后重试");
 	    	}
 	    },
 	    error: function () { 
-	    	toastr["error"]("error", "服务器异常");
+	    	toastr["error"]("", "服务器异常");
 	    }  
 	});
 	$("#close_add_view_button").click();
