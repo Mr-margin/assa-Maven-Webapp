@@ -1,6 +1,6 @@
 var title='';
 $(document).ready(function() {
-	title='贫困人口文化程度统计';
+	title='三到村三到户覆盖';
 	if(parent.shi!=''){
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
@@ -165,7 +165,7 @@ function pkcsbbz(){
 		};
 	var option = {
 			title: {
-				text: '三到村三到户覆盖',
+				text: title,
 				x:'center',
 				subtext: '单位：个',
 				textStyle:{fontWeight:'500',fontSize:'17'}
