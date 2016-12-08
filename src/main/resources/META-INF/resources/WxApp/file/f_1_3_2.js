@@ -79,7 +79,7 @@ function biaoge(){
     		html+='<tr><td class="text-center">'+aa+'</td><td class="text-center">'+cc+'</td><td class="text-center">'+bb+'</td><td class="text-center">'+dd+'</td><td class="text-center">'+ee+'</td><td class="text-center">'+ff+'</td><td class="text-center">'+gg+'</td><td class="text-center">'+hh+'</td></tr>';
     	});
     	aa=aa+1;
-    	html+='<tr><td class="text-center">'+aa+'</td><td class="text-center"><strong>汇总</strong></td><td class="text-center"><strong>'+v1+'</strong></td><td class="text-center"><strong>'+v2+'</strong></td><td class="text-center"><strong>'+v3+'</strong></td><td class="text-center"><strong>'+v4+'</strong></td><td class="text-center"><strong>'+v5+'</strong></td><td class="text-center"><strong>'+v6+'</strong></td></tr>'
+    	html+='<tr><td class="text-center">'+aa+'</td><td class="text-center"><strong>汇总</strong></td><td class="text-center"><strong>'+v2+'</strong></td><td class="text-center"><strong>'+v1+'</strong></td><td class="text-center"><strong>'+v3+'</strong></td><td class="text-center"><strong>'+v4+'</strong></td><td class="text-center"><strong>'+v5+'</strong></td><td class="text-center"><strong>'+v6+'</strong></td></tr>'
 		//对下方的表格赋值
 		$("#xiafangzongbiao").html(html);
 	}
