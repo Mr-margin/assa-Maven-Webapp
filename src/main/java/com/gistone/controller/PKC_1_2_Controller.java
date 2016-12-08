@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.junit.experimental.theories.FromDataPoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -666,6 +667,51 @@ public class PKC_1_2_Controller {
 			response.getWriter().write(getPaixu(jsa,name).toString());
 		}else{
 			response.getWriter().print("0");
+		}
+	}
+	/**
+	 * 地图显示：下辖行政区划所选类型贫困户的数量
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("getBfdx_home.do")
+	public void getBfdx_home(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String dqname = request.getParameter("dqname");
+		String dqcode = request.getParameter("dqcode");
+		int ar=0;
+		if(dqname.equals("V2")){
+			ar=2;
+		}else {
+			ar=Integer.parseInt(dqname.substring(1,2))-1;
+		}
+		String sql = "SELECT NUM,NUM1,AAR00"+ar+" xz FROM ( "+
+					" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"  "+  
+					" )AA  "+
+
+					" LEFT JOIN (  "+
+					" select  NUM1,AAR00"+ar+" xz from ( "+
+					" SELECT COUNT(*) NUM1,AAR00"+ar+" FROM ( "+
+					" SELECT * FROM ( "+
+					" select AAC001 a1,AAB001 from NM09_AB01 where AAR040='2015' and AAB015 IN ('1','4') "+
+					" )a LEFT JOIN (  "+
+					" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NM09_AC01  where AAR100= '1' and AAR040='2015' and AAR010 in ('0','3'))b on a.a1=B.AAC001  "+
+					" ) GROUP BY AAR00"+ar+")AA  "+
+					" ) ff ON FF.XZ=aa.AAR00"+ar+" ";
+				
+				
+				
+				
+		List<Map> sql_list = this.getBySqlMapper.findRecords(sql);
+		JSONObject object = new JSONObject();
+		if( sql_list.size() > 0){
+			JSONArray jsa = new JSONArray();
+			for(Map asmap:sql_list){
+				object.put("pkh", asmap.get("NUM")==null?"":asmap.get("NUM"));
+				object.put("pkr", asmap.get("NUM1")==null?"":asmap.get("NUM1"));
+				jsa.add(object);
+			}
+			response.getWriter().write(jsa.toString());
 		}
 	}
 }
