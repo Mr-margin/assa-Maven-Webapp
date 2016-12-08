@@ -283,7 +283,7 @@ $(function () {
 				}
 			})(sqlJson);
 		}else{
-			toastr["warning"]("warning", sqlJson.error);
+			toastr["warning"]("", sqlJson.error);
 		}
 		$("#quyu2").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
 	}

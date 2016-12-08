@@ -1,5 +1,7 @@
 $(function() {
 	
+	cha_shu(jsondata.Login_map.COM_NAME,jsondata.Login_map.SYS_COM_CODE,jsondata.Login_map.ROLE_ID);//查询当前行政区划的数据
+	
 	//加载市级下拉框
 	if(jsondata.Login_map.COM_VD=="V1"){
 		/*$("#v2").append("<option></option>");
@@ -231,4 +233,25 @@ function erweima_tupian(pkid){
 //图片点击
 function tu_click(pkid){
 	$("#img_pic_"+pkid).click();
+}
+/**
+ * 表格数据
+ * @param name
+ * @param code
+ * @param role_id
+ */
+function cha_shu (name,code,role_id) {
+	var data = JSON.parse(ajax_async_t("../getWyApp_y1_y.do", {name:name,code:code,role_id:role_id }));
+	var html = "";
+	var zong_num=0;var zong_bfr=0;
+	$.each(data.data1,function(i,item){
+		html += '<tr><td>'+item.xzqh+'</td> <td>'+item.num+'</td><td>'+item.bfr+'</td><td>100%</td></tr>';
+		zong_num = parseInt(zong_num)+parseInt(item.num);
+		zong_bfr = parseInt(zong_bfr)+parseInt(item.bfr);
+	});
+	html+='<tr><td>汇总</td> <td>'+zong_num+'</td><td>'+zong_bfr+'</td><td>100%</td></tr>'
+	$("#bfr_table").html(html);
+	$("#hu_num").text(zong_num);
+	$("#zrr_num").text(zong_bfr);
+	$("#liu_num").text(data.data2[0].liu);
 }
