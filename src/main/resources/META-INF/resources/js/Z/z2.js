@@ -838,7 +838,7 @@ function show_pinkuncun(com_pkid){
 		        	}else{
 		        		$("#neirong").show();
 			        	$("#exportExcel_all_dengdai_1").hide();
-			        	$("#neirong").html('<img class="center-block" src="../img/wu.jpg">');
+			        	$("#neirong").html('<img class="center-block" src="../img/wu.png">');
 		        	}
 		        }
 	        })
