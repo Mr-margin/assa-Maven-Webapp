@@ -5,7 +5,7 @@ $(document).ready(function(){
 	}else if(jsondata.Login_map.COM_VD=="V3"){
 		yemian='Z5.html';
 	}else if(jsondata.Login_map.COM_VD=="V5"){
-		yemian='Z6.html';
+		yemian='Z5.html';
 	}	
 	$('#iframe0').attr('src',yemian);
 	$('#iframe0').attr('data-id',yemian);

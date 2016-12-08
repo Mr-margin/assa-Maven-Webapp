@@ -47,8 +47,8 @@
                         	<div>
                                    <h2 class="font-bold no-margins"><img src="img/biaot1.jpg" /></h2>
                                </div>
-                            <h1 class="no-margins"><span class="label label-warning" style="font-size: 75%;">802,068</span> 人</h1>
-                            <div class="stat-percent font-bold text-success"><br>547125人（68.21%）</div>
+                            <h1 class="no-margins"><span id="pkrk_1" class="label label-warning" style="font-size: 75%;">0</span> 人</h1>
+                            <div class="stat-percent font-bold text-success" id="pkrk_2"><br>0人（0%）</div>
                             <small><br>一般贫困户人数</small>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                         	<div>
                                 <h2 class="font-bold no-margins"><img src="img/biaot2.jpg" /></h2>
                             </div>
-                            <h1 class="no-margins"><span class="label label-warning" style="font-size: 75%;">357,581</span> 户</h1>
-                            <div class="stat-percent font-bold text-success"><br>232713户（65.08%）</div>
+                            <h1 class="no-margins"><span id="pkh_1" class="label label-warning" style="font-size: 75%;">0</span> 户</h1>
+                            <div class="stat-percent font-bold text-success" id="pkh_2"><br>0户（0%）</div>
 							<small><br>一般贫困户数</small>
 						</div>
 					</div>
@@ -84,8 +84,8 @@
                         	<div>
                                 <h2 class="font-bold no-margins"><img src="img/biaot4.jpg" /></h2>
                             </div>
-                            <h1 class="no-margins"><span class="label label-warning" style="font-size: 75%;">31</span> 个</h1>
-                            <div class="stat-percent font-bold text-success"><br>26个</div>
+                            <h1 class="no-margins"  id="gjzdqx_h"><span id="gjzdqx" class="label label-warning" style="font-size: 75%;">0</span> 个</h1>
+                            <div  id="zzqzdqx" class="stat-percent font-bold text-success"><br>0个</div>
                          <small><br>自治区重点旗县</small>
                         </div>
                     </div>
@@ -98,11 +98,11 @@
             	<div class="col-lg-12">
                     <div class="ibox float-e-margins">
                     	<div class="ibox-title">
-                            <img src="img/bt6.jpg" />
+                            <h5>贫困人口分布情况</h5>
                         </div>
                         <div class="ibox-content">
                         	<div class="row">
-                          		<img src="../img/sjt7.jpg">
+                          		<div id="pkrkzk" style=" height:500px;"></div>
                           	</div>
                         </div>
                     </div>
@@ -177,265 +177,21 @@
             	<div class="col-lg-6">
             		<div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>贫困人口状况统计</h5>
-                        </div>
-                        <div class="ibox-content">
-                        	<div id="pkrkzk" style=" height:300px;"></div>
-                        </div>
-                    </div>
-            	</div>
-            </div>      
-			<!-- 第二行和第三行之间_2 -->
-            <div class="row">
-            	<div class="col-lg-12">
-            		<div class="ibox float-e-margins">
-            			<div class="ibox-title">
-                            <h5>2016年各盟市减贫摘帽计划</h5>
-                        </div>
-                        <div class="ibox-content">
-	            			<div id="jpzmjh" style="height:500px;"></div>
-						</div>
-            		</div>
-            	</div>
-            </div>       
-			<!-- 第三行 -->
-            <div class="row">
-            	<div class="col-lg-4">
-            		<div class="ibox float-e-margins">
-                        <div class="ibox-title">
                             <!-- <h5>六个一批分类扶持</h5> -->
                             <img src="img/bt7.jpg" />
                         </div>
                         <div class="ibox-content">
-                        	<div id="hfccs" style=" height:500px;"></div>
+                        	<div id="hfccs" style=" height:300px;"></div>
                         </div>
                     </div>
             	</div>
-               	
-               	<div class="col-lg-8">
-               		<div class="ibox float-e-margins">
-						<div class="ibox-title">
-                            <!-- <h5>自治区各级干部帮扶贫困户统计</h5> -->
-                            <img src="img/bt8.jpg" />
-                        </div>
-						<div class="ibox-content">
-							<div class="row">
-								<div class="col-sm-12 m-b-xs">
-									<div data-toggle="buttons" class="btn-group">
-										<label class="btn btn-sm btn-white active" id="option1" name="option1">
-                                           	<input type="radio">省级领导</label>
-                                       	<label class="btn btn-sm btn-white" id="option2" name="option2">
-                                           	<input type="radio">市级领导</label>
-                                       	<label class="btn btn-sm btn-white" id="option3" name="option3">
-                                           	<input type="radio">县级领导</label>
-                                       	<label class="btn btn-sm btn-white" id="option4" name="option4">
-                                           	<input type="radio">县级以下干部</label>
-                                   	</div>
-                               	</div>
-                           	</div>
-							<div class="table-responsive">
-								<table class="table table-striped">
-									<thead>
-										<tr>
-                                            <th>行政级别</th>
-                                            <th>现有贫困户(户)</th>
-                                            <th>落实帮扶责任总人数(人)</th>
-                                            <th class="shengji">省级领导(人)</th>
-                                            <th class="shengji">帮扶户数(户)</th>
-                                            <th class="shiji">市级领导(人)</th>
-                                            <th class="shiji">帮扶户数(户)</th>
-                                            <th class="xianji">县级领导(人)</th>
-                                            <th class="xianji">帮扶户数(户)</th>
-                                            <th class="xianjiyixia">县级以下干部(人)</th>
-                                            <th class="xianjiyixia">帮扶户数(户)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>呼和浩特市</td>
-                                            <td>12236</td>
-                                            <td>25359</td>
-                                            <td class="shengji">2</td>
-                                            <td class="shengji">7</td>
-                                            <td class="shiji">41</td>
-                                            <td class="shiji">44</td>
-                                            <td class="xianji">102</td>
-                                            <td class="xianji">454</td>
-                                            <td class="xianjiyixia">25214</td>
-                                            <td class="xianjiyixia">11781</td>
-                                        </tr>
-                                        <tr>
-                                            <td>包 头 市</td>
-                                            <td>6572</td>
-                                            <td>4470</td>
-                                            <td class="shengji">1</td>
-                                            <td class="shengji">5</td>
-                                            <td class="shiji">38</td>
-                                            <td class="shiji">124</td>
-                                            <td class="xianji">133</td>
-                                            <td class="xianji">592</td>
-                                            <td class="xianjiyixia">4298</td>
-                                            <td class="xianjiyixia">5856</td>
-                                        </tr>
-                                        <tr>
-                                            <td>乌 海 市</td>
-                                            <td>697</td>
-                                            <td>606</td>
-                                            <td class="shengji">0</td>
-                                            <td class="shengji">0</td>
-                                            <td class="shiji">37</td>
-                                            <td class="shiji">38</td>
-                                            <td class="xianji">47</td>
-                                            <td class="xianji">209</td>
-                                            <td class="xianjiyixia">522</td>
-                                            <td class="xianjiyixia">450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>赤 峰 市</td>
-                                            <td>112382</td>
-                                            <td>39080</td>
-                                            <td class="shengji">10</td>
-                                            <td class="shengji">49</td>
-                                            <td class="shiji">35</td>
-                                            <td class="shiji">175</td>
-                                            <td class="xianji">347</td>
-                                            <td class="xianji">1544</td>
-                                            <td class="xianjiyixia">38688</td>
-                                            <td class="xianjiyixia">110663</td>
-                                        </tr>
-                                        <tr>
-                                            <td>通 辽 市</td>
-                                            <td>54099</td>
-                                            <td>5411</td>
-                                            <td class="shengji">5</td>
-                                            <td class="shengji">24</td>
-                                            <td class="shiji">32</td>
-                                            <td class="shiji">349</td>
-                                            <td class="xianji">152</td>
-                                            <td class="xianji">676</td>
-                                            <td class="xianjiyixia">5222</td>
-                                            <td class="xianjiyixia">53066</td>
-                                        </tr>
-                                        <tr>
-                                            <td>鄂尔多斯市</td>
-                                            <td>5194</td>
-                                            <td>4508</td>
-                                            <td class="shengji">0</td>
-                                            <td class="shengji">0</td>
-                                            <td class="shiji">36</td>
-                                            <td class="shiji">127</td>
-                                            <td class="xianji">42</td>
-                                            <td class="xianji">187</td>
-                                            <td class="xianjiyixia">4430</td>
-                                            <td class="xianjiyixia">4822</td>
-                                        </tr>
-                                        <tr>
-                                            <td>呼伦贝尔市</td>
-                                            <td>25666</td>
-                                            <td>14575</td>
-                                            <td class="shengji">2</td>
-                                            <td class="shengji">7</td>
-                                            <td class="shiji">4</td>
-                                            <td class="shiji">14</td>
-                                            <td class="xianji">216</td>
-                                            <td class="xianji">965</td>
-                                            <td class="xianjiyixia">14353</td>
-                                            <td class="xianjiyixia">24695</td>
-                                        </tr>
-                                        <tr>
-                                            <td>巴彦淖尔市</td>
-                                            <td>19409</td>
-                                            <td>8826</td>
-                                            <td class="shengji">1</td>
-                                            <td class="shengji">5</td>
-                                            <td class="shiji">40</td>
-                                            <td class="shiji">360</td>
-                                            <td class="xianji">220</td>
-                                            <td class="xianji">979</td>
-                                            <td class="xianjiyixia">8565</td>
-                                            <td class="xianjiyixia">18070</td>
-                                        </tr>
-                                        <tr>
-                                            <td>乌兰察布市</td>
-                                            <td>61104</td>
-                                            <td>25345</td>
-                                            <td class="shengji">8</td>
-                                            <td class="shengji">33</td>
-                                            <td class="shiji">39</td>
-                                            <td class="shiji">312</td>
-                                            <td class="xianji">279</td>
-                                            <td class="xianji">1242</td>
-                                            <td class="xianjiyixia">25019</td>
-                                            <td class="xianjiyixia">59530</td>
-                                        </tr>
-                                        <tr>
-                                            <td>兴 安 盟</td>
-                                            <td>48309</td>
-                                            <td>19234</td>
-                                            <td class="shengji">4</td>
-                                            <td class="shengji">16</td>
-                                            <td class="shiji">36</td>
-                                            <td class="shiji">180</td>
-                                            <td class="xianji">111</td>
-                                            <td class="xianji">494</td>
-                                            <td class="xianjiyixia">19083</td>
-                                            <td class="xianjiyixia">47639</td>
-                                        </tr>
-                                        <tr>
-                                            <td>锡林郭勒盟</td>
-                                            <td>9156</td>
-                                            <td>3510</td>
-                                            <td class="shengji">3</td>
-                                            <td class="shengji">13</td>
-                                            <td class="shiji">36</td>
-                                            <td class="shiji">330</td>
-                                            <td class="xianji">122</td>
-                                            <td class="xianji">524</td>
-                                            <td class="xianjiyixia">3349</td>
-                                            <td class="xianjiyixia">8312</td>
-                                        </tr>
-                                        <tr>
-                                            <td>阿拉善盟</td>
-                                            <td>2757</td>
-                                            <td>1148</td>
-                                            <td class="shengji">1</td>
-                                            <td class="shengji">5</td>
-                                            <td class="shiji">35</td>
-                                            <td class="shiji">194</td>
-                                            <td class="xianji">81</td>
-                                            <td class="xianji">360</td>
-                                            <td class="xianjiyixia">1031</td>
-                                            <td class="xianjiyixia">2203</td>
-                                        </tr>
-                                        <tr>
-                                            <td>总   计</td>
-                                            <td>357581</td>
-                                            <td>152072</td>
-                                            <td class="shengji">37</td>
-                                            <td class="shengji">164</td>
-                                            <td class="shiji">409</td>
-                                            <td class="shiji">2247</td>
-                                            <td class="xianji">1852</td>
-                                            <td class="xianji">8226</td>
-                                            <td class="xianjiyixia">149774</td>
-                                            <td class="xianjiyixia">347087</td>
-                                        </tr>
-                                    </tbody>
-								</table>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 第三行 -->
-
+            </div>      
 		</div>
 	</div>
 
 	
 	<script>
-		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","toastr","echarts","z1"]);
+		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","toastr","echarts","public","z5"]);
 	</script>
   </body>
 </html>

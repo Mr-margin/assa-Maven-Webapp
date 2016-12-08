@@ -79,6 +79,7 @@ GISTONE.Loader = {
 		    ["z2","js/Z/","z2.js"],
 		    ["z3","js/Z/","z3.js","css.css"],
 		    ["z4","js/Z/","z4.js"],
+		    ["z5","js/Z/","z5.js"],
 		    
 		    ["WyApp_home","js/Y/","home.js"],
 		    ["y1","js/Y/","y1.js"],
