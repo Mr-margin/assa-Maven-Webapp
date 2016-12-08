@@ -1,4 +1,10 @@
 $(function() {
+	console.log(jsondata);
+	var data=JSON.parse(ajax_async_t("/assa/getBfdx_home.do", {dqname:jsondata.Login_map.COM_VS,dqcode:jsondata.Login_map.SYS_COM_CODE}));
+	$.each(data, function(i,item) {
+		$('#pkrk').html(item.pkr);
+		$('#pkh').html(item.pkh);
+	})
 	$('#fpdx').click(function(){      //扶贫对象
 		if(jsondata.Login_map.COM_VD=="V1"){
 			window.location.href = 'WxApp/home.html';
