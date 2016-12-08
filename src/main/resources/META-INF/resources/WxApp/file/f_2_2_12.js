@@ -58,7 +58,7 @@ function pkcsbbz(){
 	var count2=[];//标准卫生室
 
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}
 	
 	$.each(data,function(i,item){

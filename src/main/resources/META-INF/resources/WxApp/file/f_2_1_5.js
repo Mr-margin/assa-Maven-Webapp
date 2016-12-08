@@ -66,7 +66,7 @@ function pkcsbbz(){
 	var count4=[];
 	var count5=[];
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}
 
 	var option = {

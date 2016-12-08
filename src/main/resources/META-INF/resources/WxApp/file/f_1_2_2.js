@@ -38,7 +38,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function table(){
 	var data = ajax_async_t("/assa/getBfdxHu_3.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var html = "";
 		var A1=0,A2=0,A3=0,A4=0,A5=0,A6=0,A7=0,A8=0,A9=0,A10=0,A11=0,A12=0;
@@ -154,7 +154,7 @@ function table(){
 function huan_pie(){
 	var data = ajax_async_t("/assa/getBfdxHu_4.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,shi:"0"},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var zong = data[0].z_hu;
 		var bilv = 100/zong;

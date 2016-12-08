@@ -46,7 +46,7 @@ function a_1(){
 	myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_2.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}else{
 		var V2=0,V3=0,V4=0,V5=0,V6=0,V7=0,V8=0;
 		var V1 = obj.com;
@@ -161,7 +161,7 @@ function a_2(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("../../getPKC_1_1_2_2.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2})); //调用ajax通用方法
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}else{
 		var com_name;
 		var count = [];

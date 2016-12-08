@@ -57,7 +57,7 @@ function pkcsbbz(){
 	var count2=[];//总数
 	
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}
 	
 	$.each(data,function(i,item){

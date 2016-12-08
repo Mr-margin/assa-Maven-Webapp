@@ -39,7 +39,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function table(){
 	var data = ajax_async_t("/assa/getBfdxHu_9.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:'asc'},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var html = "";
 		var A1=0,A2=0,A3=0,A4=0,A5=0,A6=0,A7=0,A8=0;
@@ -129,7 +129,7 @@ function table(){
 function pie(){
 	var data = ajax_async_t("/assa/getBfdxHu_9.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"desc"},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var v1 = 0; var v3 = 0; var v5 = 0; var v7 = 0; var v9 = 0; var v11 = 0; var v13 = 0; var zong = 0;
 		$.each(data,function(i,item){
@@ -211,7 +211,7 @@ function pie(){
 function bar(){
 	var data = ajax_async_t("/assa/getBfdxHu_10.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"desc"},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var com_name = [];
 		var num = [];var v2 = []; var v4 = [];var v6 = [];var v8 = []; var v10 = [];var v12 = []; var v14 = [];

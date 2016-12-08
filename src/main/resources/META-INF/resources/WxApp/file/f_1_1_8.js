@@ -41,7 +41,7 @@ function a1(){
 	var V1 = obj.com;
 	
 	if(data==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}else{
 		if(data.length>0){
 			for(var i=0; i<data.length; i++){

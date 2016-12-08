@@ -45,7 +45,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function table(){
 	var data = ajax_async_t("/assa/getBfdxHu_11.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"asc"},"json");
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var html = "";
 		var v1=0;
@@ -229,7 +229,7 @@ function bar(){
 	myChart = echarts.init(document.getElementById('bar'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t("/assa/getBfdxHu_11.do", {name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"desc"})); //调用ajax通用方法
 	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.jpg" class="center-block">')
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
 	}else{
 		var count = [];
 		var count_2 = [];

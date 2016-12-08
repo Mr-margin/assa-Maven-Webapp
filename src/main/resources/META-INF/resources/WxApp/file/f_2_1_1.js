@@ -115,7 +115,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function pkcsbbz(){
 	var data = ajax_async_t("/assa/getFccs.do",{desc:"desc",name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2},"json");
 	if(data == '0'){
-		$("#z").html('<img class="center-block" src="../../img/wu.jpg">');
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 	}else{
 		var com_name =[];
 		var count1 = [];
