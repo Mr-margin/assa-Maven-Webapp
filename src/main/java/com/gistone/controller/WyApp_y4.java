@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -103,5 +104,51 @@ public class WyApp_y4 {
 			}
 			response.getWriter().write(json.toString());
 		}
+	}
+	/**
+	 * 根据行政区划显示帮扶人和贫困户
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("getWyApp_y1_y.do")
+	public void getWyApp_y1_y (HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String role = request.getParameter("role_id");
+		String name = request.getParameter("name");//3
+		String code = request.getParameter("code");
+		int v1 = Integer.parseInt(role)+1;
+		int v3 = Integer.parseInt(role)*2;
+		int v2 = v3 -1;
+		int v4 = Integer.parseInt(role)*2-2;
+		int v5 = Integer.parseInt(role)*2;
+		String sql ="select num ,xzqh,bfr from  ";
+			sql+= " ( SELECT NUM,AAR00"+v1+" xz,xzqh FROM (  select  COUNT(*) NUM,AAR00"+v1+" from NM09_AC01  where AAR100= '1'  and AAR040='2015' and AAR00"+role+"='"+code+"' GROUP BY AAR00"+v1+"  )AA left join ( ";
+			sql += "  select v"+v2+" xzqh,v"+v3+" from SYS_COM GROUP BY v"+v2+",v"+v3+" )bb ON AA.AAR00"+v1+"=bb.v"+v3+"  where xzqh is not null)w0 LEFT JOIN (";
+			sql +=" select count(AAC001) bfr ,AAR00"+v1+" from (select a.AAC001,AAR00"+v1+" from (select AAC001,AAR00"+v1+" from NM09_AC01 where AAR100= '1' and AAR040='2015' ";
+			sql +=") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2015' AND SUBSTR(b.AAR021, 0, 4) >='2015' ";
+			sql+=" )t1 group BY AAR00"+v1+" )w1 on w0.xz=w1.AAR00"+v1+"";
+			System.out.println(sql);
+		List<Map> list = this.getBySqlMapper.findRecords(sql);
+		JSONArray json = new JSONArray();
+		if ( list.size() > 0 ) {
+			for ( int i = 0 ; i < list.size() ; i++ ) {
+				JSONObject obj = new JSONObject ();
+				obj.put("xzqh", "".equals(list.get(i).get("XZQH")) || list.get(i).get("XZQH") == null ? "" : list.get(i).get("XZQH").toString());
+				obj.put("num", "".equals(list.get(i).get("NUM")) || list.get(i).get("NUM") == null ? "0" : list.get(i).get("NUM").toString());
+				obj.put("bfr", "".equals(list.get(i).get("BFR")) || list.get(i).get("BFR") == null ? "0" : list.get(i).get("BFR").toString());
+				json.add(obj);
+			}
+			
+		}
+		String l_sql = "select sum(fc2) num from PKC_2_1_1 where v10 in (select v"+v5+" from SYS_COM where v"+v4+"='"+code+"' ) ";
+		List<Map> l_list = this.getBySqlMapper.findRecords(l_sql);
+		JSONArray json1 = new JSONArray();
+		if ( l_list.size() > 0 ) {
+			
+			JSONObject obj1 = new JSONObject () ;
+			obj1.put("liu", "".equals(l_list.get(0).get("NUM")) || l_list.get(0).get("NUM") == null ? "0" : l_list.get(0).get("NUM").toString());
+			json1.add(obj1);
+		}
+		response.getWriter().write("{\"data1\":"+json.toString()+",\"data2\":"+json1.toString()+"}");
 	}
 }
