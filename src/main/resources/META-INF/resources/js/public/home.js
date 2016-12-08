@@ -4,6 +4,7 @@ $(function() {
 	$.each(data, function(i,item) {
 		$('#pkrk').html(item.pkr);
 		$('#pkh').html(item.pkh);
+		$('#bfr').html(item.bfr);
 	})
 	$('#fpdx').click(function(){      //扶贫对象
 		if(jsondata.Login_map.COM_VD=="V1"){
