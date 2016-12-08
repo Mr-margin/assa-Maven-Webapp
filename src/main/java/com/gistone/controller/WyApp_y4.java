@@ -29,9 +29,10 @@ public class WyApp_y4 {
 	public void getWyApp_y4_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");
 		
-		String sql = "select v21,v22,v23,v6,v9,pic_path from "+
+		String sql = "select v21,v22,v23,v6,v9,pic_path,card from "+
 					" (select NM09_AC01.AAC001,NM09_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NM09_AC01 join NM09_AB01 on NM09_AC01.AAC001=NM09_AB01.AAC001 where  NM09_AC01.AAR040='2015' and AAB006=01 and AAR010=0 and NM09_AC01.AAR008='"+code+"' group BY NM09_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NM09_AC01.AAC001) t4"+
-					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NM09_AB01 WHERE AAR040='2015' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 GROUP BY v21,v22,v23,v6,v9,pic_path ORDER BY v6";
+					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NM09_AB01 WHERE AAR040='2015' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
+					"  LEFT JOIN (select AAC001,AAB004 card from NM09_Ab01 where AAB006='01')w1 ON t4.AAC001=w1.AAC001  GROUP BY v21,v22,v23,v6,v9,pic_path,card ORDER BY v6";
 		
 		JSONArray json = new JSONArray();
 //		System.out.println(sql);
@@ -45,7 +46,15 @@ public class WyApp_y4 {
 				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" :sw4.mianZhuan(list.get(i).get("V21").toString(), "21") );
 				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" :sw4.mianZhuan(list.get(i).get("V22").toString(), "22") );
 				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" :sw4.mianZhuan(list.get(i).get("V23").toString(), "23") );
-				obj.put("riji_info","0");
+				obj.put("card", "".equals(list.get(i).get("CARD")) || list.get(i).get("CARD") == null ? "" : list.get(i).get("CARD").toString());
+				String cha_sql = "select * from da_help_visit where household_name ='"+list.get(i).get("V6")+"' AND  household_card='"+list.get(i).get("CARD")+"'";
+				List cha_list = this.getBySqlMapper.findRecords(cha_sql);
+				if( cha_list.size() > 0 ) {
+					obj.put("riji_info","1");
+				}else {
+					obj.put("riji_info","0");
+				}
+				
 				//obj.put("riji_info", "".equals(list.get(i).get("COM")) || list.get(i).get("COM") == null ? "0" : list.get(i).get("COM").toString());
 				obj.put("erweima", "".equals(list.get(i).get("PIC_PATH")) || list.get(i).get("PIC_PATH") == null ? "0" : list.get(i).get("PIC_PATH").toString());
 				json.add(obj);
@@ -62,10 +71,10 @@ public class WyApp_y4 {
 	 */
 	@RequestMapping("getWyApp_y4_2.do")
 	public void getWyApp_y4_2(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String pkid = request.getParameter("pkid");
 		
-		String sql = "select t2.v1 as danwei,t1.col_name,t3.v1,t3.v3,t3.pkid from DA_HELP_VISIT t3 join SYS_PERSONAL t1 on t3.SYS_PERSONAL_ID=t1.pkid "
-				+ "join DA_COMPANY t2 on t1.DA_COMPANY_ID=t2.pkid where t3.DA_HOUSEHOLD_ID="+pkid+" order by t3.v1 desc";
+		String household_name = request.getParameter("name");
+		String household_card = request.getParameter("card");
+		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' ORDER BY V1 DESC ";
 		String pic = "";
 		
 		JSONArray json = new JSONArray();
@@ -73,12 +82,12 @@ public class WyApp_y4 {
 		if (list.size() > 0) {
 			for ( int i = 0 ; i < list.size() ; i ++){
 				JSONObject obj = new JSONObject();
-				obj.put("danwei", "".equals(list.get(i).get("DANWEI")) || list.get(i).get("DANWEI") == null ? "" : list.get(i).get("DANWEI").toString());
-				obj.put("col_name", "".equals(list.get(i).get("COL_NAME")) || list.get(i).get("COL_NAME") == null ? "" : list.get(i).get("COL_NAME").toString());
+				obj.put("danwei", "".equals(list.get(i).get("HOUSEHOLD_NAME")) || list.get(i).get("HOUSEHOLD_NAME") == null ? "" : list.get(i).get("HOUSEHOLD_NAME").toString());
+				obj.put("col_name", "".equals(list.get(i).get("PERSONAL_NAME")) || list.get(i).get("PERSONAL_NAME") == null ? "" : list.get(i).get("PERSONAL_NAME").toString());
 				obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
 				obj.put("v3", "".equals(list.get(i).get("V3")) || list.get(i).get("V3") == null ? "" : list.get(i).get("V3").toString());
 				
-				pic = "select pkid,pic_path from da_pic where pic_type=2 and pic_pkid="+list.get(i).get("PKID").toString();
+				pic = "select pic_path,pkid from da_pic_visit where random_number='"+list.get(i).get("RANDOM_NUMBER")+"'";
 				List<Map> pic_list = this.getBySqlMapper.findRecords(pic);
 				JSONArray nodes = new JSONArray();
 				if(pic_list.size()>0){
