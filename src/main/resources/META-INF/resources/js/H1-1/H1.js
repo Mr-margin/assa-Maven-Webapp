@@ -186,12 +186,12 @@ $(function () {
 function del_hu_st(str){
 	var data = ajax_async_t("getInput_3.do",{str:str},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除贫困户");
+		toastr["success"]("", "删除贫困户");
 		swal("删除成功！", "您已经永久删除了这些贫困户。", "success");
 		metTable_bxbxxb.bootstrapTable('destroy');// 销毁现有表格数据
 		gachacun_initialization();// 重新初始化数据
 	} else {
-		toastr["warning"]("warning", "操作失败，检查数据后重试");
+		toastr["warning"]("", "操作失败，检查数据后重试");
 	}
 }
 
@@ -199,12 +199,12 @@ function del_hu_st(str){
 function add_hu(qx,xaing,cun,huname){
 	var data = ajax_async_t("getInput_2.do",{qx:qx,xaing:xaing,cun:cun,huname:huname},"text");
 	if (data == "1") {
-		toastr["success"]("success", "补充新贫困户");
+		toastr["success"]("", "补充新贫困户");
 		metTable_bxbxxb.bootstrapTable('destroy');//销毁现有表格数据
 		gachacun_initialization();//重新初始化数据
 		$("#huname_add").val("");
 	}else{
-		toastr["warning"]("warning", "操作失败，检查数据后重试");
+		toastr["warning"]("", "操作失败，检查数据后重试");
     	}
 	$("#close_hu").click();
 }

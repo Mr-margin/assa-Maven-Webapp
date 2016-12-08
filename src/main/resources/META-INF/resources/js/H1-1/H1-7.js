@@ -16,7 +16,7 @@ $(function () {
 		if(validator.form()){
 			bangfuhoushouru_save();
 		}else{
-			toastr["warning"]("warning", "请确保输入的金额为正确的数字");
+			toastr["warning"]("", "请确保输入的金额为正确的数字");
 		}
 	});
     
@@ -26,7 +26,7 @@ $(function () {
 		if(validator.form()){
 			bangfuhouzhichu_save();
 		}else{
-			toastr["warning"]("warning", "请确保输入的金额为正确的数字");
+			toastr["warning"]("", "请确保输入的金额为正确的数字");
 		}
 	});
 	
@@ -124,9 +124,9 @@ function bangfuhoushouru_save(){
 	var data = ajax_async_t("getInput_17.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val,type:2},"text");
 
 	if (data == "1") {
-		toastr["success"]("success", "帮扶后收入修改");
+		toastr["success"]("", "帮扶后收入修改");
 	}else{
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
 	}
 }
 
@@ -136,9 +136,9 @@ function bangfuhouzhichu_save(){
 	var data = ajax_async_t("getInput_18.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val,type:2},"text");
 
 	if (data == "1") {
-		toastr["success"]("success", "帮扶后支出修改");
+		toastr["success"]("", "帮扶后支出修改");
 	}else{
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
 	}
 
 }

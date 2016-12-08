@@ -4,13 +4,13 @@ $(function () {
 		if($("#zoufangqingkaung #v1").val()!=''&&$("#zoufangqingkaung #v2").val()!=''&&$("#zoufangqingkaung #v3").val()!=''){
 			var data = ajax_async_t("getInput_31.do",{pkid: $("#shang_yi #hu_pkid").val(),v1 : $("#zoufangqingkaung #v1").val(),v2 : $("#zoufangqingkaung #v2").val(),v3 : $("#zoufangqingkaung #v3").val(),type : 2},"text");
 			if (data == "1") {
-	    		toastr["success"]("success", "保存走访情况");
+	    		toastr["success"]("", "保存走访情况");
 	    		data_jiazai_zoufang($("#shang_yi #hu_pkid").val());
 	    	} else {
-	    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+	    		toastr["warning"]("", "保存失败，检查数据后重试");
 		    }
 		}else{
-			toastr["warning"]("warning", "走访情况信息必须填写完整");
+			toastr["warning"]("", "走访情况信息必须填写完整");
 		}
 	});
 	
@@ -19,10 +19,10 @@ $(function () {
 		var data = ajax_async_t("getInput_32.do",{pkid: $("#zoufangqingkaung #cuoshi_pkid").val(),v1 : $("#zoufangqingkaung #v1").val(),
 			v2 : $("#zoufangqingkaung #v2").val(),v3 : $("#zoufangqingkaung #v3").val(),type : 2},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "修改走访情况");
+    		toastr["success"]("", "修改走访情况");
     		data_jiazai_zoufang($("#shang_yi #hu_pkid").val());
     	} else {
-    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    }
 	});
 });
@@ -99,10 +99,10 @@ function data_jiazai_zoufang(pkid){
 function del_zoufang(pkid){
 	var data = ajax_async_t("getInput_33.do",{pkid: pkid,type:2},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除走访情况");
+		toastr["success"]("", "删除走访情况");
 		data_jiazai_zoufang($("#shang_yi #hu_pkid").val());
 	} else {
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
     }
 }
 
@@ -160,10 +160,10 @@ function zoufang_pic_show(pkid){
 function pic_del_zoufang(pkid,fid){
 	var data = ajax_async_t("getInput_12.do",{pkid: pkid},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除帮扶措施图片");
+		toastr["success"]("", "删除帮扶措施图片");
 		zoufang_pic_show(fid);
 	} else {
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
     }
 }
 

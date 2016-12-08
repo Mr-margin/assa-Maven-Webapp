@@ -95,9 +95,9 @@ function yidifupinbanqian_save(){
 	var form_val = JSON.stringify(getFormJson("#yidifupinbanqian_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_13.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 	if (data == "1") {
-		toastr["success"]("success", "易地扶贫搬迁修改");
+		toastr["success"]("", "易地扶贫搬迁修改");
 	}else{
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
 	}
 }
 
@@ -139,10 +139,10 @@ function getDispersed(thisVal){
 function del_jiatingchengyaun(){
 	var data = ajax_async_t("getInput_5.do",{pkid:$("#jiatingchengyuan #jiating_pkid").val(),huzhuid: $("#shang_yi #hu_pkid").val()},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除家庭成员");
+		toastr["success"]("", "删除家庭成员");
 		swal("删除成功！", "您已经永久删除了这个家庭成员。", "success");
 	} else {
-		toastr["warning"]("warning", "操作失败，检查数据后重试");
+		toastr["warning"]("", "操作失败，检查数据后重试");
     }
 	jbqk($("#shang_yi #hu_pkid").val());
 }
@@ -150,9 +150,9 @@ function del_jiatingchengyaun(){
 function add_jaiitng_new(){
 	var data = ajax_async_t("getInput_6.do",{pkid: $("#shang_yi #hu_pkid").val(),name: $("#jiatingname_add").val()},"text");
 	if (data == "1") {
-		toastr["success"]("success", "补充新家庭成员");
+		toastr["success"]("", "补充新家庭成员");
     } else {
-		toastr["warning"]("warning", "操作失败，检查数据后重试");
+		toastr["warning"]("", "操作失败，检查数据后重试");
     }
 	$("#close_jiating").click();
 	jbqk($("#shang_yi #hu_pkid").val());
@@ -749,16 +749,16 @@ function jbqk_initialization(){
 //户主保存
 function huzhu_save(){
 	if($("#huzhu_Form #sys_standard").val()=='请选择'){
-		toastr["warning"]("warning", "识别标准必须选择");
+		toastr["warning"]("", "识别标准必须选择");
 	}else if($("#huzhu_Form #v6").val()==''){
-		toastr["warning"]("warning", "户主姓名必须填写");
+		toastr["warning"]("", "户主姓名必须填写");
 	}else{
 		var form_val = JSON.stringify(getFormJson("#huzhu_Form"));//表单数据字符串
 		var data = ajax_async_t("getInput_4.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "户主信息修改");
+    		toastr["success"]("", "户主信息修改");
 	    } else {
-    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    }
 	}
 }
@@ -768,7 +768,7 @@ function jiatingchengyuan_save(){
 	var form_val = JSON.stringify(getFormJson("#jiatingchengyuan_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_7.do",{form_val: form_val},"text");
 	if (data == "1") {
-		toastr["success"]("success", "家庭成员信息修改");
+		toastr["success"]("", "家庭成员信息修改");
 		var i = jiating_biaoshi;
 		
 		$('#jiatingchengyuan #jiating_table #v6_'+i).html($("#jiatingchengyuan #v6").val());
@@ -839,7 +839,7 @@ function jiatingchengyuan_save(){
 		
 		$("#jieting_up_div").hide();
 	} else {
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
     }
 }
 
@@ -848,9 +848,9 @@ function shengchan_save(){
 	var form_val = JSON.stringify(getFormJson("#shengchan_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_9.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 	if (data == "1") {
-		toastr["success"]("success", "生产条件修改");
+		toastr["success"]("", "生产条件修改");
     } else {
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
     }
 }
 
@@ -859,7 +859,7 @@ function shenghuo_save(){
 	var form_val = JSON.stringify(getFormJson("#shenghuo_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_10.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 	if (data == "1") {
-		toastr["success"]("success", "生活条件修改");
+		toastr["success"]("", "生活条件修改");
 		if($("#shenghuo input[name='v3']:checked").val()=='是'){
 			$("#ydfpbq").show();
 			yidi_pic_load('6',$("#shang_yi #hu_pkid").val());
@@ -868,7 +868,7 @@ function shenghuo_save(){
 			$("#ydfpbq").hide();
 		}
 	} else {
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
     }
 }
 
@@ -902,10 +902,10 @@ function yidi_pic_show(pkid){
 function pic_del_yidi(pkid,fid){
 	var data = ajax_async_t("getInput_12.do",{pkid: pkid},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除易地扶贫搬迁图片");
+		toastr["success"]("", "删除易地扶贫搬迁图片");
 		yidi_pic_show(fid);
 	} else {
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
     }
 }
 

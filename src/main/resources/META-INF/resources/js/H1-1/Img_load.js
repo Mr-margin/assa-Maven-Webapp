@@ -220,7 +220,7 @@ function Img_load(type,pkid,biaoshi){
     },
     n.onUploadAccept = function(object, ret) {
     	if(ret.error == "0"){
-    		toastr["success"]("success", ret.message);
+    		toastr["success"]("", ret.message);
     	}else{
     		toastr["error"]("error", ret.message);
     	}
@@ -251,7 +251,7 @@ function Img_load(type,pkid,biaoshi){
     }),
     p.on("click", ".ignore",
     function() {
-        toastr["warning"]("warning", "todo")
+        toastr["warning"]("", "todo")
     }),
     c.addClass("state-" + k),
     s()

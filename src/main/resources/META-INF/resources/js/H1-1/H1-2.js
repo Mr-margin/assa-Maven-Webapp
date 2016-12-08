@@ -18,7 +18,7 @@ $(function () {
 		if(validator.form()){
 			shouru_save();
 		}else{
-			toastr["warning"]("warning", "请确保输入的金额为正确的数字");
+			toastr["warning"]("", "请确保输入的金额为正确的数字");
 		}
 	});
     
@@ -28,7 +28,7 @@ $(function () {
 		if(validator.form()){
 			zhichu_save();
 		}else{
-			toastr["warning"]("warning", "请确保输入的金额为正确的数字");
+			toastr["warning"]("", "请确保输入的金额为正确的数字");
 		}
 	});
 	
@@ -132,9 +132,9 @@ function shouru_save(){
 	var form_val = JSON.stringify(getFormJson("#shouru_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_17.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val,type:1},"text");
 	if (data == "1") {
-		toastr["success"]("success", "当前收入修改");
+		toastr["success"]("", "当前收入修改");
     } else {
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
     }
 }
 
@@ -143,9 +143,9 @@ function zhichu_save(){
 	var form_val = JSON.stringify(getFormJson("#zhichu_Form"));//表单数据字符串
 	var data = ajax_async_t("getInput_18.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val,type:1},"text");
 	if (data == "1") {
-		toastr["success"]("success", "当前收支");
+		toastr["success"]("", "当前收支");
     } else {
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
     }
 }
 

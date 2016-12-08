@@ -5,12 +5,12 @@ $(function () {
 		
 		var data = ajax_async_t("getInput_25.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "修改帮扶措施");
+    		toastr["success"]("", "修改帮扶措施");
     		$("#updateModal_tz_cuoshi #close").click();
     		cuoshi_tz_table.bootstrapTable('destroy');
     		cuoshi_initialization();
     	} else {
-    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    }
 	});
 	
@@ -19,12 +19,12 @@ $(function () {
 		var form_val = JSON.stringify(getFormJson("#add_cuoshi_tz_Form"));//表单数据字符串
 		var data = ajax_async_t("getInput_26.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "保存帮扶措施");
+    		toastr["success"]("", "保存帮扶措施");
     		$("#addModal_tz_cuoshi #close").click();
     		cuoshi_tz_table.bootstrapTable('destroy');
     		cuoshi_initialization();
     	} else {
-    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+    		toastr["warning"]("", "保存失败，检查数据后重试");
 	    }
 	});
 });
@@ -33,11 +33,11 @@ $(function () {
 function del_tz(v1,v2,pkid){
 	var data = ajax_async_t("getInput_28.do",{pkid: pkid,v1: v1,v2: v2},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除帮扶措施");
+		toastr["success"]("", "删除帮扶措施");
 		cuoshi_tz_table.bootstrapTable('destroy');
 		cuoshi_initialization();
 	} else {
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
     }
 }
 
@@ -53,7 +53,7 @@ function show_add_tz_cuoshi(){
 		$("#addModal_tz_cuoshi #v1").html(tiaomu);
 		$("#addModal_tz_cuoshi").modal();
 	}else{
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
 	}
 }
 

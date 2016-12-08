@@ -4,9 +4,9 @@ $(function () {
 		var form_val = JSON.stringify(getFormJson("#bangfujihua_Form"));//表单数据字符串
 		var data = ajax_async_t("getInput_19.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "帮扶计划保存");
+    		toastr["success"]("", "帮扶计划保存");
 	    } else {
-    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+    		toastr["warning"]("", "保存失败，检查数据后重试");
 	    }
 	});
 	//保存脱贫计划
@@ -14,9 +14,9 @@ $(function () {
 		var form_val = JSON.stringify(getFormJson("#tuopinjihua_Form"));//表单数据字符串
 		var data = ajax_async_t("getInput_20.do",{pkid: $("#shang_yi #hu_pkid").val(),form_val: form_val},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "脱贫计划保存");
+    		toastr["success"]("", "脱贫计划保存");
 	    } else {
-    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+    		toastr["warning"]("", "保存失败，检查数据后重试");
 	    }
 	});
 	
@@ -128,13 +128,13 @@ function save_bangfuren(){
 	if($("#bangfuren #add_bangfuren_test").attr("data-id")!=undefined&&$("#bangfuren #add_bangfuren_test").attr("data-id")!=""){
 		var data = ajax_async_t("getInput_22.do",{pkid: $("#bangfuren #add_bangfuren_test").attr("data-id"),huid: $("#shang_yi #hu_pkid").val()},"text");
 		if (data == "1") {
-			toastr["success"]("success", "指定新的帮扶责任人");
+			toastr["success"]("", "指定新的帮扶责任人");
 			$("#bangfuren #add_bangfuren_test").val("");
 			$("#bangfuren #add_bangfuren_test").removeAttr("data-id");
 			data_jiazai_bangfu($("#shang_yi #hu_pkid").val());
 			getbangfuren($("#bangfuren #sys_company_id").val());
 		} else {
-			toastr["warning"]("warning", "指定失败，检查数据后重试");
+			toastr["warning"]("", "指定失败，检查数据后重试");
 		}
 	}
 }
@@ -143,11 +143,11 @@ function save_bangfuren(){
 function jiechu_bangfu(pkid){
 	var data = ajax_async_t("getInput_23.do",{pkid: pkid},"text");
 	if (data == "1") {
-		toastr["success"]("success", "帮扶责任人与贫困户关系解除");
+		toastr["success"]("", "帮扶责任人与贫困户关系解除");
 		data_jiazai_bangfu($("#shang_yi #hu_pkid").val());
 		getbangfuren($("#bangfuren #sys_company_id").val());
 	} else {
-		toastr["warning"]("warning", "解除失败，检查数据后重试");
+		toastr["warning"]("", "解除失败，检查数据后重试");
     }
 }
 

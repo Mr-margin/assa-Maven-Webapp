@@ -24,9 +24,9 @@ function ImportData(url,agr1,agr2,arg3){
             		 $(arg3).val(jsondata.path);
             	 }
             	 
-                toastr["success"]("success", jsondata.message);
+                toastr["success"]("", jsondata.message);
             }else{
-                toastr["error"]("error", jsondata.message);
+                toastr["error"]("", jsondata.message);
             }
         }
     };

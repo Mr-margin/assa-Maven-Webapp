@@ -4,10 +4,10 @@ $(function () {
 		var data = ajax_async_t("getInput_31.do",{pkid: $("#shang_yi #hu_pkid").val(),v1 : $("#bangfuchengxiao #v1").val(),
 			v2 : $("#bangfuchengxiao #v2").val(),v3 : $("#bangfuchengxiao #v3").val(),type : 3},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "保存帮扶成效");
+    		toastr["success"]("", "保存帮扶成效");
     		data_jiazai_chengxiao($("#shang_yi #hu_pkid").val());
     	} else {
-    		toastr["warning"]("warning", "保存失败，检查数据后重试");
+    		toastr["warning"]("", "保存失败，检查数据后重试");
 	    }
 	});
 	
@@ -17,10 +17,10 @@ $(function () {
 			v1 : $("#bangfuchengxiao #v1").val(),v2 : $("#bangfuchengxiao #v2").val(),
 			v3 : $("#bangfuchengxiao #v3").val(),type : 3},"text");
 		if (data == "1") {
-    		toastr["success"]("success", "修改帮扶成效");
+    		toastr["success"]("", "修改帮扶成效");
     		data_jiazai_chengxiao($("#shang_yi #hu_pkid").val());
     	} else {
-    		toastr["warning"]("warning", "修改失败，检查数据后重试");
+    		toastr["warning"]("", "修改失败，检查数据后重试");
 	    }
 	});
 });
@@ -98,10 +98,10 @@ function data_jiazai_chengxiao(pkid){
 function del_chengxiao(pkid){
 	var data = ajax_async_t("getInput_33.do",{pkid: pkid,type:3},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除帮扶成效");
+		toastr["success"]("", "删除帮扶成效");
 		data_jiazai_chengxiao($("#shang_yi #hu_pkid").val());
 	} else {
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
     }
 
 }
@@ -158,10 +158,10 @@ function chengxiao_pic_show(pkid){
 function pic_del_chengxiao(pkid,fid){
 	var data = ajax_async_t("getInput_12.do",{pkid: pkid},"text");
 	if (data == "1") {
-		toastr["success"]("success", "删除帮扶措施图片");
+		toastr["success"]("", "删除帮扶措施图片");
 		chengxiao_pic_show(fid);
 	}else{
-		toastr["warning"]("warning", "删除失败，检查数据后重试");
+		toastr["warning"]("", "删除失败，检查数据后重试");
 	}
 }
 
