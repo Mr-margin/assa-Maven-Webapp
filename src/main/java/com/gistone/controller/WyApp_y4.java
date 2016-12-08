@@ -30,10 +30,10 @@ public class WyApp_y4 {
 	public void getWyApp_y4_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");
 		
-		String sql = "select v21,v22,v23,v6,v9,pic_path,card from "+
+		String sql = "select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 from "+
 					" (select NM09_AC01.AAC001,NM09_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NM09_AC01 join NM09_AB01 on NM09_AC01.AAC001=NM09_AB01.AAC001 where  NM09_AC01.AAR040='2015' and AAB006=01 and AAR010=0 and NM09_AC01.AAR008='"+code+"' group BY NM09_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NM09_AC01.AAC001) t4"+
 					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NM09_AB01 WHERE AAR040='2015' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
-					"  LEFT JOIN (select AAC001,AAB004 card from NM09_Ab01 where AAB006='01')w1 ON t4.AAC001=w1.AAC001  GROUP BY v21,v22,v23,v6,v9,pic_path,card ORDER BY v6";
+					"  LEFT JOIN (select AAC001,AAB004 card from NM09_Ab01 where AAB006='01')w1 ON t4.AAC001=w1.AAC001  GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6";
 		
 		JSONArray json = new JSONArray();
 //		System.out.println(sql);
@@ -41,7 +41,7 @@ public class WyApp_y4 {
 		if (list.size() > 0) {
 			for ( int i = 0 ; i < list.size() ; i ++){
 				JSONObject obj = new JSONObject();
-				obj.put("pkid", "".equals(list.get(i).get("PKID")) || list.get(i).get("PKID") == null ? "" : list.get(i).get("PKID").toString());
+				obj.put("pkid", "".equals(list.get(i).get("AAC001")) || list.get(i).get("AAC001") == null ? "" : list.get(i).get("AAC001").toString());
 				obj.put("v6", "".equals(list.get(i).get("V6")) || list.get(i).get("V6") == null ? "" : list.get(i).get("V6").toString());
 				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
 				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" :sw4.mianZhuan(list.get(i).get("V21").toString(), "21") );
