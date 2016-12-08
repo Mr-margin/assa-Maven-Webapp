@@ -24,7 +24,7 @@ function tuichudenglu(){
 		jsondata = null;
 		window.location.href = GISTONE.Loader.basePath+"index.html";
 	} else {
-		toastr["warning"]("warning", "退出失败，检查数据后重试");
+		toastr["warning"]("", "退出失败，检查数据后重试");
 		shuaxin_xiugaimima();
 	}
 }

@@ -66,11 +66,11 @@ function xiugaimima_anniu(){
 function up_password(pkid,new_pass){
 	var data = ajax_async_t("upPassword.do",{pkid:pkid,password:new_pass},"text");
 	if (data == "1") {
-		toastr["success"]("success", "密码已修改");
+		toastr["success"]("", "密码已修改");
 		shuaxin_xiugaimima();
 		$(".guanbi").click();//关闭弹窗
 	}else{
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
 		shuaxin_xiugaimima();
 	};
 }

@@ -61,7 +61,7 @@ function up_password(pkid,new_pass){
             type: "success"
         });
 	}else{
-		toastr["warning"]("warning", "修改失败，检查数据后重试");
+		toastr["warning"]("", "修改失败，检查数据后重试");
 		shuaxin_xiugaimima();
 	};
 }
