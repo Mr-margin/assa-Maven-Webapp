@@ -50,13 +50,13 @@ function ajax_async_t(url,data,dataType,async){
 	    data: data,
 	    success: function (ret) {
 	    	if(ret.length==0){
-	    		toastr["warning"]("warning", "查询数据为空");
+	    		toastr["warning"]("", "查询数据为空");
 	    	}else{
 	    		rel = ret;
 	    	}
 	    },
 	    error: function (ret) { 
-	    	toastr["error"]("error", "服务器异常或未查询到数据");
+	    	toastr["error"]("", "服务器异常或未查询到数据");
 	    }  
 	});
 	return rel;
