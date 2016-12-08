@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困人口适龄教育年龄分组';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -171,7 +189,7 @@ function a1(){
 	myChart_2 = echarts.init(document.getElementById('tu_3'));//声明id为mapChart的div为图形dom
 	var option = {
 			title : {
-				text: '贫困人口适龄教育年龄分组',
+				text: title,
 				textStyle:{fontWeight:'500',fontSize:'17'},
 				x:'left'
 			},

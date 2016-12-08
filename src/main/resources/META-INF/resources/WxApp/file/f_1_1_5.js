@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困人口劳动力类型统计';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -178,7 +196,7 @@ function a1(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var option = {//环形图
 			title : {
-				text: '贫困人口劳动力类型统计',
+				text: title,
 				textStyle:{fontWeight:'500',fontSize:'17'},
 				x:'center'
 			},
