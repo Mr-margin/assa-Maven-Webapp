@@ -127,7 +127,6 @@ public class WyApp_y4 {
 			sql +=" select count(AAC001) bfr ,AAR00"+v1+" from (select a.AAC001,AAR00"+v1+" from (select AAC001,AAR00"+v1+" from NM09_AC01 where AAR100= '1' and AAR040='2015' ";
 			sql +=") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2015' AND SUBSTR(b.AAR021, 0, 4) >='2015' ";
 			sql+=" )t1 group BY AAR00"+v1+" )w1 on w0.xz=w1.AAR00"+v1+"";
-			System.out.println(sql);
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		JSONArray json = new JSONArray();
 		if ( list.size() > 0 ) {
