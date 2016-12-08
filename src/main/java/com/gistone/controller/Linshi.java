@@ -53,23 +53,33 @@ public class Linshi {
         String saveUrl = "";
        
         //这里少个未脱贫条件
-		String sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ("
-				+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 ='0' and (AAR010='0' and NVL(AAC016,AAR040) = '2015')) a1 "
-				+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' "
-				+ ") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE";
+		String sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ( "
+				+ " select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
+				+ " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
+				+ " ) a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE ";
+		
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
 			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-				savePath = "D:/attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
-				saveUrl	 =request.getContextPath() + "attached/7/"+Patient_st_map.get("V3")+"/"+Patient_st_map.get("V5")+"/"+Patient_st_map.get("V7")+"/"+Patient_st_map.get("V9")+"/";
+				String V3 = Patient_st_map.get("V3").toString().trim();
+				String V5 = Patient_st_map.get("V5").toString().trim();
+				String V7 = Patient_st_map.get("V7").toString().trim();
+				String V9 = Patient_st_map.get("V9").toString().trim();
+				
+				String PKID = Patient_st_map.get("PKID").toString().trim();
+				String V6 = Patient_st_map.get("V6").toString().trim();
+				String V8 = Patient_st_map.get("V8").toString().trim();
+				
+				savePath = "D:/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
+				saveUrl	 =request.getContextPath() + "attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
-				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg", true);//生成二维码方法
+				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, PKID+"_"+V6+".jpg", true);//生成二维码方法
 				
 				String sql_i ="INSERT INTO da_pic_code(AAC001,HOUSEHOLD_NAME,HOUSEHOLD_CARD,PIC_PATH) VALUES"+
-						"('"+Patient_st_map.get("PKID")+"','"+Patient_st_map.get("V6")+"','"+Patient_st_map.get("V8")+"','"+saveUrl+Patient_st_map.get("PKID") +"_"+ Patient_st_map.get("V6")+".jpg"+"')";  //saveURL中要加个参数 路径或者名称
+						"('"+PKID+"','"+V6+"','"+V8+"','"+saveUrl+PKID+"_"+V6+".jpg"+"')";  //saveURL中要加个参数 路径或者名称
 				
 				/*String sql_i ="INSERT INTO da_pic(pic_type,pic_pkid,pic_path,pic_format) VALUES"+
 				"('7','"+Patient_st_map.get("PKID")+"','"+saveUrl+Patient_st_map.get("PKID")+"_"+Patient_st_map.get("V6")+".jpg"+"','jpg')";*/  //saveURL中要加个参数 路径或者名称
