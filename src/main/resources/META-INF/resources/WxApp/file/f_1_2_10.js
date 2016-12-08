@@ -111,10 +111,10 @@ function table(){
 				A7+=parseFloat(item.v6);
 				
 			}
-			if(item.z_ren == '' || item.z_ren == null || item.z_ren == undefined){
+			if(item.value == '' || item.value == null || item.value == undefined){
 				
 			}else{
-				A10+=parseInt(item.z_ren);
+				A10+=parseInt(item.value);
 				
 			}
 //			A1+=parseInt(item.z_hu);
