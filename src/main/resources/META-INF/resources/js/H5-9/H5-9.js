@@ -50,7 +50,7 @@ function selectAll(pkid){
 				"</td></tr>"
 		});
 	}else{
-		toastr["warning"]("warning", "暂无帮扶单位");
+		toastr["warning"]("", "暂无帮扶单位");
 	}
 	$('#bfdw_tbody').html(teble_html)
 }
@@ -78,7 +78,7 @@ function addBfdw_2(){
 		json_level="1"
 	}
 	if(bfdw_mc==""){
-		toastr["warning"]("warning", "帮扶单位名称不能为空");
+		toastr["warning"]("", "帮扶单位名称不能为空");
 	}else{
 		//添加
 		var data = ajax_async_t("addbfdw.do", {
@@ -89,12 +89,12 @@ function addBfdw_2(){
 			json_level : json_level
 		}, "json");
 		if (data == "1") {
-			toastr["success"]("success", "添加帮扶单位完成");
+			toastr["success"]("", "添加帮扶单位完成");
 			selectAll(json_level);
 			quxiaotianjia_dw();
 			$('#add_bfdw_Modal').modal('hide')
 		}else{
-			toastr["warning"]("warning", "操作失败，检查数据后重试");
+			toastr["warning"]("", "操作失败，检查数据后重试");
 		}
 	}
 }
@@ -120,7 +120,7 @@ function upBfdw_2(){
 		json_level="1"
 	}
 	if(up_bfdw_mc ==""){
-		toastr["warning"]("warning", "帮扶单位不能为空");
+		toastr["warning"]("", "帮扶单位不能为空");
 	}else{
 		var data = ajax_async_t("xiugai_bfdw.do", {
 			pkid : update_dw_id,
@@ -131,12 +131,12 @@ function upBfdw_2(){
 			json_level : json_level
 		}, "json");
 		if (data == "1") {
-			toastr["success"]("success", "修改帮扶单位完成");
+			toastr["success"]("", "修改帮扶单位完成");
 			selectAll(json_level);
 			quxiaoxiugai_dw();
 			$('#up_bfdw_Modal').modal('hide');
 		}else{
-			toastr["warning"]("warning", "修改失败，检查数据后重试");
+			toastr["warning"]("", "修改失败，检查数据后重试");
 		}
 	}
 }
@@ -162,13 +162,13 @@ function bfdw_sc(pkid,com_f_pkid,dwxm){
 				swal("删除成功！", "您已经永久删除了-"+dwxm+"-", "success");
 				selectAll(com_f_pkid);
 			}else{
-				toastr["warning"]("warning", "删除失败，检查数据后重试");
+				toastr["warning"]("", "删除失败，检查数据后重试");
 			}
 		})
 	}else if(data_panduan==1){
-		toastr["warning"]("warning", "本单位已有帮扶干部，不能删除");
+		toastr["warning"]("", "本单位已有帮扶干部，不能删除");
 	}else{
-		toastr["warning"]("warning", "网络异常，请稍后重试");
+		toastr["warning"]("", "网络异常，请稍后重试");
 	}
 	
 }
@@ -200,7 +200,7 @@ function bfdw_ckbfr(da_company_id,danwei_name_1){
 		});
 		$("#bfr_tbody").html(bfr_table);
 	}else{
-		toastr["warning"]("warning", "本单位下暂无帮扶人信息");
+		toastr["warning"]("", "本单位下暂无帮扶人信息");
 	}
 }
 //查看帮扶人
@@ -233,9 +233,9 @@ function add_Bfr_xinxi(){
 		v3=="";
 	}
 	if(col_name==""){
-		toastr["warning"]("warning", "请填写帮扶干部姓名");
+		toastr["warning"]("", "请填写帮扶干部姓名");
 	}else if(telephone==""){
-		toastr["warning"]("warning", "请填写帮扶干部电话");
+		toastr["warning"]("", "请填写帮扶干部电话");
 	}else{
 		var data = ajax_async_t("add_bfr.do", {
 			col_name:col_name,
@@ -246,12 +246,12 @@ function add_Bfr_xinxi(){
 			dw_pkid:dw_pkid
 			}, "json");
 		if(data==1){
-			toastr["success"]("success", "添加帮扶干部成功");
+			toastr["success"]("", "添加帮扶干部成功");
 			quxiaotianjia_r();
 			bfdw_ckbfr(dw_pkid);
 			$('#add_bfr_Modal').modal('hide');
 		}else{
-			toastr["warning"]("warning", "请检查数据后重试");
+			toastr["warning"]("", "请检查数据后重试");
 		}
 	}
 }
@@ -292,9 +292,9 @@ function up_Bfr_xinxi(){
 		up_v3==""
 	}
 	if(up_col_name ==""){
-		toastr["warning"]("warning", "帮扶干部姓名不能为空");
+		toastr["warning"]("", "帮扶干部姓名不能为空");
 	}else if(up_telephone == ""){
-		toastr["warning"]("warning", "帮扶干部电话不能为空");
+		toastr["warning"]("", "帮扶干部电话不能为空");
 	}else{
 		var data = ajax_async_t("xiugai_bfr.do", {
 			pkid : up_r_pkid,
@@ -305,11 +305,11 @@ function up_Bfr_xinxi(){
 			col_post:up_col_post,
 		}, "json");
 		if (data == "1") {
-			toastr["success"]("success", "修改帮扶人完成");
+			toastr["success"]("", "修改帮扶人完成");
 			quxiaoxiugai_r();
 			bfdw_ckbfr(up_dw_pkid)
 		}else{
-			toastr["warning"]("warning", "操作失败，检查数据后重试");
+			toastr["warning"]("", "操作失败，检查数据后重试");
 		}
 		$('#up_bfr_Modal').modal('hide');
 	}
@@ -333,7 +333,7 @@ function bfr_sc(pkid,bfrxm,bfdw_id){
 			swal("删除成功！", "您已经永久删除了-"+bfrxm+"-", "success");
 			bfdw_ckbfr(bfdw_id);
 		}else{
-			toastr["warning"]("warning", "删除失败，检查数据后重试");
+			toastr["warning"]("", "删除失败，检查数据后重试");
 		}
 	})
 }
