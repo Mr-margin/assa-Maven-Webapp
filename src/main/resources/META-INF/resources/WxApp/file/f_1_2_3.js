@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户其他致贫原因分析';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -171,7 +189,7 @@ function bar(){
 		option = {
 				color: ['#6495ED'],
 				title: {
-					text: '贫困户其他致贫原因分析',
+					text: title,
 					subtext: '单位：户',
 					subtextStyle: {
 						color: 'black'

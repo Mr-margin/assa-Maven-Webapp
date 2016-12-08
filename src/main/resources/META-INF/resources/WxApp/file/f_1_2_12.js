@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户人口规模情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -109,7 +127,7 @@ function table(){
 					formatter: "{b}: <br/>{c} ({d}%)"
 				},
 				title : {
-					text: '贫困户人口规模情况',
+					text: title,
 					x : 'center',
 					textStyle:{fontWeight:'500',fontSize:'17'}
 				},

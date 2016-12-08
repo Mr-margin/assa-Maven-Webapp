@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户土地资源情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -144,7 +162,7 @@ function pie(){
 		        },
 		        colors: [ '#DAA520','#60C0DD','#FCCE10','#E87C25','#B5C334','#b5c334'],
 		        title: {
-		            text: '贫困户土地资源情况',
+		            text: title,
 		            style: {
 		                color: '#333333',
 		                fontWeight: 'bold'

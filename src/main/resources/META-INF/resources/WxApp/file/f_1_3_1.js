@@ -1,4 +1,21 @@
+
+var title='';
 $(document).ready(function() {
+	title='贫困村和非贫困村分布';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
 	canshu=Request['canshu']; 
@@ -90,7 +107,7 @@ function pkcsbbz(){
 	
 		var option = {
 				title: {
-					text: '贫困村和非贫困村分布',
+					text: title,
 					subtext: '单位：个',
 					subtextStyle: {
 						color: 'black'

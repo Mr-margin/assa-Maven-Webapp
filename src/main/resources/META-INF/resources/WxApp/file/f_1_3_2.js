@@ -1,4 +1,21 @@
+
+var title='';
 $(document).ready(function() {
+	title='贫困村未脱贫贫困人数概况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
 	canshu=Request['canshu']; 
@@ -181,7 +198,7 @@ function pkcwtp(){
 		
 		var option1 = {
 				title: {
-					text: '贫困村未脱贫贫困人数概况',
+					text: title,
 					x:'center',
 					subtext: '单位：人',
 					subtextStyle: {

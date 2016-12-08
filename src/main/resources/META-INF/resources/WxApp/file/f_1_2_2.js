@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户主要致贫原因分析';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -193,7 +211,7 @@ function huan_pie(){
 					      ]
 				},
 				title : {
-					text: '贫困户主要致贫原因分析',
+					text: title,
 					textStyle:{fontWeight:'500',fontSize:'17'},
 					x: 'center'
 				},

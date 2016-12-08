@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户上年度转移性收入构成情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -230,7 +248,7 @@ function bar(){
 
 		var option = {//柱状图
 				title: {
-					text:' 贫困户上年度转移性收入构成情况',
+					text: title,
 					subtext: '单位： 元',
 					subtextStyle: {
 						color: 'black'

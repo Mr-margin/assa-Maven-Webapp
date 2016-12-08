@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户与村主干路距离';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 var obj;
 $(function () {
 	var Request = new Object();
@@ -118,7 +136,7 @@ function table(){
 					trigger: 'item',
 					formatter: "{a} <br/>{b}: {c} ({d}%)"
 				},title : {
-					text: '贫困户与村主干路距离',
+					text: title,
 					x : 'center',
 					textStyle:{fontWeight:'500',fontSize:'17'}
 				},
@@ -134,7 +152,7 @@ function table(){
 				       ],
 				       series: [
 				                {
-				                	name:'贫困户与村主干路距离',
+				                	name:title,
 				                	type:'pie',
 				                	radius: ['30%', '50%'],
 				                	center: ['52%', '40%'],

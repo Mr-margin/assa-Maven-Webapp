@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户入户路情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	
 	var Request = new Object();
@@ -91,7 +109,7 @@ function table(){
 		
 		var option = {
 		    title : {
-		        text: '贫困户入户路情况',
+		        text: title,
 		        x:'center',
 		        textStyle:{fontWeight:'500',fontSize:'17'}
 		    },

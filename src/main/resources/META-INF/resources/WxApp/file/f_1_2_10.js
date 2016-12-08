@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户各类型收入占比';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 
 	var Request = new Object();
@@ -134,7 +152,7 @@ function table(){
 		
 		var option = {//环形图
 				title : {
-					text: '贫困户各类型收入占比',
+					text: title,
 					x:'center',
 					textStyle:{fontWeight:'500',fontSize:'17'}
 				},

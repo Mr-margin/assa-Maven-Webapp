@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	title='贫困人口适龄教育年龄分组';
 	if(parent.shi!=''){
+		$('#tu3').attr("class","center-block col-sm-9");
+		$('#tu2').hide();
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
 			

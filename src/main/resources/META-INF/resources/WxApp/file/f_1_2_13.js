@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户党员情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -76,7 +94,7 @@ function bar(){
 		var option = {
 			title: {
 				x: 'center',
-				text: '贫困户党员情况',
+				text: title,
 				subtext: '单位：户',
 				subtextStyle: {
 					color: 'black'

@@ -1,3 +1,24 @@
+$(document).ready(function(){
+	title='贫困户组成情况统计';
+	if(parent.shi!=''){
+		$('#table').attr("class","center-block col-sm-12");
+		$('#ditu').hide();
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+	$('#title').html(title);
+})
+var title='';
 $(function () {
 
 	var Request = new Object();

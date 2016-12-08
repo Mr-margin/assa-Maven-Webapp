@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户生产生活条件困难情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -101,7 +119,7 @@ function table(){
 //			A7=parseInt(item.v11)+parseInt(A7);
 //			A8=parseInt(item.v13)+parseInt(A8);
 		})
-		html+='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td><td><strong>'+A1+'</strong></td><td><strong>'+A2+'</strong></td><td><strong>'+A3+'</strong></td><td><strong>'+A4+'</strong></td><td><strong>'+A5+'</strong></td><td><strong>'+A6+'</strong></td><td><strong>'+A7+'</strong></td><td><strong>'+A8+'</strong></td></tr>';
+		html+='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td><td><strong>'+A1+'</strong></td><td><strong>'+A2+'</strong></td><td><strong>'+A3+'</strong></td><td><strong>'+A4+'</strong></td><td><strong>'+A5+'</strong></td><td><strong>'+A6+'</strong></td><td><strong>'+A7+'</strong></td><td><strong></strong></td></tr>';
 		$("#scsh_table").html(html);
 	}
 	 
@@ -162,7 +180,7 @@ function bar(){
 		option = {
 				color:['#7B68EE','#0000FF','#F08080','#1E90FF','#2F4F4F','#F08080','#808080'],
 				title: {
-					text: '贫困户生产生活条件困难情况',
+					text: title,
 					subtext: '单位：百分比',
 					subtextStyle: {
 						color: 'black'

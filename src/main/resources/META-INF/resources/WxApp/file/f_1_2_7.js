@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户人均收入分组情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -125,7 +143,7 @@ function bar(){
 		            }
 		        },
 		        title: {
-		            text: '贫困户人均收入分组情况',
+		            text: title,
 		            textStyle:{fontWeight:'500',fontSize:'17'},
 		            
 		        },

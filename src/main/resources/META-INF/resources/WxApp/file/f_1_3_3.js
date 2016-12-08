@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困村贫困发生率';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(document).ready(function() {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -99,7 +117,7 @@ function pkcsbbz(){
 	
 		var option = {
 				title: {
-					text: '贫困村贫困发生率',
+					text: title,
 					x:'center',
 					subtext: '单位：百分比',
 					subtextStyle: {

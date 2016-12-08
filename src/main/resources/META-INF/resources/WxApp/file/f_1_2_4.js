@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	title='贫困户帮扶责任人落实情况';
+	if(parent.shi!=''){
+		title=title+" ("+parent.shi;
+		if(parent.xian!=''){
+			
+			title=title +"-"+parent.xian;
+			if(parent.xiang !=''){
+				title=title+"-"+parent.xiang+")";
+			}else{
+				title+=")";
+			}
+		}else{
+			title+=")";
+		}
+	}
+})
+var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
@@ -70,7 +88,7 @@ function bar(){
 		option = {
 			title: {
 				x: 'center',
-				text: '贫困户帮扶责任人落实情况',
+				text: title,
 				textStyle:{fontWeight:'500',fontSize:'17'},
 				subtext: '单位：百分比',
 				subtextStyle: {
