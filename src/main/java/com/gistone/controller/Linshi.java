@@ -73,7 +73,7 @@ public class Linshi {
 				String V8 = Patient_st_map.get("V8").toString().trim();
 				
 				savePath = "D:/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
-				saveUrl	 =request.getContextPath() + "attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
+				saveUrl	 =request.getContextPath() + "/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, PKID+"_"+V6+".jpg", true);//生成二维码方法
