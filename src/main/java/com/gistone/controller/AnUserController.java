@@ -97,37 +97,42 @@ public class AnUserController  extends MultiActionController{
 
 		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19 from "+  
 				" (SELECT AAC001 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 "+
-				" left join  ( SELECT NM09_AB01.AAB001 pkid,AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB013 v18,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 where AAB006!='01' AND NM09_AB01.AAR040='2015' ) a1 on a1.AAC001=a2.AAC001 "+ 
+				" left join  ( SELECT NM09_AB01.AAB001 pkid,AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB013 v18,AAB019 v32,AAB014 v19 "
+				+ "from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 where AAB006<>'01' AND NM09_AB01.AAR040='2015' ) a1 on a1.AAC001=a2.AAC001 "+ 
 				" GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19";
 				/*"select a.*,b.pic_path from (select PKID,V6,V7,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V28,V32 from da_member where da_household_id="+pkid+") a "
 						+ "LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=5 ) b ON a.pkid=b.pic_pkid";*/
 		List<Map> xian_list=this.getBySqlMapper.findRecords(xian_sql);
-		for(Map val:xian_list){
-			JSONObject obj=new JSONObject ();
-			obj.put("cy_pkid",val.get("PKID")==null?"":val.get("PKID"));
-			obj.put("cy_v6",val.get("V6")==null?"":val.get("V6"));//姓名
-			obj.put("cy_v7",val.get("V7")==null?"":sw4.mianZhuan(val.get("V7").toString(), "7"));//性别
-//			obj.put("cy_v8",val.get("V8")==null?"":val.get("V8"));//证件号码
-//			obj.put("cy_v9",val.get("V9")==null?"":val.get("V9"));//人数
-			obj.put("cy_v10",val.get("V10")==null?"":sw4.mianZhuan(val.get("V10").toString(), "10"));//民族
-			obj.put("cy_v11",val.get("V11")==null?"":sw4.mianZhuan(val.get("V11").toString(), "11"));//民族
-			obj.put("cy_v12",val.get("V12")==null?"":sw4.mianZhuan(val.get("V12").toString(), "12"));//文化程度
-			obj.put("cy_v13",val.get("V13")==null?"":sw4.mianZhuan(val.get("V13").toString(), "13"));//在校生状况
-			obj.put("cy_v14",val.get("V14")==null?"":sw4.mianZhuan(val.get("V14").toString(), "14"));//健康状况
-			obj.put("cy_v15",val.get("V15")==null?"":sw4.mianZhuan(val.get("V15").toString(), "15"));//劳动能力
-			obj.put("cy_v16",val.get("V16")==null?"":sw4.mianZhuan(val.get("V16").toString(), "16"));//务工情况
-			obj.put("cy_v17",val.get("V17")==null?"":val.get("V17"));//务工时间
-			obj.put("cy_v18",val.get("V18")==null?"":sw4.mianZhuan(val.get("V18").toString(), "32"));//是否参加新农合
-			obj.put("cy_v19",val.get("V19")==null?"":sw4.mianZhuan(val.get("V19").toString(), "32"));//是否参加新型养老保险
-//			obj.put("cy_v20",val.get("V20")==null?"":val.get("V20"));//是否参加城镇职工基本养老保险	
-//			obj.put("cy_v21",val.get("V21")==null?"":val.get("V21"));//脱贫属性
-			
-			obj.put("cy_v32",val.get("V32")==null?"":sw4.mianZhuan(val.get("V32").toString(), "32"));//是否现役军人
-//			obj.put("cy_v28",val.get("V28")==null?"":val.get("V28"));//政治面貌
-//			obj.put("cy_pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//头像 // 家庭成员头像暂时没有
-			jsonArray2.add(obj);
-		}
 		
+		Map va1l = xian_list.get(0);
+	
+		if (va1l!=null) {
+			for(Map val:xian_list){
+				JSONObject obj=new JSONObject ();
+				obj.put("cy_pkid",val.get("PKID")==null?"":val.get("PKID"));
+				obj.put("cy_v6",val.get("V6")==null?"":val.get("V6"));//姓名
+				obj.put("cy_v7",val.get("V7")==null?"":sw4.mianZhuan(val.get("V7").toString(), "7"));//性别
+	//			obj.put("cy_v8",val.get("V8")==null?"":val.get("V8"));//证件号码
+	//			obj.put("cy_v9",val.get("V9")==null?"":val.get("V9"));//人数
+				obj.put("cy_v10",val.get("V10")==null?"":sw4.mianZhuan(val.get("V10").toString(), "10"));//民族
+				obj.put("cy_v11",val.get("V11")==null?"":sw4.mianZhuan(val.get("V11").toString(), "11"));//民族
+				obj.put("cy_v12",val.get("V12")==null?"":sw4.mianZhuan(val.get("V12").toString(), "12"));//文化程度
+				obj.put("cy_v13",val.get("V13")==null?"":sw4.mianZhuan(val.get("V13").toString(), "13"));//在校生状况
+				obj.put("cy_v14",val.get("V14")==null?"":sw4.mianZhuan(val.get("V14").toString(), "14"));//健康状况
+				obj.put("cy_v15",val.get("V15")==null?"":sw4.mianZhuan(val.get("V15").toString(), "15"));//劳动能力
+				obj.put("cy_v16",val.get("V16")==null?"":sw4.mianZhuan(val.get("V16").toString(), "16"));//务工情况
+				obj.put("cy_v17",val.get("V17")==null?"":val.get("V17"));//务工时间
+				obj.put("cy_v18",val.get("V18")==null?"":sw4.mianZhuan(val.get("V18").toString(), "32"));//是否参加新农合
+				obj.put("cy_v19",val.get("V19")==null?"":sw4.mianZhuan(val.get("V19").toString(), "32"));//是否参加新型养老保险
+	//			obj.put("cy_v20",val.get("V20")==null?"":val.get("V20"));//是否参加城镇职工基本养老保险	
+	//			obj.put("cy_v21",val.get("V21")==null?"":val.get("V21"));//脱贫属性
+				
+				obj.put("cy_v32",val.get("V32")==null?"":sw4.mianZhuan(val.get("V32").toString(), "32"));//是否现役军人
+	//			obj.put("cy_v28",val.get("V28")==null?"":val.get("V28"));//政治面貌
+	//			obj.put("cy_pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//头像 // 家庭成员头像暂时没有
+				jsonArray2.add(obj);
+			}
+		}
 		//所在地区
 		JSONArray jsonArray4 =new JSONArray();
 		String dq_sql="select sheng,shi,xian,xiang,cun from (select com_name cun,com_f_pkid from SYS_COMPANY where com_code='"+code+"')a left join"+ 
