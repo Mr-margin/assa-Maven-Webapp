@@ -1,6 +1,6 @@
 var title='';
 $(document).ready(function() {
-	title='贫困人口文化程度统计';
+	title='产业发展和转移就业人数';
 	if(parent.shi!=''){
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
@@ -88,7 +88,7 @@ function pkcsbbz(){
 	}
 	var option = {
 			title: {
-				text: '产业发展和转移就业人数',
+				text: title,
 				x:'center',
 				subtext: '单位：人',
 				subtextStyle: {

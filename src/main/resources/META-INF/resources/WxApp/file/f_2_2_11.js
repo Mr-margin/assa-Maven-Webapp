@@ -1,6 +1,6 @@
 var title='';
 $(document).ready(function() {
-	title='贫困人口文化程度统计';
+	title='文化活动室';
 	if(parent.shi!=''){
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
@@ -88,7 +88,7 @@ function pkcsbbz(){
 	var option = {
 		  
 			title: {
-				text: '文化活动室',
+				text: title,
 				x:'center',
 				subtext: '单位：个',
 				subtextStyle: {

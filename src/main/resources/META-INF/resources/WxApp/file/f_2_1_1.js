@@ -1,7 +1,7 @@
 
 var title='';
 $(document).ready(function() {
-	title='贫困人口文化程度统计';
+	title='六个一批分类扶持';
 	if(parent.shi!=''){
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
@@ -290,7 +290,7 @@ function pkcsbbz(){
 		};
 		var option_ring = {//环形图
 				title : {
-					text: '六个一批分类扶持',
+					text: title,
 					textStyle:{fontWeight:'500',fontSize:'17'},
 					x:'center',
 					y:'80'
