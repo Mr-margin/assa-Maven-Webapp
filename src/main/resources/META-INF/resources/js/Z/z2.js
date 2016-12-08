@@ -717,6 +717,9 @@ function setSelVal(value){
         			 level=1;//层级
         			 tree_canshu.com=$("#v2").find("option:selected").text();
         			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 shi="";
+        			 xian="";
+        			 xiang="";
         		 }else{
         			level=2;//层级
     				$("#v3").append("<option>全部旗区县</option>");
@@ -727,6 +730,9 @@ function setSelVal(value){
     				});
     				tree_canshu.com=$("#v2").find("option:selected").text();
     				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				shi=$("#v2").find("option:selected").text();
+    				xian="";
+    				xiang="";
         		 }
         	 }else if(level == '3'){ //层级3
         		 t.options[i].selected=true;
@@ -736,6 +742,9 @@ function setSelVal(value){
         			 level=2;
         			 tree_canshu.com=$("#v2").find("option:selected").text();
         			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 shi=$("#v2").find("option:selected").text();
+     				 xian="";
+     				 xiang="";
         		 }else{
         			level=3;//层级
     				$("#v4").append("<option>全部苏木乡镇</option>");
@@ -746,6 +755,9 @@ function setSelVal(value){
     				});
     				tree_canshu.com=$("#v3").find("option:selected").text();
     				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				shi=$("#v2").find("option:selected").text();
+    				xian=$("#v3").find("option:selected").text();
+    				xiang="";
         		 }
         	 }else if(level == '4'){
         		 t.options[i].selected=true;
@@ -753,6 +765,9 @@ function setSelVal(value){
         			 level=3
         			 tree_canshu.com=$("#v3").find("option:selected").text();
         			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 shi=$("#v2").find("option:selected").text();
+     				 xian=$("#v3").find("option:selected").text();
+     				 xiang="";
         		 }else{
         			 $("#v5").empty();
          			 $("#v5").append("<option>请选择</option>");
@@ -764,6 +779,9 @@ function setSelVal(value){
         			level=4;//层级
     				tree_canshu.com=$("#v4").find("option:selected").text();
     				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				shi=$("#v2").find("option:selected").text();
+    				xian=$("#v3").find("option:selected").text();
+    				xiang=$("#v4").find("option:selected").text();
         		 }
         	 }else if(level == '5'){
         		 t.options[i].selected=true;
