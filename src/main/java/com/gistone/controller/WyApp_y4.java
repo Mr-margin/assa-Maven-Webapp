@@ -143,10 +143,12 @@ public class WyApp_y4 {
 		String l_sql = "select sum(fc2) num from PKC_2_1_1 where v10 in (select v"+v5+" from SYS_COM where v"+v4+"='"+code+"' ) ";
 		List<Map> l_list = this.getBySqlMapper.findRecords(l_sql);
 		JSONArray json1 = new JSONArray();
-		if ( l_list.size() > 0 ) {
-			
-			JSONObject obj1 = new JSONObject () ;
+		JSONObject obj1 = new JSONObject () ;
+		if ( l_list.size() > 0 && l_list.get(0)!=null) {
 			obj1.put("liu", "".equals(l_list.get(0).get("NUM")) || l_list.get(0).get("NUM") == null ? "0" : l_list.get(0).get("NUM").toString());
+			json1.add(obj1);
+		}else{
+			obj1.put("liu", "0");
 			json1.add(obj1);
 		}
 		response.getWriter().write("{\"data1\":"+json.toString()+",\"data2\":"+json1.toString()+"}");
