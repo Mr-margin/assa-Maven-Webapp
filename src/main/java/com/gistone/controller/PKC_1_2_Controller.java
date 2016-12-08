@@ -214,7 +214,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select vf1,vf2,vf3,vf4,NVL(vf41, '0') vf41 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VF1=b.COM_NAME ";
+		String sql = "select vf1,vf2,vf3,vf4,NVL(vf41, '0') vf41,vf5 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VF1=b.COM_NAME ";
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
 		}else{
@@ -272,7 +272,7 @@ public class PKC_1_2_Controller {
 				val.put("f2",asmap.get("VF3")==null?"0":asmap.get("VF3"));
 				val.put("f3",asmap.get("VF4")==null?"0":asmap.get("VF4"));
 				val.put("f4",asmap.get("VF41")==null?"0":asmap.get("VF41"));
-				
+				val.put("f5",asmap.get("VF5")==null?"0":asmap.get("VF5"));
 				jsa.add(val);
 			}
 			response.getWriter().write(jsa.toString());
@@ -679,13 +679,48 @@ public class PKC_1_2_Controller {
 	public void getBfdx_home(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String dqname = request.getParameter("dqname");
 		String dqcode = request.getParameter("dqcode");
+		String sql="";
 		int ar=0;
+		int v98=0;
 		if(dqname.equals("V2")){
-			ar=2;
+			
+			sql="SELECT NUM,num1,AAR002 xz FROM ("+ 
+				" select  COUNT(*) NUM,aar002 from NM09_AC01  where AAR100= '1' and aar002='150000000000' and AAR040='2015' and  AAR010 in ('0','3') and aar002 is not null GROUP BY AAR002   "+
+					" )AA"+
+					" LEFT JOIN ("+
+
+					" SELECT SUM(V2) NUM1,'150000000000' v10 FROM PKC_1_1_0 WHERE V98='2' "+
+					" )B  ON AA.AAR002=B.V10";
 		}else {
-			ar=Integer.parseInt(dqname.substring(1,2))-1;
+			ar=Integer.parseInt(dqname.substring(1,2));
+			if(ar==4){
+				v98=2;
+				ar=3;
+			}else{
+				v98=3;
+				ar=4;
+			}
+			
+			sql="SELECT NUM,num1,AAR00"+ar+" xz FROM ( "+
+						" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
+						" )AA "+
+						" LEFT JOIN ( "+
+
+						" SELECT V10,SUM(V2) NUM1 FROM PKC_1_1_0 WHERE V98='"+v98+"' GROUP BY V10 "+
+						" )B ON AA.AAR00"+ar+"=B.V10 ";
 		}
-		String sql = "SELECT NUM,NUM1,AAR00"+ar+" xz FROM ( "+
+		
+		/* sql="SELECT NUM,num1,AAR00"+ar+" xz FROM ( "+
+				" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
+				" )AA "+
+				" LEFT JOIN ( "+
+
+				" SELECT V10,SUM(V2) NUM1 FROM PKC_1_1_0 WHERE V98='"+v98+"' GROUP BY V10 "+
+				" )B ON AA.AAR00"+ar+"=B.V10 ";
+				
+				
+				
+				"SELECT NUM,NUM1,AAR00"+ar+" xz FROM ( "+
 					" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"  "+  
 					" )AA  "+
 
@@ -697,7 +732,7 @@ public class PKC_1_2_Controller {
 					" )a LEFT JOIN (  "+
 					" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NM09_AC01  where AAR100= '1' and AAR040='2015' and AAR010 in ('0','3'))b on a.a1=B.AAC001  "+
 					" ) GROUP BY AAR00"+ar+")AA  "+
-					" ) ff ON FF.XZ=aa.AAR00"+ar+" ";
+					" ) ff ON FF.XZ=aa.AAR00"+ar+" ";*/
 				
 				
 				
