@@ -459,7 +459,6 @@ public class Singleton {
 									e.printStackTrace();
 									filelist_err.add("\r\n(录入单条数据失败)--》"+file_name+"--语句为"+sql);
 								}
-
 							}
 						}
 					}
