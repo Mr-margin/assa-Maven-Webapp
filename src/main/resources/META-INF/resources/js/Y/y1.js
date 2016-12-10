@@ -1,5 +1,6 @@
 $(function() {
-	
+	console.log(jsondata);
+	cha_bfgl(jsondata.Login_map.COM_NAME,jsondata.Login_map.SYS_COM_CODE,jsondata.Login_map.ROLE_ID);//帮扶单位、驻村工作队、驻村工作干部、
 	cha_shu(jsondata.Login_map.COM_NAME,jsondata.Login_map.SYS_COM_CODE,jsondata.Login_map.ROLE_ID);//查询当前行政区划的数据
 	
 	//加载市级下拉框
@@ -241,6 +242,10 @@ function tu_click(pkid){
  * @param role_id
  */
 function cha_shu (name,code,role_id) {
+	if( role_id == '2' ) {
+		return ;
+	}
+	
 	var data = JSON.parse(ajax_async_t("../getWyApp_y1_y.do", {name:name,code:code,role_id:role_id }));
 	var html = "";
 	var zong_num=0;var zong_bfr=0;
@@ -254,4 +259,11 @@ function cha_shu (name,code,role_id) {
 	$("#hu_num").text(zong_num);
 	$("#zrr_num").text(zong_bfr);
 	$("#liu_num").text(data.data2[0].liu);
+}
+//帮扶单位、驻村工作队、驻村工作干部
+function cha_bfgl(name,code,role){
+	var data = JSON.parse(ajax_async_t("../getWyApp_y1_bf.do", {name:name,code:code,role:role }));
+	$("#bfdw").text(data[0].dw);
+	$("#zcd").text(data[0].zcd);
+	$("#zcgb").text(data[0].zcgb);
 }
