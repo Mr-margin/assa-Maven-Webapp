@@ -57,15 +57,14 @@ function biaoge(){
 		$("#biaozhu").html(html1);
 		//对下方的表格赋值
 		$("#xiafangzongbiao").html(html);
-		$("#ren").html(v1);
-		$("#hu").html(v2);
+		$("#hu").html(v1);
+		$("#ren").html(v2);
 		
 	}
 
 }
 var myChart;
 window.onresize=function () { //浏览器调整大小后，自动对所有的图进行调整
-
 	try{
 		if(myChart){
 			myChart.resize();

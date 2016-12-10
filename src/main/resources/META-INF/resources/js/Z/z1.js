@@ -1,38 +1,39 @@
 $(function () {
-	//省级领导
-	$("#option1").click(function (){
-		$(".shengji").show();
-		$(".shiji").hide();
-		$(".xianji").hide();
-		$(".xianjiyixia").hide();
-	});
-	
-	//市级领导
-	$("#option2").click(function (){
-		$(".shengji").hide();
-		$(".shiji").show();
-		$(".xianji").hide();
-		$(".xianjiyixia").hide();
-	});
-	
-	//县级领导
-	$("#option3").click(function (){
-		$(".shengji").hide();
-		$(".shiji").hide();
-		$(".xianji").show();
-		$(".xianjiyixia").hide();
-	});
-	
-	//县级以下干部
-	$("#option4").click(function (){
-		$(".shengji").hide();
-		$(".shiji").hide();
-		$(".xianji").hide();
-		$(".xianjiyixia").show();
-	});
+//	//省级领导
+//	$("#option1").click(function (){
+//		$(".shengji").show();
+//		$(".shiji").hide();
+//		$(".xianji").hide();
+//		$(".xianjiyixia").hide();
+//	});
+//	
+//	//市级领导
+//	$("#option2").click(function (){
+//		$(".shengji").hide();
+//		$(".shiji").show();
+//		$(".xianji").hide();
+//		$(".xianjiyixia").hide();
+//	});
+//	
+//	//县级领导
+//	$("#option3").click(function (){
+//		$(".shengji").hide();
+//		$(".shiji").hide();
+//		$(".xianji").show();
+//		$(".xianjiyixia").hide();
+//	});
+//	
+//	//县级以下干部
+//	$("#option4").click(function (){
+//		$(".shengji").hide();
+//		$(".shiji").hide();
+//		$(".xianji").hide();
+//		$(".xianjiyixia").show();
+//	});
 	bar1();
 	bar2();
 	bar3();
+	
 });
 
 function ajax_async_t(url,data,dataType,async){
@@ -60,6 +61,11 @@ function ajax_async_t(url,data,dataType,async){
 	    }  
 	});
 	return rel;
+}
+
+//打开省级领导帮扶干部页面
+function open_sheng(){
+	$("#sheng_modal").modal();
 }
 
 function bar1(){
@@ -194,7 +200,7 @@ function bar2(){
 					rotate:15,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
 					margin:10,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
 				},
-				data:["国家重点旗县","自治区重点旗县","革命老区旗县","少数民族聚居区","边境旗县","牧业旗县","人口较少民族旗县"
+				data:["国家重点旗县","自治区重点旗县","革命老区旗县","边境旗县","牧业旗县","少数民族旗县"
 				      ]
 			},
 			yAxis: {
@@ -206,12 +212,12 @@ function bar2(){
 			         {
 			        	 name: "贫困户数",
 			        	 type: 'bar',
-			        	 data: ["250475","82454","247803","","28608","103358",""]
+			        	 data: ["250475","82454","247803","28608","103358","12365"]
 			         },
 			         {
 			        	 name: "贫困人口数",
 			        	 type: 'bar',
-			        	 data: ["563505","182225","554701","","63817","232587",""]
+			        	 data: ["563505","182225","554701","63817","232587","28884"]
 			         }
 			         ]
 	};
@@ -247,7 +253,7 @@ function bar3(){
 			xAxis: {
 				axisLabel:{//坐标轴文本标签选项
 					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
-					rotate:0,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+					rotate:15,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
 					margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
 				},
 				data:["呼和浩特市","包头市","呼伦贝尔市","兴安盟","通辽市","赤峰市","锡林郭勒盟","乌兰察布市","鄂尔多斯市","巴彦淖尔市","乌海市","阿拉善盟"
