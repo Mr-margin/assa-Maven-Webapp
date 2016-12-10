@@ -63,17 +63,9 @@ function ajax_async_t(url,data,dataType,async){
 }
 
 function bar1(){
-	
-	//var myChart = echarts.init(document.getElementById('zpyy'));//声明id为mapChart的div为图形dom 
 	var myChart1 = echarts.init(document.getElementById('hfccs'));//声明id为mapChart的div为图形dom 
 	
 	var data1=ajax_async_t("/assa/getFcss.do",{},"json");
-	var data = ajax_async_t("/assa/getBfdxHu_3.do",{t1:"0",t2:"1",name:"内蒙古自治区"},"json"); //调用ajax通用方法
-	var count=[];
-	var count2=[];
-	var count3=[];
-	var count4=[];
-	var count5=[];
 	var v1=0;
 	var v2=0;
 	var v3=0;
@@ -81,6 +73,8 @@ function bar1(){
 	var v5=0;
 	var v6=0;
 	var v7=0;
+//	var html_0="";
+//	var html="";
 	$.each(data1,function(i,item){
 		v1=parseInt(item.fc1)+parseInt(v1);
 		v2=parseInt(item.fc2)+parseInt(v2);
@@ -89,13 +83,34 @@ function bar1(){
 		v5=parseInt(item.fc5)+parseInt(v5);
 		v6=parseInt(item.fc6)+parseInt(v6);
 		v7=parseInt(item.fc7)+parseInt(v7);
+//		html += "<tr>" +
+//				"<td>"+item.name+"</td>" +
+//				"<td>"+item.fc1+"</td>" +
+//				"<td>"+item.fc2+"</td>" +
+//				"<td>"+item.fc3+"</td>" +
+//				"<td>"+item.fc4+"</td>" +
+//				"<td>"+item.fc5+"</td>" +
+//				"<td>"+item.fc6+"</td>" +
+//				"<td>"+item.fc7+"</td>" +
+//				"</tr>";
 	});
-	var count7 =[{value:v2 , name:"产业发展和转移就业"},
-		             {value:v3 , name:"易地扶贫搬迁"},
-		             {value:v4 , name:"生态补偿"},
-		             {value:v5 , name:"教育扶贫"},
-		             {value:v6 , name:"大病救治"},
-		             {value:v7 , name:"社会保障兜底"},
+//	html_0 = "<tr>" +
+//			"<td>全区</td>" +
+//			"<td>"+v1+"</td>" +
+//			"<td>"+v2+"</td>" +
+//			"<td>"+v3+"</td>" +
+//			"<td>"+v4+"</td>" +
+//			"<td>"+v5+"</td>" +
+//			"<td>"+v6+"</td>" +
+//			"<td>"+v7+"</td>" +
+//			"</tr>";
+//	html_0 += html;
+	var count8 =[{value:v2 , name:"产业发展和转移就业"},
+	             {value:v3 , name:"易地扶贫搬迁"},
+	             {value:v4 , name:"生态补偿"},
+	             {value:v5 , name:"教育扶贫"},
+	             {value:v6 , name:"大病救治"},
+	             {value:v7 , name:"社会保障兜底"},
 				];
 	var option_ring = {//环形图
 			title : {
@@ -145,85 +160,16 @@ function bar1(){
 	                }
 	            },
 				  
-				  data:count7
+				  data:count8
 			}]
 	}
-	var option = {
-			title: {
-				text: '全区主要致贫原因情况统计表（单位：户）',
-				x:'center'
-			},
-			legend: {
-				data:['因病致贫','缺资金','因灾致贫','因残致贫'],
-				x:'left'
-			},
-			tooltip: {
-				trigger: 'axis',
-				axisPointer : {// 坐标轴指示器，坐标轴触发有效
-					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
-				}
-			},
-			xAxis: {
-				axisLabel:{//坐标轴文本标签选项
-					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
-					rotate:0,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
-					margin:2,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
-				},
-				data:[]
-			},
-			yAxis: {
-				axisLabel: {
-		            formatter: '{value} '
-		        }
-			},
-			series: [
-			         {
-			        	 name: '因病致贫',
-			        	 type: 'bar',
-			        	 data: []
-			         },
-			         {
-			        	 name: '缺资金',
-			        	 type: 'bar',
-			        	 data: []
-			         },
-			         {
-			        	 name: '因灾致贫',
-			        	 type: 'bar',
-			        	 data: []
-			         },
-			         {
-			        	 name: '因残致贫',
-			        	 type: 'bar',
-			        	 data: []
-			         },
-			    
-			         ]
-	};
-	$.each(data,function(i,indx){
-		count[i]=indx.com_name;
-		count2[i]=indx.v1;//因病
-		count3[i]=indx.v17;//缺资金
-		count4[i]=indx.v7;//因灾
-		count5[i]=indx.v3;//因残
-	});
-	option.xAxis.data=count;
-	option.series[0].data=count2;
-	option.series[1].data=count3;
-	option.series[2].data=count4;
-	option.series[3].data=count5;
 	myChart1.setOption(option_ring);
-	//myChart.setOption(option);
+//	$("#flfc_table").html(html_0);
 }
 //贫困人口状况
 function bar2(){
 	var myChart = echarts.init(document.getElementById('pkrkzk'));//声明id为mapChart的div为图形dom
 	var option = {//柱状图
-//			title: {
-//				text: '贫困人口状况',
-//				x:'center',
-//				textStyle:{fontWeight:'500',fontSize:'17'}
-//			},
 			legend: {
 				data:['贫困人口状况'],
 				y:'bottom'
@@ -260,12 +206,12 @@ function bar2(){
 			         {
 			        	 name: "贫困户数",
 			        	 type: 'bar',
-			        	 data: ["250475","82454","103358","247803","28608","247803","28608"]
+			        	 data: ["250475","82454","247803","","28608","103358",""]
 			         },
 			         {
 			        	 name: "贫困人口数",
 			        	 type: 'bar',
-			        	 data: ["563505","182225","232587","554701","63817","247803","28608"]
+			        	 data: ["563505","182225","554701","","63817","232587",""]
 			         }
 			         ]
 	};
