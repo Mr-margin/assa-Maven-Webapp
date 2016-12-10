@@ -75,7 +75,7 @@ public class WyApp_y4 {
 		
 		String household_name = request.getParameter("name");
 		String household_card = request.getParameter("card");
-		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' ORDER BY V1 DESC ";
+		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' and v3 is not null and v1 is not null ORDER BY V1 DESC ";
 		String pic = "";
 		
 		JSONArray json = new JSONArray();
@@ -151,5 +151,55 @@ public class WyApp_y4 {
 			json1.add(obj1);
 		}
 		response.getWriter().write("{\"data1\":"+json.toString()+",\"data2\":"+json1.toString()+"}");
+	}
+	/**
+	 * 各省市区划帮扶单位、驻村工作对、驻村干部
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	@RequestMapping("getWyApp_y1_bf.do")
+	public void getWyApp_y1_bf (HttpServletRequest request,HttpServletResponse response ) throws IOException {
+		String code = request.getParameter("code");
+		String role = request.getParameter("role");//2省 3市 4 县 5乡 6村
+		//帮扶单位数
+		String dw_sql = "select count(*) num  from (select AP110 from  (select AAR008 from NM09_AC01  where AAR100= '1' and AAR040='2015' and AAR00"+role+" ='"+code+"' GROUP BY AAR008  ) a "+
+						" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ( "+
+						" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110)"; 
+		List<Map> dw_list = this.getBySqlMapper.findRecords(dw_sql);
+		//驻村对
+		String zcd_sql = "SELECT count(*) num from (select * from ( "+
+						" select AP110,AAP001 from  (select AAR008 from NM09_AC01  where AAR100= '1' and AAR040='2015'and AAR00"+role+" ='"+code+"' GROUP BY AAR008   ) a "+
+						" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ( "+
+						" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110,AAP001"+
+						") aa LEFT JOIN (select AAP001 p001 from nm09_ap01 ) bb on aa.AAP001=bb.p001 where p001 is not null)";
+		List<Map> zcd_list = this.getBySqlMapper.findRecords(zcd_sql);
+		//驻村干部
+		String zcgb_sql = "select count(*) num from (select AAB002,AAK030,p011 from (select * from ("+
+							"select AP110,AAP001 from  (select AAR008 from NM09_AC01  where AAR100= '1' and AAR040='2015' and AAR00"+role+" ='"+code+"' GROUP BY AAR008   ) a "+
+							" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ("+
+							" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110,AAP001"+
+							") aa LEFT JOIN (select AAP001 p001,AAP011 from nm09_ap01 ) bb on aa.AAP001=bb.p001 where p001 is not null) w0"+
+							" left join (select  AAK030,AAB002,AAP011 p011 from NM09_AK03)w1 on w0.AAP011=W1.p011 where p011 is not null)";
+		List<Map> zcgb_list = this.getBySqlMapper.findRecords(zcgb_sql);
+		JSONArray json = new JSONArray ();
+		JSONObject obj = new JSONObject ();
+		if( dw_list.size() > 0 ) {
+			obj.put("dw", "".equals(dw_list.get(0).get("NUM")) || dw_list.get(0).get("NUM") == null ? "0" : dw_list.get(0).get("NUM").toString());
+		} else {
+			obj.put("dw", "0");
+		}
+		if( zcd_list.size() > 0 ) {
+			obj.put("zcd", "".equals(zcd_list.get(0).get("NUM")) || zcd_list.get(0).get("NUM") == null ? "0" : zcd_list.get(0).get("NUM").toString());
+		} else {
+			obj.put("zcd", "0");
+		}
+		if( zcgb_list.size() > 0 ) {
+			obj.put("zcgb", "".equals(zcgb_list.get(0).get("NUM")) || zcgb_list.get(0).get("NUM") == null ? "0" : zcgb_list.get(0).get("NUM").toString());
+		} else {
+			obj.put("zcgb", "0");
+		}
+		json.add(obj);
+		response.getWriter().write(json.toString());
 	}
 }

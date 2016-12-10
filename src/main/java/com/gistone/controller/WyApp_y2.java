@@ -60,7 +60,7 @@ public class WyApp_y2 {
 		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008 from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number "
 				+ " where AAR008 in("+whereSQL+") order by v1 desc "
-				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number+" ";
+				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number+"  ORDER BY v1 desc ";
 		
 		String count_sql = " select count(*) from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
 		
