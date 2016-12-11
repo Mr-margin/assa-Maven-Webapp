@@ -63,14 +63,15 @@ public class Linshi {
 			for(int i = 0;i<Patient_st_List.size();i++){ //循环生成二维码
 												//这里需要获取他是什么市下什么村的生成文件夹 如果有 不用生成
 				Map Patient_st_map = Patient_st_List.get(i);
-				String V3 = Patient_st_map.get("V3").toString().trim();
-				String V5 = Patient_st_map.get("V5").toString().trim();
-				String V7 = Patient_st_map.get("V7").toString().trim();
-				String V9 = Patient_st_map.get("V9").toString().trim();
+						
+				String V3 = Patient_st_map.get("V3")==null?"":Patient_st_map.get("V3").toString().trim();
+				String V5 = Patient_st_map.get("V5")==null?"":Patient_st_map.get("V5").toString().trim();
+				String V7 = Patient_st_map.get("V7")==null?"":Patient_st_map.get("V7").toString().trim();
+				String V9 = Patient_st_map.get("V9")==null?"":Patient_st_map.get("V9").toString().trim();
 				
-				String PKID = Patient_st_map.get("PKID").toString().trim();
-				String V6 = Patient_st_map.get("V6").toString().trim();
-				String V8 = Patient_st_map.get("V8").toString().trim();
+				String PKID = Patient_st_map.get("PKID")==null?"":Patient_st_map.get("PKID").toString().trim();
+				String V6 = Patient_st_map.get("V6")==null?"":Patient_st_map.get("V6").toString().trim();
+				String V8 = Patient_st_map.get("V8")==null?"":Patient_st_map.get("V8").toString().trim();
 				
 				savePath = "D:/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				saveUrl	 =request.getContextPath() + "/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
