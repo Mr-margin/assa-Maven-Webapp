@@ -33,8 +33,134 @@ $(function () {
 	bar1();
 	bar2();
 	bar3();
+	map();
+	//图片预览
+	jQuery(function ($) {
+		$('.artZoom').artZoom({
+			path: './images',	// 设置artZoom图片文件夹路径
+			preload: true,		// 设置是否提前缓存视野内的大图片
+			blur: true,			// 设置加载大图是否有模糊变清晰的效果
+			// 语言设置
+			left: '左旋转',		// 左旋转按钮文字
+			right: '右旋转',		// 右旋转按钮文字
+			source: '看原图'		// 查看原图按钮文字
+		});
+	});
 	
 });
+
+var option_map = {
+		tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c}'
+        },
+		visualMap: {//感觉这个是和visualMap一样，对范围进行确定。\
+			type: 'piecewise',
+			orient: 'vertical',
+			top: 30,
+			pieces: [
+	            {min: 200000, label: '贫困人口:  大于20万人'},
+	            {min: 130000, max: 200000, label: '贫困人口:  13万到20万人'},
+	            {min: 100000, max: 130000, label: '贫困人口:  10万到13万人'},
+	            {min: 50000, max: 100000, label: '贫困人口:  5万到10万人'},
+	            {min: 10000, max: 50000, label: '贫困人口:  1万到5万人'},
+	            {min: 2000, max: 10000, label: '贫困人口:  2千到1万人'},
+	            {max: 2000, label: '贫困人口:  小于2千人'}
+	        ],
+	        left: 100,
+//	        color: ['#BF3030', '#FF4040', '#FF7373']
+			color: ['black','red','#FF7373']
+		},
+		series : [{
+			name: '贫困人口现状',
+			type: 'map',
+			roam: true,
+			left: 30,
+			top: 20,
+			right: 30,
+			bottom: 20,
+			mapType:'neimenggu',
+//			selectedMode : 'false',//图例选择的模式，默认开启图例选择，可以设成 false 关闭。除此之外也可以设成 'single' 或者 'multiple' 使用单选或者多选模式。
+			itemStyle:{//地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态，normal 是图形正常的样式，emphasis 是图形高亮的样式，比如鼠标悬浮或者图例联动高亮的时候会使用 emphasis 作为图形的样式。
+				normal:{label:{show:true}},
+				emphasis:{label:{show:true}}
+			},
+			itemStyle: {
+				normal: {
+					label: {
+						show: false,
+						textStyle: {color: "black"},//地图上的字体
+					},
+					areaStyle : "#E0ECF6",
+					borderColor: "#E0ECF6",
+					borderWidth: "2.0",
+					color: "#6CAFED"
+				},
+				emphasis: {
+					label: {
+						show: false,
+						textStyle: {color: "black"}
+					},
+					borderColor: "#fff",
+					borderWidth: "1.0",
+					color: "#BADB58"
+				}
+			},
+			data:[{name:'呼和浩特市', value:25359},
+			      {name:'包头市', value:13527},
+			      {name:'呼伦贝尔市', value:61677},
+			      {name:'兴安盟', value:105173},
+			      {name:'通辽市', value:135478},
+			      {name:'赤峰市', value:246296},
+			      {name:'锡林郭勒盟', value:20594},
+			      {name:'乌兰察布市', value:136621},
+			      {name:'鄂尔多斯市', value:12933},
+			      {name:'巴彦淖尔市', value:37028},
+			      {name:'乌海市', value:1517},
+			      {name:'阿拉善盟', value:5865}]
+		}]
+};
+function map(){
+	var mapdatajson;//定义地图JSON
+	var map_name;//定义地图名称
+	mapdatajson='../mapData/neimenggu.json';//地图JSON
+	map_name='neimenggu';//地图名称
+	myChart_1 = echarts.init(document.getElementById('pkh_fb'));//声明id为mapChart的div为图形dom
+	myChart_1.showLoading();//此方法是显示加载动画效果
+	$.getJSON(mapdatajson, function (geoJson) {//获取已经定义好的json
+		myChart_1.hideLoading();//隐藏加载动画
+		echarts.registerMap(map_name, geoJson);//注册可用的地图，必须在包括 geo 组件或者 map 图表类型的时候才能使用
+		myChart_1.setOption(option_map);
+		myChart_1.on('click', function (params) {
+		    console.log(params);
+		    if(params.name=="呼和浩特市"){
+		    	$("#shi_1").click();
+		    }else if(params.name=="包头市"){
+		    	$("#shi_2").click();
+		    }else if(params.name=="呼伦贝尔市"){
+		    	$("#shi_3").click();
+		    }else if(params.name=="兴安盟"){
+		    	$("#shi_4").click();
+		    }else if(params.name=="通辽市"){
+		    	$("#shi_5").click();
+		    }else if(params.name=="赤峰市"){
+		    	$("#shi_6").click();
+		    }else if(params.name=="锡林郭勒盟"){
+		    	$("#shi_7").click();
+		    }else if(params.name=="乌兰察布市"){
+		    	$("#shi_8").click();
+		    }else if(params.name=="鄂尔多斯市"){
+		    	$("#shi_9").click();
+		    }else if(params.name=="巴彦淖尔市"){
+		    	$("#shi_10").click();
+		    }else if(params.name=="乌海市"){
+		    	$("#shi_11").click();
+		    }else if(params.name=="阿拉善盟"){
+		    	$("#shi_12").click();
+		    }
+		});
+	});
+}
 
 function ajax_async_t(url,data,dataType,async){
 	var rel;

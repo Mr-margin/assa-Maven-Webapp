@@ -45,18 +45,32 @@ public class Linshi {
 	 */
 	@RequestMapping("getLinshi_2.do")
 	public void getLinshi_2(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		String type = request.getParameter("type");
+		
 		String text = "http://www.gistone.cn/assa/anuser.html?pkid="; //原路径
 //		String text = "http://192.168.0.16:8081/assa/anuser.html?pkid="; //localhost 改成本机的测试
 		// 文件保存目录路径  
         String savePath =""; //   需要改成/7/下面的路径 request.getServletContext().getRealPath("/")+ "attached/7/"
         // 文件保存目录URL  
         String saveUrl = "";
-       
-        //这里少个未脱贫条件
-		String sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ( "
-				+ " select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
-				+ " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
-				+ " ) a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE ";
+        String sql = "";
+        
+        if(type.equals("all")){//全部二维码
+        	
+        	sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ( "
+    				+ " select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
+    				+ " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
+    				+ " ) a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE ";
+        	
+        }else if(type.equals("xin")){//未生成的二维码，继续操作
+        	
+        	sql = "select t1.*,t2.AAC001 from (select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ("
+        			+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
+        			+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
+        			+ ") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE) t1 left join DA_PIC_CODE t2 on t1.pkid=t2.AAC001 where t2.AAC001 is null";
+        	
+        }
 		
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
@@ -77,6 +91,11 @@ public class Linshi {
 				saveUrl	 =request.getContextPath() + "/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
+				//判断文件是否存在，存在删除
+				File file=new File(savePath+PKID+"_"+V6+".jpg");
+				if(file.isFile() && file.exists()){
+					file.delete();
+				}
 				QRCodeUtil.encode(text+Patient_st_map.get("PKID"), "c:/11.jpg", savePath, PKID+"_"+V6+".jpg", true);//生成二维码方法
 				
 				String sql_i ="INSERT INTO da_pic_code(AAC001,HOUSEHOLD_NAME,HOUSEHOLD_CARD,PIC_PATH) VALUES"+
