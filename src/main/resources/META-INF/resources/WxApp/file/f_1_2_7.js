@@ -19,13 +19,20 @@ var title='';
 $(function () {
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
-	canshu=Request['canshu']; 
-	obj = JSON.parse(canshu);
+	obj.com = Request['com'];
+	obj.year = Request['year'];
+	obj.q1 = Request['q1'];
+	obj.q2 = Request['q2'];
+	obj.q3 = Request['q3'];
+	obj.q4 = Request['q4'];
+	obj.q5 = Request['q5'];
+	obj.t1 = Request['t1'];
+	obj.t2 = Request['t2'];
 	
 	table();
 	bar();
 });
-var obj;
+var obj = {};
 //表格数据
 function table(){
 	var data = ajax_async_t("/assa/getBfdxHuc_11.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:'asc'},"json");

@@ -1,4 +1,5 @@
 var title='';
+var obj = {};
 $(document).ready(function() {
 	title='易地扶贫搬迁人口数量';
 	if(parent.shi!=''){
@@ -17,8 +18,15 @@ $(document).ready(function() {
 	}
 	var Request = new Object();
 	Request = GetRequest();//截取URL的方法
-	canshu=Request['canshu']; 
-	obj = JSON.parse(canshu);
+	obj.com = Request['com'];
+	obj.year = Request['year'];
+	obj.q1 = Request['q1'];
+	obj.q2 = Request['q2'];
+	obj.q3 = Request['q3'];
+	obj.q4 = Request['q4'];
+	obj.q5 = Request['q5'];
+	obj.t1 = Request['t1'];
+	obj.t2 = Request['t2'];
 	pkcsbbz();
 	biaoge()
 });
