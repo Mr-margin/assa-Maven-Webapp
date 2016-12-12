@@ -1,5 +1,11 @@
 $(function() {
-	$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+	
+	//var str = "file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu);
+	//var str = "file/"+dangqian_url+"?com="+tree_canshu.com+"&year="+tree_canshu.year+"&q1="+tree_canshu.q1+"&q2="+tree_canshu.q2+"&q3="+tree_canshu.q3+"&q4="+tree_canshu.q4+"&q5="+tree_canshu.q5+"&t1="+tree_canshu.t1+"&t2="+tree_canshu.t2;
+	//.replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/g, ",")
+//	alert(str);
+//	$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+	$('#iframez1').attr('src',pinjie_str());
 	
 	$(':input').labelauty();
 	
@@ -25,7 +31,7 @@ $(function() {
 				$("#you_title_img").attr("src", "img/"+fnode.png+".png");
 				$("#you_title_img").attr("title", fnode.title);
 			}
-			$('#iframez1').attr('src',"file/"+node.src+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -84,7 +90,7 @@ $(function() {
 			}
 			p_zhuangtai = "0";
 //			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+encodeURIComponent(JSON.stringify(tree_canshu)));
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -98,7 +104,7 @@ $(function() {
 				tree_canshu.q2='0';
 			}
 			p_zhuangtai = "0";
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -112,7 +118,7 @@ $(function() {
 				tree_canshu.q3='0';
 			}
 			p_zhuangtai = "0";
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -126,7 +132,7 @@ $(function() {
 				tree_canshu.q4='0';
 			}
 			p_zhuangtai = "0";
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -140,7 +146,7 @@ $(function() {
 				tree_canshu.q5='0';
 			}
 			p_zhuangtai = "0";
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 		}
 	});
 	
@@ -151,7 +157,7 @@ $(function() {
 			if(tree_canshu.t1=='0'){
 				tree_canshu.t1='1';
 				tree_canshu.t2='0';
-				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+				$('#iframez1').attr('src',pinjie_str());
 			}
 			p_zhuangtai = "0";
 		}
@@ -164,7 +170,7 @@ $(function() {
 			if(tree_canshu.t2=='0'){
 				tree_canshu.t2='1';
 				tree_canshu.t1='0';
-				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+				$('#iframez1').attr('src',pinjie_str());
 			}
 			p_zhuangtai = "0";
 		}
@@ -196,7 +202,7 @@ $(function() {
 		$.each(val,function(i,item){
 			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
 		});
-		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+		$('#iframez1').attr('src',pinjie_str());
 		shi=$("#v2").find("option:selected").text();
 	}else if(jsondata.Login_map.COM_VD=='V5'){ //这是v5
 		var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
@@ -214,7 +220,7 @@ $(function() {
 			$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
 		});
 		tree_canshu.com=$("#v3").find("option:selected").text();
-		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+		$('#iframez1').attr('src',pinjie_str());
 		shi=$("#v2").find("option:selected").text();
 		xian=$("#v3").find("option:selected").text();
 	}
@@ -227,7 +233,7 @@ $(function() {
 		if($("#v2").find("option:selected").text()=="全部盟市"){
 			level=1;//层级
 			tree_canshu.com=$("#v2").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			shi="";
 			xian="";
 			xiang="";
@@ -240,7 +246,7 @@ $(function() {
 				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
 			});
 			tree_canshu.com=$("#v2").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			shi=$("#v2").find("option:selected").text();
 			xian="";
 			xiang="";
@@ -254,7 +260,7 @@ $(function() {
 		if($("#v3").find("option:selected").text() == '全部旗区县'){
 			level=2;
 			tree_canshu.com=$("#v2").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			xian="";
 			xiang="";
 		}else{
@@ -266,7 +272,7 @@ $(function() {
 				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
 			});
 			tree_canshu.com=$("#v3").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			shi=$("#v2").find("option:selected").text();
 			xian=$("#v3").find("option:selected").text();
 			xiang="";
@@ -280,7 +286,7 @@ $(function() {
 		if($("#v4").find("option:selected").text() == '全部苏木乡镇'){
 			level=3
 			tree_canshu.com=$("#v3").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			xiang="";
 		}else{
 			$("#v5").append("<option>请选择</option>");
@@ -291,7 +297,7 @@ $(function() {
 			});
 			level=4;//层级
 			tree_canshu.com=$("#v4").find("option:selected").text();
-			$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+			$('#iframez1').attr('src',pinjie_str());
 			shi=$("#v2").find("option:selected").text();
 			xian=$("#v3").find("option:selected").text();
 			xiang=$("#v4").find("option:selected").text();
@@ -303,7 +309,7 @@ $(function() {
 	
 	$("#v5").change(function(){
 		tree_canshu.com=$("#v5").find("option:selected").text();
-		$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+		$('#iframez1').attr('src',pinjie_str());
 		level=5;//层级
 	})
 	
@@ -347,6 +353,12 @@ tree_canshu.q4 = "0";
 tree_canshu.q5 = "0";
 tree_canshu.t1 = "0";
 tree_canshu.t2 = "1";
+
+//拼接字符串方法
+function pinjie_str(){
+	return "file/"+dangqian_url+"?com="+tree_canshu.com+"&year="+tree_canshu.year+"&q1="+tree_canshu.q1+"&q2="+tree_canshu.q2+"&q3="+tree_canshu.q3+"&q4="+tree_canshu.q4+"&q5="+tree_canshu.q5+"&t1="+tree_canshu.t1+"&t2="+tree_canshu.t2;
+}
+
 
 //点击树触发方法
 //function clickpbl_tree(val){
@@ -716,7 +728,7 @@ function setSelVal(value){
         		 if($("#v2").find("option:selected").text()=="全部盟市"){
         			 level=1;//层级
         			 tree_canshu.com=$("#v2").find("option:selected").text();
-        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 $('#iframez1').attr('src',pinjie_str());
         			 shi="";
         			 xian="";
         			 xiang="";
@@ -729,7 +741,7 @@ function setSelVal(value){
     					$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
     				});
     				tree_canshu.com=$("#v2").find("option:selected").text();
-    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				$('#iframez1').attr('src',pinjie_str());
     				shi=$("#v2").find("option:selected").text();
     				xian="";
     				xiang="";
@@ -741,7 +753,7 @@ function setSelVal(value){
         		 if($("#v3").find("option:selected").text() == '全部旗区县'){
         			 level=2;
         			 tree_canshu.com=$("#v2").find("option:selected").text();
-        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 $('#iframez1').attr('src',pinjie_str());
         			 shi=$("#v2").find("option:selected").text();
      				 xian="";
      				 xiang="";
@@ -754,7 +766,7 @@ function setSelVal(value){
     					$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
     				});
     				tree_canshu.com=$("#v3").find("option:selected").text();
-    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				$('#iframez1').attr('src',pinjie_str());
     				shi=$("#v2").find("option:selected").text();
     				xian=$("#v3").find("option:selected").text();
     				xiang="";
@@ -764,7 +776,7 @@ function setSelVal(value){
         		 if($("#v4").find("option:selected").text() == '全部苏木乡镇'){
         			 level=3
         			 tree_canshu.com=$("#v3").find("option:selected").text();
-        			 $('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+        			 $('#iframez1').attr('src',pinjie_str());
         			 shi=$("#v2").find("option:selected").text();
      				 xian=$("#v3").find("option:selected").text();
      				 xiang="";
@@ -778,7 +790,7 @@ function setSelVal(value){
     				 });
         			level=4;//层级
     				tree_canshu.com=$("#v4").find("option:selected").text();
-    				$('#iframez1').attr('src',"file/"+dangqian_url+"?canshu="+JSON.stringify(tree_canshu));
+    				$('#iframez1').attr('src',pinjie_str());
     				shi=$("#v2").find("option:selected").text();
     				xian=$("#v3").find("option:selected").text();
     				xiang=$("#v4").find("option:selected").text();
