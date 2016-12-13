@@ -1766,7 +1766,7 @@ public class AExport{
 				aa.insert(5,"0");
 				String up = " update DA_HELP_VISIT set v1='"+aa+"' where pkid ='"+list.get(i).get("PKID")+"' ";
 //				this.getBySqlMapper.update(up);
-				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=6");
+//				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=6");
 				
 			
 			} else if ( str.length() == 9 ) {//九位长度年月日   日变成两位数  2016-02-2****2016-02-02
@@ -1774,14 +1774,14 @@ public class AExport{
 				aa.insert(8,"0");
 				String up = " update DA_HELP_VISIT set v1='"+aa+"' where pkid ='"+list.get(i).get("PKID")+"' ";
 //				this.getBySqlMapper.update(up);
-				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=9");
+//				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=9");
 				
 			} else if ( str.length() == 5 ) {//11-24---->2016-11-24
 				StringBuffer aa = new StringBuffer (str);
 				aa.insert(0,"2016-");//2016-2-16
 				String up = " update DA_HELP_VISIT set v1='"+aa+"' where pkid ='"+list.get(i).get("PKID")+"' ";
 //				this.getBySqlMapper.update(up);
-				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=5");
+//				System.out.println(str+"******"+aa+"*****"+list.get(i).get("PKID").toString()+"****=5");
 			}
 			
 			else if (str.length() == 4 ){//2-16---->2016-02-16
@@ -1797,7 +1797,7 @@ public class AExport{
 						bb.insert(5,"0");
 						String up = " update DA_HELP_VISIT set v1='"+bb+"' where pkid ='"+list.get(i).get("PKID")+"' ";
 //						this.getBySqlMapper.update(up);
-						System.out.println(str+"******"+bb+"*****"+list.get(i).get("PKID").toString()+"****>6");
+//						System.out.println(str+"******"+bb+"*****"+list.get(i).get("PKID").toString()+"****>6");
 						
 					}else{
 						//2016-02-7
@@ -1806,7 +1806,7 @@ public class AExport{
 							bb.insert(8,"0");
 							String up = " update DA_HELP_VISIT set v1='"+bb+"' where pkid ='"+list.get(i).get("PKID")+"' ";
 //							this.getBySqlMapper.update(up);
-							System.out.println(str+"******"+bb+"*****"+list.get(i).get("PKID").toString()+"**4**=9");
+//							System.out.println(str+"******"+bb+"*****"+list.get(i).get("PKID").toString()+"**4**=9");
 						}
 						
 					}
