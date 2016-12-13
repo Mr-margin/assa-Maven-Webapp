@@ -31,18 +31,13 @@ $(function () {
 	obj.t1 = Request['t1'];
 	obj.t2 = Request['t2'];
 	a1();
+	table();
 	
 })
 var obj = {};
 
 var myChart_ring,myChart;
 window.onresize=function () { //浏览器调整大小后，自动对所有的图进行调整
-//	try{
-//		if(myChart_ring){
-//			myChart_ring.resize();
-//		}
-//	}catch(e){
-//	}
 	try{
 		if(myChart){
 			myChart.resize();
@@ -104,20 +99,6 @@ function a1(){
 			count4[i]=item.V5;
 			count5[i]=item.V6;
 			count6[i]={value:item.V2 , name:item.V1}
-			
-			tables +='<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+ item.V1 +'</td>'+
-//			'<td class="text-center">'+item.V3+' 人</td>'+
-//			'<td class="text-center">'+item.V4+' 人</td>'+
-			'<td class="text-center">'+item.V5+'</td>'+
-			'<td class="text-center">'+item.V6+'</td>'+
-			'</tr>';
-
-//			A1=parseInt(item.V3)+parseInt(A1)
-//			A2=parseInt(item.V4)+parseInt(A2)
-			
-//			A3=parseInt(item.V5)+parseInt(A3);
-//			A4=parseInt(item.V6)+parseInt(A4);
-			
 			if(item.V5!='' && typeof item.V3!=''){
 				A3=parseInt(item.V5)+parseInt(A3);
 			}
@@ -134,13 +115,6 @@ function a1(){
 			$('#table').hide();
 		}
 		myChart = echarts.init(document.getElementById('tu_1'));//声明id为myChart的div为图形dom
-		tables+='<tr><td class="text-center">'+Number(data.length+1)+'</td>'+
-		'<td class="text-center"><strong>汇总</strong></td>'+
-//		'<td class="text-center"><strong>'+A1+' 人</strong></td>'+
-//		'<td class="text-center"><strong>'+A2+' 人</strong></td>'+
-		'<td class="text-center"><strong>'+A3+'</strong></td>'+
-		'<td class="text-center"><strong>'+A4+'</strong></td></tr>';
-		$("#tableChart").html(tables);
 
 		var title_text;
 		if(obj.com=="内蒙古自治区"){
@@ -277,4 +251,39 @@ function a1(){
 //		myChart_ring.setOption(option_ring);
 		myChart.setOption(option);
 	}
+}
+//表格数据
+function table  () {
+//	tables +='<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+ item.V1 +'</td>'+
+	var data = ajax_async_t("/assa/getBfdxHu_1.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"asc"},"json");
+	var html = "";
+	if(data=='' || data == null || data==undefined){
+		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
+	}else{
+		var A1=0,A2=0;
+		$.each(data,function(i,item){
+				html +='<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+item.com_name+'</td>'+
+				'<td class="text-center">'+item.z_hu+'</td>'+
+				'<td class="text-center">'+item.z_ren+'</td>'+
+				'</tr>';
+				if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
+					
+				}else{
+					A1=parseInt(item.z_hu)+parseInt(A1);
+					
+				}
+				if(item.z_ren == '' || item.z_ren == null || item.z_ren == undefined){
+					
+				}else{
+					A2=parseInt(item.z_ren)+parseInt(A2);
+					
+				}
+		})
+		html +='<tr><td class="text-center">'+Number(data.length+1)+'</td><td class="text-center"><strong>汇总</strong></td>'+
+				'<td class="text-center"><strong>'+A1+'</strong></td>'+
+				'<td class="text-center"><strong>'+A2+'</strong></td>'+
+				'</tr>';
+		$("#tableChart").html(html);
+	}
+
 }

@@ -126,7 +126,7 @@ function table(){
 //			A7=parseInt(item.v11)+parseInt(A7);
 //			A8=parseInt(item.v13)+parseInt(A8);
 		})
-		html+='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td><td><strong>'+A1+'</strong></td><td><strong>'+A2+'</strong></td><td><strong>'+A3+'</strong></td><td><strong>'+A4+'</strong></td><td><strong>'+A5+'</strong></td><td><strong>'+A6+'</strong></td><td><strong>'+A7+'</strong></td><td><strong></strong></td></tr>';
+		html+='<tr><td>'+Number(data.length+1)+'</td><td><strong>汇总</strong></td><td><strong>'+A1+'</strong></td><td><strong>'+A2+'</strong></td><td><strong>'+A3+'</strong></td><td><strong>'+A4+'</strong></td><td><strong>'+A5+'</strong></td><td><strong>'+A6+'</strong></td><td><strong>'+A7+'</strong></td><td><strong>'+A8+'</strong></td></tr>';
 		$("#scsh_table").html(html);
 	}
 	 
