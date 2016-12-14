@@ -214,7 +214,8 @@ public class Index_Controller{
 		String username = request.getParameter("add_account");//获取用户名 
 		String password = request.getParameter("add_password");//获取密码
 		String people_sql = "select t1.pkid,t1.col_account,t1.col_password,t1.sys_com_code,t1.com_vd,t1.com_vs,t3.role_name,t3.pkid as role_id  from sys_user t1 "
-				+ "join sys_user_role_many t2 on t1.pkid=t2.user_id join sys_role t3 on t2.role_id=t3.pkid WHERE t1.col_account = '" + username + "'";
+				+ "LEFT JOIN sys_user_role_many t2 on t1.SYS_ROLE_ID=t2.user_id "
+				+ "LEFT JOIN sys_role t3 on t2.role_id=t3.pkid WHERE t1.col_account = '"+username+"'";
 		List<Map> Login = this.getBySqlMapper.findRecords(people_sql);
 //		System.out.println(people_sql);
 		if(Login.size()>0){//查询到用户记录
