@@ -24,6 +24,7 @@ public class AnUserController  extends MultiActionController{
 	@Autowired
 	private GetBySqlMapper getBySqlMapper;
 
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("anGetPk.do")
 	public ModelAndView anGetPk(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -33,6 +34,8 @@ public class AnUserController  extends MultiActionController{
 		String pkid=request.getParameter("pkid");//aac001
 		String acid=pkid;//aac001
 		String code="";//地区编码
+		String hu_name = "";//户主姓名
+		String hu_card = "";//户主身份证号
 		String sql = "select PKID,ACID,V6,V7,V8,V9,V11,V12,V13,V14,V15,V16,V17,V32,V18,V19,SYS_STANDARD,V22,V23,V29,V33,CODE from "+
 				" (select AAB001 pkid,AAC001 acid,AAB002 v6,AAB003 v7,AAB004 v8,aab007 v11,AAB008 v12,AAB009 v13,AAB017 v14,AAB010 v15,AAB011 v16,AAB012 v17,AAB019 V32 from NM09_AB01 where AAC001='"+pkid+"' AND AAR040='2015' AND aab006='01') a1"+
 				" LEFT JOIN ( SELECT AAB001,AAB013 v18,AAB014 v19 from NM09_AB02 ) a2 on A1.pkid=A2.AAB001 "+
@@ -47,6 +50,9 @@ public class AnUserController  extends MultiActionController{
 		for(Map val:list){
 			JSONObject obj=new JSONObject ();
 			code=val.get("CODE").toString();
+			hu_name=val.get("V6").toString();
+			hu_card=val.get("V8").toString();
+
 			obj.put("pkid",val.get("PKID")==null?"":val.get("PKID"));
 			/*obj.put("v2", val.get("V2")==null?"":val.get("V2"));//地区
 			obj.put("v3", val.get("V3")==null?"":val.get("V3"));
@@ -87,55 +93,39 @@ public class AnUserController  extends MultiActionController{
 		}
 		//家庭成员
 		JSONArray jsonArray2 =new JSONArray();
-		//		String xian_sql="select * from da_member a LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=5 ) b ON a.pkid=b.pic_pkid  where a.da_household_id="+pkid;
-
 		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19 from "+  
 				" (SELECT AAC001 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 "+
 				" left join  ( SELECT NM09_AB01.AAB001 pkid,AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB013 v18,AAB019 v32,AAB014 v19 "
 				+ "from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 where AAB006<>'01' AND NM09_AB01.AAR040='2015' ) a1 on a1.AAC001=a2.AAC001 "+ 
 				" GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v18,v19";
-		/*"select a.*,b.pic_path from (select PKID,V6,V7,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V28,V32 from da_member where da_household_id="+pkid+") a "
-						+ "LEFT JOIN (SELECT pic_path,pic_pkid from da_pic WHERE pic_type=5 ) b ON a.pkid=b.pic_pkid";*/
 		List<Map> xian_list=this.getBySqlMapper.findRecords(xian_sql);
 		if(!xian_list.isEmpty()){
-			Map val = xian_list.get(0);
-			JSONObject obj=new JSONObject ();
-			obj.put("cy_pkid",val.get("PKID")==null?"":val.get("PKID"));
-			obj.put("cy_v6",val.get("V6")==null?"":val.get("V6"));//姓名
-			obj.put("cy_v7",val.get("V7")==null?"":sw4.mianZhuan(val.get("V7").toString(), "7"));//性别
-			obj.put("cy_v10",val.get("V10")==null?"":sw4.mianZhuan(val.get("V10").toString(), "10"));//与户主关系
-			obj.put("cy_v11",val.get("V11")==null?"":sw4.mianZhuan(val.get("V11").toString(), "11"));//民族
-			obj.put("cy_v12",val.get("V12")==null?"":sw4.mianZhuan(val.get("V12").toString(), "12"));//文化程度
-			obj.put("cy_v13",val.get("V13")==null?"":sw4.mianZhuan(val.get("V13").toString(), "13"));//在校生状况
-			obj.put("cy_v14",val.get("V14")==null?"":sw4.mianZhuan(val.get("V14").toString(), "14"));//健康状况
-			obj.put("cy_v15",val.get("V15")==null?"":sw4.mianZhuan(val.get("V15").toString(), "15"));//劳动能力
-			obj.put("cy_v16",val.get("V16")==null?"":sw4.mianZhuan(val.get("V16").toString(), "16"));//务工情况
-			obj.put("cy_v17",val.get("V17")==null?"":val.get("V17"));//务工时间
-			obj.put("cy_v18",val.get("V18")==null?"":sw4.mianZhuan(val.get("V18").toString(), "32"));//是否参加新农合
-			obj.put("cy_v19",val.get("V19")==null?"":sw4.mianZhuan(val.get("V19").toString(), "32"));//是否参加新型养老保险
-			//			obj.put("cy_v20",val.get("V20")==null?"":val.get("V20"));//是否参加城镇职工基本养老保险	
-			//			obj.put("cy_v21",val.get("V21")==null?"":val.get("V21"));//脱贫属性
-			obj.put("cy_v32",val.get("V32")==null?"":sw4.mianZhuan(val.get("V32").toString(), "32"));//是否现役军人
-			//			obj.put("cy_v28",val.get("V28")==null?"":val.get("V28"));//政治面貌
-			//			obj.put("cy_pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//头像 // 家庭成员头像暂时没有
-			jsonArray2.add(obj);
-		}else{
-			JSONObject obj=new JSONObject ();
-			obj.put("cy_pkid","无数据");
-			obj.put("cy_v6","无数据");//姓名
-			obj.put("cy_v7","无数据");//性别
-			obj.put("cy_v10","无数据");//与户主关系
-			obj.put("cy_v11","无数据");//民族
-			obj.put("cy_v12","无数据");//文化程度
-			obj.put("cy_v13","无数据");//在校生状况
-			obj.put("cy_v14","无数据");//健康状况
-			obj.put("cy_v15","无数据");//劳动能力
-			obj.put("cy_v16","无数据");//务工情况
-			obj.put("cy_v17","无数据");//务工时间
-			obj.put("cy_v18","无数据");//是否参加新农合
-			obj.put("cy_v19","无数据");//是否参加新型养老保险
-			obj.put("cy_v32","无数据");//是否现役军人
-			jsonArray2.add(obj);
+			if(xian_list.get(0) != null){
+				for(Map val:xian_list){
+					JSONObject obj=new JSONObject ();
+					obj.put("cy_pkid",val.get("PKID")==null?"":val.get("PKID"));
+					obj.put("cy_v6",val.get("V6")==null?"":val.get("V6"));//姓名
+					obj.put("cy_v7",val.get("V7")==null?"":sw4.mianZhuan(val.get("V7").toString(), "7"));//性别
+					//			obj.put("cy_v8",val.get("V8")==null?"":val.get("V8"));//证件号码
+					//			obj.put("cy_v9",val.get("V9")==null?"":val.get("V9"));//人数
+					obj.put("cy_v10",val.get("V10")==null?"":sw4.mianZhuan(val.get("V10").toString(), "10"));//民族
+					obj.put("cy_v11",val.get("V11")==null?"":sw4.mianZhuan(val.get("V11").toString(), "11"));//民族
+					obj.put("cy_v12",val.get("V12")==null?"":sw4.mianZhuan(val.get("V12").toString(), "12"));//文化程度
+					obj.put("cy_v13",val.get("V13")==null?"":sw4.mianZhuan(val.get("V13").toString(), "13"));//在校生状况
+					obj.put("cy_v14",val.get("V14")==null?"":sw4.mianZhuan(val.get("V14").toString(), "14"));//健康状况
+					obj.put("cy_v15",val.get("V15")==null?"":sw4.mianZhuan(val.get("V15").toString(), "15"));//劳动能力
+					obj.put("cy_v16",val.get("V16")==null?"":sw4.mianZhuan(val.get("V16").toString(), "16"));//务工情况
+					obj.put("cy_v17",val.get("V17")==null?"":val.get("V17"));//务工时间
+					obj.put("cy_v18",val.get("V18")==null?"":sw4.mianZhuan(val.get("V18").toString(), "32"));//是否参加新农合
+					obj.put("cy_v19",val.get("V19")==null?"":sw4.mianZhuan(val.get("V19").toString(), "32"));//是否参加新型养老保险
+					//			obj.put("cy_v20",val.get("V20")==null?"":val.get("V20"));//是否参加城镇职工基本养老保险	
+					//			obj.put("cy_v21",val.get("V21")==null?"":val.get("V21"));//脱贫属性
+					obj.put("cy_v32",val.get("V32")==null?"":sw4.mianZhuan(val.get("V32").toString(), "32"));//是否现役军人
+					//			obj.put("cy_v28",val.get("V28")==null?"":val.get("V28"));//政治面貌
+					//			obj.put("cy_pic_path",val.get("PIC_PATH")==null?"":val.get("PIC_PATH"));//头像 // 家庭成员头像暂时没有
+					jsonArray2.add(obj);
+				}
+			}
 		}
 
 		//所在地区
@@ -157,64 +147,51 @@ public class AnUserController  extends MultiActionController{
 			obj.put("XIANG", "".equals(dqmap.get("XIANG")) || dqmap.get("XIANG") == null ? "" : dqmap.get("XIANG").toString());
 			obj.put("CUN", "".equals(dqmap.get("CUN")) || dqmap.get("CUN") == null ? "" : dqmap.get("CUN").toString());
 			jsonArray4.add(obj);
-		}else{
-			JSONObject obj=new JSONObject();
-			obj.put("SHENG", "无数据");
-			obj.put("SHI", "无数据");
-			obj.put("XIAN", "无数据");
-			obj.put("XIANG", "无数据");
-			obj.put("CUN", "无数据");
-			jsonArray4.add(obj);
 		}
 
 		//走访情况
 		JSONArray jsonArray3 =new JSONArray();
-		//			String zoufang_sql = "select pkid,v1,v2,v3,'da_help_visit' as da_type from da_help_visit where da_household_id="+pkid+" order by v1 desc";
-
-		/*		String zoufang_sql = "select t1.pkid,t1.v1,t2.col_name as v2,t1.v3,'da_help_visit' as da_type from da_help_visit t1 join SYS_PERSONAL t2 on "
-				+ " t1.SYS_PERSONAL_ID=t2.pkid where da_household_id="+pkid+" order by t1.v1 desc";
+		String zoufang_sql = "SELECT PERSONAL_NAME AS V2,V1,V3,RANDOM_NUMBER AS V4 FROM DA_HELP_VISIT WHERE HOUSEHOLD_CARD='"+hu_card+"' AND HOUSEHOLD_NAME='"+hu_name+"'";
 		List<Map> sjz_list=getBySqlMapper.findRecords(zoufang_sql);
-		for(Map val:sjz_list){
-			JSONObject sjz_obj=new JSONObject ();
-			sjz_obj.put("pkid",val.get("PKID")==null?"":val.get("PKID"));
-			sjz_obj.put("v1",val.get("V1")==null?"":val.get("V1"));
-			sjz_obj.put("v2",val.get("V2")==null?"":val.get("V2"));
-			sjz_obj.put("v3",val.get("V3")==null?"":val.get("V3"));
-			sjz_obj.put("da_type",val.get("DA_TYPE")==null?"":val.get("DA_TYPE"));
-			String results=val.get("DA_TYPE").toString();
+		if(!sjz_list.isEmpty()){
+			if(sjz_list.get(0)!=null){
+				for(Map val:sjz_list){
+					JSONObject sjz_obj=new JSONObject ();
+					sjz_obj.put("pkid",val.get("PKID")==null?"":val.get("PKID"));
+					sjz_obj.put("v1",val.get("V1")==null?"":val.get("V1"));
+					sjz_obj.put("v2",val.get("V2")==null?"":val.get("V2"));
+					sjz_obj.put("v3",val.get("V3")==null?"":val.get("V3"));
+					sjz_obj.put("v4",val.get("V4")==null?"":val.get("V4"));
 
-			if(results.equals("da_help_visit")){
-//				String hql="SELECT group_concat(pic_path order by pic_path separator ',') pie FROM da_pic WHERE pic_pkid="+val.get("pkid")+" AND pic_type=2";
-//				String hql = "select t1.pic_pkid,listagg(to_char(t1.pic_path),',') within group(ORDER BY pic_pkid) as pie "
-//						+ "FROM (select pic_pkid,pic_path from da_pic WHERE pic_pkid="+val.get("pkid")+" AND pic_type=2) t1 group by t1.pic_pkid";
 
-				String hql = "select pic_pkid,pic_path FROM da_pic WHERE pic_pkid="+val.get("PKID")+" AND pic_type=2";
-				List<Map> sjzf_list=getBySqlMapper.findRecords(hql);
-				if(sjzf_list.size()>0){
-					JSONArray jsonArray5 =new JSONArray();
+					String hql = "SELECT PIC_PATH FROM DA_PIC_VISIT WHERE RANDOM_NUMBER='"+val.get("V4")+"'";
+					List<Map> sjzf_list=getBySqlMapper.findRecords(hql);
+					if(!sjzf_list.isEmpty() && sjzf_list.get(0)!=null){
+						JSONArray jsonArray5 =new JSONArray();
+						for(Map val1:sjzf_list){
+							JSONObject pic=new JSONObject ();
+							pic.put("pie_path",val1.get("PIC_PATH")==null?"":val1.get("PIC_PATH"));
+							jsonArray5.add(pic);
+						}
+						sjz_obj.put("pie",jsonArray5);
 
-					for(Map val1:sjzf_list){
-						JSONObject pic=new JSONObject ();
-						pic.put("pie_path",val1.get("PIC_PATH")==null?"":val1.get("PIC_PATH"));
-						jsonArray5.add(pic);
+						//						if(null==sjzf_list.get(0)){
+						//							sjz_obj.put("pie","");
+						//						}else{
+						//							for(Map val1:sjzf_list){
+						//								sjz_obj.put("pie",val1.get("PIE")==null?"":val1.get("PIE"));
+						//							}
+						//						}
+					}else{
+						sjz_obj.put("pie","");
 					}
-					sjz_obj.put("pie",jsonArray5);
 
-//					if(null==sjzf_list.get(0)){
-//						sjz_obj.put("pie","");
-//					}else{
-//						for(Map val1:sjzf_list){
-//							sjz_obj.put("pie",val1.get("PIE")==null?"":val1.get("PIE"));
-//						}
-//					}
-				}else{
-					sjz_obj.put("pie","");
+					//				System.out.println(sjz_obj.toString());
+					jsonArray3.add(sjz_obj);
 				}
-
 			}
-//			System.out.println(sjz_obj.toString());
-			jsonArray3.add(sjz_obj);
-		}*/
+		}
+
 		response.getWriter().write("{\"data1\":"+jsonArray1.toString() +
 				",\"data2\":"+jsonArray2.toString()+",\"data3\":"+jsonArray3.toString()+",\"data4\":"+jsonArray4.toString()+"}");
 		response.getWriter().close();
