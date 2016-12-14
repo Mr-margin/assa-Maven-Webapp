@@ -59,17 +59,17 @@ var option_map = {
 			orient: 'vertical',
 			top: 30,
 			pieces: [
-	            {min: 200000, label: '贫困人口:  大于20万人'},
-	            {min: 130000, max: 200000, label: '贫困人口:  13万到20万人'},
-	            {min: 100000, max: 130000, label: '贫困人口:  10万到13万人'},
-	            {min: 50000, max: 100000, label: '贫困人口:  5万到10万人'},
-	            {min: 10000, max: 50000, label: '贫困人口:  1万到5万人'},
-	            {min: 2000, max: 10000, label: '贫困人口:  2千到1万人'},
-	            {max: 2000, label: '贫困人口:  小于2千人'}
+	            {min: 200000, label: '贫困人口:  大于20万人', color: '#ff0000'},
+	            {min: 150000, max: 200000, label: '贫困人口:  15万到20万人', color: '#a80c0c'},
+	            {min: 100000, max: 150000, label: '贫困人口:  10万到15万人', color: '#c42f2f'},
+	            {min: 30000, max: 100000, label: '贫困人口:  3万到10万人', color: '#e65050'},
+	            {min: 10000, max: 30000, label: '贫困人口:  1万到3万人', color: '#eaed2b'},
+	            {min: 2000, max: 10000, label: '贫困人口:  2千到1万人', color: '#e6e874'},
+	            {min: 1, max: 2000, label: '贫困人口:  小于2千人', color: '#f0dfdf'}
 	        ],
 	        left: 100,
 //	        color: ['#BF3030', '#FF4040', '#FF7373']
-			color: ['black','red','#FF7373']
+//			color: ['black','red','#FF7373']
 		},
 		series : [{
 			name: '贫困人口现状',
@@ -132,7 +132,7 @@ function map(){
 		echarts.registerMap(map_name, geoJson);//注册可用的地图，必须在包括 geo 组件或者 map 图表类型的时候才能使用
 		myChart_1.setOption(option_map);
 		myChart_1.on('click', function (params) {
-		    console.log(params);
+//		    console.log(params);
 		    if(params.name=="呼和浩特市"){
 		    	$("#shi_1").click();
 		    }else if(params.name=="包头市"){
