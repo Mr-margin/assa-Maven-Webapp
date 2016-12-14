@@ -79,14 +79,27 @@ function show_jbqk(){
 	}else{
 		html += '<div class="row"><div class="col-sm-12"><div class="ibox float-e-margins"><div class="ibox-title">';
 		html += '<h5>家庭成员：无</h5><div class="ibox-tools"></div></div><div class="ibox-content"><div class="row" id="hz_pic">';
-		html += '</div></div></div></div></div>';
+		html += '</div>';
+		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">性别</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">民族</div><div class="val-xs-6"><code></code></div></div>';
+		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">文化程度</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">是否在校</div><div class="val-xs-6"><code></code></div></div>';
+		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">健康状况</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">劳动力</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">务工情况</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">务工时间</div><div class="val-xs-6"><code></code></div></div>';
+		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">新农合</div><div class="val-xs-6"><code></code></div>';
+		html += '<div class="col-xs-6">养老保险</div><div class="val-xs-6"><code></code></div>';
+		/*html += '<div class="col-xs-6">政治面貌</div><div class="val-xs-6"><code>'+item.cy_v28+'</code></div>';*/
+		html += '<div class="col-xs-6">现役军人</div><div class="val-xs-6"><code></code></div></div>';
+		html += '</div></div></div></div>';
 	}
 	$("#jiatingchengyuan").html(html);
 
 	//走访情况
+	var html2_1 = '';
+	var sjz_pie={};
 	if (data.data3.length>0) {
-		var html2_1 = '';
-		var sjz_pie={};
 		$.each(data.data3,function(i,item){
 			html2_1 += '<div class="col-sm-12"><div> 走访干部：<strong>'+item.v2+'</strong></div><div><p>走访时间：<code>'+item.v1+'</code></p></div>';
 			if (item.pie != "") {
@@ -102,10 +115,11 @@ function show_jbqk(){
 //			}
 			html2_1 += '<div>走访情况：<p><code>'+item.v3+'</code></p></div></div><div class="col-sm-12">&nbsp;</div>';
 		});
-		$("#zoufangqingkuang").html(html2_1);
 	}else{
-		$("#zoufang").hide();
+		html2_1 += '<div class="col-sm-12"><div> 走访干部：<strong>暂无</strong></div><div><p>走访时间：<code></code></p></div>';
+		html2_1 += '<div>走访情况：<p><code></code></p></div></div><div class="col-sm-12">&nbsp;</div>';
 	}
+	$("#zoufangqingkuang").html(html2_1);
 }
 
 function ajax_async_t(url,data,dataType,async){
