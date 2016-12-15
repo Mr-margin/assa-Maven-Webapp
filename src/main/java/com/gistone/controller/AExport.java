@@ -181,7 +181,7 @@ public class AExport{
 					String V8 =  "".equals(in_list.get(a).get("AA70")) || in_list.get(a).get("AA70") == null ? "" : in_list.get(a).get("AA70").toString();
 					String V8_1 =  "".equals(in_list.get(a).get("AA70ZB")) || in_list.get(a).get("AA70ZB") == null ? "" : in_list.get(a).get("AA70ZB").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_1 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V8_1,V9,V10,V98,V99) VALUES (PKC_1_1_1_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V8_1+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_1 (V1,V2,V3,V4,V5,V6,V7,V8,V8_1,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V8_1+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 //					this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -267,7 +267,7 @@ public class AExport{
 					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_2 (PKID,V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES (PKC_1_1_2_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_2 (V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					//this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -373,7 +373,7 @@ public class AExport{
 					String V8 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V3 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_3 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES (PKC_1_1_3_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_3 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -459,7 +459,7 @@ public class AExport{
 					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_4 (PKID,V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES (PKC_1_1_4_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_4 (V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					//this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -555,7 +555,7 @@ public class AExport{
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V7 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_5 (PKID,V1,V2,V3,V4,V5,V6,V7,V9,V10,V98,V99) VALUES (PKC_1_1_5_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_5 (V1,V2,V3,V4,V5,V6,V7,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					//this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -721,7 +721,7 @@ public class AExport{
 					String V14 =  "".equals(in_list.get(a).get("JK11")) || in_list.get(a).get("JK11") == null ? "" : in_list.get(a).get("JK11").toString();
 					String V15 =  "".equals(in_list.get(a).get("JK12")) || in_list.get(a).get("JK12") == null ? "" : in_list.get(a).get("JK12").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_6 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V16,V11,V12,V13,V14,V15,V9,V10,V98,V99) VALUES (PKC_1_1_6_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V16+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_6 (V1,V2,V3,V4,V5,V6,V7,V8,V16,V11,V12,V13,V14,V15,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V16+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					//this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -927,7 +927,7 @@ public class AExport{
 					String V18 =  "".equals(in_list.get(a).get("JK15")) || in_list.get(a).get("JK15") == null ? "" : in_list.get(a).get("JK15").toString();
 					String V19 =  "".equals(in_list.get(a).get("JK16")) || in_list.get(a).get("JK16") == null ? "" : in_list.get(a).get("JK16").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_7 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V20,V11,V12,V13,V14,V15,V16,V17,V18,V19,V9,V10,V98,V99) VALUES (PKC_1_1_7_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V20+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+V16+"','"+V17+"','"+V18+"','"+V19+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_7 (V1,V2,V3,V4,V5,V6,V7,V8,V20,V11,V12,V13,V14,V15,V16,V17,V18,V19,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V20+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+V16+"','"+V17+"','"+V18+"','"+V19+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					//this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -1004,7 +1004,7 @@ public class AExport{
 					String V4 =  "".equals(in_list.get(a).get("JK02")) || in_list.get(a).get("JK02") == null ? "" : in_list.get(a).get("JK02").toString();
 					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_8 (PKID,V1,V2,V3,V4,V5,V9,V10,V98,V99) VALUES (PKC_1_1_8_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_8 (V1,V2,V3,V4,V5,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
@@ -1110,7 +1110,7 @@ public class AExport{
 					String V7 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V8 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_9 (PKID,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES (PKC_1_1_9_A.nextval,'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					String insql = "insert into PKC_1_1_9 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
