@@ -50,6 +50,13 @@ $(function () {
 });
 
 var option_map = {
+		title : {
+            text : '贫困人口数量',
+            padding: [10, 105],
+            textStyle:{
+				fontSize:'15'
+			}
+        },
 		tooltip: {
             trigger: 'item',
             formatter: '{b}: {c}'
@@ -59,13 +66,13 @@ var option_map = {
 			orient: 'vertical',
 			top: 30,
 			pieces: [
-	            {min: 200000, label: '贫困人口:  大于20万人', color: '#ff0000'},
-	            {min: 150000, max: 200000, label: '贫困人口:  15万到20万人', color: '#a80c0c'},
-	            {min: 100000, max: 150000, label: '贫困人口:  10万到15万人', color: '#c42f2f'},
-	            {min: 30000, max: 100000, label: '贫困人口:  3万到10万人', color: '#e65050'},
-	            {min: 10000, max: 30000, label: '贫困人口:  1万到3万人', color: '#eaed2b'},
-	            {min: 2000, max: 10000, label: '贫困人口:  2千到1万人', color: '#e6e874'},
-	            {min: 1, max: 2000, label: '贫困人口:  小于2千人', color: '#f0dfdf'}
+	            {min: 200000, label: '大于20万人', color: '#ff0000'},
+	            {min: 150000, max: 200000, label: '15万到20万人', color: '#a80c0c'},
+	            {min: 100000, max: 150000, label: '10万到15万人', color: '#c42f2f'},
+	            {min: 30000, max: 100000, label: '3万到10万人', color: '#e65050'},
+	            {min: 10000, max: 30000, label: '1万到3万人', color: '#eaed2b'},
+	            {min: 2000, max: 10000, label: '2千到1万人', color: '#e6e874'},
+	            {min: 1, max: 2000, label: '小于2千人', color: '#f0dfdf'}
 	        ],
 	        left: 100,
 //	        color: ['#BF3030', '#FF4040', '#FF7373']
@@ -74,7 +81,7 @@ var option_map = {
 		series : [{
 			name: '贫困人口现状',
 			type: 'map',
-			roam: true,
+//			roam: true,
 			left: 30,
 			top: 20,
 			right: 30,

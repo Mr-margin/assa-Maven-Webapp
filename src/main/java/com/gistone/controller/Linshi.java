@@ -87,7 +87,7 @@ public class Linshi {
 				String V6 = Patient_st_map.get("V6")==null?"":Patient_st_map.get("V6").toString().trim();
 				String V8 = Patient_st_map.get("V8")==null?"":Patient_st_map.get("V8").toString().trim();
 				
-				savePath = "D:/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
+				savePath = "E:/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				saveUrl	 =request.getContextPath() + "/attached/7/"+V3+"/"+V5+"/"+V7+"/"+V9+"/";
 				getLinshi_6(savePath);//创建文件夹
 				
