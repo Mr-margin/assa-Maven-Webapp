@@ -50,9 +50,9 @@ public class Updatapassword {
 				this.getBySqlMapper.findRecords(sql_2);
 				this.getBySqlMapper.findRecords(sql_3);
 				this.getBySqlMapper.findRecords(sql_5);
-				System.out.println("成功");
+				System.out.println("添加--"+pass+"--成功");
 			} catch (Exception e) {
-				System.err.println("失败");
+				System.err.println("添加--"+pass+"--失败");
 			}
 		}
 	}
