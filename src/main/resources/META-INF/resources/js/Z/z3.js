@@ -353,7 +353,7 @@ $(document).ready(function(){
 				marker.addEventListener("click",function(e) {
 					$("h3.search-title").html(item.V9);
 					cun_code = item.V10;//记录当前选择村的ID
-					
+					$("#cunbianhao").html(cun_code);//贫困村编号
 					if(item.STATUS){
 		 				$("span.search-sign").show();//贫困
 		 			}else{
@@ -422,6 +422,37 @@ $(document).ready(function(){
 									$("#renjunchunshouru_f").html("&nbsp;");
 								}
 								$("#bangfudanwei").html("有");//帮扶单位//有无
+								$('#def_info_win').show();
+							    $('#def_info_win').removeClass().addClass('bounceInDown animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+							    	$(this).removeClass();
+								});
+							}else{
+								$("#pinkunhu_info").hide();
+								
+								$("h3.search-title").html(item.V9+"-<code>暂无数据</code>");
+								
+								$("#pinkunhu").html("&nbsp;");//贫困户数
+								$("#pinkunhu_f").html("&nbsp;");
+								
+								$("#pinkunrenkou").html("&nbsp;");//贫困 人数
+								$("#pinkunrenkou_f").html("&nbsp;");
+								
+								$("#cunshouru").html("&nbsp;");//村集体收入
+								$("#cunshouru_f").html("&nbsp;");
+								
+								$("#cungongzuodui").html("&nbsp;");//驻村工作队
+								
+								$("#zirancun").html("&nbsp;");//自然村
+								$("#zirancun_f").html("&nbsp;");
+								
+								$("#fuzerenname").html("&nbsp;");//负责人姓名
+
+								$("#lianxidianhua").html("&nbsp;");//联系电话
+								
+								$("#renjunchunshouru").html("&nbsp;");//农民人均纯收入
+								$("#renjunchunshouru_f").html("&nbsp;");
+								
+								$("#bangfudanwei").html("&nbsp;");//帮扶单位//有无
 								$('#def_info_win').show();
 							    $('#def_info_win').removeClass().addClass('bounceInDown animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 							    	$(this).removeClass();
