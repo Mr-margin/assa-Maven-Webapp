@@ -1,70 +1,50 @@
- 
-
-CREATE OR REPLACE TRIGGER DA_COMPANY_REP 
-BEFORE INSERT ON DA_COMPANY FOR EACH ROW WHEN (new.pkid is null)
+CREATE OR REPLACE TRIGGER PKC_1_1_1_REP 
+BEFORE INSERT ON PKC_1_1_1 FOR EACH ROW WHEN (new.pkid is null)
 begin
-select DA_COMPANY_SEQ.nextval into:new.pkid from dual;
+select PKC_1_1_1_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_2_REP 
+BEFORE INSERT ON PKC_1_1_2 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_2_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_3_REP 
+BEFORE INSERT ON PKC_1_1_3 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_3_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_4_REP 
+BEFORE INSERT ON PKC_1_1_4 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_4_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_5_REP 
+BEFORE INSERT ON PKC_1_1_5 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_5_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_6_REP 
+BEFORE INSERT ON PKC_1_1_6 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_6_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_7_REP 
+BEFORE INSERT ON PKC_1_1_7 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_7_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_8_REP 
+BEFORE INSERT ON PKC_1_1_8 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_8_SEQ.nextval into:new.pkid from dual;
+end;
+CREATE OR REPLACE TRIGGER PKC_1_1_9_REP 
+BEFORE INSERT ON PKC_1_1_9 FOR EACH ROW WHEN (new.pkid is null)
+begin
+select PKC_1_1_9_SEQ.nextval into:new.pkid from dual;
 end;
 
 
-
-
-CREATE OR REPLACE TRIGGER DA_CURRENT_EXPENDITURE_REP 
-BEFORE INSERT ON DA_CURRENT_EXPENDITURE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_CURRENT_EXPENDITURE_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-
-CREATE OR REPLACE TRIGGER DA_CURRENT_INCOME_REP 
-BEFORE INSERT ON DA_CURRENT_INCOME FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_CURRENT_INCOME_SEQ.nextval into:new.pkid from dual;
-end;
-
-
- 
-
-CREATE OR REPLACE TRIGGER DA_HELP_INFO_REP 
-BEFORE INSERT ON DA_HELP_INFO FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELP_INFO_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER DA_HELP_MEASURES_REP 
-BEFORE INSERT ON DA_HELP_MEASURES FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELP_MEASURES_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER DA_HELP_PLAN_REP 
-BEFORE INSERT ON DA_HELP_PLAN FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELP_PLAN_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_HELP_RESULTS_REP 
-BEFORE INSERT ON DA_HELP_RESULTS FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELP_RESULTS_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-
-CREATE OR REPLACE TRIGGER DA_HELP_TZ_MEASURES_REP 
-BEFORE INSERT ON DA_HELP_TZ_MEASURES FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELP_TZ_MEASURES_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
 
 CREATE OR REPLACE TRIGGER DA_HELP_VISIT_REP 
 BEFORE INSERT ON DA_HELP_VISIT FOR EACH ROW WHEN (new.pkid is null)
@@ -72,169 +52,30 @@ begin
 select DA_HELP_VISIT_SEQ.nextval into:new.pkid from dual;
 end;
 
-
-CREATE OR REPLACE TRIGGER DA_HELPBACK_EXPENDITURE_REP 
-BEFORE INSERT ON DA_HELPBACK_EXPENDITURE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELPBACK_EXPENDITURE_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_HELPBACK_INCOME_REP 
-BEFORE INSERT ON DA_HELPBACK_INCOME FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HELPBACK_INCOME_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_HOUSEHOLD_REP 
-BEFORE INSERT ON DA_HOUSEHOLD FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HOUSEHOLD_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER DA_HOUSEHOLD_BASIC_REP 
-BEFORE INSERT ON DA_HOUSEHOLD_BASIC FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HOUSEHOLD_BASIC_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
-
-CREATE OR REPLACE TRIGGER DA_HOUSEHOLD_DEL_REP 
-BEFORE INSERT ON DA_HOUSEHOLD_DEL FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HOUSEHOLD_DEL_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_HOUSEHOLD_DEL_REP 
-BEFORE INSERT ON DA_HOUSEHOLD_DEL FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HOUSEHOLD_DEL_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
-
-CREATE OR REPLACE TRIGGER DA_HOUSEHOLD_MOVE_REP 
-BEFORE INSERT ON DA_HOUSEHOLD_MOVE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_HOUSEHOLD_MOVE_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER DA_LIFE_REP 
-BEFORE INSERT ON DA_LIFE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_LIFE_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER DA_MEMBER_REP 
-BEFORE INSERT ON DA_MEMBER FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_MEMBER_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_MEMBER_DEL_REP 
-BEFORE INSERT ON DA_MEMBER_DEL FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_MEMBER_DEL_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER DA_MOVE_STATISTICS_REP 
-BEFORE INSERT ON DA_MOVE_STATISTICS FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_MOVE_STATISTICS_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
-
 CREATE OR REPLACE TRIGGER DA_PIC_REP 
 BEFORE INSERT ON DA_PIC FOR EACH ROW WHEN (new.pkid is null)
 begin
 select DA_PIC_SEQ.nextval into:new.pkid from dual;
 end;
 
-
-
-CREATE OR REPLACE TRIGGER DA_PRODUCTION_REP 
-BEFORE INSERT ON DA_PRODUCTION FOR EACH ROW WHEN (new.pkid is null)
+CREATE OR REPLACE TRIGGER DA_PIC_CODE_REP 
+BEFORE INSERT ON DA_PIC_CODE FOR EACH ROW WHEN (new.pkid is null)
 begin
-select DA_PRODUCTION_SEQ.nextval into:new.pkid from dual;
+select DA_PIC_CODE_SEQ.nextval into:new.pkid from dual;
 end;
 
-
-
-CREATE OR REPLACE TRIGGER DA_RECORD_REP 
-BEFORE INSERT ON DA_RECORD FOR EACH ROW WHEN (new.pkid is null)
+CREATE OR REPLACE TRIGGER DA_PIC_HOUSEHOLD_REP 
+BEFORE INSERT ON DA_PIC_HOUSEHOLD FOR EACH ROW WHEN (new.pkid is null)
 begin
-select DA_RECORD_SEQ.nextval into:new.pkid from dual;
+select DA_PIC_HOUSEHOLD_SEQ.nextval into:new.pkid from dual;
 end;
 
-
-CREATE OR REPLACE TRIGGER DA_STATISTICS_REP 
-BEFORE INSERT ON DA_STATISTICS FOR EACH ROW WHEN (new.pkid is null)
+CREATE OR REPLACE TRIGGER DA_PIC_VISIT_REP 
+BEFORE INSERT ON DA_PIC_VISIT FOR EACH ROW WHEN (new.pkid is null)
 begin
-select DA_STATISTICS_SEQ.nextval into:new.pkid from dual;
+select DA_PIC_VISIT_SEQ.nextval into:new.pkid from dual;
 end;
 
- 
-
-CREATE OR REPLACE TRIGGER DA_WORK_TZ_REP 
-BEFORE INSERT ON DA_WORK_TZ FOR EACH ROW WHEN (new.pkid is null)
-begin
-select DA_WORK_TZ_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER METADATA_ST_REP 
-BEFORE INSERT ON METADATA_ST FOR EACH ROW WHEN (new.pkid is null)
-begin
-select METADATA_ST_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER METADATA_TABLE_REP 
-BEFORE INSERT ON METADATA_TABLE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select METADATA_TABLE_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
-
-CREATE OR REPLACE TRIGGER METADATA_TABLE_ST_REP 
-BEFORE INSERT ON METADATA_TABLE_ST FOR EACH ROW WHEN (new.pkid is null)
-begin
-select METADATA_TABLE_ST_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER METADATA_UP_REP 
-BEFORE INSERT ON METADATA_UP FOR EACH ROW WHEN (new.pkid is null)
-begin
-select METADATA_UP_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-CREATE OR REPLACE TRIGGER METADATA_VIEW_REP 
-BEFORE INSERT ON METADATA_VIEW FOR EACH ROW WHEN (new.pkid is null)
-begin
-select METADATA_VIEW_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
 
 CREATE OR REPLACE TRIGGER SYS_COMPANY_FUNCTION_MANY_REP 
 BEFORE INSERT ON SYS_COMPANY_FUNCTION_MANY FOR EACH ROW WHEN (new.pkid is null)
@@ -242,15 +83,11 @@ begin
 select SYS_COMPANY_FUNCTION_MANY_SEQ.nextval into:new.pkid from dual;
 end;
 
-
-
 CREATE OR REPLACE TRIGGER SYS_FUNCTION_REP 
 BEFORE INSERT ON SYS_FUNCTION FOR EACH ROW WHEN (new.pkid is null)
 begin
 select SYS_FUNCTION_SEQ.nextval into:new.pkid from dual;
 end;
-
- 
 
 CREATE OR REPLACE TRIGGER SYS_PERMISSION_REP 
 BEFORE INSERT ON SYS_PERMISSION FOR EACH ROW WHEN (new.pkid is null)
@@ -258,40 +95,7 @@ begin
 select SYS_PERMISSION_SEQ.nextval into:new.pkid from dual;
 end;
 
- 
 
-CREATE OR REPLACE TRIGGER SYS_PERMISSION_ROLE_MANY_REP 
-BEFORE INSERT ON SYS_PERMISSION_ROLE_MANY FOR EACH ROW WHEN (new.pkid is null)
-begin
-select SYS_PERMISSION_ROLE_MANY_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-CREATE OR REPLACE TRIGGER SYS_PERSONAL_REP 
-BEFORE INSERT ON SYS_PERSONAL FOR EACH ROW WHEN (new.pkid is null)
-begin
-select SYS_PERSONAL_SEQ.nextval into:new.pkid from dual;
-end;
-
-
-
-
-CREATE OR REPLACE TRIGGER SYS_PERSONAL_H_M_REP 
-BEFORE INSERT ON SYS_PERSONAL_HOUSEHOLD_MANY FOR EACH ROW WHEN (new.pkid is null)
-begin
-select SYS_PERSONAL_H_M_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
-
-CREATE OR REPLACE TRIGGER SYS_ROLE_REP 
-BEFORE INSERT ON SYS_ROLE FOR EACH ROW WHEN (new.pkid is null)
-begin
-select SYS_ROLE_SEQ.nextval into:new.pkid from dual;
-end;
-
- 
 
 CREATE OR REPLACE TRIGGER SYS_USER_REP 
 BEFORE INSERT ON SYS_USER FOR EACH ROW WHEN (new.pkid is null)
@@ -299,10 +103,20 @@ begin
 select SYS_USER_SEQ.nextval into:new.pkid from dual;
 end;
 
- 
-
 CREATE OR REPLACE TRIGGER SYS_USER_ROLE_MANY_REP 
 BEFORE INSERT ON SYS_USER_ROLE_MANY FOR EACH ROW WHEN (new.pkid is null)
 begin
 select SYS_USER_ROLE_MANY_SEQ.nextval into:new.pkid from dual;
+end;
+
+CREATE OR REPLACE TRIGGER SYS_PERSONAL_H_M_REP 
+BEFORE INSERT ON SYS_PERSONAL_HOUSEHOLD_MANY FOR EACH ROW WHEN (new.pkid is null)
+begin
+select SYS_PERSONAL_H_M_SEQ.nextval into:new.pkid from dual;
+end;
+
+CREATE OR REPLACE TRIGGER SYS_ROLE_REP 
+BEFORE INSERT ON SYS_ROLE FOR EACH ROW WHEN (new.pkid is null)
+begin
+select SYS_ROLE_SEQ.nextval into:new.pkid from dual;
 end;
