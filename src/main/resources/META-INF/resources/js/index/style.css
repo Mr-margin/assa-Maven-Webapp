@@ -65,7 +65,7 @@ br {
 #code,#code_hover{width:40px;height:195px;background:url(images/icon.png) no-repeat;position:fixed;cursor:pointer; left::0px;}
 #code{background-position: -189px 0px;bottom:390px;_margin-bottom:390px; z-index:9999;}
 #code_hover{background-position: -189px 0px;bottom:390px;_margin-bottom:390px;z-index:9998;}
-#code_img{width:220px;height:355px;
+/* #code_img{width:220px;height:355px;
 background: url(images/icon.png) 52px 89px no-repeat;
 z-index:9996;
 position:fixed;
@@ -75,7 +75,18 @@ cursor:pointer;
 display:none;
 _position:absolute;
 _bottom:auto;
-_margin-bottom:67px;}
+_margin-bottom:67px;} */
+#code_img{width:944px;height:476px;
+background: url(images/iconerwei.png) 0px 0px no-repeat;
+z-index:9996;
+position:fixed;
+left:0px;
+bottom:290px;
+cursor:pointer;
+display:none;
+_position:absolute;
+_bottom:auto;
+_margin-bottom:0px;}
 /*返回顶部结束*/
 
 /* 登录主体 */
