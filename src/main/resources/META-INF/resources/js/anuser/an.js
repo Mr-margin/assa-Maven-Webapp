@@ -80,18 +80,6 @@ function show_jbqk(){
 		html += '<div class="row"><div class="col-sm-12"><div class="ibox float-e-margins"><div class="ibox-title">';
 		html += '<h5>家庭成员：无</h5><div class="ibox-tools"></div></div><div class="ibox-content"><div class="row" id="hz_pic">';
 		html += '</div>';
-		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">性别</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">民族</div><div class="val-xs-6"><code></code></div></div>';
-		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">文化程度</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">是否在校</div><div class="val-xs-6"><code></code></div></div>';
-		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">健康状况</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">劳动力</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">务工情况</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">务工时间</div><div class="val-xs-6"><code></code></div></div>';
-		html += '<div class="row show-grid-hui show-grid-white"><div class="col-xs-6">新农合</div><div class="val-xs-6"><code></code></div>';
-		html += '<div class="col-xs-6">养老保险</div><div class="val-xs-6"><code></code></div>';
-		/*html += '<div class="col-xs-6">政治面貌</div><div class="val-xs-6"><code>'+item.cy_v28+'</code></div>';*/
-		html += '<div class="col-xs-6">现役军人</div><div class="val-xs-6"><code></code></div></div>';
 		html += '</div></div></div></div>';
 	}
 	$("#jiatingchengyuan").html(html);
