@@ -58,14 +58,16 @@ public class WyApp_y2 {
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
 		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008 from ( "
-				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number "
-				+ " where AAR008 in("+whereSQL+") order by v1 desc "
+				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
+				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") order by v1 desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number+"  ORDER BY v1 desc ";
 		
-		String count_sql = " select count(*) from DA_HELP_VISIT d1 join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
+		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
 		
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
+		
+		System.out.println(sql);
 		
 		int count = this.getBySqlMapper.findrows(count_sql);//总记录条数
 //		int pinkuncount = this.getBySqlMapper.findrows(pingkun_count_sql);//总贫困户数

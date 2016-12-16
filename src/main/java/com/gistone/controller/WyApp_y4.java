@@ -75,7 +75,8 @@ public class WyApp_y4 {
 		
 		String household_name = request.getParameter("name");
 		String household_card = request.getParameter("card");
-		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' and v3 is not null and v1 is not null ORDER BY V1 DESC ";
+		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' ORDER BY V1 DESC ";
+//		String sql = "select household_name,personal_name,v1,v3,random_number from da_help_visit where household_name ='"+household_name+"' AND  household_card='"+household_card+"' and v3 is not null and v1 is not null ORDER BY V1 DESC ";
 		String pic = "";
 		
 		JSONArray json = new JSONArray();
