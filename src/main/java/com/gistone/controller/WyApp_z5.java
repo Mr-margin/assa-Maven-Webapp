@@ -91,7 +91,7 @@ public class WyApp_z5 {
 		}
 		String sql_31 = "SELECT v10,AAD010 FROM("
 				+ "SELECT V10 FROM SYS_COM WHERE V6='"+code+"' OR V4='"+code+"')a1 LEFT JOIN("
-				+ "SELECT AAD001,AAD010 FROM NM09_AD08 GROUP BY AAD001,AAD010)a2 ON a1.V10=A2.AAD001 WHERE AAD010 IS NOT NULL";
+				+ "SELECT AAD001,SUM(AAD010) AAD010 FROM NM09_AD08 GROUP BY AAD001)a2 ON a1.V10=A2.AAD001 WHERE AAD010 IS NOT NULL";
 		List<Map> list_31 = this.getBySqlMapper.findRecords(sql_31);
 		int c2 = 0;
 		if(!list_31.isEmpty()){
@@ -100,7 +100,14 @@ public class WyApp_z5 {
 				c2 += Integer.parseInt("".equals(Patient_st_map.get("AAD010")) || Patient_st_map.get("AAD010") == null ? "0" : Patient_st_map.get("AAD010").toString());
 			}
 		}
-		object.put("c_2", jisuan(c2,a1));
+		
+		String sql_32 = "SELECT VF5 FROM PKC_1_3_3 WHERE v10='"+code+"'";
+		List<Map> list_32 = this.getBySqlMapper.findRecords(sql_32);
+		int c3 = 0;
+		if(!list_32.isEmpty()){
+			c3 = Integer.parseInt(list_32.get(0).get("VF5").toString());
+		}
+		object.put("c_2", jisuan(c2,c3));
 		//国家重点旗县
 		String sql_4 = "SELECT * FROM SYS_COMPANY WHERE COM_F_CODE='"+code+"'";
 		List<Map> list_4 = this.getBySqlMapper.findRecords(sql_4);
