@@ -46,6 +46,7 @@ public class WyApp_z5 {
 	 * @throws IOException
 	 * @author 张晓翔
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("z5top_1.do")
 	public void z5top_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");
@@ -80,21 +81,26 @@ public class WyApp_z5 {
 			object.put("b_2", b2);
 			object.put("b_3", jisuan(b1,b2));
 		}
-		//		//村
-		//		String sql_3 = "SELECT * FROM PKC_1_3_1 WHERE COM_CODE ='"+code+"'";
-		//		List<Map> list_3 = this.getBySqlMapper.findRecords(sql_3);
-		//		int c1 = 0;//村数
-		//		int c2 = 0;//一般贫困户数
-		//		if(!list_2.isEmpty()){
-		//			for(int i = 0;i<list_2.size();i++){
-		//				Map Patient_st_map = list_2.get(i);
-		//				c1 += Integer.parseInt("".equals(Patient_st_map.get("Z_HU")) || Patient_st_map.get("Z_HU") == null ? "0" : Patient_st_map.get("Z_HU").toString());
-		//				c2 += Integer.parseInt("".equals(Patient_st_map.get("V1")) || Patient_st_map.get("V1") == null ? "0" : Patient_st_map.get("V1").toString());
-		//			}
-		//			object.put("c_1", b1);
-		//			object.put("c_2", b2);
-		//		}
-		
+		//村
+		String sql_3 = "SELECT * FROM PKC_1_3_1 WHERE V10 ='"+code+"'";
+		List<Map> list_3 = this.getBySqlMapper.findRecords(sql_3);
+		String c1 = "";//建档立卡行政村数
+		if(!list_3.isEmpty()){
+			c1 = list_3.get(0).get("V2").toString();
+			object.put("c_1", c1);
+		}
+		String sql_31 = "SELECT v10,AAD010 FROM("
+				+ "SELECT V10 FROM SYS_COM WHERE V6='"+code+"' OR V4='"+code+"')a1 LEFT JOIN("
+				+ "SELECT AAD001,AAD010 FROM NM09_AD08 GROUP BY AAD001,AAD010)a2 ON a1.V10=A2.AAD001 WHERE AAD010 IS NOT NULL";
+		List<Map> list_31 = this.getBySqlMapper.findRecords(sql_31);
+		int c2 = 0;
+		if(!list_31.isEmpty()){
+			for(int i = 0;i<list_31.size();i++){
+				Map Patient_st_map = list_31.get(i);
+				c2 += Integer.parseInt("".equals(Patient_st_map.get("AAD010")) || Patient_st_map.get("AAD010") == null ? "0" : Patient_st_map.get("AAD010").toString());
+			}
+		}
+		object.put("c_2", jisuan(c2,a1));
 		//国家重点旗县
 		String sql_4 = "SELECT * FROM SYS_COMPANY WHERE COM_F_CODE='"+code+"'";
 		List<Map> list_4 = this.getBySqlMapper.findRecords(sql_4);
