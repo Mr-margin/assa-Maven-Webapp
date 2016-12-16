@@ -242,7 +242,7 @@ function tu_click(pkid){
  * @param role_id
  */
 function cha_shu (name,code,role_id) {
-	if( role_id == '2' ) {
+	if( role_id == '2'  || role_id == '1') {
 		return ;
 	}
 	
