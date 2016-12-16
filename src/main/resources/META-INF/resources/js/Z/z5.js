@@ -42,13 +42,17 @@ var code = jsondata.Login_map.SYS_COM_CODE;
 //获取上方四个数据
 function getdata_1(){
 	var data = ajax_async_t(GISTONE.Loader.basePath+"z5top_1.do", {code:code}, "json");
+	//人
 	$("#pkrk_1").html(data["a_1"]);
 	$("#pkrk_2").html("<br>"+data["a_2"]+"人("+data["a_3"]+"%)");
+	//户
 	$("#pkh_1").html(data["b_1"]);
 	$("#pkh_2").html("<br>"+data["b_2"]+"户("+data["b_3"]+"%)");
+	//村
+	$("#jdlkxzc").html(data["c_1"]);
+	$("#pkfsl").html("<br>"+data["c_2"]+"%");
 
-
-
+	//县
 	if(code.substr(4, 8)=="00000000"){
 		$("#gjzdqx").html(data["d_1"]);
 		$("#zzqzdqx").html("<br>"+data["d_2"]+"个");
@@ -98,7 +102,7 @@ function bar1(){
 	var myChart1 = echarts.init(document.getElementById('hfccs'));//声明id为mapChart的div为图形dom 
 	var data1 = ajax_async_t(GISTONE.Loader.basePath+"z5top_3.do", {code:code}, "json");
 	if(data1==0){
-		$("#hfccs").html("暂无数据");
+		$("#hfccs").html('<img class="center-block" src="../img/wu.png">');
 	}else{
 		var count=[];
 		var count2=[];
