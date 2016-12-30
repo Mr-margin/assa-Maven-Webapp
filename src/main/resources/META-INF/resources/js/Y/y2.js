@@ -156,7 +156,7 @@ $(function () {
 						}
 						
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
-						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+sqlJson[i].lng+"','"+sqlJson[i].lat+"','"+sqlJson[i].writer+"')\">"+sqlJson[i].writer+"</a></span></div></li>";
+						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+sqlJson[i].lng+"','"+sqlJson[i].lat+"','"+sqlJson[i].writer+"')\">东经:"+sqlJson[i].lng+"  北纬:"+sqlJson[i].lat+"</a></span></div></li>";
 					}
 					$(html).find('img').each(function(index){
 						loadImage($(this).attr('src'));
@@ -308,7 +308,7 @@ function open_map(lng,lat,title){
 	//清除覆盖物
 	$("#map_Modal").modal();
 	map.clearOverlays(); 
-	$("#map_title").html("贫困户位置："+title);
+	$("#map_title").html("走访地点："+"东经:"+lng+"  北纬:"+lat+"");
 	
 	setTimeout(function(){
 		var point= new BMap.Point(lng, lat);
