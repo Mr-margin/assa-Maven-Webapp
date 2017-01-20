@@ -158,7 +158,7 @@ $(function () {
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
 						var dj = parseFloat(sqlJson[i].lng).toFixed(2);
 						var bw = parseFloat(sqlJson[i].lat).toFixed(2);
-						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+sqlJson[i].lng+"','"+sqlJson[i].lat+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
+						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
 					}
 					$(html).find('img').each(function(index){
 						loadImage($(this).attr('src'));
