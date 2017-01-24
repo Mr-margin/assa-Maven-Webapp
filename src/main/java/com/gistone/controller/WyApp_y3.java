@@ -69,9 +69,9 @@ public class WyApp_y3{
 	public void getWyApp_y3_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("pkid");
 		String sql = "SELECT a1.AAC001 acid,a1.AAR008 code,pkid,v6,v21,v22,v23 FROM("+
-				" SELECT AAC001,AAR008,AAR010 v21,AAC006 v22,AAC007 v23 FROM NM09_AC01 WHERE AAD001='"+code+"' AND AAR040='2015' AND AAR010='0'"+
+				" SELECT AAC001,AAR008,AAR010 v21,AAC006 v22,AAC007 v23 FROM NEIMENG0117_AC01 WHERE AAD001='"+code+"' AND AAR040='2016' AND AAR010='0'"+
 				" )a1 LEFT JOIN ("+
-				"SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NM09_AB01 WHERE  AAR040='2015' AND AAB006=01 )a2 ON a1.AAC001=A2.AAC001 ORDER BY v6"; //sql语句替换的
+				"SELECT AAB001 pkid,AAC001,AAB002 v6 FROM NEIMENG0117_AB01 WHERE  AAR040='2016' AND AAB006=01 )a2 ON a1.AAC001=A2.AAC001 ORDER BY v6"; //sql语句替换的
 		SW4_Controller sw4=new SW4_Controller();
 		JSONArray json = new JSONArray();
 		List<Map> list = this.getBySqlMapper.findRecords(sql);

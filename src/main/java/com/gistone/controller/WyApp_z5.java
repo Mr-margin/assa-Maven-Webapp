@@ -91,7 +91,7 @@ public class WyApp_z5 {
 		}
 		String sql_31 = "SELECT v10,AAD010 FROM("
 				+ "SELECT V10 FROM SYS_COM WHERE V6='"+code+"' OR V4='"+code+"')a1 LEFT JOIN("
-				+ "SELECT AAD001,SUM(AAD010) AAD010 FROM NM09_AD08 GROUP BY AAD001)a2 ON a1.V10=A2.AAD001 WHERE AAD010 IS NOT NULL";
+				+ "SELECT AAD001,SUM(AAD010) AAD010 FROM NEIMENG0117_AD08 GROUP BY AAD001)a2 ON a1.V10=A2.AAD001 WHERE AAD010 IS NOT NULL";
 		List<Map> list_31 = this.getBySqlMapper.findRecords(sql_31);
 		int c2 = 0;
 		if(!list_31.isEmpty()){
