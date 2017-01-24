@@ -691,7 +691,7 @@ public class PKC_1_2_Controller {
 					" SELECT SUM(V2) NUM1,'150000000000' v10 FROM PKC_1_1_0 WHERE V98='2' "+
 					" )B  ON AA.AAR002=B.V10";
 			sql1 = "select count（*）num from (select AAC001 from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and AAR002='150000000000'"+
-				" ) a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
+				" ) a left join (select * from NEIMENG0117_AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
 		}else {
 			ar = Integer.parseInt(dqname.substring(1,2));
 			if(ar == 4){
@@ -710,7 +710,7 @@ public class PKC_1_2_Controller {
 						" SELECT V10,SUM(V2) NUM1 FROM PKC_1_1_0 WHERE V98='"+v98+"' GROUP BY V10 "+
 						" )B ON AA.AAR00"+ar+"=B.V10 ";
 			sql1="select count（*）num from (select AAC001 from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and AAR00"+ar+"='"+dqcode+"'"+
-				") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
+				") a left join (select * from NEIMENG0117_AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
 		}
 		
 		/* sql="SELECT NUM,num1,AAR00"+ar+" xz FROM ( "+
