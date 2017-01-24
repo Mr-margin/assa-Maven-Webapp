@@ -74,13 +74,25 @@ public class AExport{
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String V98 =  "".equals(in_list.get(a).get("SS")) || in_list.get(a).get("SS") == null ? "" : in_list.get(a).get("SS").toString();
 					String V99 =  "".equals(in_list.get(a).get("VV")) || in_list.get(a).get("VV") == null ? "" : in_list.get(a).get("VV").toString();
-					String insql = "insert into PKC_1_1_0 (V1,V2,V5,V6,v9,V10,V98,V99) VALUES ("+
-							"'"+V1+"','"+V2+"','"+V5+"','"+V6+"','"+V9+"','"+V10+"','"+V98+"','"+V99+"')";
-//					this.getBySqlMapper.insert(insql);
+					
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_0 (V1,V2,V5,V6,v9,V10,V98,V99,V5_1,V6_1) VALUES ("+
+							"'"+V1+"','"+V2+"','"+V5+"','"+V6+"','"+V9+"','"+V10+"','"+V98+"','"+V99+"','"+V5_1+"','"+V6_1+"')";
+					this.getBySqlMapper.insert(insql);
 				}
-				//System.out.println(sql);
 			}
 		}
+		System.out.println("PKC_1_1_0结束");
 	}
 	/**
 	 * 贫困人口年龄分组
@@ -182,10 +194,11 @@ public class AExport{
 					String V8_1 =  "".equals(in_list.get(a).get("AA70ZB")) || in_list.get(a).get("AA70ZB") == null ? "" : in_list.get(a).get("AA70ZB").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String insql = "insert into PKC_1_1_1 (V1,V2,V3,V4,V5,V6,V7,V8,V8_1,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V8_1+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-//					this.getBySqlMapper.insert(insql);
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_1结束");
 	}
 	/**
 	 * 身体健康状况
@@ -256,9 +269,7 @@ public class AExport{
 				sql +=")Q5 ON Q1.XZ=Q5.AAR00"+ar+" ";
 
 				List<Map> in_list = this.getBySqlMapper.findRecords(sql);
-
 				System.out.println(sql);
-
 				for( int a = 0 ; a < in_list.size(); a++ ) {
 					String V1 = "".equals(in_list.get(a).get("XZQH")) || in_list.get(a).get("XZQH") == null ? "" : in_list.get(a).get("XZQH").toString();
 					String V2 = "".equals(in_list.get(a).get("NUM")) || in_list.get(a).get("NUM") == null ? "" : in_list.get(a).get("NUM").toString();
@@ -268,10 +279,11 @@ public class AExport{
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
 					String insql = "insert into PKC_1_1_2 (V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_2结束");
 	}
 	/**
 	 * 身体健康状况
@@ -373,11 +385,41 @@ public class AExport{
 					String V8 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V3 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_3 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					double V7_1 = 0.00;
+					double V8_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+						if(!V7.equals("")){
+							V7_1 = (Double.parseDouble(V7)/Double.parseDouble(V2))*100;
+						}
+						if(!V8.equals("")){
+							V8_1 = (Double.parseDouble(V8)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_3 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1,V7_1,V8_1) "
+							+ "VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"','"+V7_1+"','"+V8_1+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_3结束");
 	}
 	/**
 	 * 劳动能力
@@ -459,11 +501,33 @@ public class AExport{
 					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_4 (V1,V2,V3,V4,V5,V6,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_4 (V1,V2,V3,V4,V5,V6,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1)"
+							+ " VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"')";
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_4结束");
 	}
 	/**
 	 * 上年度务工情况
@@ -555,11 +619,37 @@ public class AExport{
 					String V6 =  "".equals(in_list.get(a).get("JK04")) || in_list.get(a).get("JK04") == null ? "" : in_list.get(a).get("JK04").toString();
 					String V7 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_5 (V1,V2,V3,V4,V5,V6,V7,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					double V7_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+						if(!V7.equals("")){
+							V7_1 = (Double.parseDouble(V7)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_5 (V1,V2,V3,V4,V5,V6,V7,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1,V7_1)"
+							+ " VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"','"+V7_1+"')";
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_5结束");
 	}
 	/**
 	 * 上年度务工时间
@@ -721,11 +811,65 @@ public class AExport{
 					String V14 =  "".equals(in_list.get(a).get("JK11")) || in_list.get(a).get("JK11") == null ? "" : in_list.get(a).get("JK11").toString();
 					String V15 =  "".equals(in_list.get(a).get("JK12")) || in_list.get(a).get("JK12") == null ? "" : in_list.get(a).get("JK12").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_6 (V1,V2,V3,V4,V5,V6,V7,V8,V16,V11,V12,V13,V14,V15,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V16+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					double V7_1 = 0.00;
+					double V8_1 = 0.00;
+					double V11_1 = 0.00;
+					double V12_1 = 0.00;
+					double V13_1 = 0.00;
+					double V14_1 = 0.00;
+					double V15_1 = 0.00;
+					double V16_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+						if(!V7.equals("")){
+							V7_1 = (Double.parseDouble(V7)/Double.parseDouble(V2))*100;
+						}
+						if(!V8.equals("")){
+							V8_1 = (Double.parseDouble(V8)/Double.parseDouble(V2))*100;
+						}
+						if(!V11.equals("")){
+							V11_1 = (Double.parseDouble(V11)/Double.parseDouble(V2))*100;
+						}
+						if(!V12.equals("")){
+							V12_1 = (Double.parseDouble(V12)/Double.parseDouble(V2))*100;
+						}
+						if(!V13.equals("")){
+							V13_1 = (Double.parseDouble(V13)/Double.parseDouble(V2))*100;
+						}
+						if(!V14.equals("")){
+							V14_1 = (Double.parseDouble(V14)/Double.parseDouble(V2))*100;
+						}
+						if(!V15.equals("")){
+							V15_1 = (Double.parseDouble(V15)/Double.parseDouble(V2))*100;
+						}
+						if(!V16.equals("")){
+							V16_1 = (Double.parseDouble(V16)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_6 (V1,V2,V3,V4,V5,V6,V7,V8,V16,V11,V12,V13,V14,V15,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1,V7_1,V8_1,V11_1,V12_1,V13_1,V14_1,V15_1,V16_1) "
+							+ "VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V16+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"','"+V7_1+"','"+V8_1+"','"+V11_1+"','"+V12_1+"','"+V13_1+"','"+V14_1+"','"+V15_1+"','"+V16_1+"')";
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_6结束");
 	}
 	/**
 	 * 在校生情况
@@ -927,11 +1071,81 @@ public class AExport{
 					String V18 =  "".equals(in_list.get(a).get("JK15")) || in_list.get(a).get("JK15") == null ? "" : in_list.get(a).get("JK15").toString();
 					String V19 =  "".equals(in_list.get(a).get("JK16")) || in_list.get(a).get("JK16") == null ? "" : in_list.get(a).get("JK16").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_7 (V1,V2,V3,V4,V5,V6,V7,V8,V20,V11,V12,V13,V14,V15,V16,V17,V18,V19,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V20+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+V16+"','"+V17+"','"+V18+"','"+V19+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
-					//this.getBySqlMapper.insert(insql);
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					double V7_1 = 0.00;
+					double V8_1 = 0.00;
+					double V11_1 = 0.00;
+					double V12_1 = 0.00;
+					double V13_1 = 0.00;
+					double V14_1 = 0.00;
+					double V15_1 = 0.00;
+					double V16_1 = 0.00;
+					double V17_1 = 0.00;
+					double V18_1 = 0.00;
+					double V19_1 = 0.00;
+					double V20_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+						if(!V7.equals("")){
+							V7_1 = (Double.parseDouble(V7)/Double.parseDouble(V2))*100;
+						}
+						if(!V8.equals("")){
+							V8_1 = (Double.parseDouble(V8)/Double.parseDouble(V2))*100;
+						}
+						if(!V11.equals("")){
+							V11_1 = (Double.parseDouble(V11)/Double.parseDouble(V2))*100;
+						}
+						if(!V12.equals("")){
+							V12_1 = (Double.parseDouble(V12)/Double.parseDouble(V2))*100;
+						}
+						if(!V13.equals("")){
+							V13_1 = (Double.parseDouble(V13)/Double.parseDouble(V2))*100;
+						}
+						if(!V14.equals("")){
+							V14_1 = (Double.parseDouble(V14)/Double.parseDouble(V2))*100;
+						}
+						if(!V15.equals("")){
+							V15_1 = (Double.parseDouble(V15)/Double.parseDouble(V2))*100;
+						}
+						if(!V16.equals("")){
+							V16_1 = (Double.parseDouble(V16)/Double.parseDouble(V2))*100;
+						}
+						if(!V17.equals("")){
+							V17_1 = (Double.parseDouble(V17)/Double.parseDouble(V2))*100;
+						}
+						if(!V18.equals("")){
+							V18_1 = (Double.parseDouble(V18)/Double.parseDouble(V2))*100;
+						}
+						if(!V19.equals("")){
+							V19_1 = (Double.parseDouble(V19)/Double.parseDouble(V2))*100;
+						}
+						if(!V20.equals("")){
+							V20_1 = (Double.parseDouble(V20)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_7 (V1,V2,V3,V4,V5,V6,V7,V8,V20,V11,V12,V13,V14,V15,V16,V17,V18,V19,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1,V7_1,V8_1,V11_1,V12_1,V13_1,V14_1,V15_1,V16_1,V17_1,V18_1,V19_1,V20_1) "
+							+ "VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+V20+"','"+V11+"','"+V12+"','"+V13+"','"+V14+"','"+V15+"','"+V16+"','"+V17+"','"+V18+"','"+V19+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"','"+V7_1+"','"+V8_1+"','"+V11_1+"','"+V12_1+"','"+V13_1+"','"+V14_1+"','"+V15_1+"','"+V16_1+"','"+V17_1+"','"+V18_1+"','"+V19_1+"','"+V20_1+"')";
+					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_7结束");
 	}
 	/**
 	 * 贫困人口属性
@@ -1004,11 +1218,29 @@ public class AExport{
 					String V4 =  "".equals(in_list.get(a).get("JK02")) || in_list.get(a).get("JK02") == null ? "" : in_list.get(a).get("JK02").toString();
 					String V5 =  "".equals(in_list.get(a).get("JK03")) || in_list.get(a).get("JK03") == null ? "" : in_list.get(a).get("JK03").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_8 (V1,V2,V3,V4,V5,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+					}
+					
+					String insql = "insert into PKC_1_1_8 (V1,V2,V3,V4,V5,V9,V10,V98,V99,V3_1,V4_1,V5_1) "
+							+ "VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_8结束");
 	}
 	/**
 	 * 适龄人口教育情况
@@ -1110,11 +1342,40 @@ public class AExport{
 					String V7 =  "".equals(in_list.get(a).get("JK05")) || in_list.get(a).get("JK05") == null ? "" : in_list.get(a).get("JK05").toString();
 					String V8 =  "".equals(in_list.get(a).get("JK06")) || in_list.get(a).get("JK06") == null ? "" : in_list.get(a).get("JK06").toString();
 					String V10 =  "".equals(in_list.get(a).get("XZ")) || in_list.get(a).get("XZ") == null ? "" : in_list.get(a).get("XZ").toString();
-					String insql = "insert into PKC_1_1_9 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99) VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"')";
+					
+					double V3_1 = 0.00;
+					double V4_1 = 0.00;
+					double V5_1 = 0.00;
+					double V6_1 = 0.00;
+					double V7_1 = 0.00;
+					double V8_1 = 0.00;
+					if(!V2.equals("")){
+						if(!V3.equals("")){
+							V3_1 = (Double.parseDouble(V3)/Double.parseDouble(V2))*100;
+						}
+						if(!V4.equals("")){
+							V4_1 = (Double.parseDouble(V4)/Double.parseDouble(V2))*100;
+						}
+						if(!V5.equals("")){
+							V5_1 = (Double.parseDouble(V5)/Double.parseDouble(V2))*100;
+						}
+						if(!V6.equals("")){
+							V6_1 = (Double.parseDouble(V6)/Double.parseDouble(V2))*100;
+						}
+						if(!V7.equals("")){
+							V7_1 = (Double.parseDouble(V7)/Double.parseDouble(V2))*100;
+						}
+						if(!V8.equals("")){
+							V8_1 = (Double.parseDouble(V8)/Double.parseDouble(V2))*100;
+						}
+					}
+					String insql = "insert into PKC_1_1_9 (V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V98,V99,V3_1,V4_1,V5_1,V6_1,V7_1,V8_1) "
+							+ "VALUES ('"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V5+"','"+V6+"','"+V7+"','"+V8+"','"+j+"','"+V10+"','"+v98+"','"+V99+"','"+V3_1+"','"+V4_1+"','"+V5_1+"','"+V6_1+"','"+V7_1+"','"+V8_1+"')";
 					this.getBySqlMapper.insert(insql);
 				}
 			}
 		}
+		System.out.println("PKC_1_1_9结束");
 	}
 	/**
 	 * 贫困户的基本信息
