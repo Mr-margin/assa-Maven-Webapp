@@ -292,7 +292,7 @@ public class PKC_1_1_Controller {
 			}
 		}
 
-		src += " ORDER BY V8_1 DESC";
+		src += " ORDER BY TO_BINARY_DOUBLE(V8_1) DESC";
 		sql = sql + src;
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		JSONArray json = new JSONArray();
