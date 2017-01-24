@@ -126,7 +126,7 @@ public class WyApp_y4 {
 			sql+= " ( SELECT NUM,AAR00"+v1+" xz,xzqh FROM (  select  COUNT(*) NUM,AAR00"+v1+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and AAR00"+role+"='"+code+"' GROUP BY AAR00"+v1+"  )AA left join ( ";
 			sql += "  select v"+v2+" xzqh,v"+v3+" from SYS_COM GROUP BY v"+v2+",v"+v3+" )bb ON AA.AAR00"+v1+"=bb.v"+v3+"  where xzqh is not null)w0 LEFT JOIN (";
 			sql +=" select count(AAC001) bfr ,AAR00"+v1+" from (select a.AAC001,AAR00"+v1+" from (select AAC001,AAR00"+v1+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' ";
-			sql +=") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016' ";
+			sql +=") a left join (select * from NEIMENG0117_AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016' ";
 			sql+=" )t1 group BY AAR00"+v1+" )w1 on w0.xz=w1.AAR00"+v1+"";
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		JSONArray json = new JSONArray();
@@ -165,20 +165,20 @@ public class WyApp_y4 {
 		String role = request.getParameter("role");//2省 3市 4 县 5乡 6村
 		//帮扶单位数
 		String dw_sql = "select count(*) num  from (select AP110 from  (select AAR008 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and AAR00"+role+" ='"+code+"' GROUP BY AAR008  ) a "+
-						" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ( "+
+						" LEFT JOIN ( select AAD001,AAP110 from NEIMENG0117_AD07 ) b on a.AAR008=b.AAD001  left join ( "+
 						" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110)"; 
 		List<Map> dw_list = this.getBySqlMapper.findRecords(dw_sql);
 		//驻村对
 		String zcd_sql = "SELECT count(*) num from (select * from ( "+
 						" select AP110,AAP001 from  (select AAR008 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016'and AAR00"+role+" ='"+code+"' GROUP BY AAR008   ) a "+
-						" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ( "+
+						" LEFT JOIN ( select AAD001,AAP110 from NEIMENG0117_AD07 ) b on a.AAR008=b.AAD001  left join ( "+
 						" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110,AAP001"+
 						") aa LEFT JOIN (select AAP001 p001 from NEIMENG0117_ap01 ) bb on aa.AAP001=bb.p001 where p001 is not null)";
 		List<Map> zcd_list = this.getBySqlMapper.findRecords(zcd_sql);
 		//驻村干部
 		String zcgb_sql = "select count(*) num from (select AAB002,AAK030,p011 from (select * from ("+
 							"select AP110,AAP001 from  (select AAR008 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and AAR00"+role+" ='"+code+"' GROUP BY AAR008   ) a "+
-							" LEFT JOIN ( select AAD001,AAP110 from AD07 ) b on a.AAR008=b.AAD001  left join ("+
+							" LEFT JOIN ( select AAD001,AAP110 from NEIMENG0117_AD07 ) b on a.AAR008=b.AAD001  left join ("+
 							" select AAP110 Ap110,AAP001 from AP11)c ON b.AAP110=c.AP110 where AAD001 is not null and AP110 is not null  GROUP BY AP110,AAP001"+
 							") aa LEFT JOIN (select AAP001 p001,AAP011 from NEIMENG0117_ap01 ) bb on aa.AAP001=bb.p001 where p001 is not null) w0"+
 							" left join (select  AAK030,AAB002,AAP011 p011 from NEIMENG0117_AK03)w1 on w0.AAP011=W1.p011 where p011 is not null)";
