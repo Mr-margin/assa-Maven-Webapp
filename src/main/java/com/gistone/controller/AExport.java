@@ -1413,7 +1413,7 @@ public class AExport{
 						sql += "  from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+" ) where AAC006='04' group by AAR00"+ar+")";
 						sql += "w2 on w0.xz=W2.AAR00"+ar+" left join (select AAR00"+ar+", count(*) v9 from   (select AAR00"+ar+",AAC006  from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016'"+
 								" and "+b_sql+") where AAC006='06' group by AAR00"+ar+")w3 on w0.xz=W3.AAR00"+ar+"";
-						System.out.println(sql);
+//						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for ( int a = 0 ; a < in_list.size() ; a ++ ) {
 						String COM_NAME =  in_list.get(a).get("XZQH").toString();
@@ -1638,7 +1638,7 @@ public class AExport{
 						String V98 =  "".equals(in_list.get(a).get("V98")) || in_list.get(a).get("V98") == null ? "0" : in_list.get(a).get("V98").toString();
 						String insql = "insert into PKC_1_2_4 (COM_NAME,Z_HU,V1,V2,TYPE,COM_CODE,V99,V98) VALUES ("+
 										"'"+COM_NAME+"','"+Z_HU+"','"+V1+"','"+zb+"','"+TYPE+"','"+COM_CODE+"','"+V99+"','"+V98+"')";
-//						this.getBySqlMapper.insert(insql);
+						this.getBySqlMapper.insert(insql);
 					}
 			}
 		}
@@ -1778,7 +1778,7 @@ public class AExport{
 						double V14 = (Double.parseDouble(V13)/zong)*100;
 						String insql = "insert into PKC_1_2_6 (COM_NAME,Z_HU,V1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,TYPE,COM_CODE,V99,V98) VALUES ("+
 										"'"+COM_NAME+"','"+Z_HU+"','"+V1+"','"+df.format(V2)+"','"+V3+"','"+df.format(V4)+"','"+V5+"','"+df.format(V6)+"','"+V7+"','"+df.format(V8)+"','"+V9+"','"+df.format(V10)+"','"+V11+"','"+df.format(V12)+"','"+V13+"','"+df.format(V14)+"','"+TYPE+"','"+COM_CODE+"','"+V99+"','"+V98+"')";
-//						this.getBySqlMapper.insert(insql);
+						this.getBySqlMapper.insert(insql);
 					}
 			}
 		}
@@ -1823,7 +1823,7 @@ public class AExport{
 						sql += "select AAR00"+ar+",count(*) v13 from (select AAC001,AAR00"+ar+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"";
 						sql += ") a left join (select AAC001,AAC082 from NEIMENG0117_AC07) b on a.AAC001=b.AAC001 where b.AAC082 >= 2800 group BY AAR00"+ar+")w7 ON w0.xz=w7.AAR00"+ar+"";
 						
-						System.out.println(sql);
+//						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for ( int a = 0 ; a < in_list.size() ; a ++ ) {
 						String COM_NAME =  in_list.get(a).get("XZQH").toString();
@@ -1886,7 +1886,7 @@ public class AExport{
 						sql += "select AAR00"+ar+",count(*) v9 from (select AAC001,AAR00"+ar+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"";
 						sql += ") a left join (select AAC001,AAC320 from NEIMENG0117_AC31 ) b on a.AAC001=b.AAC001 where b.AAC320='99' group BY AAR00"+ar+")w5 ON w0.xz=w5.AAR00"+ar+"";
 						
-						System.out.println(sql);
+//						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for ( int a = 0 ; a < in_list.size() ; a ++ ) {
 						String COM_NAME =  in_list.get(a).get("XZQH").toString();
@@ -1947,7 +1947,7 @@ public class AExport{
 						sql += "select AAR00"+ar+",sum(AAC315) v1 from (select AAC001,AAR00"+ar+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"";
 						sql += ") a left join (select AAC001,AAC315 from NEIMENG0117_AC31 ) b on a.AAC001=b.AAC001  group BY AAR00"+ar+")w5 ON w0.xz=w5.AAR00"+ar+"";
 						
-						System.out.println(sql);
+//						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for ( int a = 0 ; a < in_list.size() ; a ++ ) {
 						String COM_NAME =  in_list.get(a).get("XZQH").toString();
@@ -1988,15 +1988,15 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql = "select NUM, z.xz,z.xzqh,v1,round(v1/num, 2)  v2,round(v3/num,2) v3,round(v4/num,2) v4,round(v5/num,2) v5,round(v6/num,2) v6,round(v7/num,2) v7,round(v8/num,2) v8,round(v8/num1,2) v9,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-						" and AAR040='2015' and "+b_sql+" "+
+				String sql = "select NUM, z.xz,z.xzqh,v1,round(v1/num, 2)  v2,round(v3/num,2) v3,round(v4/num,2) v4,round(v5/num,2) v5,round(v6/num,2) v6,round(v7/num,2) v7,round(v8/num,2) v8,round(v8/num1,2) v9,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
+						" and AAR040='2016' and "+b_sql+" "+
 						" GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 						" xzqh is not null) z "+
 						" LEFT JOIN ("+
 						" SELECT  AAR00"+ar+",SUM(AAC081) v1 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+" )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+" )a "+
 						" LEFT JOIN ("+
 						" SELECT AAC001,AAC081 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001 GROUP BY AAR00"+ar+""+
 						" ) W1 ON W1.AAR00"+ar+"=Z.XZ"+
@@ -2005,7 +2005,7 @@ public class AExport{
 						
 						" SELECT  AAR00"+ar+",SUM(AAC071) V3 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+" "+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+" "+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC071 FROM NEIMENG0117_AC07 "+
@@ -2018,7 +2018,7 @@ public class AExport{
 						
 						" SELECT  AAR00"+ar+",SUM(AAC072) V5 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						
 						" SELECT AAC001,AAC072 FROM NEIMENG0117_AC07"+
@@ -2031,7 +2031,7 @@ public class AExport{
 						
 						" SELECT  AAR00"+ar+",SUM(AAC085) V6 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						
 						" SELECT AAC001,AAC085 FROM NEIMENG0117_AC07"+
@@ -2042,28 +2042,28 @@ public class AExport{
 						
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC074) v7 from ("+
-						"  select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+ 
+						"  select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+ 
 						" )a LEFT JOIN ( SELECT AAC001,AAC074 FROM NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  "+
 						" LEFT JOIN ( "+
-						" select AAR00"+ar+",COUNT(*) ZD from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+" GROUP BY AAR00"+ar+" "+
+						" select AAR00"+ar+",COUNT(*) ZD from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+" GROUP BY AAR00"+ar+" "+
 						" )C ON A.AAR00"+ar+"=C.AAR00"+ar+" GROUP BY A.AAR00"+ar+" "+
 						" )W6 ON W6.AAR00"+ar+"=Z.XZ"+
 						
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC079) v8 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+" )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+" )a "+
 						" LEFT JOIN ( SELECT AAC001,AAC079 FROM NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  GROUP BY A.AAR00"+ar+""+
 						" )W7 ON W7.AAR00"+ar+"=Z.XZ"+
 						" LEFT JOIN ("+
 						"  select  NUM1,AAR00"+ar+" xz,xzqh from ( SELECT COUNT(*) NUM1,AAR00"+ar+" FROM"+
-						"  (SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2015' and AAB015 IN ('1','4'))a LEFT JOIN ("+
-						" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2015' and "+b_sql+")b"+
+						"  (SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4'))a LEFT JOIN ("+
+						" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and "+b_sql+")b"+
 						"  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA left join (select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" ) ff ON FF.XZ=z.XZ"+
 					
 						" LEFT JOIN ("+
 						" SELECT  AAR00"+ar+",SUM(AAC073) V4 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						
 						" SELECT AAC001,AAC073 FROM NEIMENG0117_AC07"+
@@ -2071,7 +2071,7 @@ public class AExport{
 						" )B ON A.AAC001=B.AAC001 GROUP BY AAR00"+ar+""+
 						
 						" )W9 ON W9.AAR00"+ar+"=Z.XZ";
-				System.out.println(sql);
+//				System.out.println(sql);
 				List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 				for( int a = 0 ; a < in_list.size(); a++ ) {
 					String z_hu = "".equals(in_list.get(a).get("NUM")) || in_list.get(a).get("NUM") == null ? "" : in_list.get(a).get("NUM").toString();
@@ -2121,37 +2121,37 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
 				
-				String sql="select NUM, xz,xzqh,ROUND(v1/num, 2) v1,ROUND(v2/num, 2) v2,ROUND(v4/num, 2) v4,ROUND(v6/num, 2) v6,ROUND(v8/num, 2) v8,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-						" and AAR040='2015' and  "+b_sql+""+
+				String sql="select NUM, xz,xzqh,ROUND(v1/num, 2) v1,ROUND(v2/num, 2) v2,ROUND(v4/num, 2) v4,ROUND(v6/num, 2) v6,ROUND(v8/num, 2) v8,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
+						" and AAR040='2016' and  "+b_sql+""+
 						"  GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 						" xzqh is not null) z "+
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC085) v1 from ("+ 
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and  "+b_sql+" )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and  "+b_sql+" )a "+
 						" LEFT JOIN (SELECT AAC001,AAC085 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001 "+
-						" LEFT JOIN ( select AAR00"+ar+",COUNT(*) ZD from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+"  GROUP BY AAR00"+ar+" "+
+						" LEFT JOIN ( select AAR00"+ar+",COUNT(*) ZD from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+" "+
 						" )C ON A.AAR00"+ar+"=C.AAR00"+ar+" GROUP BY A.AAR00"+ar+""+
 						" ) W1 ON W1.AAR00"+ar+"=Z.XZ"+
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC076) v2 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and  "+b_sql+" )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and  "+b_sql+" )a "+
 						" LEFT JOIN (SELECT AAC001,AAC076 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  GROUP BY A.AAR00"+ar+""+
 						" ) W2 ON W2.AAR00"+ar+"=Z.XZ"+
 						" LEFT JOIN (SELECT  A.AAR00"+ar+",SUM(AAC077) v4 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and  "+b_sql+" )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and  "+b_sql+" )a "+
 						"　LEFT JOIN (SELECT AAC001,AAC077 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  GROUP BY A.AAR00"+ar+""+
 						" ) W3 ON W3.AAR00"+ar+"=Z.XZ"+
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC087) v6 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and  "+b_sql+"  )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and  "+b_sql+"  )a "+
 						" LEFT JOIN (SELECT AAC001,AAC087 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  GROUP BY A.AAR00"+ar+""+
 						" ) W4 ON W4.AAR00"+ar+"=Z.XZ"+
 						" LEFT JOIN ("+
 						" SELECT  A.AAR00"+ar+",SUM(AAC078) v8 from ( "+
-						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+"  )a "+
+						" select AAC001,AAR00"+ar+" from  NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"  )a "+
 						" LEFT JOIN (SELECT AAC001,AAC078 from NEIMENG0117_AC07 )B ON A.AAC001=B.AAC001  GROUP BY A.AAR00"+ar+""+
 						" ) W5 ON W5.AAR00"+ar+"=Z.XZ";
 				
@@ -2195,11 +2195,11 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
 				
-				String sql ="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+ 
-							" and AAR040='2015' and "+b_sql+""+
+				String sql ="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+ 
+							" and AAR040='2016' and "+b_sql+""+
 							" GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where  "+
 							" xzqh is not null) z "+
 							" LEFT JOIN ("+
@@ -2207,7 +2207,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v1)v1 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v1 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v1 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2221,7 +2221,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v2) v2 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v2 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v2 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2236,7 +2236,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v3) v3 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v3 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v3 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2250,7 +2250,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v4) v4 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v4 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v4 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2265,7 +2265,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v5) v5 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v5 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v5 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2279,7 +2279,7 @@ public class AExport{
 							" select AAR00"+ar+", SUM(v6) v6 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,count(*) v6 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v6 FROM NEIMENG0117_AB01 GROUP BY AAC001"+
@@ -2309,7 +2309,6 @@ public class AExport{
 					String insql = "insert into PKC_1_2_12 (COM_NAME,Z_HU,V1,V3,V5,V7,V9,V11,TYPE,COM_CODE,V98,V99) VALUES ("+
 									"'"+com_name+"','"+z_hu+"','"+V1+"','"+V3+"','"+V5+"','"+V7+"','"+V9+"','"+V11+"','"+type+"','"+com_code+"','"+V98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
-	//				String ssString="";
 					
 				}
 			}
@@ -2335,10 +2334,10 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql="select NUM,xz,xzqh,v1,ROUND(v1/num , 3)*100 bl,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-							" and AAR040='2015' and "+b_sql+""+
+				String sql="select NUM,xz,xzqh,v1,ROUND(v1/num , 3)*100 bl,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
+							" and AAR040='2016' and "+b_sql+""+
 							"  GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 							" xzqh is not null) z "+
 							" LEFT JOIN ("+
@@ -2346,7 +2345,7 @@ public class AExport{
 							" select AAR00"+ar+", sum(v1) v1 from ("+
 							" SELECT  AAR00"+ar+",a.AAC001,b.v1 from ("+
 							" select AAC001,AAR00"+ar+" from "+
-							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+							" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 							" )a LEFT JOIN ("+
 							
 							" SELECT AAC001,count(*) v1 FROM NEIMENG0117_AB01 where AAK033='01' GROUP BY AAC001"+
@@ -2390,10 +2389,10 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,V7,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-							" and AAR040='2015' and  "+b_sql+""+
+				String sql="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,V7,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
+							" and AAR040='2016' and  "+b_sql+""+
 						"  GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 						" xzqh is not null) z "+
 						" LEFT JOIN ("+
@@ -2418,7 +2417,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v2 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2434,7 +2433,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v3 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2450,7 +2449,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v4 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2466,7 +2465,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v5 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2482,7 +2481,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v6 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2498,7 +2497,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v7 from ("+
 						" SELECT AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 							
 						" SELECT AAC001,AAC317 FROM NEIMENG0117_AC31 "+
@@ -2591,10 +2590,10 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,'"+j+"' CC,'"+v98+"' SS,'2015' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-						"  and AAR040='2015' and "+b_sql+""+
+				String sql="select NUM,xz,xzqh,v1,v2,v3,v4,v5,v6,'"+j+"' CC,'"+v98+"' SS,'2016' VV from (SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
+						"  and AAR040='2016' and "+b_sql+""+
 						"  GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 						" xzqh is not null) z "+
 						" LEFT JOIN ("+
@@ -2603,7 +2602,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v1 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 					
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31"+
@@ -2618,7 +2617,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v2 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31 "+
 						" )B ON A.AAC001=B.AAC001   where AAC315>=1 and AAC315<3"+
@@ -2628,7 +2627,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v3 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31 "+
 						" )B ON A.AAC001=B.AAC001   where AAC315>=3 and AAC315<5"+
@@ -2638,7 +2637,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v4 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31 "+
 						" )B ON A.AAC001=B.AAC001   where AAC315>=5 and AAC315<10"+
@@ -2648,7 +2647,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v5 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31 "+
 						" )B ON A.AAC001=B.AAC001   where AAC315>=10 and AAC315<20"+
@@ -2658,7 +2657,7 @@ public class AExport{
 						" select AAR00"+ar+",COUNT(*) v6 from ("+
 						" SELECT  AAR00"+ar+",a.AAC001 from ("+
 						" select AAC001,AAR00"+ar+" from "+
-						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2015' and "+b_sql+""+
+						" NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+""+
 						" )a LEFT JOIN ("+
 						" SELECT AAC001,AAC315 FROM NEIMENG0117_AC31 "+
 						" )B ON A.AAC001=B.AAC001   where AAC315>=20"+
@@ -2707,16 +2706,16 @@ public class AExport{
 					str = "3";
 				}
 				if(v98==5){
-					String sql1="select  xzqh,num,aad004 pkzt,'"+j+"' CC,'"+v98+"' SS,'2015' VV,z.xz from (" +
+					String sql1="select  xzqh,num,aad004 pkzt,'"+j+"' CC,'"+v98+"' SS,'2016' VV,z.xz from (" +
 
 								" SELECT NUM1,AAR006 xz,xzqh FROM ( select  COUNT(*) NUM1,AAR006 from NEIMENG0117_AC01  where AAR100= '1' " +
-								"  and AAR040='2015' and AAR010='"+str+"' and (AAR010='"+str+"' and NVL(AAC016,AAR040) = '2015') or AAR010<>'"+str+"' " +
+								"  and AAR040='2016' and AAR010='"+str+"' and (AAR010='"+str+"' and NVL(AAC016,AAR040) = '2016') or AAR010<>'"+str+"' " +
 								"  GROUP BY AAR006  )AA left join (  select v9 xzqh,v10 from SYS_COM GROUP BY v9,v10)bb ON AA.AAR006=bb.v10 where " +
 								" xzqh is not null " +
 								" ) z  " +
 								" LEFT JOIN" +
 								" (" +
-								"  SELECT COUNT(*) NUM,AAR006 xz,aad004  FROM ( select aar006 ,aad004 from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('01','02','03','04','05') )a GROUP BY AAR006,aad004" +
+								"  SELECT COUNT(*) NUM,AAR006 xz,aad004  FROM ( select aar006 ,aad004 from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('01','02','03','04','05') )a GROUP BY AAR006,aad004" +
 								" ) aa  ON aa.xz =z.xz";
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql1);
 					for( int a = 0 ; a < in_list.size(); a++ ) {
@@ -2730,27 +2729,26 @@ public class AExport{
 						String V99 =  "".equals(in_list.get(a).get("VV")) || in_list.get(a).get("VV") == null ? "" : in_list.get(a).get("VV").toString();
 						String insql = "insert into PKC_1_3_1 (V1,V2,V3,V4,com_pin,V10,V98,V99) VALUES ("+
 										"'"+V1+"','"+V2+"','"+V3+"','"+V4+"','"+V9+"','"+V10+"','"+V98+"','"+V99+"')";
-//						this.getBySqlMapper.insert(insql);
-//					String aString="";
+						this.getBySqlMapper.insert(insql);
 					}
 				}else {
 					String sql="";
 					try {
-						sql="select  z.xzqh,num,NVL(num,'0')+NVL(num2,'0') zs,num2,'"+j+"' CC,'"+v98+"' SS,'2015' VV,z.xz from ("+
+						sql="select  z.xzqh,num,NVL(num,'0')+NVL(num2,'0') zs,num2,'"+j+"' CC,'"+v98+"' SS,'2016' VV,z.xz from ("+
 								" SELECT NUM1,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM1,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' "+
-								"  and AAR040='2015' and AAR010='"+str+"' and (AAR010='"+str+"' and NVL(AAC016,AAR040) = '2015') or AAR010<>'"+str+"'"+
+								"  and AAR040='2016' and AAR010='"+str+"' and (AAR010='"+str+"' and NVL(AAC016,AAR040) = '2016') or AAR010<>'"+str+"'"+
 								"  GROUP BY AAR00"+ar+"  )AA left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where "+
 								" xzqh is not null"+
 								" ) z   "+
 								" LEFT JOIN"+
-								" (SELECT COUNT(*) NUM,AAR00"+ar+" xz  FROM ( select AAR00"+ar+"  from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('01','03','04','05'))a GROUP BY AAR00"+ar+" ) aa "+
+								" (SELECT COUNT(*) NUM,AAR00"+ar+" xz  FROM ( select AAR00"+ar+"  from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('01','03','04','05'))a GROUP BY AAR00"+ar+" ) aa "+
 								" ON z.xz=AA.xz"+
 								" left JOIN (SELECT COUNT(*) NUM2,AAR00"+ar+" from NEIMENG0117_AD01 where  aad004 = '02' GROUP BY AAR00"+ar+" ) b ON b.AAR00"+ar+" = z.xz "+
 								" where z.xzqh is not null";
 								
-								/*"select  xzqh,num,NVL(num,'0')+NVL(num2,'0') zs,num2,'"+j+"' CC,'"+v98+"' SS,'2015' VV,xz from ( "+
+								/*"select  xzqh,num,NVL(num,'0')+NVL(num2,'0') zs,num2,'"+j+"' CC,'"+v98+"' SS,'2016' VV,xz from ( "+
 										   " SELECT COUNT(*) NUM,AAR00"+ar+" xz  FROM ("+
-										   " select aar00"+ar+"  from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('01','03','04','05'))a GROUP BY AAR00"+ar+""+     //aad004有问题
+										   " select aar00"+ar+"  from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('01','03','04','05'))a GROUP BY AAR00"+ar+""+     //aad004有问题
 										   " ) aa "+
 										   " left JOIN (SELECT COUNT(*) NUM2,AAR00"+ar+" from NEIMENG0117_AD01 where  aad004 = '02' GROUP BY AAR00"+ar+" ) b ON b.AAR00"+ar+" = aa.xz"+
 										   " left join (select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON aa.xz=bb.v"+v10+" where bb.xzqh is not null";*/
@@ -2774,8 +2772,7 @@ public class AExport{
 
 						}
 					} catch (Exception e) {
-						// TODO: handle exception
-						System.out.println(sql);
+//						System.out.println(sql);
 					}
 					
 					
@@ -2805,17 +2802,17 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
 				
-				String sqlString="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,FPKH,FPKRK,'"+j+"' CC,'"+v98+"' SS,'2015' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2015' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
+				String sqlString="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,FPKH,FPKRK,'"+j+"' CC,'"+v98+"' SS,'2016' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
 						" left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where  xzqh is not null)bb  "+
 						" LEFT JOIN (  select  ZRS,AAR00"+ar+" xz,xzqh from ( SELECT COUNT(*) ZRS,AAR00"+ar+" FROM  ("+
-						" SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2015' and AAB015 IN ('1','4'))a "+
-						" LEFT JOIN ( select AAC001,AAR002,AAR003,AAR004,AAR005,aar006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2015' and "+b_sql+")b  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA "+
+						" SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4'))a "+
+						" LEFT JOIN ( select AAC001,AAR002,AAR003,AAR004,AAR005,aar006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and "+b_sql+")b  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA "+
 						" left join (select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" ) ff ON FF.XZ=BB.XZ"+
-						" LEFT JOIN ( select sum(PKH) PKH ,sum(PKRK) PKRK,AAR00"+ar+" from ( SELECT AAD007 PKH,AAD011 PKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('01','03','04','05') )T3   "+
-						" LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+") C ON C.AAR00"+ar+"= BB.XZ LEFT JOIN (　select sum(FPKH) FPKH ,sum(FPKRK) FPKRK,AAR00"+ar+" from ( SELECT AAD007 FPKH,AAD011 FPKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('02') )T3  LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+" ) D ON D.AAR00"+ar+"= BB.XZ"; 
+						" LEFT JOIN ( select sum(PKH) PKH ,sum(PKRK) PKRK,AAR00"+ar+" from ( SELECT AAD007 PKH,AAD011 PKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('01','03','04','05') )T3   "+
+						" LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+") C ON C.AAR00"+ar+"= BB.XZ LEFT JOIN (　select sum(FPKH) FPKH ,sum(FPKRK) FPKRK,AAR00"+ar+" from ( SELECT AAD007 FPKH,AAD011 FPKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('02') )T3  LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+" ) D ON D.AAR00"+ar+"= BB.XZ"; 
 					List<Map> in_list = this.getBySqlMapper.findRecords(sqlString);
 					for( int a = 0 ; a < in_list.size(); a++ ) {
 					String VW1 =  in_list.get(a).get("XZQH").toString();
@@ -2858,16 +2855,16 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2015')";
+					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,trunc(ZRS/PKRK, 2) BL,'"+j+"' CC,'"+v98+"' SS,'2015' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2015' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
+				String sql="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,trunc(ZRS/PKRK, 2) BL,'"+j+"' CC,'"+v98+"' SS,'2016' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
 						" left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where  xzqh is not null)bb  "+
 						" LEFT JOIN (  select  ZRS,AAR00"+ar+" xz,xzqh from ( SELECT COUNT(*) ZRS,AAR00"+ar+" FROM  ("+
-						" SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2015' and AAB015 IN ('1','4'))a "+
-						" LEFT JOIN ( select AAC001,AAR002,AAR003,AAR004,AAR005,aar006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2015' and "+b_sql+")b  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA "+
+						" SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4'))a "+
+						" LEFT JOIN ( select AAC001,AAR002,AAR003,AAR004,AAR005,aar006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and "+b_sql+")b  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA "+
 						" left join (select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" ) ff ON FF.XZ=BB.XZ"+
-						" LEFT JOIN ( select sum(PKH) PKH ,sum(PKRK) PKRK,AAR00"+ar+" from ( SELECT AAD007 PKH,AAD011 PKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('01','03','04','05') )T3   "+
-						" LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+") C ON C.AAR00"+ar+"= BB.XZ LEFT JOIN (　select sum(FPKH) FPKH ,sum(FPKRK) FPKRK,AAR00"+ar+" from ( SELECT AAD007 FPKH,AAD011 FPKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2015' and aad004 in ('02') )T3  LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+" ) D ON D.AAR00"+ar+"= BB.XZ";
+						" LEFT JOIN ( select sum(PKH) PKH ,sum(PKRK) PKRK,AAR00"+ar+" from ( SELECT AAD007 PKH,AAD011 PKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('01','03','04','05') )T3   "+
+						" LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+") C ON C.AAR00"+ar+"= BB.XZ LEFT JOIN (　select sum(FPKH) FPKH ,sum(FPKRK) FPKRK,AAR00"+ar+" from ( SELECT AAD007 FPKH,AAD011 FPKRK,T3.AAD001,T3.AAR00"+ar+" FROM (select AAD001 ,AAR00"+ar+" from NEIMENG0117_AD01 where AAR040='2016' and aad004 in ('02') )T3  LEFT JOIN NEIMENG0117_AD06 T4 ON T3.AAD001=T4.AAD001)zz GROUP BY AAR00"+ar+" ) D ON D.AAR00"+ar+"= BB.XZ";
 				
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for( int a = 0 ; a < in_list.size(); a++ ) {
@@ -2888,7 +2885,6 @@ public class AExport{
 					String insql = "insert into PKC_1_3_3 (VF1,VF2,VF3,VF4,VF41,VF5,COM_PIN,V10,V98,V99) VALUES ("+
 									"'"+VF1+"','"+VF2+"','"+VF3+"','"+VF4+"','"+VF41+"','"+VF5+"','"+COM_PIN+"','"+xz+"','"+V98+"','"+V99+"')";
 					this.getBySqlMapper.insert(insql);
-//					String ssString="";
 				}
 			}
 			
