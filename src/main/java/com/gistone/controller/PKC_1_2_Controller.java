@@ -684,14 +684,14 @@ public class PKC_1_2_Controller {
 		if(dqname.equals("V2")){
 			
 			sql = "SELECT NUM,num1,AAR002 xz FROM ("+ 
-				" select  COUNT(*) NUM,aar002 from NM09_AC01  where AAR100= '1' and aar002='150000000000' and AAR040='2015' and  AAR010 in ('0','3') and aar002 is not null GROUP BY AAR002   "+
+				" select  COUNT(*) NUM,aar002 from NEIMENG0117_AC01  where AAR100= '1' and aar002='150000000000' and AAR040='2016' and  AAR010 in ('0','3') and aar002 is not null GROUP BY AAR002   "+
 					" )AA"+
 					" LEFT JOIN ("+
 
 					" SELECT SUM(V2) NUM1,'150000000000' v10 FROM PKC_1_1_0 WHERE V98='2' "+
 					" )B  ON AA.AAR002=B.V10";
-			sql1 = "select count（*）num from (select AAC001 from NM09_AC01 where AAR100= '1' and AAR040='2015' and AAR002='150000000000'"+
-				" ) a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2015' AND SUBSTR(b.AAR021, 0, 4) >='2015'";
+			sql1 = "select count（*）num from (select AAC001 from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and AAR002='150000000000'"+
+				" ) a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
 		}else {
 			ar = Integer.parseInt(dqname.substring(1,2));
 			if(ar == 4){
@@ -703,18 +703,18 @@ public class PKC_1_2_Controller {
 			}
 			
 			sql = "SELECT NUM,num1,AAR00"+ar+" xz FROM ( "+
-						" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
+						" select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2016' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
 						" )AA "+
 						" LEFT JOIN ( "+
 
 						" SELECT V10,SUM(V2) NUM1 FROM PKC_1_1_0 WHERE V98='"+v98+"' GROUP BY V10 "+
 						" )B ON AA.AAR00"+ar+"=B.V10 ";
-			sql1="select count（*）num from (select AAC001 from NM09_AC01 where AAR100= '1' and AAR040='2015' and AAR00"+ar+"='"+dqcode+"'"+
-				") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2015' AND SUBSTR(b.AAR021, 0, 4) >='2015'";
+			sql1="select count（*）num from (select AAC001 from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and AAR00"+ar+"='"+dqcode+"'"+
+				") a left join (select * from AC08)  b on a.AAC001=b.AAC001 where SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016'";
 		}
 		
 		/* sql="SELECT NUM,num1,AAR00"+ar+" xz FROM ( "+
-				" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
+				" select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2016' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"    "+
 				" )AA "+
 				" LEFT JOIN ( "+
 
@@ -724,16 +724,16 @@ public class PKC_1_2_Controller {
 				
 				
 				"SELECT NUM,NUM1,AAR00"+ar+" xz FROM ( "+
-					" select  COUNT(*) NUM,AAR00"+ar+" from NM09_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2015' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"  "+  
+					" select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' and AAR00"+ar+"='"+dqcode+"' and AAR040='2016' and  AAR010 in ('0','3') and AAR00"+ar+" is not null GROUP BY AAR00"+ar+"  "+  
 					" )AA  "+
 
 					" LEFT JOIN (  "+
 					" select  NUM1,AAR00"+ar+" xz from ( "+
 					" SELECT COUNT(*) NUM1,AAR00"+ar+" FROM ( "+
 					" SELECT * FROM ( "+
-					" select AAC001 a1,AAB001 from NM09_AB01 where AAR040='2015' and AAB015 IN ('1','4') "+
+					" select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4') "+
 					" )a LEFT JOIN (  "+
-					" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NM09_AC01  where AAR100= '1' and AAR040='2015' and AAR010 in ('0','3'))b on a.a1=B.AAC001  "+
+					" select AAC001,AAR002,AAR003,AAR004,AAR005,AAR006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and AAR010 in ('0','3'))b on a.a1=B.AAC001  "+
 					" ) GROUP BY AAR00"+ar+")AA  "+
 					" ) ff ON FF.XZ=aa.AAR00"+ar+" ";*/
 				

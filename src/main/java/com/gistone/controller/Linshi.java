@@ -59,15 +59,15 @@ public class Linshi {
         if(type.equals("all")){//全部二维码
         	
         	sql = "select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ( "
-    				+ " select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
-    				+ " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
+    				+ " select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NEIMENG0117_AC01 WHERE AAR100= '1' and AAR040='2016' and AAR010 in ('0','3')) a1 "
+    				+ " LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from NEIMENG0117_ab01 where AAB006='01' AND AAR040='2016' and AAB015 IN ('1','4') "
     				+ " ) a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE ";
         	
         }else if(type.equals("xin")){//未生成的二维码，继续操作
         	
         	sql = "select t1.*,t2.AAC001 from (select t1.v3,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1 join ("
-        			+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NM09_AC01 WHERE AAR100= '1' and AAR040='2015' and AAR010 in ('0','3')) a1 "
-        			+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
+        			+ "select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NEIMENG0117_AC01 WHERE AAR100= '1' and AAR040='2016' and AAR010 in ('0','3')) a1 "
+        			+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from NEIMENG0117_ab01 where AAB006='01' AND AAR040='2016' and AAB015 IN ('1','4') "
         			+ ") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE) t1 left join DA_PIC_CODE t2 on t1.pkid=t2.AAC001 where t2.AAC001 is null";
         	
         }else{//未生成的二维码，继续操作
@@ -2110,7 +2110,7 @@ public class Linshi {
 ////				sheet_1_0.addCell(new Label( 1 , 0 , "嘎查村", tsty));
 ////				sheet_1_0.setColumnView(1, 25);
 ////				
-////				sheet_1_0.addCell(new Label( 2 , 0 , "2015年底贫困户数", tsty));
+////				sheet_1_0.addCell(new Label( 2 , 0 , "2016年底贫困户数", tsty));
 ////				sheet_1_0.setColumnView(2, 35);
 ////				
 ////				sheet_1_0.addCell(new Label( 3 , 0 , "落实帮扶责任人数", tsty));

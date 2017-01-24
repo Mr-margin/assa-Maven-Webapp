@@ -238,7 +238,7 @@ public class SW4_Controller{
 		String pkid=request.getParameter("pkid");//贫困人id
 		String acid=request.getParameter("acid");//贫困户id
 		String code=request.getParameter("code");//地区编码
-		/*String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   (SELECT aac001 from NM09_AB01 where AAB001='"+pkid+"' AND AAR040='2015') a1 left join  ( SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01  ) a2   on a1.AAC001=a2.AAC001";
+		/*String sql="select v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from   (SELECT aac001 from NEIMENG0117_AB01 where AAB001='"+pkid+"' AND AAR040='2016') a1 left join  ( SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NEIMENG0117_AC01  ) a2   on a1.AAC001=a2.AAC001";
 		List<Map> list=this.getBySqlMapper.findRecords(sql);*/
 		//户主信息
 		SW4_Controller sw4=new SW4_Controller();
@@ -264,12 +264,12 @@ public class SW4_Controller{
 		//家庭成员+户主信息
 		JSONArray jsonArray2 =new JSONArray();
 		String xian_sql="select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19,v25,v26,v27,sys_standard,v22,v23,v29,v30,v33 from  "+ 
-						" (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 "+
+						" (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NEIMENG0117_AC01 WHERE AAC001='"+acid+"' AND AAR040='2016' ) a2 "+
 						" left join  "+
-						" ( SELECT AAC001,a3.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  (select  AAB001,AAC001,AAR040,AAB002,AAB003,AAB004,AAB006,AAB007,AAB008,AAB009,AAB010,AAB011,AAB012,AAB017,AAB019 FROM NM09_AB01 WHERE AAC001='"+acid+"' AND AAR040='2015') a3 LEFT join NM09_AB02 on NM09_AB02.AAB001=a3.AAB001 ) a1 on a1.AAC001=a2.AAC001 "+ 
+						" ( SELECT AAC001,a3.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  (select  AAB001,AAC001,AAR040,AAB002,AAB003,AAB004,AAB006,AAB007,AAB008,AAB009,AAB010,AAB011,AAB012,AAB017,AAB019 FROM NEIMENG0117_AB01 WHERE AAC001='"+acid+"' AND AAR040='2016') a3 LEFT join NEIMENG0117_AB02 on NEIMENG0117_AB02.AAB001=a3.AAB001 ) a1 on a1.AAC001=a2.AAC001 "+ 
 						" GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19,v25,v26,v27,sys_standard,v22,v23,v29,v30,v33";
 		
-				//"select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NM09_AC01 WHERE AAC001='"+acid+"' AND AAR040='2015' ) a2 left join  ( SELECT AAC001,NM09_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NM09_AB01 join NM09_AB02 on NM09_AB02.AAB001=NM09_AB01.AAB001 ) a1 on a1.AAC001=a2.AAC001  GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
+				//"select  v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19 from   (SELECT AAC001,AAR012 v25,AAQ002 v26,AAC004 v27,AAC005 sys_standard,AAC006 v22,AAC007 v23,AAC012 v29,AAC009 v30,AAC008 v33 FROM NEIMENG0117_AC01 WHERE AAC001='"+acid+"' AND AAR040='2016' ) a2 left join  ( SELECT AAC001,NEIMENG0117_AB01.AAR040,AAB002 v6,AAB003 v7,AAB004 v8,AAB006 v10,AAB007 v11,AAB008 v12,AAB009 v13,AAB010 v15,AAB011 v16,AAB012 v17,AAB017 v14,AAB019 v32,AAB014 v19 from  NEIMENG0117_AB01 join NEIMENG0117_AB02 on NEIMENG0117_AB02.AAB001=NEIMENG0117_AB01.AAB001 ) a1 on a1.AAC001=a2.AAC001  GROUP BY v6,v7,v8,v10,v11,v12,v13,v14,v15,v16,v17,v32,v19";
 		
 		List<Map> xian_list=getBySqlMapper.findRecords(xian_sql);
 		if(xian_list.size()>0){
@@ -307,7 +307,7 @@ public class SW4_Controller{
 		}
 		//收入情况
 		JSONArray jsonArray5 =new JSONArray();
-		String dqsr_sql="select AAC074 v44,AAC071 v2,AAC072 v8,AAC076 v41,AAC077 v16,AAC086 v43,AAC087 v14,AAC078 v12,AAC083 v20,AAC082 v32,AAC081 v39,AAC073 v28 from NM09_AC07 where AAC001='"+acid+"'";
+		String dqsr_sql="select AAC074 v44,AAC071 v2,AAC072 v8,AAC076 v41,AAC077 v16,AAC086 v43,AAC087 v14,AAC078 v12,AAC083 v20,AAC082 v32,AAC081 v39,AAC073 v28 from NEIMENG0117_AC07 where AAC001='"+acid+"'";
 		List<Map> dqsr_list=getBySqlMapper.findRecords(dqsr_sql);
 		if(dqsr_list.size()>0){
 			for(int i=0;i<dqsr_list.size();i++){
@@ -328,7 +328,7 @@ public class SW4_Controller{
 		
 		//生产条件
 		JSONArray jsonArray3 =new JSONArray();
-		String sc_sql="select AAC301 v1,AAC302 v2,AAC303 v3,AAC304 v4,AAC305 v13,AAC306 v5,AAC307 v14,AAC084 v11   from NM09_AC30 where AAC001='"+acid+"'";
+		String sc_sql="select AAC301 v1,AAC302 v2,AAC303 v3,AAC304 v4,AAC305 v13,AAC306 v5,AAC307 v14,AAC084 v11   from NEIMENG0117_AC30 where AAC001='"+acid+"'";
 		List<Map> sc_list=getBySqlMapper.findRecords(sc_sql);
 		if(sc_list.size()>0){
 			for(int i=0;i<sc_list.size();i++){
@@ -346,7 +346,7 @@ public class SW4_Controller{
 		}
 		//生活条件
 		JSONArray jsonArray4 =new JSONArray();
-		String sh_sql="SELECT AAC311 v8,AAC312 v9,AAC313 v5,AAC315 v7,AAC316 v6,AAC317 v1,AAC318 v2,AAC319 v12,AAC320 v10 from NM09_AC31 WHERE AAC001='"+acid+"'";
+		String sh_sql="SELECT AAC311 v8,AAC312 v9,AAC313 v5,AAC315 v7,AAC316 v6,AAC317 v1,AAC318 v2,AAC319 v12,AAC320 v10 from NEIMENG0117_AC31 WHERE AAC001='"+acid+"'";
 		List<Map> sh_list=getBySqlMapper.findRecords(sh_sql);
 		if(sh_list.size()>0){
 			for(int i=0;i<sh_list.size();i++){
