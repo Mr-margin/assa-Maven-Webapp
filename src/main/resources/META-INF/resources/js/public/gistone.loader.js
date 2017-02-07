@@ -86,7 +86,7 @@ GISTONE.Loader = {
 		    ["y2","js/Y/","y2.js,bMap.js"],
 		    ["y3","js/Y/","y3.js","css.css"],
 		    ["y4","js/Y/","y4.js,modernizr.custom.js","component.css,default.css"],
-		    
+		    ["y7","js/Y/","y7.js","component.css,default.css"],
 		    ["anuser","js/anuser/","an.js"],
 		    ["w4","js/W4/","w4.js"],
 		    ["anuserCSS","js/plugins/bootstrap/","","style.min.css"],//不知道什么css
