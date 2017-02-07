@@ -3001,4 +3001,38 @@ public class AExport{
 
 		}
 	}
+	/**
+	 * 电话查询
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	@RequestMapping("selectPhone.do")
+	public void selectPhone(HttpServletRequest request,HttpServletResponse response ) throws IOException {
+		String phone = request.getParameter("phone");
+		
+		
+		String sql = " select Q1.AAB002,Q2.AAC001, q2.AAR100,q2.AAR020,q2.AAR021,q3.AAR100 da_AAR,q3.AAR040, q4.AAB002 da_name,q4.AAB015,q3.AAR010 from ( "+
+					" select AAK110,AAB002 from NEIMENG0117_AK11 where AAR012='"+phone+"')q1 LEFT JOIN ( "+
+					" select AAC001,AAR100,AAR020,AAR021,AAK110 from  NEIMENG0117_AC08) q2 on q1. AAK110=Q2.AAK110 LEFT JOIN ( "+
+					" select AAR100,AAR040,AAC001,AAR010 from NEIMENG0117_AC01)q3 on q2.AAC001 = q3.AAC001 LEFT JOIN ( "+
+					" select AAB002,AAB015,AAC001 from  NEIMENG0117_AB01 where AAB006='01')q4 on q2.AAC001=q4.AAC001 ";
+		JSONArray json = new JSONArray();
+		List<Map> list = this.getBySqlMapper.findRecords(sql);
+		for ( int i = 0 ; i < list.size() ; i ++  ) {
+			JSONObject obj = new JSONObject ();
+			obj.put("per_name", "".equals(list.get(i).get("AAB002")) || list.get(i).get("AAB002") == null ?"" : list.get(i).get("AAB002").toString());//帮扶人姓名
+			obj.put("da_num", "".equals(list.get(i).get("AAC001")) || list.get(i).get("AAC001") == null ?"" : list.get(i).get("AAC001").toString());//户编号
+			obj.put("per_da_yx", "".equals(list.get(i).get("AAR100")) || list.get(i).get("AAR100") == null ?"" : list.get(i).get("AAR100").toString());//结对有效性
+			obj.put("bf_sta_time", "".equals(list.get(i).get("AAR020")) || list.get(i).get("AAR020") == null ?"" : list.get(i).get("AAR020").toString());//开始时间
+			obj.put("bf_end_time", "".equals(list.get(i).get("AAR021")) || list.get(i).get("AAR021") == null ?"" : list.get(i).get("AAR021").toString());//结束时间
+			obj.put("da_name", "".equals(list.get(i).get("DA_NAME")) || list.get(i).get("DA_NAME") == null ?"" : list.get(i).get("DA_NAME").toString());//户主
+			obj.put("sc", "".equals(list.get(i).get("AAB015")) || list.get(i).get("AAB015") == null ?"" : list.get(i).get("AAB015").toString());//生存状态
+			obj.put("year", "".equals(list.get(i).get("AAR040")) || list.get(i).get("AAR040") == null ?"" : list.get(i).get("AAR040").toString());//年份
+			obj.put("da_yx", "".equals(list.get(i).get("DA_AAR")) || list.get(i).get("DA_AAR") == null ?"" : list.get(i).get("DA_AAR").toString());//户主有效性
+			obj.put("tp", "".equals(list.get(i).get("AAR010")) || list.get(i).get("AAR010") == null ?"" : list.get(i).get("AAR010").toString());//脱贫标志
+			json.add(obj);
+		}
+		response.getWriter().write(json.toString());
+	}
 }
