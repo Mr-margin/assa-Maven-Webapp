@@ -68,7 +68,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_0 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_0 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -158,7 +158,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -247,7 +247,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT V1,V8_1,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -338,7 +338,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_1 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -427,7 +427,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_2 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_2 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -558,7 +558,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_3 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_3 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -649,7 +649,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_4 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_4 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -738,7 +738,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_5 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_5 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -827,7 +827,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_6 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_6 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -916,7 +916,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_7 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_7 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -1005,7 +1005,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_8 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_8 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -1094,7 +1094,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_9 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_9 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";
@@ -1183,7 +1183,7 @@ public class PKC_1_1_Controller {
 		String sql = "SELECT a1.*,GJZDQX,ZZQZDQX,GMLQQX,MYQX,BJQX FROM("
 				+ "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 				+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
-				+ ")) a2 LEFT JOIN PKC_1_1_9 a1 ON a1.V1=A2.COM_NAME ";
+				+ ")) a2 LEFT JOIN PKC_1_1_9 a1 ON a1.V10=A2.COM_CODE ";
 
 		if (t1.equals("0") || t2.equals("1")) {
 			src += " WHERE  V9 = '0' ";

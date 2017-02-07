@@ -62,7 +62,8 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
- 		String sql = "select v1,v2,v3,v4 from PKC_1_3_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.V1=b.COM_NAME";
+ 		String sql = "select v1,v2,v3,v4 from PKC_1_3_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) "+
+ 					"b on c.V10=b.COM_CODE";
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
 		}else{
@@ -134,7 +135,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select vw1,vw2,vw3,vw4,vw5,vw6,vw7 from PKC_1_3_2 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VW1=b.COM_NAME";
+		String sql = "select vw1,vw2,vw3,vw4,vw5,vw6,vw7 from PKC_1_3_2 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.v10=b.COM_CODE";
 		
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
@@ -212,7 +213,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select vf1,vf2,vf3,vf4,NVL(vf41, '0') vf41,vf5 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VF1=b.COM_NAME ";
+		String sql = "select vf1,vf2,vf3,vf4,NVL(vf41, '0') vf41,vf5 from PKC_1_3_3 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.v10=b.COM_CODE ";
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
 		}else{
@@ -294,7 +295,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select fc1,fc2,fc3,fc4,fc4,fc5,fc6,fc7,fc8 from PKC_2_1_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.FC1=b.COM_NAME";
+		String sql = "select fc1,fc2,fc3,fc4,fc4,fc5,fc6,fc7,fc8 from PKC_2_1_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.v10=b.COM_CODE";
 		if(desc==null){
 			desc="";
 		}
@@ -377,7 +378,7 @@ public class PKC_1_2_Controller {
 			desc="";
 		}
 		
-		String sql = "select fc1,fc2,fc3,fc4,fc4,fc5,fc6,fc7,fc8 from PKC_2_1_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='内蒙古自治区') ) b on c.FC1=b.COM_NAME "+tiaojian+" order by c.PKID ";
+		String sql = "select fc1,fc2,fc3,fc4,fc4,fc5,fc6,fc7,fc8 from PKC_2_1_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='内蒙古自治区') ) b on c.v10=b.COM_CODE "+tiaojian+" order by c.PKID ";
 		List<Map> sql_list = this.getBySqlMapper.findRecords(sql);
 		JSONObject val = new JSONObject();
 		if(sql_list.size()>0){
@@ -483,7 +484,7 @@ public class PKC_1_2_Controller {
 			name="内蒙古自治区";
 		}
 		String sql = "select c.VB1,c.VB2,c.VB3,c.VB4,a1.vh1,a1.vh2,a1.vh3,a1.vh4,a1.vh5,a1.vh6,a1.vh7,a1.vh8,a1.vh9,a1.vh10, round(VB3/(case when VB2='0' then '1' else VB2 end),4)*100 AS b5 from PKC_3_1_1 c join" +
-					" (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VB1=b.COM_NAME "+
+					" (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.v10=b.COM_CODE "+
 					" LEFT JOIN PKC_3_1_2 a1 ON  a1.vh0=c.vb1 ";
 		
 		
@@ -572,7 +573,7 @@ public class PKC_1_2_Controller {
 		if(name.equals("全部盟市")){
 			name="内蒙古自治区";
 		}
-		String sql = "select c.*,decode(c.VG51,0,0,round(c.VG51/c.VG5,4)*100) AS b5,decode(c.VG71,0,0,round(c.VG71/c.VG7,4)*100) AS b7,decode(c.VG81,0,0,round(c.VG81/c.VG8,4)*100) AS b8,decode(c.VG91,0,0,round(c.VG91/c.VG9,4)*100) AS b9,decode(c.VG141,0,0,round(c.VG141/c.VG14,4)*100) AS b14,decode(c.VG151,0,0,round(c.VG151/c.VG15,4)*100) AS b15,decode(c.VG161,0,0,round(c.VG161/c.VG16,4)*100) AS b16 from PKC_2_2_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.VG1=b.COM_NAME";
+		String sql = "select c.*,decode(c.VG51,0,0,round(c.VG51/c.VG5,4)*100) AS b5,decode(c.VG71,0,0,round(c.VG71/c.VG7,4)*100) AS b7,decode(c.VG81,0,0,round(c.VG81/c.VG8,4)*100) AS b8,decode(c.VG91,0,0,round(c.VG91/c.VG9,4)*100) AS b9,decode(c.VG141,0,0,round(c.VG141/c.VG14,4)*100) AS b14,decode(c.VG151,0,0,round(c.VG151/c.VG15,4)*100) AS b15,decode(c.VG161,0,0,round(c.VG161/c.VG16,4)*100) AS b16 from PKC_2_2_1 c join (select * from SYS_COMPANY where COM_F_PKID=(SELECT PKID from SYS_COMPANY where COM_NAME='"+name+"') ) b on c.v10=b.COM_CODE";
 		if(t1.equals("0")||t2.equals("1")){
 			src += " WHERE  COM_PIN = '0' ";
 		}else{
