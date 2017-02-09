@@ -93,4 +93,18 @@ public class WyApp_y3{
 			response.getWriter().write("0");
 		}
 	}
+	
+	
+	//地图中村的统计数据与详细数据用的不是一张表，下面是更新数据的语句
+//	create table ZHANG_07 as
+//	select t1.*,t2.h1,t3.r1 from ZHANG_06 t1 join (select AAD001,count(*) as h1 from NEIMENG0117_AC01 where AAR040='2016' AND AAR010='0' group by AAD001) t2
+//	on t1.AAD001=t2.AAD001 join(
+//	SELECT AAD001,count(*) as r1 from NEIMENG0117_AC01 a1 join NEIMENG0117_AB01 a2 on a1.AAC001=A2.AAC001 
+//	where a1.AAR040='2016' AND a1.AAR010='0' and a2.AAR040='2016' group by a1.AAD001
+//	) t3 on t1.AAD001=t3.AAD001
+//
+//	update ZHANG_06 set HUSHU=H1,RENSHU=R1
+//
+//	CREATE INDEX ZHANG_06_COM_CODE
+//	ON ZHANG_06(COM_CODE);
 }
