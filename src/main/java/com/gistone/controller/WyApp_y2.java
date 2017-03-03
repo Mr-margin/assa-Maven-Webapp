@@ -66,8 +66,12 @@ public class WyApp_y2 {
 		
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
-		
+		 //不跟随传递的时间变，当天日记数、本周日记数、本月日记数 DA_HELP_VISIT
+	    String bangfu_count_sql = "SELECT count(case when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') then 'a00' end)day,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'iw')=to_char(sysdate,'iw') and TO_NUMBER(sysdate-to_date(registertime,'yyyy-mm-dd hh24:mi:ss'))<10 THEN 'a01' end)week,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm')=to_char(sysdate,'yyyy-mm') THEN 'a02' end)month	FROM	DA_HELP_VISIT  WHERE 1=1";
 //		System.out.println(sql);
+	    //帮扶日记统计 日 周 月帮扶人数统计
+		List<Map> bangfus = this.getBySqlMapper.findRecords(bangfu_count_sql);
+		
 		
 		int count = this.getBySqlMapper.findrows(count_sql);//总记录条数
 //		int pinkuncount = this.getBySqlMapper.findrows(pingkun_count_sql);//总贫困户数
@@ -113,11 +117,19 @@ public class WyApp_y2 {
 				
 				jsa.add(val);
 			}
-			
+			//帮扶统计
+			JSONObject json = new JSONObject();
+			if(bangfus.size()>0){
+				//将日期统计数保存为Json串 为null的时候转为0
+				json.put("dayNum", bangfus.get(0).get("day")==null?0:bangfus.get(0).get("day"));
+				json.put("weekNum", bangfus.get(0).get("week")==null?0:bangfus.get(0).get("week"));
+				json.put("monthNum", bangfus.get(0).get("month")==null?0:bangfus.get(0).get("month"));
+			}
 			JSONObject val_ret = new JSONObject();
 			val_ret.put("data1", jsa);
 			val_ret.put("data2", count);//日记数量
 			val_ret.put("data3", shejicount);//涉及到的贫困户数
+			val_ret.put("riji_count",json);
 //			val_ret.put("data4", pinkuncount);//贫困户的总数
 //			val_ret.put("ri", ri);
 //			val_ret.put("zhou", zhou);
