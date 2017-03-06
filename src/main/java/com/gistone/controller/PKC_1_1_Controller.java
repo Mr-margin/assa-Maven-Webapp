@@ -1,6 +1,10 @@
 package com.gistone.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -131,6 +135,84 @@ public class PKC_1_1_Controller {
 		}
 	}
 
+	/**
+	 * 获取日记统计模块数据
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("getF_1_1_1.do")
+	public void getF_1_1_1(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String name = request.getParameter("name");// 行政区划
+		String sTime = request.getParameter("sTime");//开始时间
+		String eTime = request.getParameter("eTime");//结束时间
+		int t = 0;//用于截取行政区划code时的长度
+		String sqlTj = "";//拼接的sql条件
+		 
+		if (name.equals("全部盟市")) {
+			name = "内蒙古自治区";
+		}
+		//查询行政区划,获取行政区划code
+		String sql = "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
+		+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
+		+ ") ";
+
+		/*--镇    150783015
+		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='中和镇')
+		--旗    1507830
+		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='扎兰屯市')
+		--市    1507
+		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='呼伦贝尔市')
+		--盟    15
+		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='内蒙古自治区')*/
+		List l = new ArrayList();
+		List<Map> list = this.getBySqlMapper.findRecords(sql);
+		JSONArray json = new JSONArray();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				Map Patient_st_map = list.get(i);
+				l.add(Patient_st_map.get("COM_NAME"));
+				//判断当前下钻层级，截取code
+				if(Integer.valueOf(Patient_st_map.get("COM_LEVEL").toString())==2){
+					t=4;
+				}else if(Integer.valueOf(Patient_st_map.get("COM_LEVEL").toString())==3){
+					t=7;
+				}else if(Integer.valueOf(Patient_st_map.get("COM_LEVEL").toString())==4){
+					t=9;
+				}else if(Integer.valueOf(Patient_st_map.get("COM_LEVEL").toString())==5){
+					t=12;
+				}else{
+					t=2;
+				}
+				if(i<list.size()-1){
+					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a02'		END	) the_random_date FROM	DA_HELP_VISIT where 1=1  and aar008 like '%"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' union all ";
+				}else{
+					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a02'		END	) the_random_date FROM	DA_HELP_VISIT where 1=1  and aar008 like '%"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' ";
+				}
+			}
+			
+			
+			List<Map> listAll = this.getBySqlMapper.findRecords(sqlTj);
+			for(int a =0;a<listAll.size();a++){
+				JSONObject obj = new JSONObject();
+				obj.put("V1", l.get(a));
+				obj.put("V0", listAll.get(a).get("THE_ALL"));
+				obj.put("V2", listAll.get(a).get("THE_DAY"));
+				obj.put("V3", listAll.get(a).get("THE_ONE_WEEK"));
+				obj.put("V4", listAll.get(a).get("THE_TWO_WEEK"));
+				obj.put("V5", listAll.get(a).get("THE_ONE_MONTH"));
+				obj.put("V6", listAll.get(a).get("THE_THREE_MONTH"));
+				obj.put("V7", listAll.get(a).get("THE_RANDOM_DATE"));
+				json.add(obj);
+			}
+			System.out.println(sqlTj);
+			System.out.println(getPaixu(json, name).toString());
+			response.getWriter().write(getPaixu(json, name).toString());
+		} else {
+			response.getWriter().write("0");
+		}
+	}
 	/**
 	 * @method f_1_1_2页面 PKC_1_1_1数据库
 	 * @param request
