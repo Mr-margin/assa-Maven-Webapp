@@ -276,8 +276,41 @@ $(function () {
 	    	$("#xzqh_title").html("");
 	    	size = "15";//每页显示的记录，分页用
 	    	number = 0;//默认第一页
+	    	container.imagesLoaded(function(){
+		   		  container.masonry({
+		   		  	columnWidth: 315,
+		   		    itemSelector : '.item',
+		   		    isFitWidth: true,//是否根据浏览器窗口大小自动适应默认false
+		   		    isAnimated: true,//是否采用jquery动画进行重拍版
+		   		    isRTL:false,//设置布局的排列方式，即：定位砖块时，是从左向右排列还是从右向左排列。默认值为false，即从左向右
+		   		    isResizable: true,//是否自动布局默认true
+		   		    animationOptions: {
+		   				duration: 800,
+		   				easing: 'easeInOutBack',//如果你引用了jQeasing这里就可以添加对应的动态动画效果，如果没引用删除这行，默认是匀速变化
+		   				queue: false//是否队列，从一点填充瀑布流
+		   			}
+		   		  });
+		   		});
+		   		var tur=0;
+		   		$("#quyu2").scroll(function(){
+		   			var $this =$(this),  
+		   	        viewH =$(this).height(),//可见高度  
+		   	        contentH =$(this).get(0).scrollHeight,//内容高度  
+		   			feideyongzhege = $(this)[0].scrollTop;//滚动高度 
+		   			
+		   			if(feideyongzhege>(tur+20)){
+		   				if((feideyongzhege + viewH) >= contentH){
+		   					loading.data("on",false).fadeIn(800);
+		   					loadData(1);
+		   					number++;//分页数加1
+		   					loading.data("on",true).fadeOut();
+		   					tur = feideyongzhege;
+		   				}
+		   			}
+		   		})
 	    	loadData("");
 	   	 	number++;//分页数加1
+	   		
 		});
 		
 		//清空
