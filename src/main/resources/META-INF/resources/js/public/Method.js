@@ -22,7 +22,7 @@ toastr.options = {//弹出提示框
  * @param data
  * @returns
  */
-function ajax_async_t(url,data,dataType,async){
+function ajax_async_t(url,data,dataType,async,err){
 	var rel;
 	if(async==""||async==undefined){
 		async=true;
@@ -37,7 +37,9 @@ function ajax_async_t(url,data,dataType,async){
 	    data: data,
 	    success: function (ret) {
 	    	if(ret.length==0){
-	    		toastr["warning"]("", "查询数据为空");
+	    		if(!err){
+	    			toastr["warning"]("", "查询数据为空");
+	    		}
 	    	}else{
 	    		rel = ret;
 	    	}
