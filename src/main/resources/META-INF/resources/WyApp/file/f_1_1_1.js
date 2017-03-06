@@ -109,7 +109,7 @@ function showWaitTime(){
         +"<div class=\"sk-cube\"></div>"
         +"</div>"
         +"</div>"
-        +"<span id=\"waitTime\" style=\"font-weight: bold;padding: 5px 20px;color: #1AB394;height: 20px;line-height: 20px;text-align: center;display: block;\">加载中,请稍后...</span></div>";
+        +"<span id=\"waitTime\" style=\"font-weight: bold;padding: 5px 20px;color: #1797F6;height: 20px;line-height: 20px;text-align: center;display: block;\">加载中,请稍后...</span></div>";
 		$("#tu_1").html(choose1);
 }
 //全部
@@ -223,6 +223,7 @@ function a1(v,t){
 		
 		$.each(data,function(i,item){
 			data = JsonSort(data, v);
+			data = JsonSort(data, v);//再次排序
 			
 			count0[i]=item[v];//值
 			count[i]=item.V1;//区域
@@ -276,7 +277,7 @@ function a1(v,t){
 				axisPointer : {// 坐标轴指示器，坐标轴触发有效
 					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
 				},
-				formatter : '{b}<br/>{a0}: {c0} 篇'
+				formatter : '{b}<br/>{a0}: {c0} 次'
 			},
 			grid: {
 				left: '0%',
@@ -308,15 +309,15 @@ function a1(v,t){
 	};
 	myChart = echarts.init(document.getElementById('tu_1'));//声明id为myChart的div为图形dom
 	myChart.on('click', function (params) {
-		showWaitTime();
 		obj.com=params.name;
-		if(a>0&&a<3){
+		if(data[0].V8<5&&a>0){
 			titleNames+="-"+params.name;
-		}else if(a>=3){
+		}else if(data[0].V8>=5){
 			return;
 		}else{
 			titleNames+=params.name;
 		}
+		showWaitTime();
 		title="走访记录情况("+titleNames+")";
 		setTimeout(function(){
 			a1();

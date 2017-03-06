@@ -404,6 +404,7 @@ function show_tree(){//bootstrap tree 获取数据的方法
 		},
 		icon: "glyphicon glyphicon-folder-close",
 		selectable: false,
+		png: "z1_1",
 //		title: "对象分析",
         nodes: [{
             text: "行政区域统计图",
