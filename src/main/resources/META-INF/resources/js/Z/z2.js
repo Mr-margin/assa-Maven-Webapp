@@ -175,6 +175,18 @@ $(function() {
 			p_zhuangtai = "0";
 		}
 	});
+	$("#t3").unbind("click").click(function(e) {
+		if(p_zhuangtai=="0"){
+			p_zhuangtai = "1";
+		}else{
+			if(tree_canshu.t3=='0'){
+				tree_canshu.t3='1';
+				tree_canshu.t4='0';
+				$('#iframez1').attr('src',pinjie_str());
+			}
+			p_zhuangtai = "0";
+		}
+	});
 //	//行政区划单位记录
 //	show_SYS_COMPANY();
 	
@@ -353,10 +365,12 @@ tree_canshu.q4 = "0";
 tree_canshu.q5 = "0";
 tree_canshu.t1 = "0";
 tree_canshu.t2 = "1";
+tree_canshu.t3 = "0";
+tree_canshu.t4 = "1";
 
 //拼接字符串方法
 function pinjie_str(){
-	return "file/"+dangqian_url+"?com="+tree_canshu.com+"&year="+tree_canshu.year+"&q1="+tree_canshu.q1+"&q2="+tree_canshu.q2+"&q3="+tree_canshu.q3+"&q4="+tree_canshu.q4+"&q5="+tree_canshu.q5+"&t1="+tree_canshu.t1+"&t2="+tree_canshu.t2;
+	return "file/"+dangqian_url+"?com="+tree_canshu.com+"&year="+tree_canshu.year+"&q1="+tree_canshu.q1+"&q2="+tree_canshu.q2+"&q3="+tree_canshu.q3+"&q4="+tree_canshu.q4+"&q5="+tree_canshu.q5+"&t1="+tree_canshu.t1+"&t2="+tree_canshu.t2+"&t3="+tree_canshu.t3+"&t4="+tree_canshu.t4;
 }
 
 
