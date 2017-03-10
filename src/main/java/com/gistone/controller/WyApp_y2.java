@@ -91,10 +91,10 @@ public class WyApp_y2 {
 //		int ri = Integer.parseInt(rizhi_List.get(0).get("RI").toString());
 //		int zhou = Integer.parseInt(rizhi_List.get(0).get("ZHOU").toString());
 //		int yue = Integer.parseInt(rizhi_List.get(0).get("YUE").toString());
-		if(bfrname!=""&&bfrname!=null){
+		if(bfrname!=""&&bfrname!=null&&bfrname.length()>0){
 			sql +=" AND  table_alias.PERSONAL_NAME='"+bfrname+"'";
 		}
-		if(pkhname!=""&&pkhname!=null){
+		if(pkhname!=""&&pkhname!=null&&pkhname.length()>0){
 			sql +=" AND  table_alias.HOUSEHOLD_NAME='"+pkhname+"'";
 		}
 		System.out.println(sql);
