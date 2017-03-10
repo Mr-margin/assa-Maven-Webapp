@@ -124,8 +124,10 @@ $(function () {
 		if(flag&&loading.text()=="只有这么多了！"){
 			return false;
 		}
-		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level});
-		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level},"json",true);
+		var bfrname = $("#bfrname").val();
+		var pkhname = $("#pkhname").val();
+		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname});
+		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname},"json",true);
 		if (typeof sqlJson.error == "undefined") {
 			var xzqh_title_html = '&nbsp;&nbsp;&nbsp;当前帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
 			sqlJson.data2+'</span> 篇&nbsp;&nbsp;其中&nbsp;&nbsp; 相关贫困户：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+

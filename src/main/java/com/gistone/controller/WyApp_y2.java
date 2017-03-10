@@ -47,6 +47,9 @@ public class WyApp_y2 {
 		
 		String level = request.getParameter("level");
 		String xzqh = request.getParameter("xzqh");
+		String bfrname = request.getParameter("bfrname").trim();
+		String pkhname = request.getParameter("pkhname").trim();
+	
 		
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber)*size;
@@ -61,6 +64,7 @@ public class WyApp_y2 {
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
 				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") order by v1 desc, d1.PKID desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
+		
 		
 		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
 		
@@ -87,7 +91,13 @@ public class WyApp_y2 {
 //		int ri = Integer.parseInt(rizhi_List.get(0).get("RI").toString());
 //		int zhou = Integer.parseInt(rizhi_List.get(0).get("ZHOU").toString());
 //		int yue = Integer.parseInt(rizhi_List.get(0).get("YUE").toString());
-		
+		if(bfrname!=""&&bfrname!=null){
+			sql +=" AND  table_alias.PERSONAL_NAME='"+bfrname+"'";
+		}
+		if(pkhname!=""&&pkhname!=null){
+			sql +=" AND  table_alias.HOUSEHOLD_NAME='"+pkhname+"'";
+		}
+		System.out.println(sql);
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
 			JSONArray jsa=new JSONArray();
