@@ -213,12 +213,37 @@ public class Index_Controller{
 
 		String username = request.getParameter("add_account");//获取用户名 
 		String password = request.getParameter("add_password");//获取密码
-		String people_sql = "select t1.pkid,t1.col_account,t1.col_password,t1.sys_com_code,t1.com_vd,t1.com_vs,t3.role_name,t3.pkid as role_id  from sys_user t1 "
+		String people_sql = "select t1.pkid,t1.col_account,t1.col_password,t1.sys_com_code,t1.login_count,t1.LOGIN_TIME,t1.com_vd,t1.com_vs,t3.role_name,t3.pkid as role_id  from sys_user t1 "
 				+ "LEFT JOIN sys_user_role_many t2 on t1.SYS_ROLE_ID=t2.user_id "
 				+ "LEFT JOIN sys_role t3 on t2.role_id=t3.pkid WHERE t1.col_account = '"+username+"'";
 		List<Map> Login = this.getBySqlMapper.findRecords(people_sql);
-//		System.out.println(people_sql);
 		if(Login.size()>0){//查询到用户记录
+			//登录时间
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yy-MM-dd HH:mm:ss ");
+			String login_time =  sf.format(date);
+			//登录次数+1
+			int login_count =1;
+			if(Login.get(0).get("LOGIN_COUNT")!=null){
+				login_count = Integer.valueOf(Login.get(0).get("LOGIN_COUNT").toString())+1;
+			}
+			
+			Date date2 = new Date();
+			String last_time =  sf.format(date2);
+	
+			//获取最后一次登录时间 上次的登陆时间  就是本次的最后登录时间
+			if(Login.get(0).get("LOGIN_COUNT")!=null){
+				last_time = Login.get(0).get("LOGIN_TIME").toString();
+				Date time = sf.parse(last_time);
+				last_time = sf.format(time);
+			}
+/*			String last_time = userInfo.get(0).get("LOGIN_TIME")==null?"":userInfo.get(0).get("LOGIN_TIME").toString();*/
+			//获取ip地址
+			String ip_Address = Index_Controller.getIpAddress(request);
+			
+			String update_sql = "update SYS_USER u set u.LAST_TIME =  '"+last_time+"',u.LOGIN_TIME = '"+login_time+"',LOGIN_COUNT = "+login_count+",u.IP_ADDRESS ='"+ip_Address+"' where u.COL_ACCOUNT = '"+username+"'"; 
+			this.getBySqlMapper.update(update_sql);
+			
 			Map Login_map = Login.get(0);
 			if(Tool.md5(password).equals(Login_map.get("COL_PASSWORD"))==true){//密码正确
 				HttpSession session = request.getSession();
@@ -301,5 +326,27 @@ public class Index_Controller{
 			response.getWriter().write("0");
 		}
 	}
+	//获取ip
+	  public static String getIpAddress(HttpServletRequest request) { 
+		    String ip = request.getHeader("x-forwarded-for"); 
+		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+		      ip = request.getHeader("Proxy-Client-IP"); 
+		    } 
+		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+		      ip = request.getHeader("WL-Proxy-Client-IP"); 
+		    } 
+		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+		      ip = request.getHeader("HTTP_CLIENT_IP"); 
+		    } 
+		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+		      ip = request.getHeader("HTTP_X_FORWARDED_FOR"); 
+		    } 
+		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+		      ip = request.getRemoteAddr(); 
+		    } 
+		    return ip; 
+		  } 
+		  
 }
+
 
