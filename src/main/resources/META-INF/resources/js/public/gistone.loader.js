@@ -31,6 +31,7 @@ GISTONE.Loader = {
 		    ["fullPage","js/plugins/fullPage/","jquery.fullPage.js","jquery.fullPage.css,style.css"],//第三方插件，滚屏组件
 		    ["labelauty","js/plugins/labelauty/","jquery-labelauty.js","jquery-labelauty.css"],
 		    ["prefixfree","js/plugins/prefixfree/","prefixfree.min.js"],
+		  
 		    
 		    ["hplus","js/plugins/hplus/","hplus.min.js?v=4.0.0,contabs.min.js",""],//H++默认结构,将每一页显示在框架内而不是另起一页
 		    ["metisMenu","js/plugins/metisMenu/","jquery.metisMenu.js",""],//菜单展开效果

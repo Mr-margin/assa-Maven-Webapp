@@ -138,6 +138,33 @@
 				.price_block:last-child {border-right: 0 none;}
 				.price_block:hover {border: 0 none;}
 			}
+			/*间断循环  */
+			ul,li{margin:0;padding:0;}
+			ul,li{list-style:none;}
+			.con{width:200px;height:40px;
+			border:0px solid #333333;
+			overflow:hidden;
+			margin:0 10px 10px -5px;}
+			.list{width:100%;}
+			.list li{width:100%;height:30px;line-height:30px;
+			text-indent:20px;float:left;font-size:15px;
+			margin-top: -13px;    margin-left: -10px;
+			margin-bottom: 10px;
+			}
+		
+			.l1 {
+		    margin-top: 10px;
+		    text-align: center;
+		    float:left;
+		    font-size:12px;
+		    }
+		    
+		    .l2{
+		    	float:left;
+		    	font-size:14px;
+		    	margin-left: -15px;
+		    }
+			
 		</style>
 	</head>
 	
@@ -203,23 +230,32 @@
 	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>扶贫对象</strong></div>
 	            </li>
 			</ul>
-			<div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#d13438;">
+		<div class="anniwz" style=" text-align:left;height:80px; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#d13438;">
+		<ul class="list" id="pkrkCount">
+		<!-- <li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>25359<strong style="font-size:12px;">人</strong></label></li>
+		<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>12236<strong style="font-size:12px">户</strong></label></li> -->
+		<!-- 		<li>
 				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
-							<th scope="col">贫困人口:</th>
-							<td style="font-size:16px;transform: scale(1,1.2);"><strong id="pkrk"></strong></td>
-							<th>人</th>
+							<th colspan="3" scope="col" style="font-size:12px;">2017年贫困人口:<strong id="pkrk" style="font-size:16px;ma">10000</strong><strong style="font-size:12px;">人</strong></th>
+							
+							
 				    	</tr>
 					    <tr>
-					        <th scope="row">贫困户：</th>
-					        <td style="font-size:16px;transform: scale(1,1.2);"><strong id="pkh"></strong></td>
-					        <th>户</th>
+					        <th scope="row" style="font-size:12px;">贫困户：</th>
+					        <td style="font-size:16px;transform: scale(1,1.2);"><strong id="pkh">10000</strong></td>
+					        <th style="font-size:12px;">户</th>
 					    </tr>
 					</tbody>
 				</table>
-			</div>
-		</li>
+				</li> -->
+		</ul>
+		</div>
+
+				
+			
+
 		<li class="price_block" id="fpzt" > <!-- onclick="window.location.href = 'WyApp/home.html';" -->
 			<ul class="features">
 				<li style="height:280px; background-color:#10893e;">
@@ -227,7 +263,9 @@
 	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>扶贫主体</strong></div>
 	            </li>
 			</ul>
-			<div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#10893e;">
+			<div class="anniwz" style=" text-align:left; height:80px;color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#10893e;">
+				<ul class="list" id="bfgbCount">
+			<!-- <li>
 				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 				    	<tr>
@@ -241,10 +279,11 @@
 				      		<th>%</th>
 				    	</tr>
 					</tbody>
-				</table>
+				</table> 
+			
+		</li> -->
+			</ul>
 			</div>
-		</li>
-		
   		<li class="price_block" >  <!-- onclick="window.location.href = 'WtApp/home.html';" -->
 			<ul class="features">
 				<li style="height:280px; background-color:#ff8c00;">
@@ -365,8 +404,16 @@
 			</div>
 		</div>
 	</div>
+	
 	<script>
 		GISTONE.Loader.loadScript(["jquery","bootstrap","validate","toastr","sweetalert","prefixfree","public","home","password"]);
 	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		$("#pkrkCount").scrollQ();
+		$("#bfgbCount").scrollQ();
+		});
+	</script>
 </body>
+
 </html>
