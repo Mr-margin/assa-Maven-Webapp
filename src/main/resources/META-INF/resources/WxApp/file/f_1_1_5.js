@@ -92,10 +92,11 @@ function a1(){
 			item.V6='';
 		}
 		count[i]=item.V1;
-		count_2[i]=item.V3_1;
-		count_3[i]=item.V4_1;
-		count_4[i]=item.V5_1;
-		count_5[i]=item.V6_1;
+		count_2[i]=parseFloat(item.V3_1).toFixed(2);
+		count_3[i]=parseFloat(item.V4_1).toFixed(2);
+		count_4[i]=parseFloat(item.V5_1).toFixed(2);
+		count_5[i]=parseFloat(item.V6_1).toFixed(2);
+		
 		
 		tables+='<tr><td class="text-center">'+Number(i+1)+'</td><td class="text-center">'+item.V1+'</td><td class="text-center">'+item.V3+'</td><td class="text-center">'+item.V4+'</td><td class="text-center">'+item.V5+'</td><td class="text-center">'+item.V6+'</td></tr>';
 		

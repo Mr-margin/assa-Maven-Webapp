@@ -105,41 +105,40 @@ function a1(){
 				item.V7='';
 			}
 			count[i]=item.V1;
-			count_2[i]=item.V3_1;
-			count_3[i]=item.V4_1;
-			count_4[i]=item.V5_1;
-			count_5[i]=item.V6_1;
-			count_6[i]=item.V7_1;
+			count_2[i]=parseFloat(item.V3_1).toFixed(2);
+			count_3[i]=parseFloat(item.V4_1).toFixed(2);
+			count_4[i]=parseFloat(item.V5_1).toFixed(2);
+			count_5[i]=parseFloat(item.V6_1).toFixed(2);
+			count_6[i]=parseFloat(item.V7_1).toFixed(2);
 
 			tables+='<tr><td class="text-center">'+Number(i+1)+'</td><td class="text-center">'+item.V1+'</td><td class="text-center">'+item.V3+'</td><td class="text-center">'+item.V4+'</td><td class="text-center">'+item.V5+'</td><td class="text-center">'+item.V6+'</td><td class="text-center">'+item.V7+'</td></tr>';
 
-			if(typeof item.V1 == 'undefined'){
-				item.V1 = "";
-			}
-			if(typeof item.V3 == 'undefined'){
-				A1 += 0;
+			if(item.V3 == '' || item.V3 == null || item.V3 == undefined){
+				
 			}else{
-				A1 += parseInt(item.V3);
+				A1=parseInt(item.V3)+parseInt(A1);
+				
 			}
-			if(typeof item.V4 == 'undefined'){
-				A2 += 0;
+			if(item.V4 == '' || item.V4 == null || item.V4 == undefined){
+				
 			}else{
-				A2 += parseInt(item.V4);
+				A2=parseInt(item.V4)+parseInt(A2);
 			}
-			if(typeof item.V5 == 'undefined'){
-				A3 += 0;
+			if(item.V5 == '' || item.V5 == null || item.V5 == undefined){
+				
 			}else{
-				A3 += parseInt(item.V5);
+				A3=parseInt(item.V5)+parseInt(A3);
 			}
-			if(typeof item.V6 == 'undefined'){
-				A4 += 0;
+			if(item.V6 == '' || item.V6 == null || item.V6 == undefined){
+				
 			}else{
-				A4 += parseInt(item.V6);
+				A4=parseInt(item.V6)+parseInt(A4);
+				
 			}
-			if(typeof item.V7 == 'undefined'){
-				A5 += 0;
+			if(item.V7 == '' || item.V7 == null || item.V7 == undefined){
+				
 			}else{
-				A5 += parseInt(item.V7);
+				A5=parseInt(item.V7)+parseInt(A5);
 			}
 
 		});
