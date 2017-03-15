@@ -34,6 +34,13 @@ $(function () {
 	table();
 	
 })
+//json排序
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var y = a[key]*1; var x = b[key]*1;
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
 var obj = {};
 
 var myChart_ring,myChart;
@@ -70,9 +77,12 @@ function a1(){
 		var A4=0;//女性人口总数
 		
 		var count0=[];//总人数
-		
+		data = sortByKey(data, "V2");
 		$.each(data,function(i,item){
-			
+			if(i>0){
+			}else{
+				yMax=item["V2"];
+			}
 			if(typeof item.V2 == 'undefined'){
 				item.V2='';
 			}
@@ -168,6 +178,12 @@ function a1(){
 				    	   data:count6
 				       }]
 		}
+		//填充内容
+		var dataShadow = [];
+
+		for (var i = 0; i < data.length; i++) {
+		    dataShadow.push(yMax);
+		}
 		var option = {//柱状图
 				title: {
 					text: title,
@@ -177,6 +193,26 @@ function a1(){
 						color: 'black'
 					},
 					textStyle:{fontWeight:'500',fontSize:'17'}
+				},
+				toolbox: {
+					right:'150',
+					itemSize:20,
+					feature: {
+						myTool1: {
+			                show: true,
+			                title: '初始化(初始化到第一级)',
+			                icon: 'image://../../img/arrow_refresh.png',
+			                onclick: function (){
+			                	diqu = parent.jsondata.Login_map.COM_NAME;
+			                	parent.level=1;
+			                	var n = parent.jsondata.Login_map.COM_NAME;
+			                	if(parent.jsondata.Login_map.COM_NAME=="内蒙古自治区"){
+			                		n="全部盟市";
+			                	}
+			                	parent.setSelVal(n);
+			                }
+			            }
+					}
 				},
 				legend: {
 //					data:['女性人口','少数民族人口','新农合参保','新农保参保'],
@@ -215,6 +251,16 @@ function a1(){
 				        	 name: '贫困人口数量',
 				        	 type: 'bar',
 				        	 data: count0
+				         },{
+				        	 name: '贫困人口数量',
+				        	 type: 'bar',
+					            itemStyle: {
+					                normal: {color: 'rgba(0,0,0,0.05)'}
+					            },
+					            barGap:'-100%',
+					            barCategoryGap:'40%',
+					            data: dataShadow,
+					            animation: true
 				         }
 //				         {
 //				        	 name: '女性人口',
@@ -240,7 +286,7 @@ function a1(){
 		};
 
 		myChart.on('click', function (params) {
-			console.log(params);
+//			console.log(params);
 		    diqu=params.name;
 //		    $('#v2', window.parent.document).val(diqu);
 		    parent.setSelVal(diqu);

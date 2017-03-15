@@ -20,6 +20,9 @@
 		GISTONE.Loader.loadStyle(["jquery","bootstrap","datapicker","slimscroll","validate","toastr","echarts","public"]);
 	</script>
 	<style>
+		.p-md {
+			    padding: 5px;
+		}
 		.c_red {
 			font-size: 13px;
 			background-color: #FFF;
@@ -47,6 +50,8 @@
 			<div id="tu1" class="col-sm-12">
 				
 				<div class="text-left float-e-margins p-md">
+					<span style="font-weight: bold;"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;按时间过滤：</span>
+					
 					<button type="button" class="btn btn-success btn-xs" id="the_all"><i class="fa fa-sort-amount-desc"></i> 全部 </button>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_day"><i class="fa fa-sort-amount-desc"></i> 当天 </button>
@@ -69,7 +74,25 @@
                         	<span class="input-group-addon"><button type="button" style="margin-bottom: -4px;margin-top: -6px;" class="btn btn-outline btn-success btn-xs" id="the_submit"><i class="fa fa-refresh"></i> 查询 </button></span>
                         </div>
                     </div>
-                    
+				</div>
+				
+				<div class="text-left float-e-margins p-md">
+					<span style="font-weight: bold;"><i class="fa fa-tags"></i>&nbsp;&nbsp;按类型过滤：</span>
+					<button type="button" class="btn btn-success btn-success btn-xs" id="the_type_all"><i class="fa fa-sort-amount-desc"></i> 全部 </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_one"><i class="fa fa-sort-amount-desc"></i> 了解基本情况 </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_two"><i class="fa fa-sort-amount-desc"></i> 填写扶贫手册  </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_three"><i class="fa fa-sort-amount-desc"></i> 制定脱贫计划  </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_four"><i class="fa fa-sort-amount-desc"></i> 落实资金项目  </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_five"><i class="fa fa-sort-amount-desc"></i> 宣传扶贫政策  </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_six"><i class="fa fa-sort-amount-desc"></i> 节日假日慰问  </button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline btn-success btn-xs" id="the_type_seven"><i class="fa fa-sort-amount-desc"></i> 其他帮扶活动  </button>
 				</div>
 				
 				<div id="tu_1" style="height: 585px; width: 100%;"></div>

@@ -2,7 +2,7 @@ $(document).ready(function(){
 	//日期区间初始化
 	$("#bdate .input-daterange").datepicker({keyboardNavigation:!1,forceParse:!1,autoclose:!0});
 	
-	title='走访记录情况';
+	title='走访记录情况统计';
 	if(parent.shi!=''){
 		title=title+" ("+parent.shi;
 		if(parent.xian!=''){
@@ -36,6 +36,7 @@ $(function () {
 	obj.sTime=$("input[name='start_date']").val();
 	obj.eTime=$("input[name='end_date']").val();
 	showWaitTime();
+	diqu.push(obj.com);
 	setTimeout(function(){
 		a1();
 	},500);
@@ -44,7 +45,7 @@ $(function () {
 //json排序
 function sortByKey(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
+        var y = a[key]*1; var x = b[key]*1;
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
@@ -83,7 +84,8 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 	}catch(e){
 	}
 };
-var diqu="";
+var yMax = 0;//y轴填充赋值
+var diqu=[];
 var a=0;//记录下钻次数
 var titleNames="";
 var title='';
@@ -112,6 +114,144 @@ function showWaitTime(){
         +"<span id=\"waitTime\" style=\"font-weight: bold;padding: 5px 20px;color: #1797F6;height: 20px;line-height: 20px;text-align: center;display: block;\">加载中,请稍后...</span></div>";
 		$("#tu_1").html(choose1);
 }
+//日记类型全部
+$("#the_type_all").click(function(){
+	$("#bdate").hide();
+	$("#the_type_all").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V17");
+});
+//了解基本情况
+$("#the_type_one").click(function(){
+	$("#bdate").hide();
+	$("#the_type_one").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V11");
+});
+//填写扶贫手册
+$("#the_type_two").click(function(){
+	$("#bdate").hide();
+	$("#the_type_two").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V12");
+});
+
+
+
+//制定脱贫计划
+$("#the_type_three").click(function(){
+	$("#bdate").hide();
+	$("#the_type_three").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V13");
+});
+
+//落实资金项目
+$("#the_type_four").click(function(){
+	$("#bdate").hide();
+	$("#the_type_four").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V14");
+});
+
+//宣传扶贫政策
+$("#the_type_five").click(function(){
+	$("#bdate").hide();
+	$("#the_type_five").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V15");
+});
+
+//节日假日慰问
+$("#the_type_six").click(function(){
+	$("#bdate").hide();
+	$("#the_type_six").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_seven").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V16");
+});
+
+//其他帮扶活动
+$("#the_type_seven").click(function(){
+	$("#bdate").hide();
+	$("#the_type_seven").removeAttr("class");
+	this.className='btn btn-success btn-xs';
+	
+	$("#the_type_all").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_one").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_three").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_four").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_five").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_six").attr("class","btn btn-outline btn-success btn-xs");
+	$("#the_type_two").attr("class","btn btn-outline btn-success btn-xs");
+	
+	a1("V10");
+});
+
+
+
 //全部
 $("#the_all").click(function(){
 	$("#bdate").hide();
@@ -219,12 +359,15 @@ $("#the_randow_date").click(function(){
 });
 //v 判断是否需要走后台，即是否页面快速查询按钮操作    t代表自定义查询
 function a1(v,t){
+	count=[];
+	count0=[];
 	if(v){
-		
+		data = sortByKey(data, v);
 		$.each(data,function(i,item){
-			data = JsonSort(data, v);
-			data = JsonSort(data, v);//再次排序
-			
+			if(i>0){
+			}else{
+				yMax=item[v];
+			}
 			count0[i]=item[v];//值
 			count[i]=item.V1;//区域
 		});
@@ -242,21 +385,33 @@ function a1(v,t){
 			$("#z").html('<img class="center-block" src="../../img/wu.png">');
 			
 		}else{
-			count=[];
-			count0=[];
 			$.each(data,function(i,item){
 				if(t){
-					data = JsonSort(data, t);
+					data = sortByKey(data, t);
 					count0[i]=item[t];//值
+					if(i>0){
+					}else{
+						yMax=item[t];
+					}
 				}else{
 					data = sortByKey(data, 'V0');
 					count0[i]=item.V0;//值
+					if(i>0){
+					}else{
+						yMax=item.V0;
+					}
 				}
 				
 				count[i]=item.V1;//区域
 			});
 			
 		}
+	}
+	//填充内容
+	var dataShadow = [];
+
+	for (var i = 0; i < data.length; i++) {
+	    dataShadow.push(yMax);
 	}
 	var option = {//柱状图
 			title: {
@@ -271,6 +426,31 @@ function a1(v,t){
 			legend: {
 				data:['走访记录数'],
 				y:'bottom'
+			},
+			toolbox: {
+				right:'150',
+				itemSize:20,
+				feature: {
+					myTool1: {
+		                show: true,
+		                title: '初始化(初始化到第一级)',
+		                icon: 'image://../../img/arrow_refresh.png',
+		                onclick: function (){
+		                	obj.com = diqu[0];
+		                	titleNames="";//初始化
+		                	title="走访记录情况统计";
+		                	showWaitTime();
+		                	setTimeout(function(){
+		                		a1('','V7');
+		                	},500);
+		                    /*alert(data[0].V8+obj.com+diqu[a]);
+		                    if(a==0){
+		                    }else{
+		                    	a--;
+		                    }*/
+		                }
+		            }
+				}
 			},
 			tooltip: {
 				trigger: 'axis',
@@ -297,18 +477,42 @@ function a1(v,t){
 			yAxis: {
 				axisLabel: {
 					formatter: '{value}'
-				}
+				}/*,
+				min:0,
+				max:yMax*/
 			},
-			series: [
-			         {
-			        	 name: '走访记录数',
-			        	 type: 'bar',
-			        	 data: count0
-			         }
+			series: [{
+	        	 name: '走访记录数',
+	        	 type: 'bar',
+	        	 data: count0,
+	        	 /*markPoint : {
+	                 data : [
+	                     {type : 'max', name: '最大值'},
+	                     {type : 'min', name: '最小值'}
+	                 ]
+	             },
+	             markLine : {
+	                 data : [
+	                     {type : 'average', name: '平均值'}
+	                 ]
+	             }*/
+	         },{ // For shadow
+						name: '走访记录',
+			            type: 'bar',
+			            itemStyle: {
+			                normal: {color: 'rgba(0,0,0,0.05)'}
+			            },
+			            barGap:'-100%',
+			            barCategoryGap:'40%',
+			            data: dataShadow,
+			            animation: true
+			        }
 		         ]
 	};
 	myChart = echarts.init(document.getElementById('tu_1'));//声明id为myChart的div为图形dom
 	myChart.on('click', function (params) {
+		//记录本次地区名
+//		diqu.push(params.name);
 		obj.com=params.name;
 		if(data[0].V8<5&&a>0){
 			titleNames+="-"+params.name;
@@ -318,7 +522,7 @@ function a1(v,t){
 			titleNames+=params.name;
 		}
 		showWaitTime();
-		title="走访记录情况("+titleNames+")";
+		title="走访记录情况统计("+titleNames+")";
 		setTimeout(function(){
 			a1();
 		},500);
@@ -329,40 +533,6 @@ function a1(v,t){
 	if(!v){
 		//重新排序
 		$("#the_all").click();
+		$("#the_type_all").click();
 	}
-}
-//表格数据
-function table  () {
-//	tables +='<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+ item.V1 +'</td>'+
-	var data = ajax_async_t("/assa/getBfdxHu_1.do",{name:obj.com,year:obj.year,q1:obj.q1,q2:obj.q2,q3:obj.q3,q4:obj.q4,q5:obj.q5,t1:obj.t1,t2:obj.t2,desc:"asc"},"json");
-	var html = "";
-	if(data=='' || data == null || data==undefined){
-		$("#pd").html('<img src="../../img/wu.png" class="center-block">')
-	}else{
-		var A1=0,A2=0;
-		$.each(data,function(i,item){
-				html +='<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+item.com_name+'</td>'+
-				'<td class="text-center">'+item.z_hu+'</td>'+
-				'<td class="text-center">'+item.z_ren+'</td>'+
-				'</tr>';
-				if(item.z_hu == '' || item.z_hu == null || item.z_hu == undefined){
-					
-				}else{
-					A1=parseInt(item.z_hu)+parseInt(A1);
-					
-				}
-				if(item.z_ren == '' || item.z_ren == null || item.z_ren == undefined){
-					
-				}else{
-					A2=parseInt(item.z_ren)+parseInt(A2);
-					
-				}
-		})
-		html +='<tr><td class="text-center">'+Number(data.length+1)+'</td><td class="text-center"><strong>汇总</strong></td>'+
-				'<td class="text-center"><strong>'+A1+'</strong></td>'+
-				'<td class="text-center"><strong>'+A2+'</strong></td>'+
-				'</tr>';
-		$("#tableChart").html(html);
-	}
-
 }

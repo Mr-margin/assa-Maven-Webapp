@@ -149,10 +149,6 @@ public class PKC_1_1_Controller {
 		String eTime = request.getParameter("eTime");//结束时间
 		int t = 0;//用于截取行政区划code时的长度
 		String sqlTj = "select * from (";//拼接的sql条件
-		 
-		if (name.equals("全部盟市")) {
-			name = "内蒙古自治区";
-		}
 		//查询行政区划,获取行政区划code
 		String sql = "SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=("
 		+ "SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='" + name + "'"
@@ -166,8 +162,8 @@ public class PKC_1_1_Controller {
 		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='呼伦贝尔市')
 		--盟    15
 		SELECT * FROM SYS_COMPANY WHERE COM_F_PKID=(SELECT PKID FROM SYS_COMPANY WHERE COM_NAME='内蒙古自治区')*/
-		List l = new ArrayList();
-		List lev = new ArrayList();
+		List l = new ArrayList();//存储地区名
+		List lev = new ArrayList();//存储地区所属层级
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		JSONArray json = new JSONArray();
 		if (list.size() > 0) {
@@ -188,9 +184,9 @@ public class PKC_1_1_Controller {
 					t=4;
 				}
 				if(i<list.size()-1){
-					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a02'		END	) the_random_date FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' union all ";
+					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a04'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'		END	) the_random_date,		count(			CASE				WHEN					ZFTYPE=1				THEN				'a06'				end		) the_type_one,		count(			CASE				WHEN					ZFTYPE=2				THEN				'a07'				end		) the_type_two,		count(			CASE				WHEN					ZFTYPE=3				THEN				'a08'				end		) the_type_three,		count(			CASE				WHEN					ZFTYPE=4				THEN				'a09'				end		) the_type_four,		count(			CASE				WHEN					ZFTYPE=5				THEN				'a10'				end		) the_type_five,		count(			CASE				WHEN					ZFTYPE=6				THEN				'a11'				end		) the_type_six,		count(			CASE				WHEN					ZFTYPE=7				THEN				'a12'				end		) the_type_seven,		count(			CASE				WHEN					ZFTYPE in(1,2,3,4,5,6,7)				THEN				'a13'				end		) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' union all ";
 				}else{
-					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a02'		END	) the_random_date FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' ";
+					sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (		CASE		WHEN TO_CHAR (			TO_DATE (				registertime,				'yyyy-mm-dd hh24:mi:ss'			),			'yyyy-mm-dd'		) = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN			'a00'		END	) the_day,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	) the_one_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a04'		END	) the_three_month,	COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'		END	) the_random_date,		count(			CASE				WHEN					ZFTYPE=1				THEN				'a06'				end		) the_type_one,		count(			CASE				WHEN					ZFTYPE=2				THEN				'a07'				end		) the_type_two,		count(			CASE				WHEN					ZFTYPE=3				THEN				'a08'				end		) the_type_three,		count(			CASE				WHEN					ZFTYPE=4				THEN				'a09'				end		) the_type_four,		count(			CASE				WHEN					ZFTYPE=5				THEN				'a10'				end		) the_type_five,		count(			CASE				WHEN					ZFTYPE=6				THEN				'a11'				end		) the_type_six,		count(			CASE				WHEN					ZFTYPE=7				THEN				'a12'				end		) the_type_seven,		count(			CASE				WHEN					ZFTYPE in(1,2,3,4,5,6,7)				THEN				'a13'				end		) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+Patient_st_map.get("COM_CODE").toString().substring(0, t)+"%' ";
 				}
 			}
 			
@@ -200,17 +196,29 @@ public class PKC_1_1_Controller {
 				JSONObject obj = new JSONObject();
 				obj.put("V1", l.get(a));
 				obj.put("V8", lev.get(a));
-				obj.put("V0", listAll.get(a).get("THE_ALL"));
-				obj.put("V2", listAll.get(a).get("THE_DAY"));
-				obj.put("V3", listAll.get(a).get("THE_ONE_WEEK"));
-				obj.put("V4", listAll.get(a).get("THE_TWO_WEEK"));
-				obj.put("V5", listAll.get(a).get("THE_ONE_MONTH"));
-				obj.put("V6", listAll.get(a).get("THE_THREE_MONTH"));
-				obj.put("V7", listAll.get(a).get("THE_RANDOM_DATE"));
+				//按日期条件过滤
+				obj.put("V0", listAll.get(a).get("THE_ALL"));//所有
+				obj.put("V2", listAll.get(a).get("THE_DAY"));//当天
+				obj.put("V3", listAll.get(a).get("THE_ONE_WEEK"));//近一周
+				obj.put("V4", listAll.get(a).get("THE_TWO_WEEK"));//近两周
+				obj.put("V5", listAll.get(a).get("THE_ONE_MONTH"));//近一月
+				obj.put("V6", listAll.get(a).get("THE_THREE_MONTH"));//近三月
+				obj.put("V7", listAll.get(a).get("THE_RANDOM_DATE"));//近自定义
+				
+				//按走访类型过滤
+				obj.put("V10", listAll.get(a).get("THE_TYPE_ONE"));//其他帮扶活动
+				obj.put("V11", listAll.get(a).get("THE_TYPE_TWO"));//了解基本情况
+				obj.put("V12", listAll.get(a).get("THE_TYPE_THREE"));//填写扶贫手册
+				obj.put("V13", listAll.get(a).get("THE_TYPE_FOUR"));//制定脱贫计划
+				obj.put("V14", listAll.get(a).get("THE_TYPE_FIVE"));//落实资金项目
+				obj.put("V15", listAll.get(a).get("THE_TYPE_SIX"));//宣传扶贫政策
+				obj.put("V16", listAll.get(a).get("THE_TYPE_SEVEN"));//节日假日慰问
+				obj.put("V17", listAll.get(a).get("THE_TYPE_EIGHT"));//所有
+				
 				json.add(obj);
 			}
-			System.out.println(sqlTj);
-			System.out.println(getPaixu(json, name).toString());
+//			System.out.println(sqlTj);
+//			System.out.println(getPaixu(json, name).toString());
 			response.getWriter().write(getPaixu(json, name).toString());
 		} else {
 			response.getWriter().write("0");

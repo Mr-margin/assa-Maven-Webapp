@@ -49,7 +49,7 @@ public class WyApp_y2 {
 		String xzqh = request.getParameter("xzqh");
 		String bfrname = request.getParameter("bfrname").trim();
 		String pkhname = request.getParameter("pkhname").trim();
-	
+		String zfT = request.getParameter("zftype");
 		
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber)*size;
@@ -60,13 +60,13 @@ public class WyApp_y2 {
 		
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
-		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008 from ( "
+		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,ZFTYPE from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
-				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") order by v1 desc, d1.PKID desc "
+				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") order by v1 desc, d1.PKID desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
 		
 		
-		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")";
+		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")  and  d1.zftype in("+zfT+")";
 		
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
@@ -130,7 +130,73 @@ public class WyApp_y2 {
 				
 				val.put("phone", "".equals(st_map.get("PERSONAL_PHONE")) || st_map.get("PERSONAL_PHONE") == null ? "" : st_map.get("PERSONAL_PHONE").toString());
 				val.put("house", "".equals(st_map.get("HOUSEHOLD_NAME")) || st_map.get("HOUSEHOLD_NAME") == null ? "" : st_map.get("HOUSEHOLD_NAME").toString());
-				
+				/*1、其他帮扶活动
+				2、了解基本情况
+				3、填写扶贫手册
+				4、制定脱贫计划
+				5、落实资金项目
+				6、宣传扶贫政策
+				7、节日假日慰问*/
+				String zftype="其他帮扶活动";
+				if(st_map.get("ZFTYPE")!=null&&!"".equals(st_map.get("ZFTYPE"))){
+					int j=Integer.valueOf(st_map.get("ZFTYPE").toString()); 
+
+					switch(j) 
+
+					{ 
+
+					case 1: 
+
+						zftype="其他帮扶活动";
+
+					break; 
+
+					case 2: 
+
+						zftype="了解基本情况";
+
+					break;  
+
+					case 3: 
+
+						zftype="填写扶贫手册";
+
+					break;
+					
+					case 4: 
+
+						zftype="制定脱贫计划";
+
+					break;
+					
+					case 5: 
+
+						zftype="落实资金项目";
+
+					break;
+					
+					case 6: 
+
+						zftype="宣传扶贫政策";
+
+					break;
+					
+					case 7: 
+
+						zftype="节日假日慰问";
+
+					break;
+
+					default: 
+
+						zftype="其他帮扶活动";
+
+					break; 
+
+					} 
+
+				}
+				val.put("zftype", zftype);
 				jsa.add(val);
 			}
 			//帮扶统计

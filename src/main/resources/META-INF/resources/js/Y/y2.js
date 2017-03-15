@@ -126,8 +126,9 @@ $(function () {
 		}
 		var bfrname = $("#bfrname").val();
 		var pkhname = $("#pkhname").val();
-		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname});
-		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname},"json",true);
+		var zftype = $("#v0").val();
+//		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname});
+		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname,zftype:zftype},"json",true);
 		if (typeof sqlJson.error == "undefined") {
 			var xzqh_title_html = '&nbsp;&nbsp;&nbsp;当前帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
 			sqlJson.data2+'</span> 篇&nbsp;&nbsp;其中&nbsp;&nbsp; 相关贫困户：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
@@ -153,9 +154,9 @@ $(function () {
 						}
 						html+="户主:"+sqlJson[i].house+"</h5>";
 						if( sqlJson[i].date == null || sqlJson[i].date == undefined ) {
-							html+="<span class='sp2'></span>";
+							html+="<span class='sp2'></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
 						}else {
-							html+="<span class='sp2'>"+sqlJson[i].date+"</span>";
+							html+="<span class='sp2'>"+sqlJson[i].date+"</span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
 						}
 						
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";

@@ -64,13 +64,14 @@ public class Tool {
 	  return k;
 	 }
 
-//	public static void main(String agrs[]) throws NoSuchAlgorithmException, UnsupportedEncodingException{
-//		String pwd ="admin";
-//	//	String md5str = Tool.strTomd5(pwd);
-////		System.out.println("加密:"+md5str);
-////		String jmstr=Tool.JM(md5str);
-////		System.out.println("解密："+jmstr);
-//	}
+	/*c62d929e7b7e7b6165923a5dfc60cb56
+	 * public static void main(String agrs[]) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		String pwd ="q1w2e3r4";
+		String md5str = Tool.md5(pwd);
+		System.out.println("加密:"+md5str);
+		String jmstr=Tool.JM(md5str);
+		System.out.println("解密："+jmstr);
+	}*/
 
 	
 
