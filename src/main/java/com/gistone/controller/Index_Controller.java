@@ -232,7 +232,7 @@ public class Index_Controller{
 			String last_time =  sf.format(date2);
 	
 			//获取最后一次登录时间 上次的登陆时间  就是本次的最后登录时间
-			if(Login.get(0).get("LOGIN_COUNT")!=null){
+			if(Login.get(0).get("LOGIN_TIME")!=null){
 				last_time = Login.get(0).get("LOGIN_TIME").toString();
 				Date time = sf.parse(last_time);
 				last_time = sf.format(time);
