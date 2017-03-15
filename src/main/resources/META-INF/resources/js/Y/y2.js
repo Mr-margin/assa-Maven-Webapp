@@ -154,9 +154,9 @@ $(function () {
 						}
 						html+="户主:"+sqlJson[i].house+"</h5>";
 						if( sqlJson[i].date == null || sqlJson[i].date == undefined ) {
-							html+="<span class='sp2'></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
+							html+="<span class='sp2'></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:90px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
 						}else {
-							html+="<span class='sp2'>"+sqlJson[i].date+"</span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
+							html+="<span class='sp2'>"+sqlJson[i].date+"</span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:90px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
 						}
 						
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
