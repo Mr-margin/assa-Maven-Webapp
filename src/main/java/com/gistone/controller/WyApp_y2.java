@@ -60,7 +60,7 @@ public class WyApp_y2 {
 		
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
-		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,ZFTYPE from ( "
+		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,registertime,ZFTYPE from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
 				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") order by v1 desc, d1.PKID desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
@@ -97,7 +97,6 @@ public class WyApp_y2 {
 		if(pkhname!=""&&pkhname!=null&&pkhname.length()>0){
 			sql +=" AND  table_alias.HOUSEHOLD_NAME='"+pkhname+"'";
 		}
-		System.out.println(sql);
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
 			JSONArray jsa=new JSONArray();
@@ -127,7 +126,7 @@ public class WyApp_y2 {
 					val.put("lng", "".equals(st_map.get("LNG")) || st_map.get("LNG") == null ? "" : st_map.get("LNG").toString());
 					val.put("lat", "".equals(st_map.get("LAT")) || st_map.get("LAT") == null ? "" : st_map.get("LAT").toString());
 				}
-				
+				val.put("time", "".equals(st_map.get("REGISTERTIME")) || st_map.get("REGISTERTIME") == null ? "" : st_map.get("REGISTERTIME").toString());
 				val.put("phone", "".equals(st_map.get("PERSONAL_PHONE")) || st_map.get("PERSONAL_PHONE") == null ? "" : st_map.get("PERSONAL_PHONE").toString());
 				val.put("house", "".equals(st_map.get("HOUSEHOLD_NAME")) || st_map.get("HOUSEHOLD_NAME") == null ? "" : st_map.get("HOUSEHOLD_NAME").toString());
 				/*1、其他帮扶活动
