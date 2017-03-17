@@ -153,7 +153,7 @@ $(function () {
 							html += "("+sqlJson[i].phone+")&nbsp;&nbsp;&nbsp;&nbsp;"
 						}
 						html+="户主:"+sqlJson[i].house+"</h5>";
-						if( sqlJson[i].date == null || sqlJson[i].date == undefined ) {
+						if( sqlJson[i].time == null || sqlJson[i].time == undefined ) {
 							html+="<span class='sp2'></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:35px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
 						}else {
 							html+="<span class='sp2'>"+sqlJson[i].time+"</span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:35px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
