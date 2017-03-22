@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+	<title></title>
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    
+    <script src="../../js/public/gistone.loader.js"></script>
+	<script>
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","datapicker","slimscroll","validate","toastr","echarts","public"]);
+	</script>
+	<style>
+		.p-md {
+			    padding: 5px;
+		}
+		.c_red {
+			font-size: 13px;
+			background-color: #FFF;
+			color: red;
+			font-weight: bold;
+		}
+		.c_green {
+			font-size: 13px;
+			background-color: #FFF;
+			color: #1ab394;
+			font-weight: bold;
+		}
+		.sk-spinner-cube-grid .sk-cube {
+			background-color: #1797F6;
+		}
+		
+		.select-css{
+			height: 28px;
+			font-size: 13px;
+			width: 80%;
+			border-color: #1a7bb9;
+			border-radius:5px;
+			color:#1a7bb9; "
+		}
+		
+	</style>
+    <base target="_blank">
+</head>
+  
+<body class="gray-bg" style="background-color: #fff;">
+	<div class="wrapper wrapper-content animated fadeInRight" >
+		
+   		<div id="z" class="row">
+   			
+			<div id="tu1" class="col-sm-12">
+			
+			<div class="row" id="quyu1" style="">
+					
+			<!-- 查询区域 -->
+			
+				<div class="wrap" style="width:100%;">
+					<div class="contact-info">
+					<span style="font-weight: bold;float: left;margin-top: 8px"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;按行政区划过滤：</span>	
+						<div class="col-sm-3" style="margin-left: -70px">
+							<label class="col-sm-4 control-label" style="text-align:right;margin-top: 8px;">盟市：</label>
+							<div class="col-sm-8" >
+								<select  class="select-css" id="v2" name="v2" >
+									<option value='150000000000'>全部盟市</option>
+									<option value='150100000000'>呼和浩特市</option>
+									<option value='150200000000'>包头市</option>
+									<option value='150700000000'>呼伦贝尔市</option>
+									<option value='152200000000'>兴安盟</option>
+									<option value='150500000000'>通辽市</option>
+									<option value='150400000000'>赤峰市</option>
+									<option value='152500000000'>锡林郭勒盟</option>
+									<option value='150900000000'>乌兰察布市</option>
+									<option value='150600000000'>鄂尔多斯市</option>
+									<option value='150800000000'>巴彦淖尔市</option>
+									<option value='150300000000'>乌海市</option>
+									<option value='152900000000'>阿拉善盟</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3" style="margin-left: -100px">
+							<label class="col-sm-4 control-label" style="text-align:right;margin-top: 8px;">旗区县：</label>
+							<div class="col-sm-8">
+								<select   class="select-css" id="v3" name="v3" style="height: 28px;font-size: 13px;width: 80%"></select>
+							</div>
+						</div>
+						<div class="col-sm-3" style="margin-left: -100px">
+							<label class="col-sm-4 control-label" style="text-align:right;margin-top: 8px;">苏木乡：</label>
+							<div class="col-sm-8">
+								<select   class="select-css" id="v4" name="v4" style="height: 28px;font-size: 13px;width: 80%"></select>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+			
+				
+				<div class="text-left float-e-margins p-md">
+
+					<div class="form-group animated fadeInRight" style="float:right;display:none;" id="bdate">
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control" name="start_date" value="2017-01-01" />
+                            <span class="input-group-addon">到</span>
+                            <input type="text" class="input-sm form-control" name="end_date" value="2017-12-31" />
+                        	<span class="input-group-addon"><button type="button" style="margin-bottom: -4px;margin-top: -6px;" class="btn btn-outline btn-success btn-xs" id="the_submit"><i class="fa fa-refresh"></i> 查询 </button></span>
+                        </div>
+                    </div>
+				</div>
+				
+
+			<div id="tu_1" style="height: 585px; width: 100%;"></div>
+   			</div>
+   			
+   			<div id='table' class="col-sm-3" style="display:none;">
+   				<div  id="table_div" style="height: 320px; width: 125%;margin-left: -80px;margin-top:108px;'">
+					<table class="table table-bordered">
+					<h3 style="text-align: center;">贫困人口基本情况</h3>
+						<thead>
+							<tr>
+								<th class="text-center">序号</th>
+								<th class="text-center">行政区划</th>
+<!-- 								<th class="text-center">女性人口</th> -->
+<!-- 								<th class="text-center">少数民族人口</th> -->
+								<th class="text-center">贫困户总数(户)</th>
+								<th class="text-center">贫困人口总数(人)</th>
+							</tr>
+						</thead>
+						<tbody id="tableChart">
+						</tbody>
+					</table>
+				</div>
+   				
+  			</div>
+  			<!-- 走访记录信息流 -->
+  			<div id="dataLiu" class="col-sm-12" style="display:none;">
+		                <div class="ibox float-e-margins">
+		                    
+		                    <div class="ibox-title">
+		                        <h5><i class="fa fa-comment"></i>&nbsp;&nbsp;&nbsp;&nbsp;走访日记信息流</h5>
+		                        	<!-- 右侧工具按钮 -->
+		                        <div class="ibox-tools">
+		                            <a class="refresh" title="刷新">
+		                                <i class="fa fa-refresh"></i>
+		                            </a>
+		                            <a class="collapse-link" title="伸缩面板">
+		                                <i class="fa fa-chevron-up"></i>
+		                            </a>
+		                        </div>
+		                        <!-- 右侧工具按钮 -->
+		                    </div>
+		                    <div class="ibox-content timeline">
+								<!-- <button class="btn btn-success btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button><br> -->
+		                        
+		                        <div class="timeline-item">
+		                            <div class="row">
+		                                <div class="col-xs-3 date">
+		                                    <i class="fa fa-comments"></i> 16:00
+		                                    <br>
+		                                    <small class="text-navy">2 小时前</small>
+		                                </div>
+		                                <div class="col-xs-5 content no-top-border">
+		                                    <p class="m-b-xs"><strong>呼格吉乐图  走访  崔小兵</strong>
+		                                    </p>
+		
+		                                    <p>时间：2017-03-03 17:41:39</p>
+		                                    <p>地点：西营子村</p>
+		                                    <p>内容：了解生产生活情况，要求通水通电</p>
+		
+		                                </div>
+		                                
+		                                <div class="col-xs-5 content no-top-border">
+		                                	<!-- <img src="/assa/img/a6.jpg" style="margin:0;vertical-align:baseline;width:65px;height:50px;">
+		                                	<img src="/assa/img/a7.jpg" style="margin:0;vertical-align:baseline;width:65px;height:50px;">
+		                                	<img src="/assa/img/a8.jpg" style="margin:0;vertical-align:baseline;width:65px;height:50px;"> -->
+		                                </div>
+		                            </div>
+		                        </div>
+		                        
+		                        
+		                        
+		
+		                    </div>
+		                </div>
+		            </div>
+		</div>
+	</div>
+	
+	<script>
+		GISTONE.Loader.loadScript(["jquery","bootstrap","datapicker","slimscroll","validate","toastr","echarts","public"]);
+	</script>
+	<script src="f_1_2_1.js"></script>
+  </body>
+</html>
