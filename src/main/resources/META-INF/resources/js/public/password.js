@@ -87,4 +87,30 @@ function xiugaimima(){
 	
 }
 
+//点击进入页面
+function bfgbweihu(){
+	window.location.href="../assa/H1-3.html";
+	
+	
+}
+
+//点击进入页面
+function pkhweihu(){
+	window.location.href="../assa/H1-4.html";
+	
+	
+}
+
+//查询框-点击展开
+function title_tle_zhankai(){
+	$("#chauxnshiousuo").html('<i class="fa fa-chevron-down"></i><strong onclick="title_tle_shousuo()">收起</strong>');
+}
+//查询框-点击收起
+function title_tle_shousuo(){
+	$("#chauxnshiousuo").html('<i class="fa fa-chevron-up"></i><strong  onclick="title_tle_zhankai()">展开</strong>');
+}
+
+
+
+
 
