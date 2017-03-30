@@ -191,11 +191,15 @@
 					<span class="name top-username" id="username"></span>
 					<div class="pulldown user-info">
 						<em class="arrow"></em>
-						<div class="content">
+						<div class="content" style="height: 170px">
 							<!-- <span class="li"><a><img src="../img/ren1.png" height="18" width="18" style=" margin-top:7px; margin-right:5px;  float:left;" />个人资料</a></span> -->
 							<span class="li" onclick="xiugaimima()"><a>修改密码</a></span>
 							<span class="separate-li no-height"></span>
 							<span class="li"><a id="signout">退出</a></span>
+							<span class="separate-li no-height"></span>
+							<span class="li" onclick="bfgbweihu()"><a>帮扶干部维护</a></span>
+							<span class="separate-li no-height"></span>
+							<span class="li" onclick="pkhweihu()"><a>贫困户维护</a></span>
 						</div>
 					</div>
 				</li>
@@ -284,15 +288,21 @@
 		</li> -->
 			</ul>
 			</div>
-  		<li class="price_block" >  <!-- onclick="window.location.href = 'WtApp/home.html';" -->
+  		<li class="price_block" id="bfcs" >  <!-- onclick="window.location.href = 'WtApp/home.html';" -->
 			<ul class="features">
 				<li style="height:280px; background-color:#ff8c00;">
 	            	<div style="width:100% ; padding-top:80px;"><img src="img/xuanx3.png"></div>
 	            	<div style="color:#FFFFFF; padding-top:80px; font-size:26px; font-family:'微软雅黑', 'Microsoft Yi Baiti';"><strong>帮扶措施</strong></div>
 	            </li>
 			</ul>
-			<!-- <div class="anniwz" style=" text-align:left; color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00;">
-				<table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
+			<!--	<div class="anniwz" style=" text-align:left; height:80px;color:#fff; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00;">
+				<ul class="list" id="bfcsCount">
+					<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困发生率:</label><label class='l2'  style='float:left;font-size:16px;'>5.85<strong style='font-size:12px'>%</strong></label></li>
+					<li><label class='l1' style='float:left;font-size:12px;'>2016年因病致贫：</label><label class='l2'  style='float:left;font-size:16px;'>40<strong style='font-size:12px'>%</strong></label></li>	
+					<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困发生率:</label><label class='l2'  style='float:left;font-size:16px;'>5.85<strong style='font-size:12px'>%</strong></label></li>
+					<li><label class='l1' style='float:left;font-size:12px;'>2015年因病致贫：</label><label class='l2'  style='float:left;font-size:16px;'>40<strong style='font-size:12px'>%</strong></label></li>	
+				</ul>
+				<!-- <table width="100%" height="50px" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 				    	<tr>
 				      		<th scope="col">贫困发生率:</th>
@@ -305,11 +315,11 @@
 				      		<th>%</th>
 				    	</tr>
 					</tbody>
-				</table>
+				</table> 
 			</div> -->
-			<div class="anniwz" style="color:#FFFFFF; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00; height:80px;">
+			 <div class="anniwz" style="color:#FFFFFF; font-family:'微软雅黑', 'Microsoft Yi Baiti'; background-color:#ff8c00; height:80px;">
       			<img src="img/lock.png">
-			</div>
+			</div> 
 		</li>
   		
   		<li class="price_block">
@@ -412,6 +422,7 @@
 		$(document).ready(function(){
 			$("#pkrkCount").scrollQ();
 			$("#bfgbCount").scrollQ();
+			$("#bfcsCount").scrollQ();
 		});
 	</script>
 </body>
