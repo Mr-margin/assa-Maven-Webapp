@@ -29,15 +29,31 @@ public class WyApp_y4 {
 	@RequestMapping("getWyApp_y4_1.do")
 	public void getWyApp_y4_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");
+		String bfrname = request.getParameter("bfrname").trim();
+		String pkhname = request.getParameter("pkhname").trim();
+		String pre_sql = "select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001";
+		String sql = " from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 and AAR010=0 and NEIMENG0117_AC01.AAR008='"+code+"' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
+				" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
+				"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01')w1 ON t4.AAC001=w1.AAC001 ";
+		String last_sql = " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6 ";
+		if(pkhname.length()>0 &&bfrname.length()<1){
+			last_sql= " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 HAVING   v6 like '"+pkhname+"%' ORDER BY v6";
+			 
+		}
 		
-		String sql = "select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 from "+
-					" (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 and AAR010=0 and NEIMENG0117_AC01.AAR008='"+code+"' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
-					" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
-					"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01')w1 ON t4.AAC001=w1.AAC001  GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6";
+		if(bfrname.length()>0&&pkhname.length()<1){
+			pre_sql =" select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
+			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' ORDER BY v6";
+
+		}
+		if(bfrname.length()>0&&pkhname.length()>0){
+			pre_sql =" select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
+			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' and v6 like '"+pkhname+"%' ORDER BY v6 ";
+		}
+		
 		
 		JSONArray json = new JSONArray();
-//		System.out.println(sql);
-		List<Map> list = this.getBySqlMapper.findRecords(sql);
+		List<Map> list = this.getBySqlMapper.findRecords(pre_sql+sql+last_sql);
 		if (list.size() > 0) {
 			for ( int i = 0 ; i < list.size() ; i ++){
 				JSONObject obj = new JSONObject();

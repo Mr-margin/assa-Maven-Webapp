@@ -65,15 +65,16 @@ public class WyApp_y2 {
 				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") order by v1 desc,registertime desc, d1.PKID desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
 		
-		
+	
 		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")  and  d1.zftype in("+zfT+")";
 		
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
 		 //不跟随传递的时间变，当天日记数、本周日记数、本月日记数 DA_HELP_VISIT
 	    String bangfu_count_sql = "SELECT count(case when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') then 'a00' end)day,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'iw')=to_char(sysdate,'iw') and TO_NUMBER(sysdate-to_date(registertime,'yyyy-mm-dd hh24:mi:ss'))<10 THEN 'a01' end)week,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm')=to_char(sysdate,'yyyy-mm') THEN 'a02' end)month	FROM	DA_HELP_VISIT  WHERE 1=1";
+	
 	    List<Map> bangfus = null;
-	    //		System.out.println(sql);
+
 	    //帮扶日记统计 日 周 月帮扶人数统计
 	    	//如果使用搜索条件进行查询
 	    	String str = xzqh.substring(0, 2+Integer.valueOf(level));

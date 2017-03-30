@@ -255,7 +255,6 @@ public class PKC_1_1_Controller {
 			response.getWriter().write("0");
 		}
 	}
-	
 	/**
 	 * 获取日记统计模块数据
 	 * @param request
@@ -265,40 +264,80 @@ public class PKC_1_1_Controller {
 	@RequestMapping("getF_1_2_1.do")
 	public void getF_1_2_1(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		/*String name = request.getParameter("name");// 行政区划
-*/		String code = request.getParameter("code");// 行政区划代码
+		String str = request.getParameter("str");// 行政区划
+		String code = request.getParameter("code");// 行政区划代码
 		String sTime = request.getParameter("sTime");//开始时间
 		String eTime = request.getParameter("eTime");//结束时间
-		String sqlTj = "select * from (";//拼接的sql条件
-		//查询行政区划,获取行政区划code
-		sqlTj+="SELECT	count(*) AS THE_ALL,COUNT (	CASE WHEN TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN	'a00' END) the_day,"
-				+ "	COUNT (	CASE WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a01' END	) the_one_week,"
-				+ "	COUNT (	CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	"
-				+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	"
-				+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a04'	END	) the_three_month,	"
-				+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
-				+ "count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,	count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	"
-				+ "	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,	"
-				+ "count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	"
-				+ "count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,	count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	"
-				+ "	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' ";
-
-				sqlTj+=")";
+		String type = request.getParameter("type");//结束时间
+		String sqlTj = "";//拼接的sql条件
+		//查询行政区划,获取行政区划code 如果为0 则说明是先加载按日期查的数据
+		if(!code.equals("150")){
+			sqlTj="SELECT	count(*) AS THE_ALL,COUNT (	CASE WHEN TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN	'a00' END) the_day,"
+					+ "	COUNT (	CASE WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a01' END	) the_one_week,"
+					+ "	COUNT (	CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a04'	END	) the_three_month,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
+					+ "count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,	count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	"
+					+ "	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,	"
+					+ "count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	"
+					+ "count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,	count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	"
+					+ "	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' ";
+			if(type.equals("day")){
+				sqlTj += " and TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') ";
+			}else if(type.equals("week")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("2week")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("month")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("3month")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("rageTime")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')";
+			}
+			
+		}else if(str.equals("xzqh")){
+			sqlTj="SELECT	count(*) AS THE_ALL,COUNT (	CASE WHEN TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') THEN	'a00' END) the_day,"
+					+ "	COUNT (	CASE WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a01' END	) the_one_week,"
+					+ "	COUNT (	CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a04'	END	) the_three_month,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
+					+ "count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,	count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	"
+					+ "	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,	"
+					+ "count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	"
+					+ "count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,	count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	"
+					+ "	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' ";
+			if(type.equals("day")){
+				sqlTj += " and TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') ";
+			}else if(type.equals("week")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("2week")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("month")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("3month")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
+			}else if(type.equals("rageTime")){
+				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')";
+			}
+		}else{
+			sqlTj = "select * from (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') )"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd'))"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd'))"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd'))"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd'))"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd'))"
+					+ "UNION all (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1   )";
+		
+		}
 		List<Map> listAll = this.getBySqlMapper.findRecords(sqlTj);
 		JSONArray json = new JSONArray();
 		if(listAll.size()>0){
 					
 			for(int a =0;a<listAll.size();a++){
 				JSONObject obj = new JSONObject();
-				//按日期条件过滤
-				/*obj.put("V0", listAll.get(a).get("THE_ALL"));//所有
-				obj.put("V2", listAll.get(a).get("THE_DAY"));//当天
-				obj.put("V3", listAll.get(a).get("THE_ONE_WEEK"));//近一周
-				obj.put("V4", listAll.get(a).get("THE_TWO_WEEK"));//近两周
-				obj.put("V5", listAll.get(a).get("THE_ONE_MONTH"));//近一月
-				obj.put("V6", listAll.get(a).get("THE_THREE_MONTH"));//近三月
-				obj.put("V7", listAll.get(a).get("THE_RANDOM_DATE"));//近自定义
-*/				
 				//按走访类型过滤
 				obj.put("V10", listAll.get(a).get("THE_TYPE_ONE"));//其他帮扶活动
 				obj.put("V11", listAll.get(a).get("THE_TYPE_TWO"));//了解基本情况
@@ -315,7 +354,9 @@ public class PKC_1_1_Controller {
 		} else {
 			response.getWriter().write("0");
 		}
+		
 	}
+	
 	/**
 	 * @method f_1_1_2页面 PKC_1_1_1数据库
 	 * @param request
