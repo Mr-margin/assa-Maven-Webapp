@@ -8,7 +8,8 @@ GISTONE.Loader = {
 		    ["jquery.form","js/plugins/jquery/","jquery.form.js"],
 		    ["bootstrap","js/plugins/bootstrap/","bootstrap.min.js?v=3.3.5,content.min.js?v=1.0.0","bootstrap.min.css?v=3.3.5,font-awesome.min.css?v=4.4.0,animate.min.css,style.min.css?v=4.0.0,style.css"],//bootstrap基础
 		    ["slimscroll","js/plugins/slimscroll/","jquery.slimscroll.min.js"],//滚动条细化
-		    ["bootstrap-table","js/plugins/bootstrap-table/","bootstrap-table.min.js,bootstrap-table-mobile.min.js,bootstrap-table-zh-CN.min.js","bootstrap-table.min.css"],//表格
+		    ["bootstrap-table","js/plugins/bootstrap-table/","bootstrap-table.min.js,bootstrap-table-mobile.min.js,bootstrap-table-zh-CN.min.js","bootstrap-table.min.css","table.css"],//表格
+		    ["dateplus","js/plugins/dateplus/","daterangepicker.js","bootstrap.min.css","font-awesome.min.css","jquery-1.8.3.min.js","moment.js","daterangepicker-bs3.css","moment.min.js","daterangepicker-bs2.css"],//日期
 		    ["validate","js/plugins/validate/","jquery.validate.min.js,messages_zh.min.js"],//表单验证
 		    ["toastr","js/plugins/toastr/","toastr.min.js","toastr.min.css"],//消息框
 		    ["sweetalert","js/plugins/sweetalert/","sweetalert.min.js","sweetalert.css"],//对话框
@@ -54,7 +55,7 @@ GISTONE.Loader = {
 		    ["table","js/public/","table.js"],//后台表格通用
 		    ["xialakuang","js/public/","select.js"],//后台下拉框选择条件通用
 		    
-		    ["currency","js/public/","currency.js"],
+		    ["currency","js/public/","pooruser.js"],
 		    
 		    ["index","js/index/","index.js","style.css,animation.css"],//登录界面
 		    ["hd-main","js/index/","","hd-main.css"],//页面头部
@@ -108,7 +109,10 @@ GISTONE.Loader = {
 		    ["f_1_2_14","WxApp/file/","f_1_2_14.js"],
 		    ["f_1_2_13","WxApp/file/","f_1_2_13.js"],
 		    ["f_1_2_12","WxApp/file/","f_1_2_12.js"],
-		    ["f_1_2_11","WxApp/file/","f_1_2_11.js"]
+		    ["f_1_2_11","WxApp/file/","f_1_2_11.js"],
+		    
+		    ["H1-3","js/H1-3/","H1-3.js"],
+		    ["H1-4","js/H1-4/","H1-4.js"]
 		    
 		],
 		_js : {},
