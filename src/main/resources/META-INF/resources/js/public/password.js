@@ -101,6 +101,13 @@ function pkhweihu(){
 	
 }
 
+//点击进入页面
+function jieduibf(){
+	window.location.href="../assa/H1-5.html";
+	
+	
+}
+
 //查询框-点击展开
 function title_tle_zhankai(){
 	$("#chauxnshiousuo").html('<i class="fa fa-chevron-down"></i><strong onclick="title_tle_shousuo()">收起</strong>');
