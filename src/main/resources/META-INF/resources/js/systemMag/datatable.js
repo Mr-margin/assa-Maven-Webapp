@@ -539,6 +539,7 @@ function getSelectedRow_metTable() {
     return $metTable.bootstrapTable('getData')[index];
 }
 
+
 //获取选中数据行
 function getSelectedRow_actual() {
     var index = $actual.find('tr.success').data('index');

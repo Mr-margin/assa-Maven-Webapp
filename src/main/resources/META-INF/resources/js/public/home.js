@@ -225,6 +225,16 @@ $(function() {
 			window.location.href = 'WyApp/home.html';
 		}	
 	})
+	
+	$('#bfcs').click(function(){     //帮扶措施
+		if(jsondata.Login_map.COM_VD=="V1"){
+			window.location.href = 'WtApp/home.html';
+		}else if(jsondata.Login_map.COM_VD=="V3"){
+			window.location.href = 'WtApp/home.html';
+		}else if(jsondata.Login_map.COM_VD=="V5"){
+			window.location.href = 'WtApp/home.html';
+		}	
+	})
 
 	//文字间断循环
  
