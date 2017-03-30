@@ -92,7 +92,12 @@ $(function() {
 	$("#cha_but").click(function (){
 		
 		if($("#v5").find("option:selected").val()!=null&&$("#v5").find("option:selected").val()!=""){
-			show_pinkuncun($("#v5").find("option:selected").val());
+			var bfrname = $("#bfrname").val();
+			var pkhname = $("#pkhname").val();
+		/*	alert($("#v5").find("option:selected").val());*/
+			var code = $("#v5").find("option:selected").val();
+			var json = {code:code,bfrname:bfrname,pkhname:pkhname}
+			show_pinkuncun(json);
 			
 			var display =$('#diyihang').css('display');
 			if(display == 'none'){
@@ -115,6 +120,8 @@ $(function() {
 			$("#v3").empty();
 			$("#v4").empty();
 			$("#v5").empty();
+			$("#bfrname").empty();
+			$("#pkhname").empty();
 		}else if(jsondata.Login_map.COM_VD=="V3"){
 			$("#v3").get(0).selectedIndex=0;
 			$("#v4").empty();
@@ -143,7 +150,7 @@ $(function() {
 		        type: "POST",
 		        async:true,
 		        dataType: "json",
-		        data:{code:com_code},
+		        data:com_code,
 		        success: function (data) {
 			        if(data!=0){
 			        	$("#neirong").html("<table class=\"table table-striped\">" +

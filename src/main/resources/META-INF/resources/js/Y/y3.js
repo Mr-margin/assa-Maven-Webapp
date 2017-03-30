@@ -79,7 +79,12 @@ function show_tree(){//bootstrap tree 获取数据的方法
             	selected: true
     		},
             src: "f_1_1_1.html"
-        }]
+        },
+        {
+        	text: "类型统计图",
+        	src: "f_1_2_1.html"
+        }
+        ]
 	}];
 	return mycars;
 }
