@@ -3,10 +3,10 @@ var duo=[];
 var checked;
 var zname;
 $(document).ready(function() {
-	/*$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});//复选框样式
+	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});//复选框样式
 	teshu_xiqian($('#cha_qixian'),$('#add_qixian'));
-	chaxun.cha_qixian = jsondata.company.xian_id ;
-	$('#exportExcel_all_dengdai').hide();*/
+	chaxun.cha_qixian = jsondata.Login_map.SYS_COM_CODE;
+	$('#exportExcel_all_dengdai').hide();
 	$(".input-group.date").datepicker({
 		todayBtn: "linked",
         keyboardNavigation: !1,
@@ -14,6 +14,91 @@ $(document).ready(function() {
         calendarWeeks: !0,
         autoclose: !0
     });
+	
+	
+	//加载市级下拉框
+	if(jsondata.Login_map.COM_VD=="V1"){
+		/*$("#v2").append("<option></option>");
+		$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+		$("#v2").append("<option value='150200000000'>包头市</option>");
+		$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+		$("#v2").append("<option value='152200000000'>兴安盟</option>");
+		$("#v2").append("<option value='150500000000'>通辽市</option>");
+		$("#v2").append("<option value='150400000000'>赤峰市</option>");
+		$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+		$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+		$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+		$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+		$("#v2").append("<option value='150300000000'>乌海市</option>");
+		$("#v2").append("<option value='152900000000'>阿拉善盟</option>");*/
+	}else if(jsondata.Login_map.COM_VD=='V3'){
+		$("#v2").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+		$("#v3").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+	}else if(jsondata.Login_map.COM_VD=='V5'){
+		var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
+		var t = document.getElementById("v2"); 
+	    for(i=0;i<t.length;i++){//给select赋值  
+	        if(number == t[i].value){  
+	        	 $("#v2").html("<option value='"+number+"'>"+t.options[i].text+"</option>");
+	        }
+	    }
+	    $("#v3").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	    $("#v4").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+		});
+	}
+	//市级下拉框选择事件
+	$("#v2").change(function(){
+		$("#v3").empty();
+		$("#v4").empty();
+		$("#xzqh").empty();
+		if($("#v2").find("option:selected").text()=="请选择"){
+			
+		}else{
+			$("#v3").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+			});
+		}
+		
+	});
+
+	//县级下拉框选择事件
+	$("#v3").change(function(){
+		$("#v4").empty();
+		$("#xzqh").empty();
+		if($("#v3").find("option:selected").text() == "请选择"){
+		}else{
+			$("#v4").append("<option></option>");
+			var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+			var val = eval("("+data+")");
+			$.each(val,function(i,item){
+				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+			});
+		}
+	});
+
+	//乡级下拉框选择事件
+	$("#v4").change(function(){
+		$("#xzqh").empty();
+		$("#xzqh").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#xzqh").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+		});
+	});
+
 	
 });
 var bfgb_table = $('#bfgb_table');
@@ -38,44 +123,23 @@ function teshu_xiqian(str,str1){
 	})
 	
 	
-	/*var qixian;
+	var qixian;
 	
-	var type = jsondata.company_map.com_type;
-	var val = jsondata.company;
+	/*var type = jsondata.company_map.com_type;*/
+	var val = jsondata.Login_map.SYS_COM_CODE;
+
 	$.ajax({
-	    url: "/assa/getSaveQixianController.do",
+	    url: "/assa/getQixianList.do",
 	    type: "POST",
 	    async:false,
 	    dataType:"json",
 	    data:{
         },
 	    success: function (data) {
-	    	qixian='<option>请选择</option>';
-	    	qixian += '<option value="4">鄂尔多斯市</option>';
+	    	qixian='<option>'+jsondata.Login_map.COM_NAME+'</option>';
 	    	$.each(data,function(i,item){
-	    		if(type=="单位"){
-	    			if(val.com_level == "1"){
-	    				qixian += '<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    			}else if(val.com_level == "2"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}else if(val.com_level == "3"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}else if(val.com_level == "4"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}
-	    		}else if(type=="管理员"){
-	    			qixian += '<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    		}
-	    		
+	    				qixian += '<option  value="'+item.com_code+'">'+item.com_name+'</option>';
+	
 	    	});
 	    	$(str).html(qixian);
 	    	$(str1).html(qixian);
@@ -83,7 +147,7 @@ function teshu_xiqian(str,str1){
 	    error: function () { 
 	    }  
 	
-	});*/
+	});
 }
 
 
@@ -95,7 +159,7 @@ $(function () {
 			var id = $(this).attr("id");
 			  	$("#"+id).val("");
 	    });
-		$("#sex").val("请选择");
+		/*$("#sex").val("请选择");
     	$("#bfr_zzmm").val("请选择");
     	$("#relative").val("请选择");
     	$("#zhiwei_level").val("请选择");
@@ -103,18 +167,12 @@ $(function () {
     	$("#jishu_techang").val("请选择");
     	$("#duizhang").val("请选择");
     	$("#diyi_shuji").val("请选择");
-    	$("#zhucun_duiyuan").val("请选择");
-		/*getbfgb("请选择");*/
+    	$("#zhucun_duiyuan").val("请选择");*/
+		/*getbfgbdw("请选择");*/
 		
 		
 		$("#add_bf #xia_title").html("添加帮扶干部");
-	/*	layer.open({
-			  type: 2,
-			  area: ['700px', '530px'],
-			  fixed: false, //不固定
-			  maxmin: true,
-			  content: '../H1-4/H1-4.html'
-			});*/
+
 		$("#add_bf").show();
 		$('#bf').modal();
 	/*	document.getElementById("add_bf").scrollIntoView();*/
@@ -206,13 +264,9 @@ $(function () {
     
 	//查询按钮
     $('#cha_button').click(function () {
-    	chaxun.cha_bfdw = $("#cha_bfdw").val();
-    	chaxun.cha_bfr = $("#cha_bfr").val();
-    	chaxun.cha_qixian = $("#cha_qixian").val();
-    	chaxun.cha_dh = $("#cha_dh").val();
-    	chaxun.cha_juese = $("#cha_juese").val();
-    	chaxun.cha_v3 = $("#cha_v3").val();
-    	chaxun.cha_year = $("#cha_year").val();
+    	chaxun.bfr_name = $("#bfr_name").val();
+    	chaxun.bfr_phone = $("#bfr_phone").val();
+    	chaxun.bfdw_name = $("#bfdw_name").val();
     	bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
     	bfgb_initialization();//重新初始化数据
     });
@@ -225,11 +279,11 @@ $(function () {
 		if(val.com_level == "1"){
 			$("#cha_qixian").val("请选择");
 		}
-    	$("#cha_juese").val("请选择");
+    	/*$("#cha_juese").val("请选择");
     	$("#cha_dh").val("");
     	$("#cha_v3").val("请选择");
     	$("#cha_year").val("2017");
-    	$("#add_bfgb_button").show();
+    	$("#add_bfgb_button").show();*/
 		$("#update_bfgb_button").show();
 		$("#delete_bf_button").show();
 		$("#export_button").show();
@@ -243,39 +297,7 @@ $(function () {
 	bfgb_initialization();
 });
 
-//加载帮扶干部单位
-function getbfgb(test_ren){
-	if(test_ren!="请选择"){
-		var $i;
-		$i = $('#add_bf #ad_bf_dw').bsSuggest("destroy");
-		$("#add_bf #ad_bf_dw").removeAttr("data-id");
-		$('#add_bf #ad_bf_dw').val("");
-		var bsSuggest = $("#add_bf #ad_bf_dw").bsSuggest({
-			url: "/assa/get_bangfudanwei_h5.do?sys_company_id="+test_ren,//请求数据的 URL 地址
-			idField: 'pkid',//每组数据的哪个字段作为 data-id，优先级高于 indexId 设置（推荐）
-			keyField: 'v1',//每组数据的哪个字段作为输入框内容，优先级高于 indexKey 设置（推荐）
-			effectiveFields: ['v1','v3','v4','com_name'],//有效显示于列表中的字段，非有效字段都会过滤，默认全部，对自定义getData方法无效
-			effectiveFieldsAlias: {'v1':'单位','v3':'分管领导','v4':'联系方式','com_name':'对口嘎查村'},//有效字段的别名对象，用于 header 的显示
-			showHeader: false,//是否显示选择列表的 header。为 true 时，有效字段大于一列则显示表头
-			//showBtn: true,	//是否显示下拉按钮
-			autoDropup: true	//选择菜单是否自动判断向上展开。设为 true，则当下拉菜单高度超过窗体，且向上方向不会被窗体覆盖，则选择菜单向上弹出
-//				allowNoKeyword: false,	//是否允许无关键字时请求数据
-//				multiWord: false,               //以分隔符号分割的多关键字支持
-//			    separator: ',',                 //多关键字支持时的分隔符，默认为半角逗号
-		}).on('onDataRequestSuccess', function (e, result) {
-	        console.log('onDataRequestSuccess: ', result);
-	    }).on('onSetSelectValue', function (e, keyword, data) {
-	        console.log('onSetSelectValue: ', keyword, data);
-	    }).on('onUnsetSelectValue', function () {
-	        console.log("onUnsetSelectValue");
-	    });
-	}else{
-		var $i;
-		$i = $('#add_bf #ad_bf_dw').bsSuggest("destroy");
-		$('#add_bf #ad_bf_dw').val("");
-		$("#add_bf #ad_bf_dw").removeAttr("data-id");
-	}
-}
+
 
 
 //帮扶干部初始化
@@ -304,7 +326,7 @@ function bfgb_initialization(){
 		search: false,//是否显示右上角的搜索框
 		clickToSelect: true,//点击行即可选中单选/复选框
 		sidePagination: "server",//表格分页的位置 client||server
-		queryParams: queryParams_bxbxxb, //参数
+		queryParams: queryParams, //参数
 		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
 		silent: true,  //刷新事件必须设置
 		contentType: "application/x-www-form-urlencoded",	//请求远程数据的内容类型。
@@ -320,19 +342,15 @@ function bfgb_initialization(){
 }
 
 
-function queryParams_bxbxxb(params) {  //配置参数
+function queryParams(params) {  //配置参数
 	var temp = {};
     temp.pageSize = params.limit;
     temp.pageNumber = params.offset;
     temp.search = params.search;
     
-/*    temp.cha_bfdw = chaxun.cha_bfdw;
-    temp.cha_bfr = chaxun.cha_bfr;
-    temp.cha_juese = chaxun.cha_juese;
-    temp.cha_qixian = chaxun.cha_qixian;
-    temp.cha_dh = chaxun.cha_dh;
-    temp.cha_v3 = chaxun.cha_v3;
-    temp.cha_year = chaxun.cha_year;*/
+    temp.bfr_name = chaxun.bfr_name;
+    temp.bfr_phone = chaxun.bfr_phone;
+    temp.bfrdw_name = chaxun.bfdw_name;
     return temp;
 }
 
@@ -341,16 +359,15 @@ function queryParams_bxbxxb(params) {  //配置参数
  */
 function addBfgbinfo(){
 	
-	/*if($("#add_bf #ad_bf_dw").attr("data-id")!=undefined&&$("#add_bf #ad_bf_dw").attr("data-id")!=""){*/
+	/*if($("#add_bf #bfdw_name").attr("data-id")!=undefined&&$("#add_bf #bfdw_name").attr("data-id")!=""){*/
 		var form_val = JSON.stringify(getFormJson("#add_Form"));//表单数据字符串
-		/*alert(form_val);*/
 		$.ajax({
 		    url: "/assa/addBfgbInfo.do",
 		    type: "POST",
 		    async:false,
 		    dataType:"json",
 		    data:{
-		    	/*dwid: $("#add_bf #ad_bf_dw").attr("data-id"),*/
+		    	bfrdw_id: $("#add_bf #bfdw_name").attr("data-id"),
 		    	form_val: form_val
 	        },
 		    success: function (data) {
@@ -367,7 +384,7 @@ function addBfgbinfo(){
 			    		var id = $(this).attr("id");
 			  		  	$("#"+id).val("");
 				    });
-			    	$("#sex").val("请选择");
+			    	/*$("#sex").val("请选择");
 			    	$("#bfr_zzmm").val("请选择");
 			    	$("#relative").val("请选择");
 			    	$("#zhiwei_level").val("请选择");
@@ -375,8 +392,8 @@ function addBfgbinfo(){
 			    	$("#jishu_techang").val("请选择");
 			    	$("#duizhang").val("请选择");
 			    	$("#diyi_shuji").val("请选择");
-			    	$("#zhucun_duiyuan").val("请选择");	
-			    	/*getbfgb("请选择");*/
+			    	$("#zhucun_duiyuan").val("请选择");	*/
+			    	/*getbfgbdw("请选择");*/
 			    	
 		    	}else if(data == '2'){
 		    		toastr["warning"]("warning", "操作失败，该帮扶人已存在");
@@ -393,11 +410,48 @@ function addBfgbinfo(){
 		toastr["info"]("info", "必须指定帮扶干部单位");
 	}*/
 }
+
+
+//加载帮扶干部单位
+function getbfgbdw(xzqh_id,input_id){
+	if(xzqh_id!=""){
+		var $i;
+		$i = $('#add_bf #bfdw_name').bsSuggest("destroy");
+		$("#add_bf #bfdw_name").removeAttr("data-id");
+		$('#add_bf #bfdw_name').val("");
+		var bsSuggest = $("#add_bf #bfdw_name").bsSuggest({
+			url:"/assa/getbangfudanwei.do?xzqh_id="+xzqh_id+"&v="+input_id,//请求数据的 URL 地址
+			idField: 'danwei_id',//每组数据的哪个字段作为 data-id，优先级高于 indexId 设置（推荐）
+			keyField: 'danwei_name',//每组数据的哪个字段作为输入框内容，优先级高于 indexKey 设置（推荐）
+			effectiveFields: ['danwei_name','lingdao','phone'],//有效显示于列表中的字段，非有效字段都会过滤，默认全部，对自定义getData方法无效
+			effectiveFieldsAlias: {'danwei_name':'单位','lingdao':'分管领导','phone':'联系方式'},//有效字段的别名对象，用于 header 的显示
+			showHeader: false,//是否显示选择列表的 header。为 true 时，有效字段大于一列则显示表头
+			//showBtn: true,	//是否显示下拉按钮
+			autoDropup: true	//选择菜单是否自动判断向上展开。设为 true，则当下拉菜单高度超过窗体，且向上方向不会被窗体覆盖，则选择菜单向上弹出
+//				allowNoKeyword: false,	//是否允许无关键字时请求数据
+//				multiWord: false,               //以分隔符号分割的多关键字支持
+//			    separator: ',',                 //多关键字支持时的分隔符，默认为半角逗号
+		}).on('onDataRequestSuccess', function (e, result) {
+			
+	        console.log('onDataRequestSuccess: ', result);
+	    }).on('onSetSelectValue', function (e, keyword, data) {
+	    	$("#xzqh_id").val(data.xzqh_id);
+	        console.log('onSetSelectValue: ', keyword, data);
+	    }).on('onUnsetSelectValue', function () {
+	        console.log("onUnsetSelectValue");
+	    });
+	}else{
+		var $i;
+		$i = $('#add_bf #bfdw_name').bsSuggest("destroy");
+		$('#add_bf #bfdw_name').val("");
+		$("#add_bf #bfdw_name").removeAttr("data-id");
+	}
+}
+
 /**
  * 修改前帮扶干部信息
  */
 function updateBfgbInfo(bfr_id){
-	/*alert(bfr_id);*/
  	$("#add_bf #xia_title").html("修改帮扶干部信息");
  	/*document.getElementById("add_bf").scrollIntoView();*/
 	
@@ -410,7 +464,6 @@ function updateBfgbInfo(bfr_id){
 	    	bfr_id:bfr_id,
         },
 	    success: function (data) {
-	    	
 	    	$('#add_bf #bfr_id').val(data.bfgb.bfr_id);
 	    	$('#add_bf #bfr_name').val(data.bfgb.bfr_name);
 	    	if(data.bfgb.sex==undefined||data.bfgb.sex==""||data.bfgb.sex==null){
@@ -419,21 +472,100 @@ function updateBfgbInfo(bfr_id){
 	    		$('#add_bf #sex').val(data.bfgb.sex);
 	    	}
 	    	$('#add_bf #bfr_card').val(data.bfgb.bfr_card);
-	    	
-	    	$('#add_bf #ad_bf_dw').val(data.bfgb.ad_bf_dw);
+	    	/*if(data.bfgb.qixian==undefined||data.bfgb.qixian==""||data.bfgb.qixian==null){
+	    		$('#add_bf #add_qixian').val("请选择");
+	    	}else{
+	    		$('#add_bf #add_qixian').val(data.bfgb.qixian);
+	    		getbfgbdw(data.bfgb.qixian)
+	    	}*/
+	    	if(data.bfgb.xzqh_id==undefined||data.bfgb.xzqh_id==""||data.bfgb.xzqh_id==null){
+	    		$('#add_bf #v2').val("请选择");
+	    	}else{
+	    		getLevel(data.bfgb.xzqh_id);
+	    		level = $('#v').val();
+	    		if(level=='2'){
+	    			xzqh_id = data.bfgb.xzqh_id;
+	    			$('#add_bf #v2').val(xzqh_id);
+	    			$('#add_bf #xzqh_id').val(xzqh_id);
+	    		}else if(level=='3'){
+	    			xzqh_id = data.bfgb.xzqh_id;
+	    			$('#add_bf #v2').val(xzqh_id.substr(0,4)+'00000000');
+	    			$("#v3").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:xzqh_id.substr(0,4)+'00000000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	    			});
+	    			$('#add_bf #v3').val(xzqh_id);
+	    			$('#add_bf #xzqh_id').val(xzqh_id);
+	    		}else if(level=='4'){
+	    			xzqh_id = data.bfgb.xzqh_id;
+	    			$('#add_bf #v2').val(xzqh_id.substr(0,4)+'00000000');
+	    			$("#v3").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:xzqh_id.substr(0,4)+'00000000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	    			});
+	    			$('#add_bf #v3').val(xzqh_id.substr(0,6)+'000000');
+	    			$("#v4").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:xzqh_id.substr(0,6)+'000000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+	    			});
+	    			$('#add_bf #v4').val(xzqh_id);
+	    			$('#add_bf #xzqh_id').val(xzqh_id);
+	    		}else if(level=='5'){
+	    			xzqh_id = data.bfgb.xzqh_id;
+	    			$('#add_bf #v2').val(xzqh_id.substr(0,4)+'00000000');
+	    			
+	    			$("#v3").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:xzqh_id.substr(0,4)+'00000000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	    			});
+	    			$('#add_bf #v3').val(xzqh_id.substr(0,6)+'000000');
+	    			$("#v4").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:xzqh_id.substr(0,6)+'000000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+	    			});
+	    			$('#add_bf #v4').val(xzqh_id.substr(0,9)+'000');
+	    			$("#xzqh").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:xzqh_id.substr(0,9)+'000'}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#xzqh").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+	    			});
+	    			$('#add_bf #xzqh').val(xzqh_id);
+	    			$('#add_bf #xzqh_id').val(xzqh_id);
+	    		}
+	    		/*if($('#add_bf #v3').val(data.bfgb.xzqh_id).val()==null){
+	    			$('#add_bf #v2').val(data.bfgb.xzqh_id);
+	    		}else if($('#add_bf #v4').val(data.bfgb.xzqh_id).val()==null){
+	    			$('#add_bf #v3').val(data.bfgb.xzqh_id);
+	    			xzqh_id = xzqh_id.substr(0,4);
+	    			$('#add_bf #v2').val(xzqh_id+'00000000');
+	    		}*/
+	    	}
+	    	$('#add_bf #bfdw_name').val(data.bfgb.bfrdw_name);
+	    	$('#add_bf #bfdw_name').attr("data-id",data.bfgb.bfrdw_id);
 	    	$('#add_bf #dw_address').val(data.bfgb.dw_address);
 	    	$('#add_bf #birthday').val(data.bfgb.birthday);
-	    	if(data.bfgb.bfr_zzmm==undefined||data.bfgb.bfr_zzmm==""||data.bfgb.bfr_zzmm==null){
+	    	/*if(data.bfgb.bfr_zzmm==undefined||data.bfgb.bfr_zzmm==""||data.bfgb.bfr_zzmm==null){
 	    		$('#add_bf #bfr_zzmm').val("请选择");
 	    	}else{
 	    		$('#add_bf #bfr_zzmm').val(data.bfgb.bfr_zzmm);
-	    	}
-	    	$('#add_bf #bfr_phone').val(data.bfgb.bfr_phone);
-	    	if(data.bfgb.relative==undefined||data.bfgb.relative==""||data.bfgb.relative==null){
+	    	}*/
+	    	
+	    	/*if(data.bfgb.relative==undefined||data.bfgb.relative==""||data.bfgb.relative==null){
 	    		$('#add_bf #relative').val("请选择");
 	    	}else{
 	    		$('#add_bf #relative').val(data.bfgb.relative);
-	    	/*	getbfgb(data.bfgb.relative)*/
+	    		getbfgbdw(data.bfgb.relative)
 	    	}
 	    	if(data.bfgb.zhiwei_level==undefined||data.bfgb.zhiwei_level==""||data.bfgb.zhiwei_level==null){
 	    		$('#add_bf #zhiwei_level').val("请选择");
@@ -464,10 +596,12 @@ function updateBfgbInfo(bfr_id){
 	    		$('#add_bf #zhucun_duiyuan').val("请选择");
 	    	}else{
 	    		$('#add_bf #zhucun_duiyuan').val(data.bfgb.zhucun_duiyuan);
-	    	}
+	    	}*/
+	    	$('#add_bf #bfr_phone').val(data.bfgb.bfr_phone);
 	    	$('#add_bf #G_FLAG').val(data.bfgb.G_FLAG);
 	    	$("#add_bf").show();
 	    	$('#bf').modal();
+	    	
 	    	
 	    },
 	    error: function () { 
@@ -510,5 +644,28 @@ function deleteBfgb(bfr_id){
 function getSelectedRow(form) {
     var index = form.find('tr.success').data('index');
     return form.bootstrapTable('getData')[index];
+}
+
+ function getLevel(xzqh_id) {
+    $.ajax(
+    {
+    	 url: "/assa/getLevel.do",
+ 	    type: "POST",
+ 	    async:false,
+ 	    dataType:"json",
+ 	    data:{
+ 	    	xzqh_id:xzqh_id,
+         },
+        success: function (result) {
+        	
+        	v = result.v;
+        	$("#v").val(v)
+        },
+        error: function (err) {
+            return false;
+        }
+    }
+    );
+
 }
 

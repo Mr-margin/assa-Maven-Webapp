@@ -236,7 +236,7 @@
 					    			<div class="col-sm-12">
 					   					<div class="ibox panel panel-success border-bottom">
 					   						<div class="ibox-title panel-heading">
-					    						<h5 id="chauxnshiousuo_title">查询条件</h5>
+					    						<h5 id="chauxnshiousuo_title">帮扶干部维护查询条件</h5>
 					    						<div class="ibox-tools">
 					    							<a class="collapse-link" id="chauxnshiousuo" onmouseover="this.style.color='#c4c4c4'">
 								                        <i class="fa fa-chevron-down"></i><strong id="title_tle" onclick="title_tle_zhankai()">展开</strong>
@@ -248,34 +248,21 @@
 					    						
 					    							<div class="form-group" style="margin-bottom: 0px">
 														<div class="col-sm-6">
-															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">行政区划</label>
+															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人姓名</label>
 															<div class="col-sm-8">
-																<select class="form-control m-b" id="cha_qixian" name="cha_qixian">
-																	<option>请选择</option>
-																<option value='150100000000'>呼和浩特市</option>
-																<option value='150200000000'>包头市</option>
-																<option value='150700000000'>呼伦贝尔市</option>
-																<option value='152200000000'>兴安盟</option>
-																<option value='150500000000'>通辽市</option>
-																<option value='150400000000'>赤峰市</option>
-																<option value='152500000000'>锡林郭勒盟</option>
-																<option value='150900000000'>乌兰察布市</option>
-																<option value='150600000000'>鄂尔多斯市</option>
-																<option value='150800000000'>巴彦淖尔市</option>
-																<option value='150300000000'>乌海市</option>
-																<option value='152900000000'>阿拉善盟</option>
-																</select>
+																<input type="text" placeholder="请填写帮扶人姓名" class="form-control" id="bfr_name" name=bfr_name">
 															</div>
 														</div>
 					    								<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶单位</label>
 															<div class="col-sm-8">
-																<input type="text" placeholder="请填写帮扶单位名称" class="form-control m-b" id="cha_bfdw" name="cha_bfdw">
+																<input type="text" placeholder="请填写帮扶单位名称" class="form-control m-b" id="bfdw_name" name="bfdw_name">
 															</div>
 														</div>
+														
 													</div>
 													
-													<div class="form-group" style="margin-bottom: 0px">
+												<!-- 	<div class="form-group" style="margin-bottom: 0px">
 														<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人姓名</label>
 															<div class="col-sm-8">
@@ -294,10 +281,10 @@
 																	<option>民主党派成员</option>
 																</select>
 															</div>
-														</div>
+														</div> 
 													</div>
-													<br>
-					    							<div class="form-group" style="margin-bottom: 0px">
+													<br>-->
+					    							<!-- <div class="form-group" style="margin-bottom: 0px">
 					    								<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人电话</label>
 															<div class="col-sm-8">
@@ -314,10 +301,16 @@
 																</select>
 															</div>
 														</div>
-													</div>
+													</div> -->
 					    							
 					    							<div class="form-group" style="margin-bottom: 0px">
-					    								<div class="col-sm-6">
+					    							<div class="col-sm-6">
+															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">联系电话</label>
+															<div class="col-sm-8">
+																<input type="text" placeholder="联系电话" class="form-control" id="bfr_phone" name="bfr_phone">
+															</div>
+														</div>
+					    								<!-- <div class="col-sm-6">
 					    									<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">年份</label>
 															<div class="col-sm-8">
 																<select  class="form-control m-b" id="cha_year" name="cha_year">
@@ -326,7 +319,7 @@
 																</select>
 															</div>
 					    								
-					    								</div>
+					    								</div> -->
 					    								<div class="col-sm-6" style="float:right;">
 															<div class="col-sm-7"></div>
 															<div class="col-sm-5">
@@ -415,8 +408,9 @@
 					    		<div class=" " id="exampleToolbar_user" role="group"></div>
 				                <div class="row row-lg">
 					                <form class="form-horizontal" id="add_Form">
-					                	<div class="col-sm-12">
+					             			 <input type="text" placeholder="行政区划ID"  class="form-control" style="display: none;" id="xzqh_id" name="xzqh_id">
 					                		<input type="text" placeholder="帮扶干部Id"  class="form-control" style="display: none;" id="bfr_id" name="bfr_id">
+					                		<input type="text" placeholder="行政区划等级"  class="form-control" style="display: none;" id="v" name="v">
 				                			<div class="form-group" style="margin-bottom: 0px">
 				                				<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">姓名</label>
@@ -424,7 +418,7 @@
 							                         	<input type="text" placeholder="姓名" class="form-control m-b" id="bfr_name" name="bfr_name">
 							                      	</div>
 			    								</div>
-			    								<div class="col-sm-4">
+			    								<!-- <div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">性别</label>
 							                      	<div class="col-sm-8">
 							                         	<select class="form-control" id="sex" name="sex">
@@ -433,43 +427,82 @@
 															<option value="2">女</option>
 														</select>
 							                      	</div>
-			    								</div>
+			    								</div> -->
 			    								<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">证件号码</label>
 							                      	<div class="col-sm-8">
 							                         	<input type="text" placeholder="证件号码" class="form-control m-b" id="bfr_card" name="bfr_card">
 							                      	</div>
 			    								</div>
+			    								<div class="col-sm-4">
+			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">联系电话</label>
+							                      	<div class="col-sm-8">
+							                         	<input type="text" placeholder="联系电话" class="form-control m-b" id="bfr_phone" name="bfr_phone">
+							                      	</div>
+			    								</div>
 				                			</div>
+				                	 <div class="form-group" style="margin-bottom: 15px">
+					               <!-- 	<input type="text" placeholder="贫困户ID"  class="form-control" style="display: none;" id="pkh_id" name="pkh_id"> -->
+					                
+					                	<div class="col-sm-4">
+								        <label class="col-sm-4 control-label" style="margin-top: 8px;">盟市</label>
+								        <div class="col-sm-8">
+								            <select class="form-control" id="v2" name="v2" onchange="getbfgbdw(this.value,this.id)">
+								            	<option>请选择</option>
+												<option value='150100000000'>呼和浩特市</option>
+												<option value='150200000000'>包头市</option>
+												<option value='150700000000'>呼伦贝尔市</option>
+												<option value='152200000000'>兴安盟</option>
+												<option value='150500000000'>通辽市</option>
+												<option value='150400000000'>赤峰市</option>
+												<option value='152500000000'>锡林郭勒盟</option>
+												<option value='150900000000'>乌兰察布市</option>
+												<option value='150600000000'>鄂尔多斯市</option>
+												<option value='150800000000'>巴彦淖尔市</option>
+												<option value='150300000000'>乌海市</option>
+												<option value='152900000000'>阿拉善盟</option>
+								            </select>
+								        </div>
+								        </div>
+								        
+								         <div class="col-sm-4">
+								        <label class="col-sm-4 control-label" style="margin-top: 8px;">旗区县</label>
+								        <div class="col-sm-8">
+								            <select class="form-control" id="v3" name="v3" onchange="getbfgbdw(this.value,this.id)"></select>
+								        </div>
+								        </div>
+								        
+								         <div class="col-sm-4">
+								        <label class="col-sm-4 control-label" style="margin-top: 8px;">苏木乡</label>
+								        <div class="col-sm-8">
+								            <select class="form-control" id="v4" name="v4" onchange="getbfgbdw(this.value,this.id)"></select>
+								        </div>
+								        </div>  
+								        
+								    </div>
 				                			<div class="form-group" style="margin-bottom: 0px">
+				                			
+				                				 <div class="col-sm-4">
+									        <label class="col-sm-4 control-label" style="margin-top: 8px;">嘎查村</label>
+									        <div class="col-sm-8">
+									            <select class="form-control" id="xzqh" name="xzqh" onchange="getbfgbdw(this.value,this.id)"></select>
+									        </div>
+									        </div> 
+				                			<!-- 
 				                				<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">行政区划</label>
 							                      		
 						                      		<div class="col-sm-8">
-						                      			 <select class="form-control m-b" id="add_qixian" name="add_qixian" onchange="getbfgb(this.value)">
-															<option>请选择</option>
-															<option value='150100000000'>呼和浩特市</option>
-															<option value='150200000000'>包头市</option>
-															<option value='150700000000'>呼伦贝尔市</option>
-															<option value='152200000000'>兴安盟</option>
-															<option value='150500000000'>通辽市</option>
-															<option value='150400000000'>赤峰市</option>
-															<option value='152500000000'>锡林郭勒盟</option>
-															<option value='150900000000'>乌兰察布市</option>
-															<option value='150600000000'>鄂尔多斯市</option>
-															<option value='150800000000'>巴彦淖尔市</option>
-															<option value='150300000000'>乌海市</option>
-															<option value='152900000000'>阿拉善盟</option>		
+						                      			 <select class="form-control m-b" id="add_qixian" name="add_qixian" onchange="getbfgbdw(this.value)">
+														
 						                      			</select>
 						                      		</div> 
-			    								</div>
-			    								<div class="col-sm-8">
-			    									<label class="col-sm-2 control-label" style="text-align:right;margin-top: 5px;">选择单位&nbsp;&nbsp;</label>
-						                      		<div class="col-sm-10" style="padding-left: 10px;">
-						                      		<input type="text" placeholder="帮扶单位" class="form-control m-b" id="bfrdw_name" name="bfrdw_name">
-						                      			
-						                      			<!-- <div class="input-group" style="width: 100%">
-							                      			<input type="text" placeholder="帮扶单位" class="form-control m-b" id="ad_bf_dw" name="ad_bf_dw">
+			    								</div>  -->
+			    								<div class="col-sm-4">
+			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">选择单位&nbsp;&nbsp;</label>
+						                      		<div class="col-sm-8" style="padding-left: 10px;">
+						                      			 <div class="input-group" style="width: 100%">
+							                      			<input type="text" placeholder="帮扶单位" class="form-control m-b" id="bfdw_name" name="bfdw_name">
 							                      			<div class="input-group-btn">
 																<button type="button" class="btn btn btn-primary" style="display:none">
 																	<i class="fa fa-save"></i>  选择
@@ -477,11 +510,11 @@
 																<ul class="dropdown-menu dropdown-menu-right" role="menu">
 					                                            </ul>
 															</div>
-														</div> -->
+														</div>
 						                      		</div>
 			    								</div>
 				                			</div>
-				                			<div class="form-group" style="margin-bottom: 0px">
+				                			<!-- <div class="form-group" style="margin-bottom: 0px">
 				                				<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">政治面貌</label>
 							                      	<div class="col-sm-8">
@@ -511,7 +544,7 @@
 															<option value="50">县(区)</option>
 															<option value="51">区</option>
 															<option value="52">县</option>
-															<!-- <option value="60">街道、镇、乡</option>
+															<option value="60">街道、镇、乡</option>
 															<option value="61">街道</option>
 															<option value="62">镇</option>
 															<option value="63">乡</option>
@@ -520,14 +553,14 @@
 															<option value="72">村民委员会</option>
 															<option value="73">村两委</option>
 															<option value="80">军队</option>
-															<option value="90">其他</option>		 -->
+															<option value="90">其他</option>		
 														</select>	
 							                      	</div>
 			    								</div>
-			    								</div>
+			    								</div> -->
 		   										 
 			    							
-			    							<div class="form-group" style="margin-bottom: 0px">
+			    							<!-- <div class="form-group" style="margin-bottom: 0px">
 			    								<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">单位地址</label>
 						                      		<div class="col-sm-8">
@@ -613,9 +646,9 @@
 														</select>							                      	</div>
 			    								</div>
 			    								
-			    								</div> 
+			    								</div>  -->
 		   										
-			    								<div class="form-group" style="margin-top: 0px">
+			    								<!-- <div class="form-group" style="margin-top: 0px">
 				                				
 			    								<div class="col-sm-4">
 			    									<label class="col-sm-4 control-label" style="text-align:right;margin-top: 5px;">第一书记标志</label>
@@ -637,7 +670,9 @@
 														</select>
 							                      	</div>
 			    								</div>
-				                			</div>
+				                			</div> -->
+												<div class="form-group" style="margin-bottom: 0px">
+												
 			    								<div class="col-sm-6" style="float:right;">
 													<div class="col-sm-7"></div>
 													<div class="col-sm-5">

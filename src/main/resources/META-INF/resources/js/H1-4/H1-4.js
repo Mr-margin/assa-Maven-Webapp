@@ -7,6 +7,7 @@ $(document).ready(function() {
 	teshu_xiqian($('#cha_qixian'),$('#add_qixian'));
 	chaxun.cha_qixian = jsondata.company.xian_id ;
 	$('#exportExcel_all_dengdai').hide();*/
+	
 	$(".input-group.date").datepicker({
 		todayBtn: "linked",
         keyboardNavigation: !1,
@@ -16,6 +17,176 @@ $(document).ready(function() {
     });
 	
 });
+
+
+
+if(jsondata.Login_map.COM_VD=="V1"){
+	/*$("#v2").append("<option></option>");
+	$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+	$("#v2").append("<option value='150200000000'>包头市</option>");
+	$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+	$("#v2").append("<option value='152200000000'>兴安盟</option>");
+	$("#v2").append("<option value='150500000000'>通辽市</option>");
+	$("#v2").append("<option value='150400000000'>赤峰市</option>");
+	$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+	$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+	$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+	$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+	$("#v2").append("<option value='150300000000'>乌海市</option>");
+	$("#v2").append("<option value='152900000000'>阿拉善盟</option>");*/
+}else if(jsondata.Login_map.COM_VD=='V3'){
+	$("#v5").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	$("#v6").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#v6").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	});
+}else if(jsondata.Login_map.COM_VD=='V5'){
+	var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
+	var t = document.getElementById("v8"); 
+    for(i=0;i<t.length;i++){//给select赋值  
+        if(number == t[i].value){  
+        	 $("#v5").html("<option value='"+number+"'>"+t.options[i].text+"</option>");
+        }
+    }
+    $("#v6").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+    $("#v8").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v6").find("option:selected").val()}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#v8").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+	});
+}
+
+//加载市级下拉框
+if(jsondata.Login_map.COM_VD=="V1"){
+	/*$("#v2").append("<option></option>");
+	$("#v2").append("<option value='150100000000'>呼和浩特市</option>");
+	$("#v2").append("<option value='150200000000'>包头市</option>");
+	$("#v2").append("<option value='150700000000'>呼伦贝尔市</option>");
+	$("#v2").append("<option value='152200000000'>兴安盟</option>");
+	$("#v2").append("<option value='150500000000'>通辽市</option>");
+	$("#v2").append("<option value='150400000000'>赤峰市</option>");
+	$("#v2").append("<option value='152500000000'>锡林郭勒盟</option>");
+	$("#v2").append("<option value='150900000000'>乌兰察布市</option>");
+	$("#v2").append("<option value='150600000000'>鄂尔多斯市</option>");
+	$("#v2").append("<option value='150800000000'>巴彦淖尔市</option>");
+	$("#v2").append("<option value='150300000000'>乌海市</option>");
+	$("#v2").append("<option value='152900000000'>阿拉善盟</option>");*/
+}else if(jsondata.Login_map.COM_VD=='V3'){
+	$("#v2").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+	$("#v3").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:jsondata.Login_map.SYS_COM_CODE}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	});
+}else if(jsondata.Login_map.COM_VD=='V5'){
+	var number=jsondata.Login_map.SYS_COM_CODE.substring(0,4)+'00000000';
+	var t = document.getElementById("v2"); 
+    for(i=0;i<t.length;i++){//给select赋值  
+        if(number == t[i].value){  
+        	 $("#v2").html("<option value='"+number+"'>"+t.options[i].text+"</option>");
+        }
+    }
+    $("#v3").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
+    $("#v4").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+	});
+}
+//市级下拉框选择事件
+$("#v2").change(function(){
+	$("#v3").empty();
+	$("#v4").empty();
+	$("#xzqh").empty();
+	if($("#v2").find("option:selected").text()=="请选择"){
+		
+	}else{
+		$("#v3").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+	}
+	
+});
+
+//县级下拉框选择事件
+$("#v3").change(function(){
+	$("#v4").empty();
+	$("#xzqh").empty();
+	if($("#v3").find("option:selected").text() == "请选择"){
+	}else{
+		$("#v4").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v3").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+		});
+	}
+});
+
+//乡级下拉框选择事件
+$("#v4").change(function(){
+	$("#xzqh").empty();
+	$("#xzqh").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v4").find("option:selected").val()}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#xzqh").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+	});
+});
+
+
+
+//市级下拉框选择事件
+$("#v5").change(function(){
+	$("#v6").empty();
+	$("#v8").empty();
+	$("#xzqh2").empty();
+	if($("#v5").find("option:selected").text()=="请选择"){
+		
+	}else{
+		$("#v6").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v5").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v6").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+		});
+	}
+	
+});
+//县级下拉框选择事件
+$("#v6").change(function(){
+	$("#v8").empty();
+	$("#xzqh2").empty();
+	if($("#v6").find("option:selected").text() == "请选择"){
+	}else{
+		$("#v8").append("<option></option>");
+		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:$("#v6").find("option:selected").val()}, "text");
+		var val = eval("("+data+")");
+		$.each(val,function(i,item){
+			$("#v8").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+		});
+	}
+});
+
+//乡级下拉框选择事件
+$("#v8").change(function(){
+	$("#xzqh2").empty();
+	$("#xzqh2").append("<option></option>");
+	var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:$("#v8").find("option:selected").val()}, "text");
+	var val = eval("("+data+")");
+	$.each(val,function(i,item){
+		$("#xzqh2").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+	});
+});
+
 var PKH_table = $('#PKH_table');
 var chaxun = {};//存储表格查询参数
 
@@ -91,19 +262,16 @@ $(function () {
     //添加贫困户
    
 	$("#add_PKH_button").click(function(){
+		
 		$("#add_Form").find("input").each(function(){
 			var id = $(this).attr("id");
 			  	$("#"+id).val("");
 	    });
-		$("#sex").val("请选择");
-    	$("#bfr_zzmm").val("请选择");
-    	$("#relative").val("请选择");
-    	$("#zhiwei_level").val("请选择");
-    	$("#studying").val("请选择");
-    	$("#jishu_techang").val("请选择");
-    	$("#duizhang").val("请选择");
-    	$("#diyi_shuji").val("请选择");
-    	$("#zhucun_duiyuan").val("请选择");
+		$("#v2").val("请选择");
+    	$("#v3").val("");
+    	$("#v4").val("");
+    	$("#xzqh").val("");
+    	$("#out_pk_property").val("请选择");
 		/*getPKH("请选择");*/
 		
 		
@@ -125,7 +293,7 @@ $(function () {
 	$("#update_PKH_button").click(function(){
 		var row = getSelectedRow(PKH_table);//必须确认先选中一条白细胞数据
 		if (typeof row != "undefined") {
-			updatePKHInfo(row.BFR_ID);
+			updatePKHInfo(row.PKH_ID);
 		}else{
 			toastr["info"]("info", "必须选择一条记录");
 		}
@@ -197,7 +365,7 @@ $(function () {
 	            closeOnConfirm: false
 	        },
 	        function() {
-	        	deletePKH(row.BFR_ID);
+	        	deletePKH(row.PKH_ID);
 	        });
     	}else{
     		toastr["info"]("info", "必须选择一条记录");
@@ -206,33 +374,34 @@ $(function () {
     
 	//查询按钮
     $('#cha_button').click(function () {
-    	chaxun.cha_bfdw = $("#cha_bfdw").val();
-    	chaxun.cha_bfr = $("#cha_bfr").val();
-    	chaxun.cha_qixian = $("#cha_qixian").val();
-    	chaxun.cha_dh = $("#cha_dh").val();
-    	chaxun.cha_juese = $("#cha_juese").val();
-    	chaxun.cha_v3 = $("#cha_v3").val();
-    	chaxun.cha_year = $("#cha_year").val();
+    	chaxun.v2 = $("#v5").val();
+    	chaxun.v3= $("#v6").val();
+    	chaxun.v4= $("#v8").val();
+    	chaxun.xzqh= $("#xzqh2").val();
+    	chaxun.hz_name = $("#hz_name").val();
+    	chaxun.hz_card = $("#hz_card").val();
+    	chaxun.hz_phone = $("#hz_phone").val();
     	PKH_table.bootstrapTable('destroy');//销毁现有表格数据
     	PKH_initialization();//重新初始化数据
     });
     
     //清空查询
     $('#close_cha_button').click(function () {
-    	$("#cha_bfdw").val("");
-    	$("#cha_bfr").val("");
-    	var val = jsondata.company;
+    	$("#hz_name").val("");
+    	$("#hz_card").val("");
+    	$("#hz_phone").val("");
+    	/*var val = jsondata.company;
 		if(val.com_level == "1"){
 			$("#cha_qixian").val("请选择");
-		}
-    	$("#cha_juese").val("请选择");
-    	$("#cha_dh").val("");
-    	$("#cha_v3").val("请选择");
-    	$("#cha_year").val("2017");
+		}*/
+    	$("#v5").val("请选择");
+    	$("#v6").val("");
+    	$("#v8").val("请选择");
+    	$("#xzqh2").val("");
     	$("#add_PKH_button").show();
 		$("#update_PKH_button").show();
 		$("#delete_bf_button").show();
-		$("#export_button").show();
+		/*$("#export_button").show();*/
     	$('#chauxnshiousuo').click();
     	 
     	chaxun = {};
@@ -304,7 +473,7 @@ function PKH_initialization(){
 		search: false,//是否显示右上角的搜索框
 		clickToSelect: true,//点击行即可选中单选/复选框
 		sidePagination: "server",//表格分页的位置 client||server
-		queryParams: queryParams_bxbxxb, //参数
+		queryParams: queryParams, //参数
 		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
 		silent: true,  //刷新事件必须设置
 		contentType: "application/x-www-form-urlencoded",	//请求远程数据的内容类型。
@@ -320,18 +489,17 @@ function PKH_initialization(){
 }
 
 
-function queryParams_bxbxxb(params) {  //配置参数
+function queryParams(params) {  //配置参数
 	var temp = {};
     temp.pageSize = params.limit;
     temp.pageNumber = params.offset;
-  /*  temp.search = params.search;*/
-   /* temp.cha_bfdw = chaxun.cha_bfdw;
-    temp.cha_bfr = chaxun.cha_bfr;
-    temp.cha_juese = chaxun.cha_juese;
-    temp.cha_qixian = chaxun.cha_qixian;
-    temp.cha_dh = chaxun.cha_dh;
-    temp.cha_v3 = chaxun.cha_v3;
-    temp.cha_year = chaxun.cha_year;*/
+    temp.v2 = chaxun.v2;
+    temp.v3 = chaxun.v3;
+    temp.v4 = chaxun.v4;
+    temp.xzqh = chaxun.xzqh;
+    temp.hz_name = chaxun.hz_name;
+    temp.hz_card = chaxun.hz_card;
+    temp.hz_phone = chaxun.hz_phone;
     return temp;
 }
 
@@ -339,10 +507,8 @@ function queryParams_bxbxxb(params) {  //配置参数
  * 添加贫困户信息
  */
 function addPKHinfo(){
-	
 	/*if($("#add_bf #ad_bf_dw").attr("data-id")!=undefined&&$("#add_bf #ad_bf_dw").attr("data-id")!=""){*/
 		var form_val = JSON.stringify(getFormJson("#add_Form"));//表单数据字符串
-		/*alert(form_val);*/
 		$.ajax({
 		    url: "/assa/addPKHInfo.do",
 		    type: "POST",
@@ -350,12 +516,13 @@ function addPKHinfo(){
 		    dataType:"json",
 		    data:{
 		    	/*dwid: $("#add_bf #ad_bf_dw").attr("data-id"),*/
+		    	xzqh : $("#xzqh").find("option:selected").val(),
 		    	form_val: form_val
 	        },
 		    success: function (data) {
 		    	
 		    	if (data == "1") {
-		    		toastr["success"]("success", "帮扶责任人维护成功");
+		    		toastr["success"]("success", "贫困户维护成功");
 		    		
 		    		$("#add_bf").hide();
 		    		$('#bf').modal('hide');
@@ -366,19 +533,18 @@ function addPKHinfo(){
 			    		var id = $(this).attr("id");
 			  		  	$("#"+id).val("");
 				    });
-			    	$("#sex").val("请选择");
-			    	$("#bfr_zzmm").val("请选择");
-			    	$("#relative").val("请选择");
-			    	$("#zhiwei_level").val("请选择");
-			    	$("#studying").val("请选择");
-			    	$("#jishu_techang").val("请选择");
-			    	$("#duizhang").val("请选择");
+			    	$("#v2").val("请选择");
+			    	$("#v3").val("");
+			    	$("#v4").val("");
+			    	$("#xzqh").val("");
+			    	$("#out_pk_property").val("请选择");
+			    	/*$("#duizhang").val("请选择");
 			    	$("#diyi_shuji").val("请选择");
-			    	$("#zhucun_duiyuan").val("请选择");	
+			    	$("#zhucun_duiyuan").val("请选择");	*/
 			    	/*getPKH("请选择");*/
 			    	
 		    	}else if(data == '2'){
-		    		toastr["warning"]("warning", "操作失败，该帮扶人已存在");
+		    		toastr["warning"]("warning", "操作失败，该贫困户已存在");
 		    	}else{
 		    		toastr["warning"]("warning", "操作失败，检查数据后重试");
 		    	}
@@ -395,75 +561,74 @@ function addPKHinfo(){
 /**
  * 修改前贫困户信息
  */
-function updatePKHInfo(bfr_id){
-	/*alert(bfr_id);*/
+function updatePKHInfo(pkh_id){
  	$("#add_bf #xia_title").html("修改贫困户信息");
  	/*document.getElementById("add_bf").scrollIntoView();*/
 	
 	$.ajax({
-	    url: "/assa/getUpdatePKHInfo.do",
+	    url: "/assa/updatePKHInfo.do",
 	    type: "POST",
 	    async:false,
 	    dataType:"json",
 	    data:{
-	    	bfr_id:bfr_id,
+	    	PKH_ID:pkh_id,
         },
 	    success: function (data) {
+	    	$('#add_bf #pkh_id').val(data.PKH.pkh_id);
+	    	$('#add_bf #hz_name').val(data.PKH.hz_name);
+	    	if(data.PKH.v2==undefined||data.PKH.v2==""||data.PKH.v2==null){
+	    		$('#add_bf #v2').val("请选择");
+	    	}else{
+	    		$('#add_bf #v2').val(data.PKH.v2);
+	    	}
+	    	if(data.PKH.v3==undefined||data.PKH.v3==""||data.PKH.v3==null){
+	    		$('#add_bf #v3').val("请选择");
+	    	}else{
+	    			
+	    			$("#v3").append("<option></option>");
+	    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:data.PKH.v2}, "text");
+	    			var val = eval("("+data2+")");
+	    			$.each(val,function(i,item){
+	    				$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
+	    			});
+	    		
+	    		$('#add_bf #v3').val(data.PKH.v3);
+	    	}
+	    	if(data.PKH.v4==undefined||data.PKH.v4==""||data.PKH.v4==null){
+	    		$('#add_bf #v4').val("请选择");
+	    	}else{
+	    		
+	    		
+    			$("#v4").append("<option></option>");
+    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V7.do", {code:data.PKH.v3}, "text");
+    			var val = eval("("+data2+")");
+    			$.each(val,function(i,item){
+    				$("#v4").append("<option value='"+item.V8+"'>"+item.V7+"</option>");
+    			});
+    		
+    		$('#add_bf #v4').val(data.PKH.v4);
+	    	}
+	    	if(data.PKH.xzqh==undefined||data.PKH.xzqh==""||data.PKH.xzqh==null){
+	    		$('#add_bf #xzqh').val("请选择");
+	    	}else{
 	    	
-	    	$('#add_bf #bfr_id').val(data.PKH.bfr_id);
-	    	$('#add_bf #bfr_name').val(data.PKH.bfr_name);
-	    	if(data.PKH.sex==undefined||data.PKH.sex==""||data.PKH.sex==null){
-	    		$('#add_bf #sex').val("请选择");
-	    	}else{
-	    		$('#add_bf #sex').val(data.PKH.sex);
+    			$("#xzqh").append("<option></option>");
+    			var data2 = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V9.do", {code:data.PKH.v4}, "text");
+    			var val = eval("("+data2+")");
+    			$.each(val,function(i,item){
+    				$("#xzqh").append("<option value='"+item.V10+"'>"+item.V9+"</option>");
+    			});
+	    		$('#add_bf #xzqh').val(data.PKH.xzqh);
 	    	}
-	    	$('#add_bf #bfr_card').val(data.PKH.bfr_card);
+	    	$('#add_bf #hz_card').val(data.PKH.hz_card);
 	    	
-	    	$('#add_bf #ad_bf_dw').val(data.PKH.ad_bf_dw);
-	    	$('#add_bf #dw_address').val(data.PKH.dw_address);
-	    	$('#add_bf #birthday').val(data.PKH.birthday);
-	    	if(data.PKH.bfr_zzmm==undefined||data.PKH.bfr_zzmm==""||data.PKH.bfr_zzmm==null){
-	    		$('#add_bf #bfr_zzmm').val("请选择");
+	    	$('#add_bf #hz_phone').val(data.PKH.hz_phone);
+	    	if(data.PKH.out_pk_property==undefined||data.PKH.out_pk_property==""||data.PKH.out_pk_property==null){
+	    		$('#add_bf #out_pk_property').val("请选择");
 	    	}else{
-	    		$('#add_bf #bfr_zzmm').val(data.PKH.bfr_zzmm);
+	    		$('#add_bf #out_pk_property').val(data.PKH.out_pk_property);
 	    	}
-	    	$('#add_bf #bfr_phone').val(data.PKH.bfr_phone);
-	    	if(data.PKH.relative==undefined||data.PKH.relative==""||data.PKH.relative==null){
-	    		$('#add_bf #relative').val("请选择");
-	    	}else{
-	    		$('#add_bf #relative').val(data.PKH.relative);
-	    	/*	getPKH(data.PKH.relative)*/
-	    	}
-	    	if(data.PKH.zhiwei_level==undefined||data.PKH.zhiwei_level==""||data.PKH.zhiwei_level==null){
-	    		$('#add_bf #zhiwei_level').val("请选择");
-	    	}else{
-	    		$('#add_bf #zhiwei_level').val(data.PKH.zhiwei_level);
-	    	}
-	    	if(data.PKH.studying==undefined||data.PKH.studying==""||data.PKH.studying==null){
-	    		$('#add_bf #studying').val("请选择");
-	    	}else{
-	    		$('#add_bf #studying').val(data.PKH.studying);
-	    	}
-	    	if(data.PKH.jishu_techang==undefined||data.PKH.jishu_techang==""||data.PKH.jishu_techang==null){
-	    		$('#add_bf #jishu_techang').val("请选择");
-	    	}else{
-	    		$('#add_bf #jishu_techang').val(data.PKH.jishu_techang);
-	    	}
-	    	if(data.PKH.duizhang==undefined||data.PKH.duizhang==""||data.PKH.duizhang==null){
-	    		$('#add_bf #duizhang').val("请选择");
-	    	}else{
-	    		$('#add_bf #duizhang').val(data.PKH.duizhang);
-	    	}
-	    	if(data.PKH.diyi_shuji==undefined||data.PKH.diyi_shuji==""||data.PKH.diyi_shuji==null){
-	    		$('#add_bf #diyi_shuji').val("请选择");
-	    	}else{
-	    		$('#add_bf #diyi_shuji').val(data.PKH.diyi_shuji);
-	    	}
-	    	if(data.PKH.zhucun_duiyuan==undefined||data.PKH.zhucun_duiyuan==""||data.PKH.zhucun_duiyuan==null){
-	    		$('#add_bf #zhucun_duiyuan').val("请选择");
-	    	}else{
-	    		$('#add_bf #zhucun_duiyuan').val(data.PKH.zhucun_duiyuan);
-	    	}
+	    	
 	    	$('#add_bf #G_FLAG').val(data.PKH.G_FLAG);
 	    	$("#add_bf").show();
 	    	$('#bf').modal();
@@ -479,14 +644,14 @@ function updatePKHInfo(bfr_id){
  * 删除贫困户
  * @param BFR_ID
  */
-function deletePKH(bfr_id){
+function deletePKH(pkh_id){
 	$.ajax({
 	    url: "/assa/deletePKHInfo.do",
 	    type: "POST",
 	    async:false,
 	    dataType:"json",
 	    data:{
-	    	bfr_id:bfr_id,
+	    	pkh_id:pkh_id,
         },
 	    success: function (data) {
 	    	if (data == "1") {

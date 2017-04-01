@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.gistone.MyBatis.config.GetBySqlMapper;
+
 
 
 /**
@@ -38,7 +43,7 @@ public class H1_3_Controller {
 	public void getBfgbList(HttpServletRequest request,HttpServletResponse response)throws IOException{
 		String pageSize = request.getParameter("pageSize");
 		String pageNumber = request.getParameter("pageNumber");  
-		String count_sql = "SELECT count(*) total  FROM (select DISTINCT bfr.AAK110 bfr_id,BFR.G_FLAG,bfr.G_UPDATE_TIME,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,bfr.AAR012 dw_phone FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110  )WHERE G_FLAG = '1'";
+		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count  FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
 		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count "
 				+ " FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN "
 				+ " (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd GROUP BY BFRJD.AAK110)t2"
@@ -47,9 +52,29 @@ public class H1_3_Controller {
 		int number = Integer.parseInt(pageNumber);
 		int page = number == 0 ? 1 : (number/size)+1;
 		
-		int total = this.getBySqlMapper.findrows(count_sql);
+		String bfr_name ="",bfrdw_name="",dw_phone="";
+		String sql_end="";
+		bfr_name = request.getParameter("bfr_name");
+		bfrdw_name = request.getParameter("bfrdw_name");
+		dw_phone = request.getParameter("bfr_phone");
+		
+		
+		if(bfr_name!=null&&!bfr_name.equals("")){
+			bfr_name = request.getParameter("bfr_name").trim();
+			sql_end += "AND bfr_name like '%"+bfr_name+"%' ";
+		}
+		if(bfrdw_name!=null&&!bfrdw_name.equals("")){
+			bfrdw_name = request.getParameter("bfrdw_name").trim();
+			sql_end += "AND bfrdw_name like '"+bfrdw_name+"%' ";
+		}
+		if(dw_phone!=null&&!dw_phone.equals("")){
+			dw_phone = request.getParameter("bfr_phone").trim();
+			sql_end += "AND dw_phone = '"+dw_phone+"'";
+		}
+		
+		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
 		sql += ")A WHERE ROWNUM<="+size*page+")where rn>"+number+"";
-		List<Map> bfrList = this.getBySqlMapper.findRecords(sql); 
+		List<Map> bfrList = this.getBySqlMapper.findRecords(sql+sql_end); 
 		Map bfrMap = new HashMap<>();
 		if(bfrList.size()>0){
 			JSONArray jsa = new JSONArray();
@@ -85,15 +110,15 @@ public class H1_3_Controller {
 	public ModelAndView addBfgbInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		/*String dwid = request.getParameter("dwid");*/
 		String form_val = request.getParameter("form_val");
 		JSONObject form_json = JSONObject.fromObject(form_val);//表单数据
 		
 		String bfr_name = "", sex = "", bfr_card = "", bfrdw_name = "", dw_address = "", birthday = "", bfr_zzmm = "", bfr_phone = "", relative = "",
-				zhiwei_level="",studying="",jishutechang="",duizhang="",diyi_shuji="",zhucun_duiyuan="";
+				zhiwei_level="",studying="",jishutechang="",duizhang="",diyi_shuji="",zhucun_duiyuan="",bfrdw_id="",xzqh_id="";
 		String where = "";
-		
+	
 		if(form_json.get("bfr_name")!=null&&!form_json.get("bfr_name").equals("")){//可以为空，如果没有取到值，证明前台为空，数据库需要清空此列
 			bfr_name = form_json.get("bfr_name").toString();
 			where += "AAB002='"+form_json.get("bfr_name")+"',";
@@ -101,14 +126,22 @@ public class H1_3_Controller {
 			where += "AAB002='',";
 		}
 		
-		if(form_json.get("sex")!=null&&!form_json.get("sex").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
+		if(form_json.get("xzqh_id")!=null&&!form_json.get("xzqh_id").equals("")){//可以为空，如果没有取到值，证明前台为空，数据库需要清空此列
+			xzqh_id = form_json.get("xzqh_id").toString();
+			where += "AAR008='"+form_json.get("xzqh_id")+"',";
+		}else{
+				where += "AAR008='',";
+		}
+		
+			
+	/*	if(form_json.get("sex")!=null&&!form_json.get("sex").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
 			sex = form_json.get("sex").toString();
 			where += "AAB003='"+form_json.get("sex")+"',";
 		}else{
 			if(form_json.get("sex").equals("请选择")){
 				where += "AAB003='',";
 			}
-		}
+		}*/
 		
 		if(form_json.get("bfr_card")!=null&&!form_json.get("bfr_card").equals("")){//可以为空，如果没有取到值，证明前台为空，数据库需要清空此列
 			bfr_card = form_json.get("bfr_card").toString();
@@ -122,6 +155,13 @@ public class H1_3_Controller {
 			where += "AAP001='"+form_json.get("bfrdw_name")+"',";
 		}else{
 			where += "AAP001='',";
+		}
+		
+		if(request.getParameter("bfrdw_id")!=null&&!request.getParameter("bfrdw_id").equals("")){//可以为空，如果没有取到值，证明前台为空，数据库需要清空此列
+			bfrdw_id =request.getParameter("bfrdw_id");
+			where += "AAP110='"+request.getParameter("bfrdw_id")+"',";
+		}else{
+			where += "AAP110='',";
 		}
 		/*if(form_json.get("ad_bf_dw")!=null&&!form_json.get("ad_bf_dw").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
 			ad_bf_dw = form_json.get("ad_bf_dw").toString();
@@ -151,7 +191,7 @@ public class H1_3_Controller {
 		}
 		
 		
-		if(form_json.get("bfr_zzmm")!=null&&!form_json.get("bfr_zzmm").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
+	/*	if(form_json.get("bfr_zzmm")!=null&&!form_json.get("bfr_zzmm").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
 			bfr_zzmm = form_json.get("bfr_zzmm").toString();
 			where += "AAK033='"+form_json.get("bfr_zzmm")+"',";
 		}else{
@@ -159,16 +199,16 @@ public class H1_3_Controller {
 				where += "AAK033='',";
 			}
 		}
-		
+		*/
 		
 		if(form_json.get("bfr_phone")!=null&&!form_json.get("bfr_phone").equals("")){//可以为空，如果没有取到值，证明前台为空，数据库需要清空此列
 			bfr_phone = form_json.get("bfr_phone").toString();
-			where += "AAR012='"+form_json.get("bfr_phone")+"',";
+			where += "AAR012='"+form_json.get("bfr_phone")+"'";
 		}else{
-			where += "AAR012='',";
+			where += "AAR012=''";
 		}
 		
-		
+	/*	
 		if(form_json.get("relative")!=null&&!form_json.get("relative").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
 			relative = form_json.get("relative").toString();
 			where += "AAP004='"+form_json.get("relative")+"',";
@@ -176,9 +216,9 @@ public class H1_3_Controller {
 			if(form_json.get("relative").equals("请选择")){
 				where += "AAP004='',";
 			}
-		}
+		}*/
 		
-		if(form_json.get("zhiwei_level")!=null&&!form_json.get("zhiwei_level").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
+		/*if(form_json.get("zhiwei_level")!=null&&!form_json.get("zhiwei_level").equals("请选择")){//下拉框，一定有值，但是要筛除“请选择”
 			zhiwei_level = form_json.get("zhiwei_level").toString();
 			where += "AAF031='"+form_json.get("zhiwei_level")+"',";
 		}else{
@@ -235,7 +275,7 @@ public class H1_3_Controller {
 				where += "AAK039=''";
 			}
 		}
-		
+		*/
 		
 		String sql = "";
 	try{
@@ -256,9 +296,9 @@ public class H1_3_Controller {
 				 response.getWriter().write("2");
 			 }else{
 				 long   bfr_id=  System.currentTimeMillis();
-					sql = "insert into NEIMENG0117_AK11 (AAK110,AAB002,AAB003,AAB004,AAP001,AAR013,AAB005,AAK033,AAR012,AAP004,AAF031,AAK036,AAK037,AAK031,AAK032,AAK039,G_FLAG)VALUES "+
+					sql = "insert into NEIMENG0117_AK11 (AAK110,AAB002,AAB003,AAB004,AAP001,AAR013,AAB005,AAK033,AAR012,AAP004,AAF031,AAK036,AAK037,AAK031,AAK032,AAK039,G_FLAG,AAP110,AAR008)VALUES "+
 							"('"+bfr_id+"','"+bfr_name+"','"+sex+"','"+bfr_card+"','"+bfrdw_name+"','"+dw_address+"','"+birthday+"','"+bfr_zzmm+"','"+bfr_phone+"','"+relative+"',"
-									+ "'"+zhiwei_level+"','"+studying+"','"+jishutechang+"','"+duizhang+"','"+diyi_shuji+"','"+zhucun_duiyuan+"','1')";
+									+ "'"+zhiwei_level+"','"+studying+"','"+jishutechang+"','"+duizhang+"','"+diyi_shuji+"','"+zhucun_duiyuan+"','1','"+bfrdw_id+"','"+xzqh_id+"')";
 					this.getBySqlMapper.insert(sql);
 					 response.getWriter().write("1");
 			 }
@@ -321,9 +361,9 @@ public class H1_3_Controller {
 		response.setCharacterEncoding("UTF-8");
 		String bfr_id = request.getParameter("bfr_id");
 		//根据bfr_id查询帮扶人信息 然后再更改页面进行展示
-		String sql = "select AAK110 bfr_id,AAB002 bfr_name,AAB003 sex,AAB004 bfr_card,AAP001 bfrdw_name ,AAR013 dw_address,AAB005 birthday,AAK033 bfr_zzmm,AAR012 bfr_phone,"
-				+ "AAP004 relative,AAF031 zhiwei_level,AAK036 studying,AAK037 jishu_techang,AAK031 duizhang,AAK032 diyi_shuji,"
-				+ "AAK039 zhucun_duiyuan,G_FLAG FROM NEIMENG0117_AK11 where  AAK110 ="+bfr_id;
+		String sql = "SELECT T1.*,aap001  bfrdw_name FROM (select AAK110 bfr_id,AAB002 bfr_name,AAB003 sex,AAB004 bfr_card,AAP110 bfrdw_id,AAR013 dw_address,AAB005 birthday,AAK033 bfr_zzmm,AAR012 bfr_phone,AAP004 relative,AAF031 zhiwei_level,AAK036 studying,AAK037 jishu_techang,AAK031 duizhang,AAK032 diyi_shuji,AAK039 zhucun_duiyuan,G_FLAG,AAR008 xzqh_id "
+				+ " FROM NEIMENG0117_AK11  where  AAK110 ='"+bfr_id+"' )T1"
+				+ " LEFT JOIN NEIMENG0117_AP11 ON T1.bfrdw_id = NEIMENG0117_AP11.AAP110";
 		List<Map> list = getBySqlMapper.findRecords(sql);
 		JSONObject json = new JSONObject ();
 		
@@ -346,6 +386,8 @@ public class H1_3_Controller {
 			obj.put("duizhang", val.get("DUIZHANG")==null?"":val.get("DUIZHANG"));
 			obj.put("diyi_shuji", val.get("DIYI_SHUJI")==null?"":val.get("DIYI_SHUJI"));
 			obj.put("zhucun_duiyuan", val.get("ZHUCUN_DUIYUAN")==null?"":val.get("ZHUCUN_DUIYUAN"));
+			obj.put("xzqh_id", val.get("XZQH_ID")==null?"":val.get("XZQH_ID"));
+			obj.put("bfrdw_id", val.get("BFRDW_ID")==null?"":val.get("BFRDW_ID"));
 			obj.put("G_FLAG", val.get("G_FLAG")==null?"":val.get("G_FLAG"));
 			json.put("bfgb", obj);
 		}
@@ -392,5 +434,135 @@ public class H1_3_Controller {
 		return null;
 	
 	}
+	/**
+	 * 
+	 * @description 获得 帮扶单位
+	 * @method  getbangfudanwei
+	 * @param　request
+	 * @author luoshuai 
+	 * @date 2017年3月31日 下午2:54:17
+	 *
+	 */
+	@RequestMapping("getbangfudanwei.do")
+	public ModelAndView getbangfudanwei(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		String xzqh_id = request.getParameter("xzqh_id").trim();
+		String v= request.getParameter("v").trim();
+		int t = 0;
+		if(v.equals("v2")){
+			t = 4;
+		}else if(v.equals("v3")){
+			t=6;
+		}else if(v.equals("v4")){
+			t=9;
+		}else{
+			t=12;
+		}
+		/*if(xzqh_id!=null&&!xzqh_id.equals("")){
+			where = " where t1.sys_company_id="+sys_company_id;
+		}*/
+		String sql="";
+		if(t>0){
+			 sql = "select AAP110 DANWEI_ID,AAP001 DANWEI_NAME,AAR011 LINGDAO,AAR012 PHONE from AP11 a WHERE AAR001 LIKE '"+xzqh_id.substring(0, t)+"%' ";
+		}else{
+			 sql = "select AAP110 DANWEI_ID,AAP001 DANWEI_NAME,AAR011 LINGDAO,AAR012 PHONE from AP11 a WHERE AAR001 LIKE '"+xzqh_id+"%' ";
+		}
+		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
+		
+		JSONArray jsa=new JSONArray();
+		if(Patient_st_List.size()>0){
+			
+			for(int i = 0;i<Patient_st_List.size();i++){
+				Map Patient_st_map = Patient_st_List.get(i);
+				JSONObject val = new JSONObject();
+				for (Object key : Patient_st_map.keySet()) {
+					val.put("danwei_id", Patient_st_map.get("DANWEI_ID"));
+					
+//					if(Patient_st_map.get("v1").toString().length()>15){
+//						val.put("v1", Patient_st_map.get("v1").toString().substring(0, 13)+"<br>"+Patient_st_map.get("v1").toString().substring(13));
+//					}else{
+//						val.put("v1", Patient_st_map.get("v1"));
+//					}
+					val.put("danwei_name", Patient_st_map.get("DANWEI_NAME"));
+					val.put("lingdao", Patient_st_map.get("LINGDAO")==null?"":Patient_st_map.get("LINGDAO"));
+					val.put("phone", Patient_st_map.get("PHONE")==null?"":Patient_st_map.get("PHONE"));
+					val.put("xzqh_id", xzqh_id);
+				}
+				jsa.add(val);
+			}
+		}
+		
+		JSONObject json = new JSONObject();
+		json.put("message", "");
+		json.put("value", jsa);
+		json.put("code", Patient_st_List.size());
+		json.put("redirect", "");
+		
+		response.getWriter().write(json.toString());
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @description 
+	 * @method  getQixianListController
+	 * @param　request
+	 * @author luoshuai 
+	 * @date 2017年3月31日 下午3:12:22
+	 *
+	 */
+	@RequestMapping("getQixianList.do")
+	public ModelAndView getQixianList(HttpServletRequest request,HttpServletResponse response) throws IOException{
+
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		String xzqh_id = request.getParameter("xzqh_id");
+		//旗县
+		String sql="select * from sys_company c where com_level=3";
+		List<Map> list=getBySqlMapper.findRecords(sql);
+		
+		JSONArray jsonArray =new JSONArray();
+		for(Map val:list){
+			JSONObject obj=new JSONObject ();
+			obj.put("com_code",val.get("COM_CODE")==null?"":val.get("COM_CODE"));
+			obj.put("com_name", val.get("COM_NAME")==null?"":val.get("COM_NAME"));
+			jsonArray.add(obj);
+		}
+		response.getWriter().write(jsonArray.toString());
+		response.getWriter().close();
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @description 获得行政区划级别
+	 * @method  getLevel
+	 * @param　request
+	 * @author luoshuai 
+	 * @date 2017年4月1日 下午4:38:08
+	 *
+	 */
+	@RequestMapping("getLevel.do")
+	public ModelAndView getLevel(HttpServletRequest request,HttpServletResponse response) throws IOException{
+
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		String xzqh_id = request.getParameter("xzqh_id");
+		//旗县
+		String sql="select COM_LEVEL FROM SYS_COMPANY  WHERE  COM_CODE = '"+xzqh_id+"'";
+		List<Map> list=getBySqlMapper.findRecords(sql);
+		
+		JSONObject obj=new JSONObject ();
+		for(Map val:list){
+			obj.put("v",val.get("COM_LEVEL")==null?"":val.get("COM_LEVEL"));
+		}
+		response.getWriter().write(obj.toString());
+		response.getWriter().close();
+		return null;
+	}
+	
 	
 }
