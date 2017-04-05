@@ -230,6 +230,7 @@ function getSelectedRow(form) {
 }
 //根据地区得到贫困户信息
 function getpkh(){
+	toastr["warning"]("", "查询数据中，请稍微等待。。。");
 	var v2=$("#v2").val();//选择的市
 	var v3=$("#v3").val();//选择的旗区县
 	var v4=$("#v4").val();//选择的苏木乡
@@ -249,6 +250,7 @@ function getpkh(){
 //			multiWord: false,               //以分隔符号分割的多关键字支持
 //		    separator: ',',                 //多关键字支持时的分隔符，默认为半角逗号
 	}).on('onDataRequestSuccess', function (e, result) {
+		
         console.log('onDataRequestSuccess: ', result);
     }).on('onSetSelectValue', function (e, keyword, data) {
         console.log('onSetSelectValue: ', keyword, data);
@@ -261,10 +263,10 @@ function getpkh(){
 //根据选择的帮扶人初始化贫困户数据
 function PKH_initialization(BFR_ID){
 	$("#pinkunhu").show();
-	$("#v2").val(" ");
-	$("#v3").empty();
-	$("#v4").empty();
-	$("#v5").empty();
+	//$("#v2").val(" ");
+	//$("#v3").empty();
+	//$("#v4").empty();
+	//$("#v5").empty();
 	$('#pinkunhu #add_pkh_test').val("");
 	$('#pinkunhu #add_pkh_test').bsSuggest("destroy");
 	BFR_ID2=BFR_ID;
@@ -338,7 +340,7 @@ function release_relationship(PKH_ID,BFR_ID){
 
 //保存帮扶干部与贫困户的关系
 function save_pkh(){
-	if($("#pinkunhu #add_pkh_test").attr("data-id")!=undefined&&$("#pinkunhu #add_pkh_test").attr("data-id")!=""){
+	if($("#pinkunhu #add_pkh_test").attr("data-id")!=undefined&&$("#pinkunhu #add_pkh_test").attr("data-id")!=""&&$("#pinkunhu #add_pkh_test").attr("data-id")!="-"){
   	$.ajax({  		       
   	    url: "/assa/saveBFCX.do",
   	    type: "POST",
