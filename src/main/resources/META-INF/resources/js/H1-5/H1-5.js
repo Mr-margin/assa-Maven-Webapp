@@ -166,7 +166,7 @@ function bfgb_initialization(){
 	bfgb_table.bootstrapTable({
 		method: 'POST',
 		height: "506",
-		url: "/assa/getBfgbList.do",
+		url: "/assa/getBfgbInfo.do",
 		dataType: "json",//从服务器返回的数据类型
 		striped: true,	 //使表格带有条纹
 		pagination: true,	//在表格底部显示分页工具栏
@@ -198,15 +198,7 @@ function bfgb_initialization(){
 		onClickRow: function (row, $element) {
 			$('.success').removeClass('success');
 			$($element).addClass('success');
-			$("#pinkunhu").show();
-			$("#v2").val(" ");
-			$("#v3").empty();
-			$("#v4").empty();
-			$("#v5").empty();
-			$('#pinkunhu #add_pkh_test').val("");
-			$('#pinkunhu #add_pkh_test').bsSuggest("destroy");
-			PKH_initialization(row.BFR_ID);//根据选择的帮扶干部查看贫困户
-			BFR_ID2=row.BFR_ID;
+			
 		}
 	});
 }
@@ -268,6 +260,14 @@ function getpkh(){
 
 //根据选择的帮扶人初始化贫困户数据
 function PKH_initialization(BFR_ID){
+	$("#pinkunhu").show();
+	$("#v2").val(" ");
+	$("#v3").empty();
+	$("#v4").empty();
+	$("#v5").empty();
+	$('#pinkunhu #add_pkh_test').val("");
+	$('#pinkunhu #add_pkh_test').bsSuggest("destroy");
+	BFR_ID2=BFR_ID;
 	PKH_table.bootstrapTable('destroy');
 	PKH_table.bootstrapTable({
 		method: 'POST',
@@ -323,7 +323,11 @@ function release_relationship(PKH_ID,BFR_ID){
 	    	var dataJson=JSON.parse(data)
 	    	if (dataJson.isSuccess == "1") {
 	    		toastr["success"]("", "帮扶责任人与贫困户关系解除");
-	    		PKH_initialization(dataJson.BFR_ID);
+	    		bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
+  	    		bfgb_initialization();
+  	    		$("#pinkunhu").hide();
+	    		//PKH_initialization(dataJson.BFR_ID);
+	    		//$("#pinkunhu #add_pkh_test").val("");
 	    	}else{
 	    		toastr["warning"]("", "解除失败，检查数据后重试");
 	    	}
@@ -349,8 +353,10 @@ function save_pkh(){
   	    success: function (data) {
   	    	if (data == "1") {
   	    		toastr["success"]("", "给帮扶干部添加贫困户成功");
-  	    		PKH_initialization(BFR_ID2);
-  	    		$("#pinkunhu #add_pkh_test").val("");
+  	    		bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
+  	    		bfgb_initialization();
+  	    		//PKH_initialization(BFR_ID2);
+  	    		//$("#pinkunhu #add_pkh_test").val("");
   	    	}else{
   	    		toastr["warning"]("", "保存失败，检查数据后重试");
   	    	}

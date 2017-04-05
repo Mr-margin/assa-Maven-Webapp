@@ -38,6 +38,73 @@ public class H1_5_Controller {
 	private GetBySqlMapper getBySqlMapper; 
 	
 
+	@RequestMapping("getBfgbInfo.do")
+	public void getBfgbInfo(HttpServletRequest request,HttpServletResponse response)throws IOException{
+		String pageSize = request.getParameter("pageSize");
+		String pageNumber = request.getParameter("pageNumber");  
+		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count  FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
+		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count "
+				+ " FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN "
+				+ " (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110 )t2"
+				+ " on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' ";
+		int size = Integer.parseInt(pageSize);
+		int number = Integer.parseInt(pageNumber);
+		int page = number == 0 ? 1 : (number/size)+1;
+		
+		String bfr_name ="",bfrdw_name="",dw_phone="";
+		String sql_end="";
+		bfr_name = request.getParameter("bfr_name");
+		bfrdw_name = request.getParameter("bfrdw_name");
+		dw_phone = request.getParameter("bfr_phone");
+		
+		
+		if(bfr_name!=null&&!bfr_name.equals("")){
+			bfr_name = request.getParameter("bfr_name").trim();
+			sql_end += "AND bfr_name like '%"+bfr_name+"%' ";
+		}
+		if(bfrdw_name!=null&&!bfrdw_name.equals("")){
+			bfrdw_name = request.getParameter("bfrdw_name").trim();
+			sql_end += "AND bfrdw_name like '"+bfrdw_name+"%' ";
+		}
+		if(dw_phone!=null&&!dw_phone.equals("")){
+			dw_phone = request.getParameter("bfr_phone").trim();
+			sql_end += "AND dw_phone = '"+dw_phone+"'";
+		}
+		
+		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
+		sql += ")A WHERE ROWNUM<="+size*page+")where rn>"+number+"";
+		List<Map> bfrList = this.getBySqlMapper.findRecords(sql+sql_end); 
+		Map bfrMap = new HashMap<>();
+		if(bfrList.size()>0){
+			JSONArray jsa = new JSONArray();
+			for(int i=0;i<bfrList.size();i++){
+				bfrMap = bfrList.get(i);
+				JSONObject js = new JSONObject();
+				for(Object key : bfrMap.keySet()){
+					String bfr_id=bfrMap.get("BFR_ID").toString();//帮扶人id
+					if(bfrMap.keySet().contains("BFR_COUNT")&&key.equals("BFR_COUNT")){
+							js.put((String) key, "<a class=\"btn btn-outline btn-default dim\" onclick=\"PKH_initialization('"+bfr_id+"');\" >"+bfrMap.get(key)+"</a>" );
+					}else if(bfrMap.keySet().contains("BFR_COUNT")&&!key.equals("BFR_COUNT")){
+						js.put(key, bfrMap.get(key));
+					}else if(!bfrMap.keySet().contains("BFR_COUNT")&&!key.equals("BFR_COUNT")){
+						js.put("BFR_COUNT", "<a class=\"btn btn-outline btn-default dim\" onclick=\"PKH_initialization('"+bfr_id+"');\" >"+0+"</a>" );
+						js.put(key, bfrMap.get(key));
+					}
+					
+				}
+				jsa.add(js);
+			}
+			JSONObject json = new JSONObject();
+			json.put("page", page);
+			json.put("total", total);
+			json.put("rows", jsa); //这里的 rows 和total 的key 是固定的 
+			response.getWriter().write(json.toString());
+		}else{
+			response.getWriter().write(0);
+		}
+		
+		
+	}
 	
 	/**
 	 * 根据帮扶人得到帮扶的贫困户
