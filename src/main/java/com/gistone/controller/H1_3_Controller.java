@@ -66,9 +66,9 @@ public class H1_3_Controller {
 			dw_phone = request.getParameter("bfr_phone2").trim();
 			sql_end += "AND dw_phone = '"+dw_phone+"'";
 		}
-		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count  FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
+		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count  FROM NEIMENG0117_AK11 bfr  LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
 		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count "
-				+ " FROM NEIMENG0117_AK11 bfr LEFT JOIN NEIMENG0117_AC08 bfrjd on  bfr.AAK110 = bfrjd.AAK110 LEFT JOIN "
+				+ " FROM NEIMENG0117_AK11 bfr   LEFT JOIN "
 				+ " (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2"
 				+ " on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1')A WHERE 1=1 "+sql_end;
 		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
