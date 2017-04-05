@@ -273,20 +273,9 @@ $(function () {
     
     //清空查询
     $('#close_cha_button').click(function () {
-    	$("#cha_bfdw").val("");
-    	$("#cha_bfr").val("");
-    	var val = jsondata.company;
-		if(val.com_level == "1"){
-			$("#cha_qixian").val("请选择");
-		}
-    	/*$("#cha_juese").val("请选择");
-    	$("#cha_dh").val("");
-    	$("#cha_v3").val("请选择");
-    	$("#cha_year").val("2017");
-    	$("#add_bfgb_button").show();*/
-		$("#update_bfgb_button").show();
-		$("#delete_bf_button").show();
-		$("#export_button").show();
+    	$("#bfr_name").val("");
+    	$("#bfdw_name").val("");
+    	$("#bfr_phone").val("");
     	$('#chauxnshiousuo').click();
     	 
     	chaxun = {};
