@@ -179,17 +179,17 @@
 					<span class="name top-username" id="username"></span>
 					<div class="pulldown user-info">
 						<em class="arrow"></em>
-						<div class="content" style="height: 195px">
+						<div class="content" style="height: 195px;margin-top: 20px;margin-left: -45px">
 							<!-- <span class="li"><a><img src="../img/ren1.png" height="18" width="18" style=" margin-top:7px; margin-right:5px;  float:left;" />个人资料</a></span> -->
-							<span class="li" onclick="xiugaimima()"><a>修改密码</a></span>
-							<span class="separate-li no-height"></span>
-							<span class="li"><a id="signout">退出</a></span>
-							<span class="separate-li no-height"></span>
 							<span class="li" onclick="bfgbweihu()"><a>帮扶干部维护</a></span>
 							<span class="separate-li no-height"></span>
 							<span class="li" onclick="pkhweihu()"><a>贫困户维护</a></span>
 							<span class="separate-li no-height"></span>
 							<span class="li" onclick="jieduibf()"><a>结对帮扶维护</a></span>
+							<span class="separate-li no-height"></span>
+							<span class="li" onclick="xiugaimima()"><a>修改密码</a></span>
+							<span class="separate-li no-height"></span>
+							<span class="li"><a id="signout">退出</a></span>
 						</div>
 					</div>
 				</li>
@@ -205,19 +205,6 @@
 						<b class="f-icon" id="noticeNo"></b>
 					</em>
 				</li>
-<!-- 				<li class="info-i no-separate default-text has-pulldown">
-					<em class="f-icon pull-arrow"></em>
-					<span class="more" hideFocus="hideFocus">更多</span>
-					<div class="pulldown more-info">
-						<em class="arrow"></em>
-						<div class="content">
-							<span class="separate-li no-height"></span>
-							<span class="li"><a href="">收藏工具</a></span>
-							<span class="li"><a href="">历史记录</a></span>
-							<span class="li"><a href="">版本更新</a></span>
-						</div>
-					</div>
-				</li> -->
 			</ul>
 		</div>
 	</div>
@@ -250,76 +237,26 @@
 														<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人姓名</label>
 															<div class="col-sm-8">
-																<input type="text" placeholder="请填写帮扶人姓名" class="form-control" id="bfr_name" name=bfr_name">
+																<input type="text" placeholder="请填写帮扶人姓名" class="form-control" id="bfr_name2" name=bfr_name2">
 															</div>
 														</div>
 					    								<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶单位</label>
 															<div class="col-sm-8">
-																<input type="text" placeholder="请填写帮扶单位名称" class="form-control m-b" id="bfdw_name" name="bfdw_name">
+																<input type="text" placeholder="请填写帮扶单位名称" class="form-control m-b" id="bfdw_name2" name="bfdw_name2">
 															</div>
 														</div>
 														
 													</div>
-													
-												<!-- 	<div class="form-group" style="margin-bottom: 0px">
-														<div class="col-sm-6">
-															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人姓名</label>
-															<div class="col-sm-8">
-																<input type="text" placeholder="请填写帮扶人姓名" class="form-control" id="cha_bfr" name="cha_bfr">
-															</div>
-														</div>
-					    							
-					    								<div class="col-sm-6">
-															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">政治面貌</label>
-															<div class="col-sm-8">
-																<select class="form-control" id="cha_v3" name="cha_v3">
-																	<option>请选择</option>
-																	<option>中共党员</option>
-																	<option>共青团员</option>
-																	<option>群众</option>
-																	<option>民主党派成员</option>
-																</select>
-															</div>
-														</div> 
-													</div>
-													<br>-->
-					    							<!-- <div class="form-group" style="margin-bottom: 0px">
-					    								<div class="col-sm-6">
-															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">帮扶人电话</label>
-															<div class="col-sm-8">
-																<input type="text" placeholder="请填写帮扶人电话" class="form-control" id="cha_dh" name="cha_dh">
-															</div>
-														</div>
-														<div class="col-sm-6">
-															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">是否参与帮扶</label>
-															<div class="col-sm-8">
-																<select  class="form-control m-b" id="cha_juese" name="cha_juese">
-																	<option>请选择</option>
-																	<option value="is not null">已负责贫困户</option>
-																	<option value="is null">未负责贫困户</option>
-																</select>
-															</div>
-														</div>
-													</div> -->
+						
 					    							
 					    							<div class="form-group" style="margin-bottom: 0px">
 					    							<div class="col-sm-6">
 															<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">联系电话</label>
 															<div class="col-sm-8">
-																<input type="text" placeholder="联系电话" class="form-control" id="bfr_phone" name="bfr_phone">
+																<input type="text" placeholder="联系电话" class="form-control" id="bfr_phone2" name="bfr_phone2">
 															</div>
-														</div>
-					    								<!-- <div class="col-sm-6">
-					    									<label class="col-sm-3 control-label" style="text-align:right;margin-top: 3px;">年份</label>
-															<div class="col-sm-8">
-																<select  class="form-control m-b" id="cha_year" name="cha_year">
-																	<option value="2017">2017</option>
-																	<option value="2016">2016</option>
-																</select>
-															</div>
-					    								
-					    								</div> -->
+														</div>		    			
 					    								<div class="col-sm-6" style="float:right;">
 															<div class="col-sm-7"></div>
 															<div class="col-sm-5">

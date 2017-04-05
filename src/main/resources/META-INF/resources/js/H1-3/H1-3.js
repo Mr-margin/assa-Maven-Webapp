@@ -3,10 +3,8 @@ var duo=[];
 var checked;
 var zname;
 $(document).ready(function() {
-	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});//复选框样式
-	teshu_xiqian($('#cha_qixian'),$('#add_qixian'));
-	chaxun.cha_qixian = jsondata.Login_map.SYS_COM_CODE;
-	$('#exportExcel_all_dengdai').hide();
+/*	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});//复选框样式
+	$('#exportExcel_all_dengdai').hide();*/
 	$(".input-group.date").datepicker({
 		todayBtn: "linked",
         keyboardNavigation: !1,
@@ -104,51 +102,7 @@ $(document).ready(function() {
 var bfgb_table = $('#bfgb_table');
 var chaxun = {};//存储表格查询参数
 
-//特殊处理的旗县加载下拉菜单
-function teshu_xiqian(str,str1){
-	
-	$("#cha_year").click(function () {
-		if ( $("#cha_year").val() == "2016" ) {
-			$("#add_bfgb_button").hide();
-			$("#update_bfgb_button").hide();
-			$("#delete_bf_button").hide();
-			$("#export_button").hide();
-		} else {
-			$("#add_bfgb_button").show();
-			$("#update_bfgb_button").show();
-			$("#delete_bf_button").show();
-			$("#export_button").show();
-		}
-		
-	})
-	
-	
-	var qixian;
-	
-	/*var type = jsondata.company_map.com_type;*/
-	var val = jsondata.Login_map.SYS_COM_CODE;
 
-	$.ajax({
-	    url: "/assa/getQixianList.do",
-	    type: "POST",
-	    async:false,
-	    dataType:"json",
-	    data:{
-        },
-	    success: function (data) {
-	    	qixian='<option>'+jsondata.Login_map.COM_NAME+'</option>';
-	    	$.each(data,function(i,item){
-	    				qixian += '<option  value="'+item.com_code+'">'+item.com_name+'</option>';
-	
-	    	});
-	    	$(str).html(qixian);
-	    	$(str1).html(qixian);
-	    },
-	    error: function () { 
-	    }  
-	
-	});
-}
 
 
 $(function () {
@@ -159,27 +113,19 @@ $(function () {
 			var id = $(this).attr("id");
 			  	$("#"+id).val("");
 	    });
-		/*$("#sex").val("请选择");
-    	$("#bfr_zzmm").val("请选择");
-    	$("#relative").val("请选择");
-    	$("#zhiwei_level").val("请选择");
-    	$("#studying").val("请选择");
-    	$("#jishu_techang").val("请选择");
-    	$("#duizhang").val("请选择");
-    	$("#diyi_shuji").val("请选择");
-    	$("#zhucun_duiyuan").val("请选择");*/
-		/*getbfgbdw("请选择");*/
-		
-		
-		$("#add_bf #xia_title").html("添加帮扶干部");
+		$("#v2").val("请选择");
+		$("#v3").val("");
+		$("#v4").val("");
+		$("#xzqh").val("");
+    	$("#bfdw_name").val("");
 
+		$("#add_bf #xia_title").html("添加帮扶干部");
 		$("#add_bf").show();
 		$('#bf').modal();
-	/*	document.getElementById("add_bf").scrollIntoView();*/
-	/*	tc_center();*/
+	
 	});
 
-
+	  //修改帮扶干部
 	$("#update_bfgb_button").click(function(){
 		var row = getSelectedRow(bfgb_table);//必须确认先选中一条白细胞数据
 		if (typeof row != "undefined") {
@@ -189,7 +135,7 @@ $(function () {
 		}
 	});
     
-    //修改帮扶干部
+  
   
     
   //根据条件导出报表
@@ -264,9 +210,9 @@ $(function () {
     
 	//查询按钮
     $('#cha_button').click(function () {
-    	chaxun.bfr_name = $("#bfr_name").val();
-    	chaxun.bfr_phone = $("#bfr_phone").val();
-    	chaxun.bfdw_name = $("#bfdw_name").val();
+    	chaxun.bfr_name = $("#bfr_name2").val();
+    	chaxun.bfr_phone = $("#bfr_phone2").val();
+    	chaxun.bfdw_name = $("#bfdw_name2").val();
     	bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
     	bfgb_initialization();//重新初始化数据
     });
@@ -337,9 +283,9 @@ function queryParams(params) {  //配置参数
     temp.pageNumber = params.offset;
     temp.search = params.search;
     
-    temp.bfr_name = chaxun.bfr_name;
-    temp.bfr_phone = chaxun.bfr_phone;
-    temp.bfrdw_name = chaxun.bfdw_name;
+    temp.bfr_name2 = chaxun.bfr_name;
+    temp.bfr_phone2 = chaxun.bfr_phone;
+    temp.bfrdw_name2 = chaxun.bfdw_name;
     return temp;
 }
 
@@ -347,7 +293,13 @@ function queryParams(params) {  //配置参数
  * 添加帮扶干部信息
  */
 function addBfgbinfo(){
-	
+	if($("#add_bf #bfr_name").val()==""||$("#add_bf #bfr_name").val()==undefined){
+		toastr["info"]("info", "帮扶人不能为空");
+	}else if($("#add_bf #bfr_card").val()==""||$("#add_bf #bfr_card").val()==undefined){
+		toastr["info"]("info", "证件号码不能为空");
+	}else if($("#add_bf #bfr_phone").val()==""||$("#add_bf #bfr_phone").val()==undefined){
+		toastr["info"]("info", "联系人电话不能为空");
+	}else{
 	/*if($("#add_bf #bfdw_name").attr("data-id")!=undefined&&$("#add_bf #bfdw_name").attr("data-id")!=""){*/
 		var form_val = JSON.stringify(getFormJson("#add_Form"));//表单数据字符串
 		$.ajax({
@@ -395,13 +347,14 @@ function addBfgbinfo(){
 		    }  
 		
 		});
+	}
 	/*}else{
 		toastr["info"]("info", "必须指定帮扶干部单位");
 	}*/
 }
 
 
-//加载帮扶干部单位
+//加载帮扶干部单位 input_id input标签Id
 function getbfgbdw(xzqh_id,input_id){
 	if(xzqh_id!=""){
 		var $i;
@@ -635,6 +588,7 @@ function getSelectedRow(form) {
     return form.bootstrapTable('getData')[index];
 }
 
+//获取行政区划等级 2 为 盟市  3 为旗县等
  function getLevel(xzqh_id) {
     $.ajax(
     {

@@ -45,45 +45,45 @@ public class H1_4_Controller {
 		String pageNumber = request.getParameter("pageNumber");  
 		String v2 ="",v3="",v4="",xzqh="",hz_name="",hz_card="",hz_phone="";
 		String sql_end="";
-		v2 = request.getParameter("v2");
-		v3 = request.getParameter("v3");
-		v4 = request.getParameter("v4");
-		xzqh = request.getParameter("xzqh");
-		hz_name = request.getParameter("hz_name");
-		hz_card = request.getParameter("hz_card");
-		hz_phone = request.getParameter("hz_phone");
+		v2 = request.getParameter("v5");
+		v3 = request.getParameter("v6");
+		v4 = request.getParameter("v8");
+		xzqh = request.getParameter("xzqh2"); 
+		hz_name = request.getParameter("hz_name_query");
+		hz_card = request.getParameter("hz_card_query");
+		hz_phone = request.getParameter("hz_phone_query");
 		if(v2!=null&&!v2.equals("请选择")){
-			v2 = request.getParameter("v2").trim();
+			v2 = request.getParameter("v5").trim();
 			v2 = v2.substring(0, 4);
 			sql_end += "AND xzqh like '"+v2+"%' ";
 			
 		}
 		if(v3!=null&&!v3.equals("")){
-			v3 = request.getParameter("v3").trim();
+			v3 = request.getParameter("v6").trim();
 			v3 = v3.substring(0,6 );
 			sql_end += "AND xzqh like '"+v3+"%' ";
 		}
 		if(v4!=null&&!v4.equals("")){
-			v4 = request.getParameter("v4").trim();
+			v4 = request.getParameter("v8").trim();
 			v4 = v4.substring(0,9 );
 			sql_end += "AND xzqh like '"+v4+"%' ";
 		}
 		if(xzqh!=null&&!xzqh.equals("")){
-			xzqh = request.getParameter("xzqh").trim();
+			xzqh = request.getParameter("xzqh2").trim();
 			sql_end += "AND xzqh like '"+xzqh+"%' ";
 		}
 		
 		if(hz_name!=null&&!hz_name.equals("")){
-			hz_name = request.getParameter("hz_name").trim();
-			sql_end += "AND hz_name like '%"+hz_name+"%' ";
+			hz_name = request.getParameter("hz_name_query").trim();
+			sql_end += "AND hz_name like '%"+hz_name+"' ";
 		}
 		if(hz_card!=null&&!hz_card.equals("")){
-			hz_card = request.getParameter("hz_card").trim();
-			sql_end += "AND hz_card = "+hz_card+" ";
+			hz_card = request.getParameter("hz_card_query").trim();
+			sql_end += "AND hz_card = '"+hz_card+"' ";
 		}
 		if(hz_phone!=null&&!hz_phone.equals("")){
-			hz_phone = request.getParameter("hz_phone").trim();
-			sql_end += "AND hz_phone = "+hz_phone+" ";
+			hz_phone = request.getParameter("hz_phone_query").trim();
+			sql_end += "AND hz_phone = '"+hz_phone+"'";
 		}
 		String count_sql = "select A.*,ROWNUM RN from (SELECT DISTINCT T1.*,s.V3,s.V5,S.V7,S.V9 FROM("
 				+ "SELECT PKH.AAC001 PKH_ID,PKH.AAR008 XZQH,PKH.AAR010 OUT_PK_PROPERTY,PKH.G_UPDATE_TIME,PKH.G_FLAG,"
@@ -96,14 +96,14 @@ public class H1_4_Controller {
 				+ "PKRK.AAB002 HZ_NAME,PKRK.AAB004 HZ_CARD,PKH.AAR012 HZ_PHONE,PKRK.AAB006 FROM NEIMENG0117_AC01 PKH"
 				+ " LEFT JOIN NEIMENG0117_AB01 PKRK ON PKH.AAC001 = PKRK.AAC001  WHERE PKRK.AAB006 = '01' AND "
 				+ "PKH.G_FLAG = '1')T1  LEFT JOIN SYS_COM S ON SUBSTR(S.V4,0,4) = SUBSTR(T1.XZQH,0,4) AND SUBSTR(S.V6,0,6)"
-				+ " = SUBSTR(T1.XZQH,0,6)  AND SUBSTR(S.V8,0,9) = SUBSTR(T1.XZQH,0,9) AND S.V10 = T1.XZQH  ";
+				+ " = SUBSTR(T1.XZQH,0,6)  AND SUBSTR(S.V8,0,9) = SUBSTR(T1.XZQH,0,9) AND S.V10 = T1.XZQH )A WHERE 1=1  "+sql_end;
 
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber);
 		int page = number == 0 ? 1 : (number/size)+1;
 		
 		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
-		sql += ")A WHERE ROWNUM<="+size*page+")where rn>"+number+""+sql_end;
+		sql += "and ROWNUM<="+size*page+")where rn>"+number+"  ";
 		List<Map> bfrList = this.getBySqlMapper.findRecords(sql); 
 		Map pkhMap = new HashMap<>();
 		if(bfrList.size()>0){

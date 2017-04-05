@@ -190,74 +190,6 @@ $("#v8").change(function(){
 var PKH_table = $('#PKH_table');
 var chaxun = {};//存储表格查询参数
 
-//特殊处理的旗县加载下拉菜单
-function teshu_xiqian(str,str1){
-	
-	$("#cha_year").click(function () {
-		if ( $("#cha_year").val() == "2016" ) {
-			$("#add_PKH_button").hide();
-			$("#update_PKH_button").hide();
-			$("#delete_bf_button").hide();
-			$("#export_button").hide();
-		} else {
-			$("#add_PKH_button").show();
-			$("#update_PKH_button").show();
-			$("#delete_bf_button").show();
-			$("#export_button").show();
-		}
-		
-	})
-	
-	
-	/*var qixian;
-	
-	var type = jsondata.company_map.com_type;
-	var val = jsondata.company;
-	$.ajax({
-	    url: "/assa/getSaveQixianController.do",
-	    type: "POST",
-	    async:false,
-	    dataType:"json",
-	    data:{
-        },
-	    success: function (data) {
-	    	qixian='<option>请选择</option>';
-	    	qixian += '<option value="4">鄂尔多斯市</option>';
-	    	$.each(data,function(i,item){
-	    		if(type=="单位"){
-	    			if(val.com_level == "1"){
-	    				qixian += '<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    			}else if(val.com_level == "2"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}else if(val.com_level == "3"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}else if(val.com_level == "4"){
-	    				if(val.xian==item.com_name){
-	    					qixian='<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    					qixian += '<option value="4">鄂尔多斯市</option>';
-	    				}
-	    			}
-	    		}else if(type=="管理员"){
-	    			qixian += '<option  value="'+item.pkid+'">'+item.com_name+'</option>';
-	    		}
-	    		
-	    	});
-	    	$(str).html(qixian);
-	    	$(str1).html(qixian);
-	    },
-	    error: function () { 
-	    }  
-	
-	});*/
-}
-
-
 $(function () {
     //添加贫困户
    
@@ -273,20 +205,11 @@ $(function () {
     	$("#xzqh").val("");
     	$("#out_pk_property").val("请选择");
 		/*getPKH("请选择");*/
-		
-		
+
 		$("#add_bf #xia_title").html("添加贫困户");
-	/*	layer.open({
-			  type: 2,
-			  area: ['700px', '530px'],
-			  fixed: false, //不固定
-			  maxmin: true,
-			  content: '../H1-4/H1-4.html'
-			});*/
 		$("#add_bf").show();
 		$('#bf').modal();
-	/*	document.getElementById("add_bf").scrollIntoView();*/
-	/*	tc_center();*/
+	
 	});
 
 
@@ -378,25 +301,21 @@ $(function () {
     	chaxun.v3= $("#v6").val();
     	chaxun.v4= $("#v8").val();
     	chaxun.xzqh= $("#xzqh2").val();
-    	chaxun.hz_name = $("#hz_name").val();
-    	chaxun.hz_card = $("#hz_card").val();
-    	chaxun.hz_phone = $("#hz_phone").val();
+    	chaxun.hz_name = $("#hz_name_query").val();
+    	chaxun.hz_card = $("#hz_card_query").val();
+    	chaxun.hz_phone = $("#hz_phone_query").val();
     	PKH_table.bootstrapTable('destroy');//销毁现有表格数据
     	PKH_initialization();//重新初始化数据
     });
     
     //清空查询
     $('#close_cha_button').click(function () {
-    	$("#hz_name").val("");
-    	$("#hz_card").val("");
-    	$("#hz_phone").val("");
-    	/*var val = jsondata.company;
-		if(val.com_level == "1"){
-			$("#cha_qixian").val("请选择");
-		}*/
+    	$("#hz_name_query").val("");
+    	$("#hz_card_query").val("");
+    	$("#hz_phone_query").val("");
     	$("#v5").val("请选择");
     	$("#v6").val("");
-    	$("#v8").val("请选择");
+    	$("#v8").val("");
     	$("#xzqh2").val("");
     	$("#add_PKH_button").show();
 		$("#update_PKH_button").show();
@@ -493,13 +412,13 @@ function queryParams(params) {  //配置参数
 	var temp = {};
     temp.pageSize = params.limit;
     temp.pageNumber = params.offset;
-    temp.v2 = chaxun.v2;
-    temp.v3 = chaxun.v3;
-    temp.v4 = chaxun.v4;
-    temp.xzqh = chaxun.xzqh;
-    temp.hz_name = chaxun.hz_name;
-    temp.hz_card = chaxun.hz_card;
-    temp.hz_phone = chaxun.hz_phone;
+    temp.v5 = chaxun.v2;
+    temp.v6 = chaxun.v3;
+    temp.v8 = chaxun.v4;
+    temp.xzqh2 = chaxun.xzqh;
+    temp.hz_name_query = chaxun.hz_name;
+    temp.hz_card_query = chaxun.hz_card;
+    temp.hz_phone_query = chaxun.hz_phone;
     return temp;
 }
 
@@ -507,6 +426,17 @@ function queryParams(params) {  //配置参数
  * 添加贫困户信息
  */
 function addPKHinfo(){
+	if($("#add_bf #xzqh").val()==""||$("#add_bf #xzqh").val()==undefined){
+		toastr["info"]("info", "必须指定到村级单位");
+	}else if($("#add_bf #hz_name").val()==""||$("#add_bf #hz_name").val()==undefined){
+		toastr["info"]("info", "姓名不能为空");
+	}else if($("#add_bf #hz_card").val()==""||$("#add_bf #hz_card").val()==undefined){
+		toastr["info"]("info", "证件号不能为空");
+	}else if($("#add_bf #hz_phone").val()==""||$("#add_bf #hz_phone").val()==undefined){
+		toastr["info"]("info", "手机号不能为空");
+	}else if($("#add_bf #out_pk_property").val()=="请选择"){
+		toastr["info"]("info", "脱贫属性不能为空");
+	}else{
 	/*if($("#add_bf #ad_bf_dw").attr("data-id")!=undefined&&$("#add_bf #ad_bf_dw").attr("data-id")!=""){*/
 		var form_val = JSON.stringify(getFormJson("#add_Form"));//表单数据字符串
 		$.ajax({
@@ -554,6 +484,7 @@ function addPKHinfo(){
 		    }  
 		
 		});
+	}
 	/*}else{
 		toastr["info"]("info", "必须指定贫困户单位");
 	}*/
