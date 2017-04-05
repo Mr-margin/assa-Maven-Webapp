@@ -236,8 +236,8 @@ public class H1_5_Controller {
 		}
 		List<Map> bfrList = this.getBySqlMapper.findRecords(sql); 
 		Map pkhMap = new HashMap<>();
+		JSONArray jsa = new JSONArray();
 		if(bfrList.size()>0){
-			JSONArray jsa = new JSONArray();
 			for(int i=0;i<bfrList.size();i++){
 				pkhMap = bfrList.get(i);
 				JSONObject js = new JSONObject();
@@ -254,14 +254,21 @@ public class H1_5_Controller {
 				}
 				jsa.add(js);
 			}
-			JSONObject json = new JSONObject();
-			json.put("value", jsa); //这里的 rows 和total 的key 是固定的 
-			response.getWriter().write(json.toString());
+			
 		}else{
-			response.getWriter().write(0);
+			JSONObject json = new JSONObject();
+			json.put("V3", "-");
+			json.put("V5", "-");
+			json.put("V7", "-");
+			json.put("V9", "-");
+			json.put("HZ_NAME", "-");
+			json.put("HZ_CARD", "-");
+			json.put("OUT_PK_PROPERTY", "-");
+			jsa.add(json);
 		}
-		
-		
+		JSONObject json = new JSONObject();
+		json.put("value", jsa); //这里的 rows 和total 的key 是固定的 
+		response.getWriter().write(json.toString());
 	}
 	
 	/**
