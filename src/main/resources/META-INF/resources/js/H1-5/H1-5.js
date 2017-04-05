@@ -325,9 +325,7 @@ function release_relationship(PKH_ID,BFR_ID){
 	    		toastr["success"]("", "帮扶责任人与贫困户关系解除");
 	    		bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
   	    		bfgb_initialization();
-  	    		$("#pinkunhu").hide();
-	    		//PKH_initialization(dataJson.BFR_ID);
-	    		//$("#pinkunhu #add_pkh_test").val("");
+	    		PKH_initialization(dataJson.BFR_ID);
 	    	}else{
 	    		toastr["warning"]("", "解除失败，检查数据后重试");
 	    	}
@@ -355,8 +353,7 @@ function save_pkh(){
   	    		toastr["success"]("", "给帮扶干部添加贫困户成功");
   	    		bfgb_table.bootstrapTable('destroy');//销毁现有表格数据
   	    		bfgb_initialization();
-  	    		//PKH_initialization(BFR_ID2);
-  	    		//$("#pinkunhu #add_pkh_test").val("");
+  	    		PKH_initialization(BFR_ID2);
   	    	}else{
   	    		toastr["warning"]("", "保存失败，检查数据后重试");
   	    	}
