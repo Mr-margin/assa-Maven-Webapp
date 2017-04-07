@@ -113,18 +113,18 @@ var option_map = {
 					color: "#BADB58"
 				}
 			},
-			data:[{name:'呼和浩特市', value:25359},
-			      {name:'包头市', value:13527},
-			      {name:'呼伦贝尔市', value:61677},
-			      {name:'兴安盟', value:105173},
-			      {name:'通辽市', value:135478},
-			      {name:'赤峰市', value:246296},
-			      {name:'锡林郭勒盟', value:20594},
-			      {name:'乌兰察布市', value:136621},
-			      {name:'鄂尔多斯市', value:12933},
-			      {name:'巴彦淖尔市', value:37028},
-			      {name:'乌海市', value:1517},
-			      {name:'阿拉善盟', value:5865}]
+			data:[{name:'呼和浩特市', value:7994},
+			      {name:'包头市', value:4963},
+			      {name:'呼伦贝尔市', value:37120},
+			      {name:'兴安盟', value:81033},
+			      {name:'通辽市', value:99139},
+			      {name:'赤峰市', value:188297},
+			      {name:'锡林郭勒盟', value:16256},
+			      {name:'乌兰察布市', value:105978},
+			      {name:'鄂尔多斯市', value:749},
+			      {name:'巴彦淖尔市', value:14170},
+			      {name:'乌海市', value:91},
+			      {name:'阿拉善盟', value:54}]
 		}]
 };
 function map(){

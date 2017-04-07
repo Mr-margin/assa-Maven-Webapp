@@ -3,8 +3,8 @@ $(function() {
 	switch (jsondata.Login_map.SYS_COM_CODE) {
 	case "150000000000"://内蒙古
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>555,563<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>249,506<strong style='font-size:12px'>户</strong></label></li>"+
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>555,844<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>249,838<strong style='font-size:12px'>户</strong></label></li>"+
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>802,068<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>357,581<strong style='font-size:12px'>户</strong></label></li>" );
 		$('#bfgbCount').html("" +
@@ -19,7 +19,7 @@ $(function() {
 	case "150100000000"://呼和浩特市
 		$('#pkrkCount').html("" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>7,994<strong style='font-size:12px'>人</strong></label></li>" +
-		"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>4,009<strong style='font-size:12px'>户</strong></label></li>" +
+		"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>4,008<strong style='font-size:12px'>户</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>25,359<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>12,236<strong style='font-size:12px'>户</strong></label></li>");
 		$('#bfgbCount').html("" +
@@ -34,8 +34,8 @@ $(function() {
 		break;
 	case "150200000000"://包头市
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>4,878<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>2,533<strong style='font-size:12px'>户</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>4,963<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>2,571<strong style='font-size:12px'>户</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>13,527<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>6,572<strong style='font-size:12px'>户</strong></label></li>");
 		$('#bfgbCount').html("" +
@@ -79,8 +79,8 @@ $(function() {
 		break;
 	case "150500000000"://通辽市
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>99,465<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>39,359<strong style='font-size:12px'>户</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>99,139<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>39,427<strong style='font-size:12px'>户</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>135,478<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>54,099<strong style='font-size:12px'>户</strong></label></li>");
 		$('#bfgbCount').html("" +
@@ -94,8 +94,8 @@ $(function() {
 		break;
 	case "150600000000"://鄂尔多斯市
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>743<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>301<strong style='font-size:12px'>户</strong></label></li>"+
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>749<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>303<strong style='font-size:12px'>户</strong></label></li>"+
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>12,933<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>5,194<strong style='font-size:12px'>户</strong></label></li>" );
 		$('#bfgbCount').html("" +
@@ -139,8 +139,8 @@ $(function() {
 		break;
 	case "150900000000"://乌兰察布市
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>105,975<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>47,047<strong style='font-size:12px'>户</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>105,978<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>47,049<strong style='font-size:12px'>户</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>136,621<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>61,104<strong style='font-size:12px'>户</strong></label></li>");
 		$('#bfgbCount').html("" +
@@ -154,8 +154,8 @@ $(function() {
 		break;
 	case "152200000000"://兴安盟
 		$('#pkrkCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>80,520<strong style='font-size:12px'>人</strong></label></li>" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>37,402<strong style='font-size:12px'>户</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>81,033<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>37,625<strong style='font-size:12px'>户</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>105,173<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>48,309<strong style='font-size:12px'>户</strong></label></li>");
 		$('#bfgbCount').html("" +
