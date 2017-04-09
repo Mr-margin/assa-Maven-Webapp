@@ -66,11 +66,34 @@ public class H1_3_Controller {
 			dw_phone = request.getParameter("bfr_phone2").trim();
 			sql_end += "AND dw_phone = '"+dw_phone+"'";
 		}
-		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count  FROM NEIMENG0117_AK11 bfr  LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
-		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count "
+		String count_sql = "select A.* from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count,t3.AAR008 xzqh  FROM NEIMENG0117_AK11 bfr  LEFT JOIN  (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2 on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110,bfdw.AAR008  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1' )A where 1=1 ";
+		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (select DISTINCT BFR.G_FLAG,bfr.AAK110 bfr_id,bfr.AAB002 bfr_name,bfr.AAP110 bfdw_id,t3.AAP001 bfrdw_name,bfr.AAR012 dw_phone,t2.bfr_count,t3.AAR008 xzqh "
 				+ " FROM NEIMENG0117_AK11 bfr   LEFT JOIN "
 				+ " (select BFRJD.AAK110,count(*) bfr_count from NEIMENG0117_AC08 bfrjd WHERE bfrjd.AAC111 = '0' GROUP BY BFRJD.AAK110)t2"
-				+ " on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1')A WHERE 1=1 "+sql_end;
+				+ " on bfr.AAK110 = t2.aak110 LEFT JOIN  (SELECT bfdw.AAP001,bfdw.AAP110,bfdw.AAR008  FROM NEIMENG0117_AP11 bfdw )t3 on t3.AAP110 = bfr.AAP110 )WHERE G_FLAG = '1')A WHERE 1=1 "+sql_end;
+		Map<String,Object> Login_map = (Map)request.getSession().getAttribute("Login_map");//用户的user表内容
+		String sys_com_code="";
+		long role_id=0;
+		if(Login_map.size()>0){
+			sys_com_code=Login_map.get("SYS_COM_CODE").toString();
+			role_id=Integer.parseInt(Login_map.get("ROLE_ID").toString());
+		}
+		String xzqu="";
+		if(!sys_com_code.equals("")){
+			//自治区扶贫办
+			if(role_id==2){
+				xzqu=sys_com_code.substring(0, 2);
+				sql +=" and SUBSTR (xzqh,0,2)='"+xzqu+"' ";
+			}else if(role_id==3){//市扶贫办
+				xzqu=sys_com_code.substring(0, 4);
+				sql +=" and SUBSTR (xzqh,0,4)='"+xzqu+"' ";
+			}else if(role_id==4){//县扶贫办
+				xzqu=sys_com_code.substring(0, 6);
+				sql +=" and SUBSTR (xzqh,0,6)='"+xzqu+"' ";
+			}
+		}
+		
+		
 		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
 		sql += "and ROWNUM<="+size*page+")where rn>"+number+"";
 		List<Map> bfrList = this.getBySqlMapper.findRecords(sql); 

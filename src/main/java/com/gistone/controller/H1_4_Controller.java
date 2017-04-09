@@ -96,14 +96,37 @@ public class H1_4_Controller {
 				+ "PKRK.AAB002 HZ_NAME,PKRK.AAB004 HZ_CARD,PKH.AAR012 HZ_PHONE,PKRK.AAB006 FROM NEIMENG0117_AC01 PKH"
 				+ " LEFT JOIN NEIMENG0117_AB01 PKRK ON PKH.AAC001 = PKRK.AAC001  WHERE PKRK.AAB006 = '01' AND "
 				+ "PKH.G_FLAG = '1')T1  LEFT JOIN SYS_COM S ON SUBSTR(S.V4,0,4) = SUBSTR(T1.XZQH,0,4) AND SUBSTR(S.V6,0,6)"
-				+ " = SUBSTR(T1.XZQH,0,6)  AND SUBSTR(S.V8,0,9) = SUBSTR(T1.XZQH,0,9) AND S.V10 = T1.XZQH )A WHERE 1=1  "+sql_end;
+				+ " = SUBSTR(T1.XZQH,0,6)  AND SUBSTR(S.V8,0,9) = SUBSTR(T1.XZQH,0,9) AND S.V10 = T1.XZQH )A WHERE 1=1  ";
 
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber);
 		int page = number == 0 ? 1 : (number/size)+1;
-		
+		Map<String,Object> Login_map = (Map)request.getSession().getAttribute("Login_map");//用户的user表内容
+		String sys_com_code="";
+		long role_id=0;
+		if(Login_map.size()>0){
+			sys_com_code=Login_map.get("SYS_COM_CODE").toString();
+			role_id=Integer.parseInt(Login_map.get("ROLE_ID").toString());
+		}
+		String xzqu="";
+		if(!sys_com_code.equals("")){
+			//自治区扶贫办
+			if(role_id==2){
+				xzqu=sys_com_code.substring(0, 2);
+				sql +=" and SUBSTR (A.XZQH,0,2)='"+xzqu+"' ";
+				count_sql+=" and SUBSTR (A.XZQH,0,2)='"+xzqu+"' ";
+			}else if(role_id==3){//市扶贫办
+				xzqu=sys_com_code.substring(0, 4);
+				sql +=" and SUBSTR (A.XZQH,0,4)='"+xzqu+"' ";
+				count_sql+=" and SUBSTR (A.XZQH,0,4)='"+xzqu+"' ";
+			}else if(role_id==4){//县扶贫办
+				xzqu=sys_com_code.substring(0, 6);
+				sql +=" and SUBSTR (A.XZQH,0,6)='"+xzqu+"' ";
+				count_sql+=" and SUBSTR (A.XZQH,0,6)='"+xzqu+"' ";
+			}
+		}
 		int total = this.getBySqlMapper.findRecords(count_sql+sql_end).size();
-		sql += "and ROWNUM<="+size*page+")where rn>"+number+"  ";
+		sql += sql_end+"and ROWNUM<="+size*page+")where rn>"+number+"  ";
 		List<Map> bfrList = this.getBySqlMapper.findRecords(sql); 
 		Map pkhMap = new HashMap<>();
 		if(bfrList.size()>0){
