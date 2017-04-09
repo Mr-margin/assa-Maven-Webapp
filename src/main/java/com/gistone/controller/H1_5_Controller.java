@@ -128,7 +128,13 @@ public class H1_5_Controller {
 		}
 		
 		//根据帮扶人得到贫困户数量
-		String count_sql = "SELECT count(*) total FROM NEIMENG0117_AC08 where AAK110='"+BFR_ID+"'";
+		//String count_sql = "SELECT count(*) total FROM NEIMENG0117_AC08 where AAK110='"+BFR_ID+"'";
+		String count_sql =
+				 "SELECT count(*)"
+				+ " FROM NEIMENG0117_AC01 PKH"
+				+ " LEFT JOIN NEIMENG0117_AB01 PKRK ON PKH.AAC001 = PKRK.AAC001  WHERE PKRK.AAB006 = '01' AND "
+				+ "PKH.G_FLAG = '1' AND PKH.AAC001 in(select PKHJD.AAC001 from NEIMENG0117_AC08 "
+				+ " PKHJD  WHERE PKHJD.AAK110='"+BFR_ID+"' and PKHJD.AAC111='0' )";
 		//根据帮扶人得到贫困户信息
 		String sql = "select * from (select A.*,ROWNUM RN from ( SELECT * FROM (SELECT DISTINCT T1.*,s.V3,s.V5,S.V7,S.V9 FROM("
 				+ "SELECT PKH.AAC001 PKH_ID,PKH.AAR008 XZQH,PKH.AAR010 OUT_PK_PROPERTY,PKH.G_FLAG,"

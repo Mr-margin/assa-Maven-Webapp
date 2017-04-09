@@ -250,7 +250,7 @@ function getpkh(){
 //			multiWord: false,               //以分隔符号分割的多关键字支持
 //		    separator: ',',                 //多关键字支持时的分隔符，默认为半角逗号
 	}).on('onDataRequestSuccess', function (e, result) {
-		
+
         console.log('onDataRequestSuccess: ', result);
     }).on('onSetSelectValue', function (e, keyword, data) {
         console.log('onSetSelectValue: ', keyword, data);
