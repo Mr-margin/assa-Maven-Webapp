@@ -268,7 +268,7 @@ public class PKC_1_1_Controller {
 		String code = request.getParameter("code");// 行政区划代码
 		String sTime = request.getParameter("sTime");//开始时间
 		String eTime = request.getParameter("eTime");//结束时间
-		String type = request.getParameter("type");//结束时间
+		String type = request.getParameter("type");
 		String sqlTj = "";//拼接的sql条件
 		//查询行政区划,获取行政区划code 如果为0 则说明是先加载按日期查的数据
 		if(!code.equals("150")){
@@ -277,7 +277,7 @@ public class PKC_1_1_Controller {
 					+ "	COUNT (	CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	"
 					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	"
 					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a04'	END	) the_three_month,	"
-					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'2000-01-01',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate,'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
 					+ "count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,	count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	"
 					+ "	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,	"
 					+ "count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	"
@@ -303,7 +303,7 @@ public class PKC_1_1_Controller {
 					+ "	COUNT (	CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-14), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a02'		END	) the_two_week,	"
 					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	) the_one_month,	"
 					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN	'a04'	END	) the_three_month,	"
-					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
+					+ "COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'2000-01-01',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate,'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,	"
 					+ "count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,	count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	"
 					+ "	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,	"
 					+ "count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	"
@@ -320,7 +320,7 @@ public class PKC_1_1_Controller {
 			}else if(type.equals("3month")){
 				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-90), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd')";
 			}else if(type.equals("rageTime")){
-				sqlTj +=" and TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')";
+				sqlTj +=" ";
 			}
 		}else{
 			sqlTj = "select * from (SELECT	count(*) AS THE_ALL, COUNT (		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')>= TO_CHAR (TO_DATE (	'"+sTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (TO_DATE (	'"+eTime+"',	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd') THEN			'a05'	END	) the_random_date,count(	CASE	WHEN	ZFTYPE=1	THEN	'a06'	end	) the_type_one,count(CASE	WHEN	ZFTYPE=2 THEN	'a07'	end	) the_type_two,	count(CASE	WHEN	ZFTYPE=3 THEN 'a08'	end	) the_type_three,count(	CASE WHEN ZFTYPE=4	THEN 'a09' end) the_type_four,count(	CASE	WHEN	ZFTYPE=5	THEN	'a10'	end	) the_type_five,	count(CASE	WHEN	ZFTYPE=6	THEN	'a11'	end	) the_type_six,count(CASE		WHEN	ZFTYPE=7				THEN				'a12'				end		) the_type_seven,	count(			CASE WHEN	ZFTYPE in(1,2,3,4,5,6,7) THEN	'a13'	end	) the_type_eight FROM	DA_HELP_VISIT where 1=1  and aar008 like '"+code+"%' and TO_CHAR (TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),	'yyyy-mm-dd') = TO_CHAR (SYSDATE, 'yyyy-mm-dd') )"

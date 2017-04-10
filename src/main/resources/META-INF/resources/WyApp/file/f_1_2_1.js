@@ -27,7 +27,7 @@ $(document).ready(function(){
 		
 	}else if(jsondata.Login_map.COM_VD=='V3'){ //市级权限数据
 		$("#v2").html("<option value='"+jsondata.Login_map.SYS_COM_CODE+"'>"+jsondata.Login_map.COM_NAME+"</option>");
-		tree_canshu.com=jsondata.Login_map.COM_NAME;
+		/*tree_canshu.com=jsondata.Login_map.COM_NAME;*/
 		$("#v3").append("<option>全部旗区县</option>");
 		var data = ajax_async_t(GISTONE.Loader.basePath+"getSYS_COM_V5.do", {code:$("#v2").find("option:selected").val()}, "text");
 		var val = eval("("+data+")");
@@ -35,7 +35,7 @@ $(document).ready(function(){
 			$("#v3").append("<option value='"+item.V6+"'>"+item.V5+"</option>");
 		});
 		code=$("#v2").find("option:selected").val();
-		a2(code.substring(0,4));
+		a2(code.substring(0,4),type);
 		code=code.substring(0,4);
 		shi=$("#v2").find("option:selected").text();
 	}
@@ -438,7 +438,7 @@ function a3(i,code,type){
 	count0=[];
 	//如果是数字i  说明直接从缓存查询
 	if(!isNaN(i) && code=='150'){
-		arr = data2[i-1];
+		arr = data3[i-1];
 		count0[0]=arr.V10;
 		count0[1]=arr.V11;
 		count0[2]=arr.V12;
@@ -455,55 +455,56 @@ function a3(i,code,type){
 		}else if(i=='first'){
 			var V10=0,V11=0,V12=0,V13=0,V14=0,V15=0,V16=0;
 			if(data2.length>0){
-					if(typeof data2[6].V10 == 'undefined'){
+					if(typeof data2[data2.length-1].V10 == 'undefined'){
 						V10 += 0;
 						count0[0]= V10;
 					}else{
-						V10 += parseInt(data2[6].V10);
+						V10 += parseInt(data2[data2.length-1].V10);
 						count0[0]= V10;
 					}
-					if(typeof data2[6].V11 == 'undefined'){
+					if(typeof data2[data2.length-1].V11 == 'undefined'){
 						V11 += 0;
 						count0[1]= V11;
 					}else{
-						V11 += parseInt(data2[6].V11);
+						V11 += parseInt(data2[data2.length-1].V11);
 						count0[1]= V11;
 					}
-					if(typeof data2[6].V12 == 'undefined'){
+					if(typeof data2[data2.length-1].V12 == 'undefined'){
 						V12 += 0;
 						count0[2]= V12;
 					}else{
-						V12 += parseInt(data2[6].V12);
+						V12 += parseInt(data2[data2.length-1].V12);
 						count0[2]= V12;
 					}
-					if(typeof data2[6].V13 == 'undefined'){
+					if(typeof data2[data2.length-1].V13 == 'undefined'){
 						V13 += 0;
 						count0[3]= V13;
 					}else{
-						V13 += parseInt(data2[6].V13);
+						V13 += parseInt(data2[data2.length-1].V13);
 						count0[3]= V13;
 					}
-					if(typeof data2[6].V14 == 'undefined'){
+					if(typeof data2[data2.length-1].V14 == 'undefined'){
 						V14 += 0;
 						count0[4]= V14;
 					}else{
-						V14 += parseInt(data2[6].V14);
+						V14 += parseInt(data2[data2.length-1].V14);
 						count0[4]= V14;
 					}
-					if(typeof data2[6].V15 == 'undefined'){
+					if(typeof data2[data2.length-1].V15 == 'undefined'){
 						V15 += 0;
 						count0[5]= V15;
 					}else{
-						V15 += parseInt(data2[6].V15);
+						V15 += parseInt(data2[data2.length-1].V15);
 						count0[5]= V15;
 					}
-					if(typeof data2[6].V16 == 'undefined'){
+					if(typeof data2[data2.length-1].V16 == 'undefined'){
 						V16 += 0;
 						count0[6]= V16;
 					}else{
-						V16 += parseInt(data2[6].V16);
+						V16 += parseInt(data2[data2.length-1].V16);
 						count0[6]= V16;
 					}
+					data3=data2;
 				}
 			
 		}else if(!isNaN(i) && code!='150'){
