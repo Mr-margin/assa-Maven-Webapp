@@ -2,6 +2,8 @@ package com.gistone.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +43,7 @@ public class WyApp_y2 {
 	 */
 	@RequestMapping("getWyApp_y2_1.do")
 	public void getWyApp_y2_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String pageSize = request.getParameter("pageSize");
 		String pageNumber = request.getParameter("pageNumber");
 		
@@ -127,7 +129,12 @@ public class WyApp_y2 {
 					val.put("lng", "".equals(st_map.get("LNG")) || st_map.get("LNG") == null ? "" : st_map.get("LNG").toString());
 					val.put("lat", "".equals(st_map.get("LAT")) || st_map.get("LAT") == null ? "" : st_map.get("LAT").toString());
 				}
-				val.put("time", "".equals(st_map.get("REGISTERTIME")) || st_map.get("REGISTERTIME") == null ? "" : st_map.get("REGISTERTIME").toString());
+				try {
+					val.put("time", "".equals(st_map.get("REGISTERTIME")) || st_map.get("REGISTERTIME") == null ? "" : sdf.format(sdf.parse(st_map.get("REGISTERTIME").toString())));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				val.put("phone", "".equals(st_map.get("PERSONAL_PHONE")) || st_map.get("PERSONAL_PHONE") == null ? "" : st_map.get("PERSONAL_PHONE").toString());
 				val.put("house", "".equals(st_map.get("HOUSEHOLD_NAME")) || st_map.get("HOUSEHOLD_NAME") == null ? "" : st_map.get("HOUSEHOLD_NAME").toString());
 				/*1、其他帮扶活动
