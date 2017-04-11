@@ -29,54 +29,120 @@ public class WyApp_y4 {
 	@RequestMapping("getWyApp_y4_1.do")
 	public void getWyApp_y4_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String code = request.getParameter("code");
+		String level = request.getParameter("level");
 		String bfrname = request.getParameter("bfrname").trim();
 		String pkhname = request.getParameter("pkhname").trim();
-		String pre_sql = "select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001";
-		String sql = " from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 and AAR010=0 AND AAR100 = '1' and  AAB015='1' and NEIMENG0117_AC01.AAR008='"+code+"' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
+		String pageSize = request.getParameter("pageSize");
+		String pageNumber = request.getParameter("pageNumber");  
+		//通过级别来截取有效行政区划的字段 并且用来查询此行政区划下的旗县或乡或村
+		if(level.equals("1")){
+			code = code.substring(0, 3);
+		}else if(level.equals("2")){
+			code = code.substring(0, 4);
+		}else if(level.equals("3")){
+			code = code.substring(0, 6);
+		}else if(level.equals("4")){
+			code = code.substring(0, 9);
+		}
+		String pre_sql = "SELECT * FROM (select A.*,ROWNUM RN from (select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001";
+		String sql = " from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 and AAR010=0 AND AAR100 = '1' and  AAB015='1' and NEIMENG0117_AC01.AAR008 like'"+code+"%' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
 				" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
 				"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01' and  AAB015='1')w1 ON t4.AAC001=w1.AAC001 ";
-		String last_sql = " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6 ";
+		String count_sql ="select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 and AAR010=0 AND AAR100 = '1' and  AAB015='1' and NEIMENG0117_AC01.AAR008 like'"+code+"%' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
+				" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
+				"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01' and  AAB015='1')w1 ON t4.AAC001=w1.AAC001 ";
+		String last_sql = " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6  ";
 		if(pkhname.length()>0 &&bfrname.length()<1){
-			last_sql= " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 HAVING   v6 like '"+pkhname+"%' ORDER BY v6";
-			 
+			last_sql= " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 HAVING   v6 like '"+pkhname+"%' ORDER BY v6  ";
+			
 		}
 		
 		if(bfrname.length()>0&&pkhname.length()<1){
-			pre_sql =" select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
-			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' ORDER BY v6";
+			pre_sql =" SELECT * FROM (select A.*,ROWNUM RN from (select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
+			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' ORDER BY v6  ";
 
 		}
 		if(bfrname.length()>0&&pkhname.length()>0){
-			pre_sql =" select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
-			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' and v6 like '"+pkhname+"%' ORDER BY v6 ";
+			pre_sql ="SELECT * FROM (select A.*,ROWNUM RN from ( select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME ";
+			last_sql= "left join DA_HELP_VISIT w2 on w2.HOUSEHOLD_CARD = w1.card GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001,w2.PERSONAL_NAME HAVING  w2.PERSONAL_NAME LIKE '"+bfrname+"%' and v6 like '"+pkhname+"%' ORDER BY v6  ";
 		}
-		
-		
+		int size = Integer.parseInt(pageSize);
+		int number = Integer.parseInt(pageNumber);
+		int page = number == 0 ? 1 : (number/size)+1;
+		sql = pre_sql+sql+last_sql+")A WHERE 1=1 and ROWNUM<="+size*page+")where rn>"+number+"  ";
+		count_sql = count_sql+last_sql;
 		JSONArray json = new JSONArray();
-		List<Map> list = this.getBySqlMapper.findRecords(pre_sql+sql+last_sql);
+		List<Map> list = this.getBySqlMapper.findRecords(sql);
+		int total = this.getBySqlMapper.findRecords(count_sql).size();
 		if (list.size() > 0) {
 			for ( int i = 0 ; i < list.size() ; i ++){
 				JSONObject obj = new JSONObject();
 				obj.put("pkid", "".equals(list.get(i).get("AAC001")) || list.get(i).get("AAC001") == null ? "" : list.get(i).get("AAC001").toString());
 				obj.put("v6", "".equals(list.get(i).get("V6")) || list.get(i).get("V6") == null ? "" : list.get(i).get("V6").toString());
-				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
+				/*obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());*/
+				if(!"".equals(list.get(i).get("V9")) || list.get(i).get("V9") != null){
+					obj.put("v9","<i class=\'fa fa-user\'></i> &nbsp;&nbsp;"+list.get(i).get("V9").toString()+"");
+				}else{
+					obj.put("v9","");
+				}
 				obj.put("v21", "".equals(list.get(i).get("V21")) || list.get(i).get("V21") == null ? "" :sw4.mianZhuan(list.get(i).get("V21").toString(), "21") );
-				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" :sw4.mianZhuan(list.get(i).get("V22").toString(), "22") );
+/*				obj.put("v22", "".equals(list.get(i).get("V22")) || list.get(i).get("V22") == null ? "" :sw4.mianZhuan(list.get(i).get("V22").toString(), "22") );
+*/				if(!"".equals(sw4.mianZhuan(list.get(i).get("V22").toString(), "22")) && sw4.mianZhuan(list.get(i).get("V22").toString(), "22")!=null){
+					String v22 = sw4.mianZhuan(list.get(i).get("V22").toString(), "22");
+					if(v22=="一般贫困户"){
+						obj.put("v22", "<span class=\"badge badge-success\">"+v22+"</span>");	
+	    			}else if(v22=="低保贫困户"){
+	    				obj.put("v22", "<span class=\"badge badge-warning\">"+v22+"</span>");
+	    			}else if(v22=="低收入农户"){
+	    				obj.put("v22", "<span class=\"badge badge-primary\">"+v22+"</span>");
+	    			}else if(v22=="低保户"){
+	    				obj.put("v22", "<span class=\"badge badge-info\">"+v22+"</span>");			
+	    			}else if(v22=="五保户"){
+	    				obj.put("v22", "<span class=\"badge badge-info\">"+v22+"</span>");		
+	    			}
+				}else{
+					obj.put("v22", "<span class=\"badge \">暂无</span>");
+				}
 				obj.put("v23", "".equals(list.get(i).get("V23")) || list.get(i).get("V23") == null ? "" :sw4.mianZhuan(list.get(i).get("V23").toString(), "23") );
-				obj.put("card", "".equals(list.get(i).get("CARD")) || list.get(i).get("CARD") == null ? "" : list.get(i).get("CARD").toString());
+				/*obj.put("card", "".equals(list.get(i).get("CARD")) || list.get(i).get("CARD") == null ? "" : list.get(i).get("CARD").toString());*/
 				String cha_sql = "select * from da_help_visit where household_name ='"+list.get(i).get("V6")+"' AND  household_card='"+list.get(i).get("CARD")+"'";
 				List cha_list = this.getBySqlMapper.findRecords(cha_sql);
+				/*if(item.v22=="一般贫困户"){
+    				v22 = "<span class=\"badge badge-success\">"+item.v22+"</span>";
+    			}else if(item.v22=="低保贫困户"){
+    				v22 = "<span class=\"badge badge-warning\">"+item.v22+"</span>";
+    			}else if(item.v22=="低收入农户"){
+    				v22 = "<span class=\"badge badge-primary\">"+item.v22+"</span>";
+    			}else if(item.v22=="低保户"){
+    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+    			}else if(item.v22=="五保户"){
+    				v22 = "<span class=\"badge badge-info\">"+item.v22+"</span>";
+    			}else{
+    				v22 = "<span class=\"badge\">暂无</span>";
+    			}*/
+				
 				if( cha_list.size() > 0 ) {
-					obj.put("riji_info","1");
+					obj.put("riji_info","<a onclick=\"riji_info('"+list.get(i).get("V6").toString()+"','"+ list.get(i).get("CARD").toString()+"');\">查看详细</a>");
 				}else {
-					obj.put("riji_info","0");
+					obj.put("riji_info","暂无");
 				}
 				
 				//obj.put("riji_info", "".equals(list.get(i).get("COM")) || list.get(i).get("COM") == null ? "0" : list.get(i).get("COM").toString());
-				obj.put("erweima", "".equals(list.get(i).get("PIC_PATH")) || list.get(i).get("PIC_PATH") == null ? "0" : list.get(i).get("PIC_PATH").toString());
+				/*obj.put("erweima", "".equals(list.get(i).get("PIC_PATH")) || list.get(i).get("PIC_PATH") == null ? "0" : list.get(i).get("PIC_PATH").toString());*/
+				if(!"".equals(list.get(i).get("PIC_PATH")) && list.get(i).get("PIC_PATH") != null){
+					obj.put("erweima","<div class=\"gallerys\" style=\"display: none;\"><img src=\""+list.get(i).get("PIC_PATH").toString()+"\" class=\"gallery-pic\"" +
+    						" id=\"erwei_pic_"+list.get(i).get("AAC001")+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
+    						"<a onclick=\"erweima_tupian("+list.get(i).get("AAC001")+");\">扫描微信二维码</a>");
+				}else{
+					obj.put("erweima","暂无");
+				}
 				json.add(obj);
 			}
-			response.getWriter().write(json.toString());
+			JSONObject jso = new JSONObject();
+			jso.put("page", page);
+			jso.put("total", total);
+			jso.put("rows", json); //这里的 rows 和total 的key 是固定的 
+			response.getWriter().write(jso.toString());
 		}else{
 			response.getWriter().write("0");
 		}

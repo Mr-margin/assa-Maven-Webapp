@@ -91,13 +91,41 @@ $(function() {
 	//查询
 	$("#cha_but").click(function (){
 		
-		if($("#v5").find("option:selected").val()!=null&&$("#v5").find("option:selected").val()!=""){
+		/*if($("#v5").find("option:selected").val()!=null&&$("#v5").find("option:selected").val()!=""){*/
 			var bfrname = $("#bfrname").val();
 			var pkhname = $("#pkhname").val();
 		/*	alert($("#v5").find("option:selected").val());*/
-			var code = $("#v5").find("option:selected").val();
-			var json = {code:code,bfrname:bfrname,pkhname:pkhname}
-			show_pinkuncun(json);
+			var v2 = $("#v2").find("option:selected").val();
+			var v3 = $("#v3").find("option:selected").val();
+			var v4 = $("#v4").find("option:selected").val();
+			var v5 = $("#v5").find("option:selected").val();
+			/*alert(v2.length);*/
+			//判断行政区划是否选择 市 旗县 村 并且把等级标记传给后台 以便查询使用
+			if(v2.length>0 && v3.length==0 ){
+				code = v2;
+				level = 2;
+			}else if(v3!=undefined && v3.length>0 && v4.length==0 ){
+				code=v3;
+				level = 3;
+			}else if(v4!=undefined && v4.length>0 && v5.length==0){
+				code=v4;
+				level = 4;
+			}else if(v4!=undefined && v5.length>0){
+				code = v5;
+				level = 5;
+			}else{
+				code = '150000000000';
+				level=1;
+			}
+			
+			chaxun.code = code;
+	    	chaxun.bfrname= bfrname;
+	    	chaxun.pkhname= pkhname;
+	    	chaxun.level= level;
+	    	BFR_table.bootstrapTable('destroy');//销毁现有表格数据
+	    	BFR_initialization();//重新初始化数据
+			/*var json = {code:code,bfrname:bfrname,pkhname:pkhname,level:level}
+			show_pinkuncun(json);*/
 			
 			var display =$('#diyihang').css('display');
 			if(display == 'none'){
@@ -108,9 +136,9 @@ $(function() {
 				$("#disihang").toggle(500);
 				$("#biaoge").show();
 			}
-		}else{
+		/*}else{
 			toastr["warning"]("", "至少选择到村级单位。");
-		}
+		}*/
 	});
 	
 	//清空
@@ -140,8 +168,63 @@ $(function() {
 		}
 	});
 	
+	var BFR_table = $('#BFR_table');
+	var chaxun = {};//存储表格查询参数
+
+	//贫困户初始化
+	function BFR_initialization(){
+		BFR_table.bootstrapTable({
+			method: 'POST',
+			height: "506",
+			url: "/assa/getWyApp_y4_1.do",
+			dataType: "json",//从服务器返回的数据类型
+			striped: true,	 //使表格带有条纹
+			pagination: true,	//在表格底部显示分页工具栏
+			pageSize: 10,	//页面大小
+			pageNumber: 1,	//页数
+			pageList: [10, 20, 50, 100],
+			showToggle: true,   //名片格式
+			showColumns: true, //显示隐藏列  
+			toolbar: "#exampleToolbar_st",
+			iconSize: "outline",
+	        icons: {
+	            refresh: "glyphicon-repeat",
+	            toggle: "glyphicon-list-alt",
+	            columns: "glyphicon-list"
+	        },
+			showRefresh: true,  //显示刷新按钮
+			singleSelect: true,//复选框只能选择一条记录
+			search: false,//是否显示右上角的搜索框
+			clickToSelect: true,//点击行即可选中单选/复选框
+			sidePagination: "server",//表格分页的位置 client||server
+			queryParams: queryParams, //参数
+			queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+			silent: true,  //刷新事件必须设置
+			contentType: "application/x-www-form-urlencoded",	//请求远程数据的内容类型。
+			onLoadError: function (data) {
+				BFR_table.bootstrapTable('removeAll');
+				toastr["info"]("info", "没有找到匹配的记录");
+			},
+			onClickRow: function (row, $element) {
+				$('.success').removeClass('success');
+				$($element).addClass('success');
+			}
+		});
+	}
+	
+	function queryParams(params) {  //配置参数
+		var temp = {};
+	    temp.pageSize = params.limit;
+	    temp.pageNumber = params.offset;
+	    temp.code = chaxun.code;
+	    temp.level = chaxun.level;
+	    temp.bfrname = chaxun.bfrname;
+	    temp.pkhname = chaxun.pkhname;
+	    
+	    return temp;
+	}
 	//显示贫困户列表数据
-	function show_pinkuncun(com_code){
+	/*function show_pinkuncun(com_code){
 		$("#neirong").hide();
 		 $("#exportExcel_all_dengdai_1").show();
 		
@@ -200,9 +283,9 @@ $(function() {
 				        	$("#neirong").html('<img class="center-block" src="../img/wu.png">');
 			        	}
 		        	}		
-		        })
+		        })*/
 		   
-	}
+/*	}*/
 	
 });
 

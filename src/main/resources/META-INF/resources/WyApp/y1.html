@@ -17,7 +17,7 @@
     
     <script src="../js/public/gistone.loader.js"></script>
 	<script>
-		GISTONE.Loader.loadStyle(["jquery","bootstrap","slimscroll","treeview","validate","toastr","echarts","photo","y4"]);
+		GISTONE.Loader.loadStyle(["jquery","bootstrap","index","slimscroll","treeview","validate","toastr","echarts","photo","y1","iCheck","public","bootstrap-table",]);
 	</script>
     <base target="_blank">
 </head>
@@ -190,8 +190,22 @@
 									<div style="text-align:center;display: inline-block;">正在加载,请稍后......</div>
 								</div>
                         		
-                        		<div class="table-responsive" id="neirong">
-									<table class="table table-striped">
+                        	 <div class="table-responsive" id="neirong">
+                        		 <table id="BFR_table" >
+				                                    <thead>
+				                                           <tr>
+				                                             <th data-field="pkid" data-visible="false">序号</th>
+				                                              <th data-field="v6" data-halign="center" data-align="center">户主姓名</th>
+						                                     <th data-field="v9" data-halign="center" data-align="center">家庭人口（人）</th>
+						                                     <th data-field="v21" data-halign="center" data-align="center">脱贫属性</th>
+						                                     <th data-field="v22" data-halign="center" data-align="center">贫困类型</th>
+				                                             <th data-field="v23" data-halign="center" data-align="center">主要致贫原因</th>
+				                                             <th data-field="erweima" data-halign="center" data-align="center">二维码</th>
+				                                             <th data-field="riji_info" data-halign="center" data-align="center">帮扶情况</th>	                                  
+				                                        </tr>
+				                                    </thead>
+				                                </table>
+									<!-- <table class="table table-striped">
 										<thead>
 											<tr>
 				                                <th>序号</th>
@@ -205,7 +219,7 @@
 				                            </tr>
 		                        		</thead>
 		                        		<tbody id="zpyy"></tbody>
-									</table>
+									</table> -->
 								</div>
                         	</div>
                         	
@@ -372,7 +386,7 @@
 	<!-- 帮扶日记详细信息 -->
 	
 	<script>
-		GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","treeview","toastr","echarts","photo","public","y1"]);
+	GISTONE.Loader.loadScript(["jquery","bootstrap","slimscroll","validate","toastr","sweetalert","prefixfree","public","home","password","suggest","datapicker","treeview","iCheck","bootstrap-table","prettyfile","y1","photo"]);
 	</script>
   </body>
 </html>
