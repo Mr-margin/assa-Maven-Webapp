@@ -73,8 +73,8 @@ public class WyApp_y2 {
 		String sheji_count_sql = "select count(*) from (select HOUSEHOLD_NAME,HOUSEHOLD_CARD from DA_HELP_VISIT d1 "
 				+ "join DA_PIC_VISIT d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") group by HOUSEHOLD_NAME,HOUSEHOLD_CARD) t1 ";
 		 //不跟随传递的时间变，当天日记数、本周日记数、本月日记数 DA_HELP_VISIT
-	    String bangfu_count_sql = "SELECT count(case when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') then 'a00' end)day,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'iw')=to_char(sysdate,'iw') and TO_NUMBER(sysdate-to_date(registertime,'yyyy-mm-dd hh24:mi:ss'))<10 THEN 'a01' end)week,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm')=to_char(sysdate,'yyyy-mm') THEN 'a02' end)month	FROM	DA_HELP_VISIT  WHERE 1=1";
-	
+//	    String bangfu_count_sql = "SELECT count(case when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') then 'a00' end)day,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'iw')=to_char(sysdate,'iw') and TO_NUMBER(sysdate-to_date(registertime,'yyyy-mm-dd hh24:mi:ss'))<10 THEN 'a01' end)week,	count(	CASE when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm')=to_char(sysdate,'yyyy-mm') THEN 'a02' end)month	FROM	DA_HELP_VISIT  WHERE 1=1";
+		String bangfu_count_sql = "SELECT count(*) AS THE_ALL,count(case when to_char(to_date(registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') then 'a00' end)day,	count(		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-7), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a01'		END	)week,	count(		CASE		WHEN TO_CHAR(TO_DATE (	registertime,	'yyyy-mm-dd hh24:mi:ss'	),'yyyy-mm-dd')> TO_CHAR (trunc(sysdate-30), 'yyyy-mm-dd') and TO_CHAR(TO_DATE (registertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')<= TO_CHAR (sysdate, 'yyyy-mm-dd') THEN			'a03'		END	)month	FROM	DA_HELP_VISIT  WHERE 1=1";
 	    List<Map> bangfus = null;
 
 	    //帮扶日记统计 日 周 月帮扶人数统计
@@ -216,7 +216,8 @@ public class WyApp_y2 {
 			}
 			JSONObject val_ret = new JSONObject();
 			val_ret.put("data1", jsa);
-			val_ret.put("data2", count);//日记数量
+			val_ret.put("data2", bangfus.get(0).get("THE_ALL")==null?0:bangfus.get(0).get("THE_ALL"));//日记数量
+//			val_ret.put("data2", count);//日记数量
 			val_ret.put("data3", shejicount);//涉及到的贫困户数
 			val_ret.put("riji_count",json);
 //			val_ret.put("data4", pinkuncount);//贫困户的总数
