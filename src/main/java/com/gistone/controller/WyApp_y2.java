@@ -62,7 +62,7 @@ public class WyApp_y2 {
 		
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
-		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,registertime,ZFTYPE from ( "
+		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,registertime,ZFTYPE,TYPE from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
 				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") order by  d1.PKID desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
@@ -78,10 +78,21 @@ public class WyApp_y2 {
 	    List<Map> bangfus = null;
 
 	    //帮扶日记统计 日 周 月帮扶人数统计
-	    	//如果使用搜索条件进行查询
-	    	String str = xzqh.substring(0, 2+Integer.valueOf(level));
-	    	bangfu_count_sql += " AND AAR008  LIKE '"+str+"%' ";
-	    	bangfus = this.getBySqlMapper.findRecords(bangfu_count_sql);
+    	//如果使用搜索条件进行查询
+	    String str = "15";
+	    if(Integer.valueOf(level)==1){//全部
+	    	str = xzqh.substring(0, 1+Integer.valueOf(level));
+	    }else if(Integer.valueOf(level)==2){//市级
+	    	str = xzqh.substring(0, 2+Integer.valueOf(level));
+	    }else if(Integer.valueOf(level)==3){//旗县
+	    	str = xzqh.substring(0, 3+Integer.valueOf(level));
+	    }else if(Integer.valueOf(level)==4){//苏木
+	    	str = xzqh.substring(0, 5+Integer.valueOf(level));
+	    }else if(Integer.valueOf(level)==5){//嘎查
+	    	str = xzqh;
+	    }
+    	bangfu_count_sql += " AND AAR008  LIKE '"+str+"%' ";
+    	bangfus = this.getBySqlMapper.findRecords(bangfu_count_sql);
 	   
 		
 		
@@ -145,6 +156,14 @@ public class WyApp_y2 {
 				6、宣传扶贫政策
 				7、节日假日慰问*/
 				String zftype="其他帮扶活动";
+				String device="";
+				if(st_map.get("TYPE")!=null&&!"".equals(st_map.get("TYPE"))){
+					if(st_map.get("TYPE")=="手机APP"||st_map.get("TYPE").equals("手机APP")){
+						device="1";
+					}else{
+						device="2";
+					}
+				}
 				if(st_map.get("ZFTYPE")!=null&&!"".equals(st_map.get("ZFTYPE"))){
 					int j=Integer.valueOf(st_map.get("ZFTYPE").toString()); 
 
@@ -204,6 +223,7 @@ public class WyApp_y2 {
 
 				}
 				val.put("zftype", zftype);
+				val.put("device", device);
 				jsa.add(val);
 			}
 			//帮扶统计
