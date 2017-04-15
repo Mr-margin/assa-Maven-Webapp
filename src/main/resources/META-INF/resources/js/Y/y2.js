@@ -162,6 +162,15 @@ $(function () {
 						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
 						var dj = parseFloat(sqlJson[i].lng).toFixed(2);
 						var bw = parseFloat(sqlJson[i].lat).toFixed(2);
+						if( sqlJson[i].device == null || sqlJson[i].device == undefined ) {
+							html+="";
+						}else {
+							if(sqlJson[i].device==1){
+								html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android'></i></span>";
+							}else{
+								html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat'></i></span>";
+							}
+						}
 						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
 					}
 					$(html).find('img').each(function(index){
@@ -319,17 +328,40 @@ $(function () {
 		//清空
 		$("#qing_but").click(function(e) {
 			if(jsondata.Login_map.COM_VD=="V1"){
+//				$("#v2").find("option[value='150000000000']").attr("selected",true);
+				
 				$("#v2").get(0).selectedIndex=0;
+				$("#v3").get(0).selectedIndex=0;
+				$("#v4").get(0).selectedIndex=0;
+				$("#v5").get(0).selectedIndex=0;
+				$("#v0").get(0).selectedIndex=0;
+				
+				$("#v2").trigger("change");
+				
 				$("#v3").empty();
 				$("#v4").empty();
 				$("#v5").empty();
+				
+				$("#bfrname").val("");
+				$("#pkhname").val("");
 			}else if(jsondata.Login_map.COM_VD=="V3"){
 				$("#v3").get(0).selectedIndex=0;
+				$("#v0").get(0).selectedIndex=0;
+				$("#v4").get(0).selectedIndex=0;
+				$("#v5").get(0).selectedIndex=0;
 				$("#v4").empty();
 				$("#v5").empty();
+				
+				$("#bfrname").val("");
+				$("#pkhname").val("");
 			}else if(jsondata.Login_map.COM_VD=="V5"){
 				$("#v4").get(0).selectedIndex=0;
+				$("#v0").get(0).selectedIndex=0;
+				$("#v5").get(0).selectedIndex=0;
 				$("#v5").empty();
+				
+				$("#bfrname").val("");
+				$("#pkhname").val("");
 				
 			}
 			var display =$('#diyihang').css('display');
