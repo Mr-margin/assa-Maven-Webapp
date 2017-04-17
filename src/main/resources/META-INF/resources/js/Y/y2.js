@@ -132,8 +132,8 @@ $(function () {
 		if (typeof sqlJson.error == "undefined") {
 			var xzqh_title_html = '&nbsp;&nbsp;&nbsp;当前帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
 			sqlJson.data2+'</span> 篇&nbsp;&nbsp;其中&nbsp;&nbsp; 相关贫困户：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
-			sqlJson.data3+'</span> 户&nbsp;&nbsp;&nbsp; 当日帮扶日记：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.dayNum+'</span> 篇&nbsp;&nbsp;&nbsp;&nbsp; 本周帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
-			sqlJson.riji_count.weekNum+'</span> 篇&nbsp;&nbsp;&nbsp; 本月帮扶日记累计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.monthNum+'</span> 篇';
+			sqlJson.data3+'</span> 户&nbsp;&nbsp;&nbsp; 当日帮扶日记：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.dayNum+'</span> 篇&nbsp;&nbsp;&nbsp;&nbsp; 近一周帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
+			sqlJson.riji_count.weekNum+'</span> 篇&nbsp;&nbsp;&nbsp; 近一月帮扶日记累计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.monthNum+'</span> 篇';
 			$("#xzqh_title").html(xzqh_title_html);
 			var sqlJson = sqlJson.data1;
 			(function(sqlJson){
