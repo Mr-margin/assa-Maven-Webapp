@@ -109,6 +109,8 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 	}catch(e){
 	}
 };
+//贫困发生率固定数据  2017-4-18
+var fslArray={"呼和浩特市":0.72,"包头市":1.02,"呼伦贝尔市":4.16,"兴安盟":7.54,"通辽市":4.50,"赤峰市":5.23,"锡林郭勒盟":3.33,"乌兰察布市":5.52,"鄂尔多斯市":0.13,"巴彦淖尔市":1.81,"乌海市":0.25,"阿拉善盟":0.07};
 //统计图方法
 function pkcsbbz(){
 	var order="VF41";
@@ -183,7 +185,12 @@ function pkcsbbz(){
 		};
 		$.each(data,function(i,indx){
 			count[i]=indx.name;
-			count2[i]=indx.f4;
+			if(fslArray[indx.name]){
+				count2[i]=fslArray[indx.name];
+			}else{
+				count2[i]=indx.f4;
+			}
+			
 			
 		});
 		option.xAxis.data=count;
