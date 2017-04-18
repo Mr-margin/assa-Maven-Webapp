@@ -244,12 +244,12 @@ function bar1(){
 //			"<td>"+v7+"</td>" +
 //			"</tr>";
 //	html_0 += html;
-	var count8 =[{value:v2 , name:"产业发展和转移就业"},
-	             {value:v3 , name:"易地扶贫搬迁"},
-	             {value:v4 , name:"生态补偿"},
-	             {value:v5 , name:"教育扶贫"},
-	             {value:v6 , name:"大病救治"},
-	             {value:v7 , name:"社会保障兜底"},
+	var count8 =[{value:v2 , name:"产业扶持人数"},//产业发展和转移就业
+	             {value:v3 , name:"易地搬迁人数"},
+	             {value:v4 , name:"生态补偿人数"},
+	             {value:v5 , name:"教育扶持人数"},
+	             /*{value:v6 , name:"大病救治"},*/
+	             {value:v7 , name:"社会保障兜底人数"},
 				];
 	var option_ring = {//环形图
 			title : {
@@ -266,7 +266,7 @@ function bar1(){
 			legend: {
 				x : 'center',
 				y : 'bottom',
-				data : ['产业发展和转移就业', '易地扶贫搬迁','生态补偿','教育扶贫','大病救治','社会保障兜底']
+				data : ['产业扶持人数', '易地搬迁人数','生态补偿人数','教育扶持人数','社会保障兜底人数']
 			},
 			calculable : true,
 			color:['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
