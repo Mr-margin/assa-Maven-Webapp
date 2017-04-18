@@ -1742,7 +1742,7 @@ public class AExport{
 				}else {
 					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql ="select NUM,xz,xzqh, v1,v3,v5,v11,v13, '"+j+"' type,XZ com_code,'2016' V99 ,'"+v98+"' v98 from ( ";
+				String sql ="select w0.NUM,w2.ZRS,w0.xz,w0.xzqh, w1.v1,w1.v3,w1.v5,w1.v11,w1.v13, '"+j+"' type,w0.XZ com_code,'2016' V99 ,'"+v98+"' v98 from ( ";
 						sql += "SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' ";
 						sql += " and AAR040='2016' and "+b_sql+" GROUP BY AAR00"+ar+"  )AA left join ( ";
 						sql += " select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where xzqh is not null)w0 left join (";
@@ -1752,11 +1752,18 @@ public class AExport{
 						sql += ") a left join (select * from NEIMENG0117_AC30) b on a.AAC001=b.AAC001 group BY AAR00"+ar+" ";
 						sql += ")w1 ON w0.xz=w1.AAR00"+ar+" ";
 						
+						//关联贫困人口
+						sql += " LEFT JOIN (  select  ZRS,AAR00"+ar+" xz,xzqh from ( SELECT COUNT(*) ZRS,AAR00"+ar+" FROM  (";
+						sql += " SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4'))a ";
+						sql += " LEFT JOIN ( select AAC001,AAR002,AAR003,AAR004,AAR005,aar006 from NEIMENG0117_AC01  where AAR100= '1' and AAR040='2016' and "+b_sql+")b  on a.a1=B.AAC001 ) GROUP BY AAR00"+ar+")AA ";
+						sql += " left join (select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" ) w2 ON w2.XZ=w0.XZ";
+						
 						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);
 					for ( int a = 0 ; a < in_list.size() ; a ++ ) {
 						String COM_NAME =  in_list.get(a).get("XZQH").toString();
 						String Z_HU = "".equals(in_list.get(a).get("NUM")) || in_list.get(a).get("NUM") == null ? "0" : in_list.get(a).get("NUM").toString();
+						String Z_RS = "".equals(in_list.get(a).get("ZRS")) || in_list.get(a).get("ZRS") == null ? "0" : in_list.get(a).get("ZRS").toString();
 						String V1 =  "".equals(in_list.get(a).get("V1")) || in_list.get(a).get("V1") == null ? "0" : in_list.get(a).get("V1").toString();
 						String V3 =  "".equals(in_list.get(a).get("V3")) || in_list.get(a).get("V3") == null ? "0" : in_list.get(a).get("V3").toString();
 						String V5 =  "".equals(in_list.get(a).get("V5")) || in_list.get(a).get("V5") == null ? "0" : in_list.get(a).get("V5").toString();
@@ -1769,7 +1776,7 @@ public class AExport{
 						String V99 =  "".equals(in_list.get(a).get("V99")) || in_list.get(a).get("V99") == null ? "0" : in_list.get(a).get("V99").toString();
 						String V98 =  "".equals(in_list.get(a).get("V98")) || in_list.get(a).get("V98") == null ? "0" : in_list.get(a).get("V98").toString();
 						double zong = Double.parseDouble(V1)+Double.parseDouble(V3)+Double.parseDouble(V5)+Double.parseDouble(V7)+Double.parseDouble(V9)+Double.parseDouble(V11)+Double.parseDouble(V13);
-						double V2 = (Double.parseDouble(V1)/zong)*100;
+						double V2 = (Double.parseDouble(Z_RS))/Double.parseDouble(V1)*100;
 						double V4 = (Double.parseDouble(V3)/zong)*100;
 						double V6 = (Double.parseDouble(V5)/zong)*100;
 						double V8 = (Double.parseDouble(V7)/zong)*100;
@@ -2838,8 +2845,8 @@ public class AExport{
 	
 	/**
 	 * 贫困发生率
-	 * @param request
-	 * @param response
+	 * @param request  修改前trunc(ZRS/PKRK, 2) BL
+	 * @param response 修改后trunc(PKRK/ZRS, 2)*100 BL
 	 * @throws IOException
 	 */
 	@RequestMapping("PKC_1_3_3.do")
@@ -2857,7 +2864,7 @@ public class AExport{
 				}else {
 					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,trunc(ZRS/PKRK, 2) BL,'"+j+"' CC,'"+v98+"' SS,'2016' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
+				String sql="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,trunc(PKRK/ZRS*100, 2) BL,'"+j+"' CC,'"+v98+"' SS,'2016' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
 						" left join (  select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where  xzqh is not null)bb  "+
 						" LEFT JOIN (  select  ZRS,AAR00"+ar+" xz,xzqh from ( SELECT COUNT(*) ZRS,AAR00"+ar+" FROM  ("+
 						" SELECT * FROM (select AAC001 a1,AAB001 from NEIMENG0117_AB01 where AAR040='2016' and AAB015 IN ('1','4'))a "+
