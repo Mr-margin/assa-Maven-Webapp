@@ -215,12 +215,12 @@ function bar1(){
 //	var html_0="";
 //	var html="";
 	$.each(data1,function(i,item){
-		v1=parseInt(item.fc1)+parseInt(v1);
+//		v1=parseInt(item.fc1)+parseInt(v1);
 		v2=parseInt(item.fc2)+parseInt(v2);
 		v3=parseInt(item.fc3)+parseInt(v3);
 		v4=parseInt(item.fc4)+parseInt(v4);
 		v5=parseInt(item.fc5)+parseInt(v5);
-		v6=parseInt(item.fc6)+parseInt(v6);
+//		v6=parseInt(item.fc6)+parseInt(v6);
 		v7=parseInt(item.fc7)+parseInt(v7);
 //		html += "<tr>" +
 //				"<td>"+item.name+"</td>" +
