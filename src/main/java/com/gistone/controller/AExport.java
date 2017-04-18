@@ -1776,7 +1776,7 @@ public class AExport{
 						String V99 =  "".equals(in_list.get(a).get("V99")) || in_list.get(a).get("V99") == null ? "0" : in_list.get(a).get("V99").toString();
 						String V98 =  "".equals(in_list.get(a).get("V98")) || in_list.get(a).get("V98") == null ? "0" : in_list.get(a).get("V98").toString();
 						double zong = Double.parseDouble(V1)+Double.parseDouble(V3)+Double.parseDouble(V5)+Double.parseDouble(V7)+Double.parseDouble(V9)+Double.parseDouble(V11)+Double.parseDouble(V13);
-						double V2 = (Double.parseDouble(Z_RS))/Double.parseDouble(V1)*100;
+						double V2 = Double.parseDouble(V1)/(Double.parseDouble(Z_RS));
 						double V4 = (Double.parseDouble(V3)/zong)*100;
 						double V6 = (Double.parseDouble(V5)/zong)*100;
 						double V8 = (Double.parseDouble(V7)/zong)*100;
