@@ -1395,7 +1395,7 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
+					b_sql = "(AAR010='3')";// and NVL(AAC016,AAr040)='2016'   修改返贫人口不对问题
 				}
 				String sql="select NUM,ren,xz,xzqh, v1,v5,v9, '"+j+"' type,'2016' V99 ,'"+v98+"' v98 from ( ";
 						sql += "SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' ";
