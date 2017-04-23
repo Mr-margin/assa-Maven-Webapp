@@ -36,7 +36,7 @@ public class WyApp_y4 {
 		String pageNumber = request.getParameter("pageNumber");  
 		//通过级别来截取有效行政区划的字段 并且用来查询此行政区划下的旗县或乡或村
 		if(level.equals("1")){
-			code = code.substring(0, 3);
+			code = code.substring(0, 2);
 		}else if(level.equals("2")){
 			code = code.substring(0, 4);
 		}else if(level.equals("3")){
@@ -46,12 +46,14 @@ public class WyApp_y4 {
 		}
 		String pre_sql = "SELECT * FROM (select A.*,ROWNUM RN from (select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001";
 		// and AAR010=0  sql   count_sql 帮扶责任人管理 原查询未脱贫 改为查询全部贫困户信息    2017-4-20 
+		//t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and  去除按姓名比对查询二维码   t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and
+		//统一按贫困户编号进行过滤二维码  t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD  t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD
 		String sql = " from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01 AND AAR100 = '1' and  AAB015='1' and NEIMENG0117_AC01.AAR008 like'"+code+"%' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
-				" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
+				" left join DA_PIC_CODE on t4.AAC001 = DA_PIC_CODE.AAC001 left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
 				"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01' and  AAB015='1')w1 ON t4.AAC001=w1.AAC001 ";
 		String count_sql ="select v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 from  (select NEIMENG0117_AC01.AAC001,NEIMENG0117_AC01.AAR008,AAR010 v21,AAC006 v22,AAC007 v23,AAB002 v6,AAB004 v8 from NEIMENG0117_AC01 join NEIMENG0117_AB01 on NEIMENG0117_AC01.AAC001=NEIMENG0117_AB01.AAC001 where  NEIMENG0117_AC01.AAR040='2016' and AAB006=01  "
 				+ "AND AAR100 = '1' and  AAB015='1' and NEIMENG0117_AC01.AAR008 like'"+code+"%' group BY NEIMENG0117_AC01.AAR008,AAR010,AAC006,AAC007,AAB002,AAB004,NEIMENG0117_AC01.AAC001) t4"+
-				" left join DA_PIC_CODE on t4.v6=DA_PIC_CODE.HOUSEHOLD_NAME and t4.v8=DA_PIC_CODE.HOUSEHOLD_CARD left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
+				" left join DA_PIC_CODE on t4.AAC001 = DA_PIC_CODE.AAC001  left join (SELECT AAC001, COUNT(*) v9 FROM NEIMENG0117_AB01 WHERE AAR040='2016' GROUP BY AAC001  ) t5 on T4.AAC001=t5.AAC001 "+
 				"  LEFT JOIN (select AAC001,AAB004 card from NEIMENG0117_Ab01 where AAB006='01' and  AAB015='1')w1 ON t4.AAC001=w1.AAC001 ";
 		String last_sql = " GROUP BY v21,v22,v23,v6,v9,pic_path,card,t4.AAC001 ORDER BY v6  ";
 		if(pkhname.length()>0 &&bfrname.length()<1){

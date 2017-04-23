@@ -77,7 +77,7 @@ public class Linshi {
         			+ "LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from nm09_ab01 where AAB006='01' AND AAR040='2015' and AAB015 IN ('1','4') "
         			+ ") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE where t1.v4='"+type+"') t1 left join DA_PIC_CODE t2 on t1.pkid=t2.AAC001 where t2.AAC001 is null";*/
         	sql="select * from ("
-        			+"select t3.*,t4.AAC001,t4.household_name,t4.pic_path from (select t1.v3,t1.v4,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1  left join ("
+        			+"select t3.*,t4.AAC001,t4.household_name,t4.pic_path from (select t1.v3,t1.v4,t1.v5,t1.v7,t1.v9,t2.* from SYS_COM t1  right join ("
         			+"select A1.PKID,A1.CODE,A2.V6,A2.V8 from (SELECT AAC001 PKID,AAR008 CODE  FROM NEIMENG0117_AC01 WHERE AAR100= '1' and AAR040='2016' and AAR010 in ('0','3')) a1 "
         			+"LEFT JOIN (SELECT aac001,aab002 v6,AAB004 v8 from NEIMENG0117_ab01 where AAB006='01' AND AAR040='2016' and AAB015 IN ('1','4') "
         			+") a2 ON A1.PKID=A2.AAC001) t2 on t1.v10=t2.CODE) t3 left join DA_PIC_CODE t4 on t3.pkid=t4.AAC001 where t4.AAC001 is null"
