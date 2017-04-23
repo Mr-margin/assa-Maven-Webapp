@@ -104,6 +104,8 @@ $(function() {
 			if(v2.length>0 && v3.length==0 ){
 				code = v2;
 				level = 2;
+				toastr["warning"]("", "至少选择到旗区级。");
+				return;
 			}else if(v3!=undefined && v3.length>0 && v4.length==0 ){
 				code=v3;
 				level = 3;
@@ -116,6 +118,8 @@ $(function() {
 			}else{
 				code = '150000000000';
 				level=1;
+				toastr["warning"]("", "至少选择到旗区级。");
+				return;
 			}
 			
 			chaxun.code = code;
