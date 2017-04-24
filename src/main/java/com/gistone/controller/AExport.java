@@ -1380,7 +1380,7 @@ public class AExport{
 	/**
 	 * 贫困户的基本信息
 	 * @param request
-	 * @param response
+	 * @param response  修改阿巴嘎旗多一个贫困户问题  过滤aac017不为空
 	 * @throws IOException
 	 */
 	@RequestMapping("PKC_1_2_1.do")
@@ -1399,7 +1399,7 @@ public class AExport{
 				}
 				String sql="select NUM,ren,xz,xzqh, v1,v5,v9, '"+j+"' type,'2016' V99 ,'"+v98+"' v98 from ( ";
 						sql += "SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' ";
-						sql += " and AAR040='2016' and "+b_sql+" GROUP BY AAR00"+ar+"  )AA left join ( ";
+						sql += " and AAR040='2016' and aac017 is not null and "+b_sql+" GROUP BY AAR00"+ar+"  )AA left join ( ";
 						sql += " select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where xzqh is not null)w0 left join (";
 						
 						sql += "select  NUM1 ren,AAR00"+ar+" renzx,xzqh xx from ( SELECT COUNT(*) NUM1,AAR00"+ar+" FROM";
