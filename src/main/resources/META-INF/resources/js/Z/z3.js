@@ -359,8 +359,6 @@ $(document).ready(function(){
 		 			}else{
 		 				$("span.search-sign").hide()//非贫困
 		 			}
-					//console.log(item);
-	//				alert(item.href);
 				    $.ajax({
 						url:"../getW3map.do",
 						type:"POST",
@@ -369,7 +367,7 @@ $(document).ready(function(){
 						success:function(data){
 							if(data&&data.length>0){
 								var one = data[0];
-								
+								$("#pinkunhu_info").show();
 								$("#pinkunhu").html(one.hushu);//贫困户数
 								$("#pinkunhu_f").html("&nbsp;户");
 								
