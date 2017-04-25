@@ -1,0 +1,3 @@
+mvn clean compile install package
+
+李工建立的原始项目
