@@ -1,5 +1,7 @@
+var sys_com_code="";//行政区划编号
 $(function() {
-	console.log(jsondata);
+	//console.log(jsondata);
+	sys_com_code=jsondata.Login_map.SYS_COM_CODE;//行政区划编号
 	cha_bfgl(jsondata.Login_map.COM_NAME,jsondata.Login_map.SYS_COM_CODE,jsondata.Login_map.ROLE_ID);//帮扶单位、驻村工作队、驻村工作干部、
 	cha_shu(jsondata.Login_map.COM_NAME,jsondata.Login_map.SYS_COM_CODE,jsondata.Login_map.ROLE_ID);//查询当前行政区划的数据
 	
@@ -291,6 +293,7 @@ $(function() {
 		   
 /*	}*/
 	
+	
 });
 
 //点击弹出日记详细内容
@@ -343,10 +346,36 @@ function cha_shu (name,code,role_id) {
 	var data = JSON.parse(ajax_async_t("../getWyApp_y1_y.do", {name:name,code:code,role_id:role_id }));
 	var html = "";
 	var zong_num=0;var zong_bfr=0;
+	var lsbfzrr=0;
 	$.each(data.data1,function(i,item){
-		html += '<tr><td>'+item.xzqh+'</td> <td>'+item.num+'</td><td>'+item.bfr+'</td><td>100%</td></tr>';
+		if(sys_com_code!="152500000000"){
+			lsbfzrr=item.bfr;
+			zong_bfr = parseInt(zong_bfr)+parseInt(item.bfr);
+		}else{
+			if(item.xzqh=="正镶白旗"){
+				lsbfzrr=354;
+			}else if(item.xzqh=="太仆寺旗"){
+				lsbfzrr=446;
+			}else if(item.xzqh=="苏尼特右旗"){
+				lsbfzrr=530;
+			}else if(item.xzqh=="多伦县"){
+				lsbfzrr=374;
+			}else if(item.xzqh=="正蓝旗"){
+				lsbfzrr=1610;
+			}else if(item.xzqh=="镶黄旗"){
+				lsbfzrr=61;
+			}else if(item.xzqh=="苏尼特左旗"){
+				lsbfzrr=314;
+			}else if(item.xzqh=="阿巴嘎旗"){
+				lsbfzrr=69;
+			}else{
+				lsbfzrr="0";
+			}
+			zong_bfr=3758;
+		}
+		html += '<tr><td>'+item.xzqh+'</td> <td>'+item.num+'</td><td>'+lsbfzrr+'</td><td>100%</td></tr>';
 		zong_num = parseInt(zong_num)+parseInt(item.num);
-		zong_bfr = parseInt(zong_bfr)+parseInt(item.bfr);
+		
 	});
 	html+='<tr><td>汇总</td> <td>'+zong_num+'</td><td>'+zong_bfr+'</td><td>100%</td></tr>'
 	$("#bfr_table").html(html);
@@ -356,8 +385,16 @@ function cha_shu (name,code,role_id) {
 }
 //帮扶单位、驻村工作队、驻村工作干部
 function cha_bfgl(name,code,role){
+	if(code!="152500000000"){
 	var data = JSON.parse(ajax_async_t("../getWyApp_y1_bf.do", {name:name,code:code,role:role }));
 	$("#bfdw").text(data[0].dw);
 	$("#zcd").text(data[0].zcd);
 	$("#zcgb").text(data[0].zcgb);
+	}else{
+		$("#bfdw").text("877");
+		$("#zcd").text("473");
+		$("#zcgb").text("2413");
+		$("#zrr_num").text("3758");
+		
+	}
 }
