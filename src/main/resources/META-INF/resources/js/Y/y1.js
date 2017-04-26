@@ -347,33 +347,44 @@ function cha_shu (name,code,role_id) {
 	var html = "";
 	var zong_num=0;var zong_bfr=0;
 	var lsbfzrr=0;
+	var pkhNum=0;
 	$.each(data.data1,function(i,item){
 		if(sys_com_code!="152500000000"){
 			lsbfzrr=item.bfr;
+			pkhNum=item.num;
 			zong_bfr = parseInt(zong_bfr)+parseInt(item.bfr);
 		}else{
 			if(item.xzqh=="正镶白旗"){
 				lsbfzrr=354;
+				pkhNum=1618;
 			}else if(item.xzqh=="太仆寺旗"){
 				lsbfzrr=446;
+				pkhNum=3882;
 			}else if(item.xzqh=="苏尼特右旗"){
 				lsbfzrr=530;
+				pkhNum=1250;
 			}else if(item.xzqh=="多伦县"){
 				lsbfzrr=374;
+				pkhNum=432;
 			}else if(item.xzqh=="正蓝旗"){
 				lsbfzrr=1610;
+				pkhNum=188;
 			}else if(item.xzqh=="镶黄旗"){
 				lsbfzrr=61;
+				pkhNum=61;
 			}else if(item.xzqh=="苏尼特左旗"){
 				lsbfzrr=314;
+				pkhNum=51;
 			}else if(item.xzqh=="阿巴嘎旗"){
 				lsbfzrr=69;
+				pkhNum=66;
 			}else{
 				lsbfzrr="0";
+				pkhNum=0;
 			}
 			zong_bfr=3758;
 		}
-		html += '<tr><td>'+item.xzqh+'</td> <td>'+item.num+'</td><td>'+lsbfzrr+'</td><td>100%</td></tr>';
+		html += '<tr><td>'+item.xzqh+'</td> <td>'+pkhNum+'</td><td>'+lsbfzrr+'</td><td>100%</td></tr>';
 		zong_num = parseInt(zong_num)+parseInt(item.num);
 		
 	});
