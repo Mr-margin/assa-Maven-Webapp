@@ -353,6 +353,7 @@ function cha_shu (name,code,role_id) {
 			lsbfzrr=item.bfr;
 			pkhNum=item.num;
 			zong_bfr = parseInt(zong_bfr)+parseInt(item.bfr);
+			zong_num = parseInt(zong_num)+parseInt(item.num);
 		}else{
 			if(item.xzqh=="正镶白旗"){
 				lsbfzrr=354;
@@ -383,9 +384,10 @@ function cha_shu (name,code,role_id) {
 				pkhNum=0;
 			}
 			zong_bfr=3758;
+			zong_num=7548;
 		}
 		html += '<tr><td>'+item.xzqh+'</td> <td>'+pkhNum+'</td><td>'+lsbfzrr+'</td><td>100%</td></tr>';
-		zong_num = parseInt(zong_num)+parseInt(item.num);
+		
 		
 	});
 	html+='<tr><td>汇总</td> <td>'+zong_num+'</td><td>'+zong_bfr+'</td><td>100%</td></tr>'
