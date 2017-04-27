@@ -126,7 +126,7 @@ public class WyApp_y4 {
     			}*/
 				
 				if( cha_list.size() > 0 ) {
-					obj.put("riji_info","<a onclick=\"riji_info('"+list.get(i).get("V6").toString()+"','"+ list.get(i).get("CARD").toString()+"');\">查看详细</a>");
+					obj.put("riji_info","<a onclick=\"riji_info('"+list.get(i).get("V6").toString()+"','"+ list.get(i).get("CARD").toString()+"');\">点击查看</a>");
 				}else {
 					obj.put("riji_info","暂无");
 				}
@@ -136,9 +136,9 @@ public class WyApp_y4 {
 				if(!"".equals(list.get(i).get("PIC_PATH")) && list.get(i).get("PIC_PATH") != null){
 					obj.put("erweima","<div class=\"gallerys\" style=\"display: none;\"><img src=\""+list.get(i).get("PIC_PATH").toString()+"\" class=\"gallery-pic\"" +
     						" id=\"erwei_pic_"+list.get(i).get("AAC001")+"\" style=\"width:265px;\" onclick=\"$.openPhotoGallery(this)\" /></div>" +
-    						"<a onclick=\"erweima_tupian("+list.get(i).get("AAC001")+");\">扫描微信二维码</a>");
+    						"<a onclick=\"erweima_tupian("+list.get(i).get("AAC001")+");\">点击查看</a>");
 				}else{
-					obj.put("erweima","暂无");
+					obj.put("erweima","无");
 				}
 				json.add(obj);
 			}

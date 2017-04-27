@@ -64,7 +64,7 @@ public class WyApp_y2 {
 		
 		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,registertime,ZFTYPE,TYPE from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
-				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") order by  d1.PKID desc "
+				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") and  d1.registertime is not null order by  TO_DATE (d1.REGISTERTIME,'yyyy-mm-dd hh24:mi:ss') desc "
 				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
 		
 	
