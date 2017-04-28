@@ -56,7 +56,34 @@ public class WtApp_t1_Controller {
 				object.put("count_num","".equals(itemList.get(i).get("COUNT_NUM"))||itemList.get(i).get("COUNT_NUM")==null?"":itemList.get(i).get("COUNT_NUM"));
 				json.add(object);
 			}
-			response.getWriter().write(json.toString());
+			String sql2 = "select ACR005,sum(ABR021) as totalAmount  from NEIMENG0117_BR05 GROUP BY ACR005 ORDER BY ACR005";
+			List<Map> itemList2 = this.getBySqlMapper.findRecords(sql2);
+			JSONArray json2 = new JSONArray();
+			if(itemList2.size() > 0){
+				for(int i=0;i<itemList2.size();i++){
+					JSONObject object2 = new JSONObject();
+					String item_type="".equals(itemList2.get(i).get("ACR005"))||itemList2.get(i).get("ACR005")==null?"":getItemTypeName(itemList2.get(i).get("ACR005").toString());
+					String totalAmount="".equals(itemList2.get(i).get("TOTALAMOUNT"))||itemList2.get(i).get("TOTALAMOUNT")==null?"":itemList2.get(i).get("TOTALAMOUNT").toString();
+					object2.put("item_type",item_type);
+					if(item_type.equals("其他")&&!totalAmount.equals("")){
+						Double totalAmount3=Double.parseDouble(totalAmount);
+						for(int y=1;y<itemList2.size()-i;y++){
+							String totalAmount2="".equals(itemList2.get(i+1).get("TOTALAMOUNT"))||itemList2.get(i+1).get("TOTALAMOUNT")==null?"":itemList2.get(i+1).get("TOTALAMOUNT").toString();
+							if(!totalAmount2.equals("")){
+								totalAmount3+=Double.parseDouble(totalAmount2.toString());
+							}
+						}
+						totalAmount=totalAmount3.toString();
+						object2.put("totalAmount",totalAmount);
+						json2.add(object2);
+						break;
+					}else{
+						object2.put("totalAmount",totalAmount);
+						json2.add(object2);
+					}
+				}
+			}
+			response.getWriter().write("{\"data1\":"+json.toString()+",\"data2\":"+json2.toString()+"}");
 		}else{
 			response.getWriter().write('0');
 		}

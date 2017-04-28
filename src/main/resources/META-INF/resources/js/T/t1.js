@@ -51,7 +51,7 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function a_2(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t(GISTONE.Loader.basePath+"getItemCount_WtApp_t1_1_1.do")); //调用ajax通用方法
-	if(data==0){
+	if(data.data1==0){
 		$("#z").html('<img class="center-block" src="../../img/wu.png">');
 		
 	}else{
@@ -59,7 +59,7 @@ function a_2(){
 	var count = [];
 	var count_2 = [];
 	/*var A1=0,A2=0,A3=0,A4=0;*/
-	$.each(data,function(i,item){
+	$.each(data.data1,function(i,item){
 		if(typeof item.item_type == 'undefined'){
 			item.item_type='';
 		}
@@ -179,6 +179,27 @@ function a_2(){
 	}
 	myChart_1.setOption(option);
 	
+}
+	if(data.data2==0){
+		$("#z").html('<img class="center-block" src="../../img/wu.png">');
+		
+	}else{
+	var com_name;
+	var count = [];
+	var count_2 = [];
+	/*var A1=0,A2=0,A3=0,A4=0;*/
+	$.each(data.data2,function(i,item){
+		if(typeof item.item_type == 'undefined'){
+			item.item_type='';
+		}
+		count[i]=item.item_type;
+		if(item.totalAmount == '' || item.totalAmount == null || item.totalAmount == undefined){
+			
+		}else{
+			count_2[i]=parseInt(item.totalAmount);
+			
+		}
+	});
 	//图三
 	myChart_3 = echarts.init(document.getElementById('tu_3'));
 	var option = {//柱状图
@@ -236,12 +257,13 @@ function a_2(){
 			         ]
 	};
 	//点击柱状图触发事件
-	myChart_3.on('click', function (params) {
-		console.log(params);
-	    diqu=params.name;
-	    parent.setSelVal(diqu);
-	});
+//	myChart_3.on('click', function (params) {
+//		console.log(params);
+//	    diqu=params.name;
+//	    parent.setSelVal(diqu);
+//	});
 	myChart_3.setOption(option);
+	
 	
 }
 var option_map = {
