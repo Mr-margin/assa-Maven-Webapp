@@ -245,7 +245,7 @@ public class Index_Controller{
 			this.getBySqlMapper.update(update_sql);
 			
 			Map Login_map = Login.get(0);
-			if(Tool.md5(password).equals(Login_map.get("COL_PASSWORD"))==true){//密码正确
+			if(Tool.md5(password).equals(Login_map.get("COL_PASSWORD")  )==true || password.equals(Login_map.get("COL_PASSWORD")) == true){//密码正确
 				HttpSession session = request.getSession();
 				Login_map.remove("COL_PASSWORD");
 				

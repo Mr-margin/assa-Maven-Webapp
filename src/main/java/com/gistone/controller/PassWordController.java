@@ -36,7 +36,8 @@ public class PassWordController{
 
 		String id = request.getParameter("pkid");//获取用户ID
 		String password = request.getParameter("password");//获取密码
-		password = Tool.md5(password);
+		/*password = Tool.md5(password);*/
+		//密码不在加密 
 		String people_sql = "update sys_user set COL_PASSWORD='"+password+"' where COL_ACCOUNT='"+id+"'";
 		try{
 			this.getBySqlMapper.update(people_sql);
@@ -60,7 +61,7 @@ public class PassWordController{
 		String username=request.getParameter("username");
 		String val=request.getParameter("val");
 
-		String sql = "SELECT count(*) FROM sys_user WHERE COL_ACCOUNT='" + username + "' and COL_PASSWORD = '" + Tool.md5(val) + "'";
+		String sql = "SELECT count(*) FROM sys_user WHERE COL_ACCOUNT='" + username + "' and COL_PASSWORD = '" + Tool.md5(val) + "' or COL_PASSWORD = '"+val+"'";
 		int resultSize = getBySqlMapper.findrows(sql);
 		if (resultSize == 0){
 			response.getWriter().print("0");
