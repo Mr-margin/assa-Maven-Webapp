@@ -2804,7 +2804,7 @@ public class AExport{
 	/**
 	 * 未脱贫贫困人口数
 	 * @param request
-	 * @param response
+	 * @param response 过滤aac017不为空 and aac017 is not null   and NVL(AAC016,AAr040)='2016' 解决返贫人口不对问题
 	 * @throws IOException
 	 */
 	@RequestMapping("PKC_1_3_2.do")
@@ -2820,7 +2820,7 @@ public class AExport{
 				if ( j == 0 ){
 					b_sql = "AAR010='0'";
 				}else {
-					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
+					b_sql = "(AAR010='3')";
 				}
 				
 				String sqlString="select  BB.XZQH,HNUM,ZRS,PKH,PKRK,FPKH,FPKRK,'"+j+"' CC,'"+v98+"' SS,'2016' VV,BB.xz from (SELECT HNUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) HNUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1'  and AAR040='2016' and "+b_sql+"  GROUP BY AAR00"+ar+"  )AA "+
