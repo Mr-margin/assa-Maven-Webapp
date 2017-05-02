@@ -315,7 +315,7 @@ function bar2(){
 		var option = {
 			color: ['#7cb5ec'],
 			title : {
-				text: '贫困户生产经营性支出',
+				text: '贫困户生产经营性收入',
 				subtext: '单位：元',
 				subtextStyle: {
 					color: 'black'

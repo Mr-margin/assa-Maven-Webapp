@@ -177,7 +177,7 @@ function bar(){
 		var dataStyle = { 
 				normal: {
 					show: true,
-					position: 'right',
+					position: 'insideLeft',
 					formatter: '{c}%',
 					textStyle: {
 						color:"black"
