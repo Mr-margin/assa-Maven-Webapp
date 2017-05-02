@@ -119,9 +119,9 @@ public class F_1_2Controller{
 				obj.put("com_name", "".equals(list.get(i).get("COM_NAME")) || list.get(i).get("COM_NAME") == null ? "" : list.get(i).get("COM_NAME").toString());
 				obj.put("z_hu", "".equals(list.get(i).get("Z_HU")) || list.get(i).get("Z_HU") == null ? "" : list.get(i).get("Z_HU").toString());
 				obj.put("z_ren", "".equals(list.get(i).get("Z_REN")) || list.get(i).get("Z_REN") == null ? "" : list.get(i).get("Z_REN").toString());
-				obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "" : list.get(i).get("V1").toString());
-				obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "" : list.get(i).get("V5").toString());
-				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "" : list.get(i).get("V9").toString());
+				obj.put("v1", "".equals(list.get(i).get("V1")) || list.get(i).get("V1") == null ? "0" : list.get(i).get("V1").toString());
+				obj.put("v5", "".equals(list.get(i).get("V5")) || list.get(i).get("V5") == null ? "0" : list.get(i).get("V5").toString());
+				obj.put("v9", "".equals(list.get(i).get("V9")) || list.get(i).get("V9") == null ? "0" : list.get(i).get("V9").toString());
 				json.add(obj);
 			}
 			response.getWriter().write(getPaixu(json,name).toString());

@@ -622,7 +622,7 @@ public class PKC_1_2_Controller {
 		}else{
 			sql+=" order by to_number(c."+order+") DESC";
 		}
-		List<Map> sql_list = this.getBySqlMapper.findRecords(sql);
+	    List<Map> sql_list = this.getBySqlMapper.findRecords(sql);
 		JSONObject val = new JSONObject();
 		if(sql_list.size()>0){
 			JSONArray jsa=new JSONArray();
