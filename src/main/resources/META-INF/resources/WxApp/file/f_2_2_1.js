@@ -55,7 +55,7 @@ function biaoge(){
     		'<td class="text-center">'+item.vg51+'</td>'+
     		'<td class="text-center">'+item.b5+'%</td></tr>';
     	});
-    	v3=(floatDiv(v2,v1)*100).toFixed(2);
+    	v3=(floatDiv(v1,v2)*100).toFixed(2);
     	if(isNaN(v3)){
     		v3='0';
 		}
@@ -93,7 +93,8 @@ function pkcsbbz(){
 	
 	$.each(data,function(i,item){
 		count[i]=item.name;
-		count2[i]=parseInt(item.vg5)-parseInt(item.vg51);
+		//页面上 非贫困户显示数据为负数  修改 count2[i]=parseInt(item.vg5)-parseInt(item.vg51);  2017-5-2  luoshuai
+		count2[i]=parseInt(item.vg51)-parseInt(item.vg5);
 		count3[i]=item.vg51;
 	});
 	

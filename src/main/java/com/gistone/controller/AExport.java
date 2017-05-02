@@ -1615,7 +1615,7 @@ public class AExport{
 				}else {
 					b_sql = "(AAR010='3' and NVL(AAC016,AAr040)='2016')";
 				}
-				String sql ="select NUM,xz,xzqh, v1, '"+j+"' type,XZ com_code,'2016' V99 ,'"+v98+"' v98 from ( ";
+				/*String sql ="select NUM,xz,xzqh, v1, '"+j+"' type,XZ com_code,'2016' V99 ,'"+v98+"' v98 from ( ";
 						sql += "SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' ";
 						sql += " and AAR040='2016' and "+b_sql+" GROUP BY AAR00"+ar+"  )AA left join ( ";
 						sql += " select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where xzqh is not null)w0 left join (";
@@ -1623,7 +1623,18 @@ public class AExport{
 						sql += "select count(AAC001) v1 ,AAR00"+ar+" from (select a.AAC001,AAR00"+ar+" from (";
 						sql += "select AAC001,AAR00"+ar+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"";
 						sql += ") a left join (select * from NEIMENG0117_AC08) b on a.AAC001=b.AAC001 where ";
-						sql += "SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016' )t1 group BY AAR00"+ar+")w1 ON w0.xz=w1.AAR00"+ar+" ";
+						sql += "SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016' )t1 group BY AAR00"+ar+")w1 ON w0.xz=w1.AAR00"+ar+" ";*/
+				
+				//罗帅修改  2017-5-2  更改 落实帮扶责任人统计比例超过100%的问题 在select count（DISTINCT aac001） 加一个DISTINCT
+				String sql ="select NUM,xz,xzqh, v1, '"+j+"' type,XZ com_code,'2016' V99 ,'"+v98+"' v98 from ( ";
+				sql += "SELECT NUM,AAR00"+ar+" xz,xzqh FROM ( select  COUNT(*) NUM,AAR00"+ar+" from NEIMENG0117_AC01  where AAR100= '1' ";
+				sql += " and AAR040='2016' and "+b_sql+" GROUP BY AAR00"+ar+"  )AA left join ( ";
+				sql += " select v"+xzqh+" xzqh,v"+v10+" from SYS_COM GROUP BY v"+xzqh+",v"+v10+")bb ON AA.AAR00"+ar+"=bb.v"+v10+" where xzqh is not null)w0 left join (";
+				
+				sql += "select count(DISTINCT AAC001) v1 ,AAR00"+ar+" from (select a.AAC001,AAR00"+ar+" from (";
+				sql += "select AAC001,AAR00"+ar+" from NEIMENG0117_AC01 where AAR100= '1' and AAR040='2016' and "+b_sql+"";
+				sql += ") a left join (select * from NEIMENG0117_AC08) b on a.AAC001=b.AAC001 where ";
+				sql += "SUBSTR(b.AAR020, 0, 4) <='2016' AND SUBSTR(b.AAR021, 0, 4) >='2016' )t1 group BY AAR00"+ar+")w1 ON w0.xz=w1.AAR00"+ar+" ";
 						
 						System.out.println(sql);
 					List<Map> in_list = this.getBySqlMapper.findRecords(sql);

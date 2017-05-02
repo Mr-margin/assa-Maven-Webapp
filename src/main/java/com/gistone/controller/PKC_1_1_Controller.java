@@ -1,6 +1,7 @@
 package com.gistone.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1276,6 +1277,8 @@ public class PKC_1_1_Controller {
 			}
 		}
 		sql = sql + src;
+		//保留小数点两位
+		DecimalFormat df = new DecimalFormat("##0.00");
 		List<Map> list = this.getBySqlMapper.findRecords(sql);
 		JSONArray json = new JSONArray();
 		if (list.size() > 0) {
@@ -1283,7 +1286,18 @@ public class PKC_1_1_Controller {
 				Map Patient_st_map = list.get(i);
 				JSONObject obj = new JSONObject();
 				for (Object key : Patient_st_map.keySet()) {
-					obj.put(key, Patient_st_map.get(key));
+					//如果是计算后的数 并且获得的字符串长度大于4
+					if(key.equals("V3_1")||key.equals("V4_1")||key.equals("V5_1")){
+						if(Patient_st_map.get(key).toString().length()>=4){
+							//格式化为 double型  保留两位小数
+							obj.put(key, df.format(Double.valueOf(Patient_st_map.get(key).toString())));
+						}else{
+							obj.put(key, Patient_st_map.get(key));
+						}
+					}else{
+						obj.put(key, Patient_st_map.get(key));
+					}
+					
 				}
 				json.add(obj);
 			}
