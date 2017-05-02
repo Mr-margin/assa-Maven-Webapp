@@ -218,7 +218,7 @@ function a1(){
 		                    show: true,
 		                    formatter:'{b}: {d}%',
 		                    textStyle: {
-		                        fontSize: '30',
+		                        fontSize: '24',
 		                        fontWeight: 'bold'
 		                    }
 		                }
