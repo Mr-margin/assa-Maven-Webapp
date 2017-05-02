@@ -262,25 +262,25 @@ function a_3(){
 	var A1=0,A2=0,A3=0,A4=0,A5=0,A6=0;
 	$.each(data,function(i,item){
 		if(typeof item.V1 == 'undefined'){
-			item.V1='';
+			item.V1='0';
 		}
 		if(typeof item.V3 == 'undefined'){
-			item.V3='';
+			item.V3='0';
 		}
 		if(typeof item.V4 == 'undefined'){
-			item.V4='';
+			item.V4='0';
 		}
 		if(typeof item.V5 == 'undefined'){
-			item.V5='';
+			item.V5='0';
 		}
 		if(typeof item.V6 == 'undefined'){
-			item.V6='';
+			item.V6='0';
 		}
 		if(typeof item.V7 == 'undefined'){
-			item.V7='';
+			item.V7='0';
 		}
 		if(typeof item.V8 == 'undefined'){
-			item.V8='';
+			item.V8='0';
 		}
 		
 		tables+='<tr><td class="text-center">'+Number(i+1)+'</td><td class="text-center">'+item.V1+'</td><td class="text-center">'+item.V3+'</td>'

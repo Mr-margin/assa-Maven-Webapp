@@ -62,34 +62,34 @@ function a1(){
 	var A1=0,A2=0,A3=0,A4=0;
 	$.each(data,function(i,item){
 		if(typeof item.V1 == 'undefined'){
-			item.V1='';
+			item.V1='0';
 		}
 		if(typeof item.V3_1 == 'undefined'){
-			item.V3_1='';
+			item.V3_1='0';
 		}
 		if(typeof item.V4_1 == 'undefined'){
-			item.V4_1='';
+			item.V4_1='0';
 		}
 		if(typeof item.V5_1 == 'undefined'){
-			item.V5_1='';
+			item.V5_1='0';
 		}
 		if(typeof item.V6_1 == 'undefined'){
-			item.V6_1='';
+			item.V6_1='0';
 		}
 		if(typeof item.V1 == 'undefined'){
-			item.V1='';
+			item.V1='0';
 		}
 		if(typeof item.V3 == 'undefined'){
-			item.V3='';
+			item.V3='0';
 		}
 		if(typeof item.V4 == 'undefined'){
-			item.V4='';
+			item.V4='0';
 		}
 		if(typeof item.V5 == 'undefined'){
-			item.V5='';
+			item.V5='0';
 		}
 		if(typeof item.V6 == 'undefined'){
-			item.V6='';
+			item.V6='0';
 		}
 		count[i]=item.V1;
 		count_2[i]=parseFloat(item.V3_1).toFixed(2);

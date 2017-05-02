@@ -52,7 +52,7 @@ function biaoge(){
     		html+='<tr><td class="text-center">'+xu+'</td><td class="text-center">'+item.name+'</td>'+
     		'<td class="text-center">'+item.vb1+'</td>'+
     		'<td class="text-center">'+item.vb2+'</td>'+
-    		'<td class="text-center">'+item.b5+'</td></tr>';
+    		'<td class="text-center">'+item.b5+'%</td></tr>';
     	});
     	v3=(floatDiv(v2,v1)*100).toFixed(2);
     	xu=xu+1;
