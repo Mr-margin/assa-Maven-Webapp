@@ -213,9 +213,11 @@ public class Index_Controller{
 
 		String username = request.getParameter("add_account");//获取用户名 
 		String password = request.getParameter("add_password");//获取密码
-		String people_sql = "select t1.pkid,t1.col_account,t1.col_password,t1.sys_com_code,t1.login_count,t1.LOGIN_TIME,t1.com_vd,t1.com_vs,t3.role_name,t3.pkid as role_id  from sys_user t1 "
+		String people_sql = "select t1.pkid,t1.col_account,t1.col_password,t1.sys_com_code,t1.login_count,t1.LOGIN_TIME,t1.com_vd,t1.com_vs,t3.role_name,t3.pkid as role_id，t4.com_code ,t4.com_level,t4.pkid   from sys_user t1 "
 				+ "LEFT JOIN sys_user_role_many t2 on t1.SYS_ROLE_ID=t2.user_id "
-				+ "LEFT JOIN sys_role t3 on t2.role_id=t3.pkid WHERE t1.col_account = '"+username+"'";
+				+ "LEFT JOIN sys_role t3 on t2.role_id=t3.pkid "
+				+"left JOIN SYS_COMPANY t4 on t1.SYS_COMPANY_ID=t4.pkid "
+				+ "WHERE t1.col_account = '"+username+"'";
 		List<Map> Login = this.getBySqlMapper.findRecords(people_sql);
 		if(Login.size()>0){//查询到用户记录
 			//登录时间
