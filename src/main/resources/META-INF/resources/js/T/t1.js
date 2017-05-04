@@ -1,4 +1,6 @@
+var xzqh_name="";
 $(document).ready(function(){
+	xzqh_name=jsondata.Login_map.COM_NAME;
 	title='资金类型统计';
 	var mydate = new Date();
 	year = mydate.getFullYear();
@@ -22,7 +24,7 @@ $(function () {
 	obj.t1 = Request['t1'];
 	obj.t2 = Request['t2'];
 	a_2();
-//	a_3();
+	a_3();
 })
 var obj = {};
 var myChart_1,myChart_2,myChart_3,myChart_4;
@@ -51,8 +53,61 @@ window.onresize=function () { //浏览器调整大小后，自动对所有的图
 function a_2(){
 	myChart_2 = echarts.init(document.getElementById('tu_2'));//声明id为mapChart的div为图形dom
 	var data = JSON.parse(ajax_async_t(GISTONE.Loader.basePath+"getItemCount_WtApp_t1_1_1.do")); //调用ajax通用方法
+	if(data.data3==0){
+		$("#z1").html('<img class="center-block" src="../img/wu.png">');
+		$("#z1").css("width","500px").css("height","440px");
+	}else{
+		
+		var capitalData=[{value:data.data3[0].ZYtotalMoney , name:"中央"},
+			      {value:data.data3[0].SJtotalMoney, name:"省财政"},
+			      {value:data.data3[0].DFtotalMoney , name:"地方"},
+			      ]
+		//统计图
+		myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
+		var option = {//图
+				title : {
+					text: title,
+					textStyle:{fontWeight:'500',fontSize:'17'},
+					x:'center'
+				},
+				tooltip : {
+					trigger: 'item',
+					formatter: "{b} <br/> {c} 万  ({d}%)"
+				},
+				legend: {
+					orient : 'vertical',
+					x : 'left',
+					
+					data : ["中央","省财政","地方"]
+				},
+				calculable : true,
+				color:['#1ab394','#337ab7','#2f4050'],
+				series : [{
+					type:'pie',
+					radius: ['30%', '45%'],
+					center: ['53%', '60%'],
+					avoidLabelOverlap: true,
+		            label: {
+		            	normal: {
+		            		show: true,
+		            		formatter:'{b}: {d}%'
+		            	},
+		                emphasis: {
+		                    show: true,
+		                    formatter:'{b}: {d}%',
+		                    textStyle: {
+		                        fontWeight: 'bold'
+		                    }
+		                }
+		            },
+					data:capitalData
+				}]
+		}
+		myChart_1.setOption(option);
+	}
 	if(data.data1==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.png">');
+		$("#z2").html('<img class="center-block" src="../img/wu.png">');
+		$("#z2").css("width","500px").css("height","440px");
 		
 	}else{
 	var com_name;
@@ -133,79 +188,45 @@ function a_2(){
 	});*/
 	myChart_2.setOption(option);
 	
-	//统计图
-	myChart_1 = echarts.init(document.getElementById('tu_1'));//声明id为mapChart的div为图形dom
-	var option = {//图
-			title : {
-				text: title,
-				textStyle:{fontWeight:'500',fontSize:'17'},
-				x:'center'
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{b} <br/> {c} 万  ({d}%)"
-			},
-			legend: {
-				orient : 'vertical',
-				x : 'left',
-				
-				data : ["中央","省财政","地方"]
-			},
-			calculable : true,
-			color:['#1ab394','#337ab7','#2f4050'],
-			series : [{
-				type:'pie',
-				radius: ['30%', '45%'],
-				center: ['53%', '60%'],
-				avoidLabelOverlap: true,
-	            label: {
-	            	normal: {
-	            		show: true,
-	            		formatter:'{b}: {d}%'
-	            	},
-	                emphasis: {
-	                    show: true,
-	                    formatter:'{b}: {d}%',
-	                    textStyle: {
-	                        fontWeight: 'bold'
-	                    }
-	                }
-	            },
-				data:[{value:'334600' , name:"中央"},
-				      {value:'130830 ', name:"省财政"},
-				      {value:'25231' , name:"地方"},
-				      ]
-			}]
-	}
-	myChart_1.setOption(option);
+	
 	
 }
-	if(data.data2==0){
-		$("#z").html('<img class="center-block" src="../../img/wu.png">');
-		
+	
+	//资金分布初始化
+	var xzqh_name2=xzqh_name;
+	fund_distributionInitialization(data,xzqh_name2);
+	
+	if(data.data5==0){
+		$("#z4").html('<img class="center-block" src="../img/wu.png">');
+		$("#z4").css("width","500px").css("height","440px");
 	}else{
 	var com_name;
 	var count = [];
 	var count_2 = [];
 	/*var A1=0,A2=0,A3=0,A4=0;*/
-	$.each(data.data2,function(i,item){
-		if(typeof item.item_type == 'undefined'){
-			item.item_type='';
-		}
-		count[i]=item.item_type;
-		if(item.totalAmount == '' || item.totalAmount == null || item.totalAmount == undefined){
-			
-		}else{
-			count_2[i]=parseInt(item.totalAmount);
-			
-		}
-	});
-	//图三
-	myChart_3 = echarts.init(document.getElementById('tu_3'));
+	if(data.data5[0].itemType1==null||data.data5[0].itemType1==''||data.data5[0].itemType1== undefined){
+		
+	}
+	count[0]=data.data5[0].itemType1;
+	count[1]=data.data5[0].itemType2;
+	if(data.data5[0].SYPKHS == '' || data.data5[0].SYPKHS == null || data.data5[0].SYPKHS == undefined){
+		
+	}else{
+		count_2[0]=parseInt(data.data5[0].SYPKHS);
+		
+	}
+	if(data.data5[0].SYFPKHS == '' || data.data5[0].SYFPKHS == null || data.data5[0].SYFPKHS == undefined){
+		
+	}else{
+		count_2[1]=parseInt(data.data5[0].SYFPKHS);
+		
+	}
+	//图四
+	myChart_4 = echarts.init(document.getElementById('tu_4'));
 	var option = {//柱状图
 			title: {
-				text: '资金分布情况',
-				subtext: '单位：万',
+				text: '项目受益的贫困户',
+				subtext: '单位：户',
 				subtextStyle: {
 					color: 'black'
 				},
@@ -240,7 +261,7 @@ function a_2(){
 			},
 			series: [
 			         {
-			        	 name: "资金数量",
+			        	 name: "贫困户",
 			        	 type: 'bar',
 			        	 label: {
 			        		 normal: {
@@ -257,12 +278,12 @@ function a_2(){
 			         ]
 	};
 	//点击柱状图触发事件
-//	myChart_3.on('click', function (params) {
-//		console.log(params);
-//	    diqu=params.name;
-//	    parent.setSelVal(diqu);
-//	});
-	myChart_3.setOption(option);
+	/*	myChart_2.on('click', function (params) {
+		console.log(params);
+	    diqu=params.name;
+	    parent.setSelVal(diqu);
+	});*/
+	myChart_4.setOption(option);
 	
 	
 }
@@ -317,68 +338,179 @@ var option_map = {
 		}]
 	}
 //图4 项目受益的贫困人口
-myChart_4 = echarts.init(document.getElementById('tu_4'));
-count_5 = ['贫困户','非贫困户','贫困人口','非贫困人口'];
-count_6 = [1200,6500,4233,18514];
-var option = {//柱状图
-		title: {
-			text: '项目受益的贫困人口',
-			subtext: '单位：人',
-			subtextStyle: {
-				color: 'black'
+//myChart_4 = echarts.init(document.getElementById('tu_4'));
+//count_5 = ['贫困户','非贫困户','贫困人口','非贫困人口'];
+//count_6 = [1200,6500,4233,18514];
+//var option = {//柱状图
+//		title: {
+//			text: '项目受益的贫困人口',
+//			subtext: '单位：人',
+//			subtextStyle: {
+//				color: 'black'
+//			},
+//			textStyle:{fontWeight:'500',fontSize:'17'},
+//			x:'center'
+//		},
+//		tooltip: {
+//			trigger: 'axis',
+//			axisPointer : {// 坐标轴指示器，坐标轴触发有效
+//				type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+//			},
+//		},
+//		color:['#d87a80'],
+//		grid: {
+//			left: '0%',
+//			right: '1%',
+//			bottom: '10%',
+//			containLabel: true
+//		},
+//		xAxis: {
+//			axisLabel:{//坐标轴文本标签选项
+//				interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
+//				rotate:25,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+//				margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+//			},
+//			data:count_5
+//		},
+//		yAxis: {
+//			axisLabel: {
+//				formatter: '{value}'
+//			}
+//		},
+//		series: [
+//		         {
+//		        	 name: "贫困人口",
+//		        	 type: 'bar',
+//		        	 label: {
+//		        		 normal: {
+//		        			 show: true,
+//			        		 position: 'top',
+//			        		 formatter: '{c}',
+//			        		 textStyle: {
+//			        			 color:"black"
+//			        		 }
+//		        		 }
+//		        	 },
+//		        	 data: count_6,
+//		         }
+//		         ]
+//};
+////点击柱状图触发事件
+///*	myChart_2.on('click', function (params) {
+//	console.log(params);
+//    diqu=params.name;
+//    parent.setSelVal(diqu);
+//});*/
+//myChart_4.setOption(option);
+};
+
+//全区落实资金数和项目类型
+function a_3(){
+	var data = JSON.parse(ajax_async_t(GISTONE.Loader.basePath+"getItemCount_WtApp_t1_1_1.do")); //调用ajax通用方法
+	if(data.data3==0){
+		$("#zj").text("0");
+		
+	}else{
+		$("#zj").text(data.data3[0].totalMoney);
+	}
+	if(data.data4==0){
+		$("#lsxm").text("0");
+		$("#lsxm2").text("0");
+	}else{
+		$("#lsxm").text(data.data4[0].itemType);
+		$("#lsxm2").text(data.data4[0].itemType2);
+	}
+}
+//资金分布初始化
+function fund_distributionInitialization(data,region){
+	if(data.data2==0){
+		$("#z3").html('<img class="center-block" src="../img/wu.png">');
+		$("#z3").css("width","500px").css("height","440px");
+	}else{
+	var com_name;
+	var count = [];
+	var count_2 = [];
+	$.each(data.data2,function(i,item){
+		if(typeof item.item_type == 'undefined'){
+			item.item_type='';
+		}
+		count[i]=item.item_type;
+		if(item.totalAmount == '' || item.totalAmount == null || item.totalAmount == undefined){
+			
+		}else{
+			count_2[i]=parseInt(item.totalAmount);
+			
+		}
+	});
+	//图三
+	myChart_3 = echarts.init(document.getElementById('tu_3'));
+	var option = {//柱状图
+			title: {
+				text: region+'资金分布情况',
+				subtext: '单位：万',
+				subtextStyle: {
+					color: 'black'
+				},
+				textStyle:{fontWeight:'500',fontSize:'17'},
+				x:'center'
 			},
-			textStyle:{fontWeight:'500',fontSize:'17'},
-			x:'center'
-		},
-		tooltip: {
-			trigger: 'axis',
-			axisPointer : {// 坐标轴指示器，坐标轴触发有效
-				type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+			tooltip: {
+				trigger: 'axis',
+				axisPointer : {// 坐标轴指示器，坐标轴触发有效
+					type : 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+				},
 			},
-		},
-		color:['#d87a80'],
-		grid: {
-			left: '0%',
-			right: '1%',
-			bottom: '10%',
-			containLabel: true
-		},
-		xAxis: {
-			axisLabel:{//坐标轴文本标签选项
-				interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
-				rotate:25,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
-				margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+			color:['#d87a80'],
+			grid: {
+				left: '0%',
+				right: '1%',
+				bottom: '10%',
+				containLabel: true
 			},
-			data:count_5
-		},
-		yAxis: {
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series: [
-		         {
-		        	 name: "贫困人口",
-		        	 type: 'bar',
-		        	 label: {
-		        		 normal: {
-		        			 show: true,
-			        		 position: 'top',
-			        		 formatter: '{c}',
-			        		 textStyle: {
-			        			 color:"black"
+			xAxis: {
+				axisLabel:{//坐标轴文本标签选项
+					interval:0,//小标记显示挑选间隔，默认为'auto'，可选为：'auto'（自动隐藏显示不下的） | 0（全部显示） | {number}（用户指定选择间隔）
+					rotate:25,//标签旋转的角度，默认为0，不旋转，正值为逆时针，负值为顺时针，可选为：-90-90
+					margin:8,//坐标轴文本标签与坐标轴的间距，默认为8，单位px
+				},
+				data:count
+			},
+			yAxis: {
+				axisLabel: {
+					formatter: '{value}'
+				}
+			},
+			series: [
+			         {
+			        	 name: "资金数量",
+			        	 type: 'bar',
+			        	 label: {
+			        		 normal: {
+			        			 show: true,
+				        		 position: 'top',
+				        		 formatter: '{c}',
+				        		 textStyle: {
+				        			 color:"black"
+				        		 }
 			        		 }
-		        		 }
-		        	 },
-		        	 data: count_6,
-		         }
-		         ]
-};
-//点击柱状图触发事件
-/*	myChart_2.on('click', function (params) {
-	console.log(params);
-    diqu=params.name;
-    parent.setSelVal(diqu);
-});*/
-myChart_4.setOption(option);
-};
+			        	 },
+			        	 data: count_2,
+			         }
+			         ]
+	};
+	//点击柱状图触发事件
+	myChart_3.on('click', function (params) {
+		console.log(params);
+	    diqu=params.name;
+	    setSelVal(diqu);
+	});
+	myChart_3.setOption(option);
+  }
+}
+
+//资金分布柱状图点击事件
+function setSelVal(value){
+	var data = JSON.parse(ajax_async_t(GISTONE.Loader.basePath+"getCapitalByXZQH.do",{"com_name":value})); //调用ajax通用方法
+	console.log(data);
+	fund_distributionInitialization(data,value);
+}

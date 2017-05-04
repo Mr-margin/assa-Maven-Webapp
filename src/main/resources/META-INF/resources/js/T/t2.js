@@ -286,7 +286,7 @@ function show_tree(){//bootstrap tree 获取数据的方法
     		},
     		icon: "glyphicon glyphicon-folder-close",
     		selectable: false,
-    		title: "帮扶措施",
+    		title: "项目类型",
     		png: "z1_1",
     		tags: ["3"],
             nodes: [{
