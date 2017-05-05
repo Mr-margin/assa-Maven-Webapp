@@ -43,7 +43,7 @@ public class WyApp_y2 {
 	 */
 	@RequestMapping("getWyApp_y2_1.do")
 	public void getWyApp_y2_1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String pageSize = request.getParameter("pageSize");
 		String pageNumber = request.getParameter("pageNumber");
 		
