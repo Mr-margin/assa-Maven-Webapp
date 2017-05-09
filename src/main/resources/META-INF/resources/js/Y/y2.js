@@ -61,23 +61,49 @@ $(function () {
 		}
 	  });
 	});
+	//滚动刷新
 	var tur=0;
 	$("#quyu2").scroll(function(){
-		var $this =$(this),  
+		/*var $this =$(this),  
         viewH =$(this).height(),//可见高度  
         contentH =$(this).get(0).scrollHeight,//内容高度  
 		feideyongzhege = $(this)[0].scrollTop;//滚动高度 
 		
-		if(feideyongzhege>(tur+20)){
+		if(feideyongzhege>(tur+30)){
 			if((feideyongzhege + viewH) >= contentH){
 				loading.data("on",false).fadeIn(800);
+				$("#loading").hide();
 				loadData(1);
 				number++;//分页数加1
 				loading.data("on",true).fadeOut();
 				tur = feideyongzhege;
+				console.log(number)
 			}
-		}
+		}*/
 	});
+	var Lindex;//遮罩层ID
+	function showWait(){
+		//loading层
+		layer.ready(function(){
+			Lindex = layer.load(1, {content:'加载中',time: 10*1000,success: function(layero){
+					layero.find('.layui-layer-content').css('padding-top', '40px');
+				}})
+			/*Lindex = layer.load(1, {
+				  shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});*/
+		})
+	}
+	//加载更多
+	$(".morebutton").click(function (){
+		showWait();
+		loading.data("on",true).fadeOut();
+		$("#loading").show();
+		setTimeout(function(){
+			loadData(1);
+			number++;//分页数加1
+			console.log(number)
+		},100)
+	})
 	
 	var tree_xzqh = '';
 	var tree_level = '';
@@ -114,87 +140,106 @@ $(function () {
 		tree_xzqh=jsondata.Login_map.SYS_COM_CODE;
 		tree_level='3';
 	}
-	
-	
-	
-	
+		 
+	/*item hover效果*/
+	var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
+	$('#waterfull').on('mouseover','.item',function(){
+		var random=Math.floor(Math.random() * 4);
+		$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
+	});
+	$('#waterfull').on('mouseout','.item',function(){
+		$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
+	});
 	
 	//加载数据
 	function loadData(flag){
-		if(flag&&loading.text()=="只有这么多了！"){
-			return false;
-		}
-		var bfrname = $("#bfrname").val();
-		var pkhname = $("#pkhname").val();
-		var zftype = $("#v0").val();
-//		console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname});
-		var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname,zftype:zftype},"json",true);
-		if (typeof sqlJson.error == "undefined") {
-			var xzqh_title_html = '&nbsp;&nbsp;&nbsp;当前帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
-			sqlJson.data2+'</span> 篇&nbsp;&nbsp;其中&nbsp;&nbsp; 相关贫困户：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
-			sqlJson.data3+'</span> 户&nbsp;&nbsp;&nbsp; 当日帮扶日记：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.dayNum+'</span> 篇&nbsp;&nbsp;&nbsp;&nbsp; 近一周帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
-			sqlJson.riji_count.weekNum+'</span> 篇&nbsp;&nbsp;&nbsp; 近一月帮扶日记累计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.monthNum+'</span> 篇';
-			$("#xzqh_title").html(xzqh_title_html);
-			var sqlJson = sqlJson.data1;
-			(function(sqlJson){
-				var html="";
-				if(sqlJson){
-					for(var i in sqlJson){
-						html+="<li class='item'><div class=\"gallerys\"><a class='a-img' title='点击查看大图'><img style='width:265px;' class=\"gallery-pic\" src=\""+sqlJson[i].src+"\" onclick=\"$.openPhotoGallery(this)\" /></div></a>";   
-						html+="<h5>干部:";
-						if( sqlJson[i].title == null || sqlJson[i].title == undefined || sqlJson[i].title == 0){
-							html+="&nbsp;&nbsp;&nbsp;&nbsp;";
-						} else {
-							html += ""+sqlJson[i].title+"";
-						}
-						if (sqlJson[i].phone == null || sqlJson[i].phone == undefined || sqlJson[i].phone == "" ) {
-							html += "&nbsp;&nbsp;&nbsp;&nbsp;"
-						} else {
-							html += "("+sqlJson[i].phone+")&nbsp;&nbsp;&nbsp;&nbsp;"
-						}
-						html+="户主:"+sqlJson[i].house+"</h5>";
-						if( sqlJson[i].time == null || sqlJson[i].time == undefined ) {
-							html+="<span class='sp2'></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:35px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
-						}else {
-							html+="<span class='sp2'>"+sqlJson[i].time+"</span>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-tags' style='margin-left:35px;'></i>&nbsp;&nbsp;<span class='sp2'>"+sqlJson[i].zftype+"</span>";
-						}
-						
-						html+="<p>"+sqlJson[i].intro+"</p><div class='qianm clearfloat'>";
-						var dj = parseFloat(sqlJson[i].lng).toFixed(2);
-						var bw = parseFloat(sqlJson[i].lat).toFixed(2);
-						if( sqlJson[i].device == null || sqlJson[i].device == undefined ) {
-							html+="";
-						}else {
-							if(sqlJson[i].device==1){
-								html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android'></i></span>";
-							}else{
-								html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat'></i></span>";
+		setTimeout(function(){
+			
+			
+			if(flag&&loading.text()=="只有这么多了！"){
+				return false;
+			}
+			var bfrname = $("#bfrname").val();
+			var pkhname = $("#pkhname").val();
+			var zftype = $("#v0").val();
+//			console.log({pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname});
+			var sqlJson = ajax_async_t("../getWyApp_y2_1.do",{pageSize: size,pageNumber: number,xzqh:tree_xzqh,level:tree_level,bfrname:bfrname,pkhname:pkhname,zftype:zftype},"json",true);
+			if (typeof sqlJson.error == "undefined") {
+				var xzqh_title_html = '&nbsp;&nbsp;&nbsp;当前帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
+				sqlJson.data2+'</span> 篇&nbsp;&nbsp;其中&nbsp;&nbsp; 相关贫困户：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
+				sqlJson.data3+'</span> 户&nbsp;&nbsp;&nbsp; 当日帮扶日记：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.dayNum+'</span> 篇&nbsp;&nbsp;&nbsp;&nbsp; 近一周帮扶日记共计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+
+				sqlJson.riji_count.weekNum+'</span> 篇&nbsp;&nbsp;&nbsp; 近一月帮扶日记累计：<span style="font-family:华文新魏;font-size:200%;color:#f8ac59;" >'+sqlJson.riji_count.monthNum+'</span> 篇';
+				$("#xzqh_title").html(xzqh_title_html);
+				var sqlJson = sqlJson.data1;
+				(function(sqlJson){
+					var html="";
+					if(sqlJson){
+						for(var i in sqlJson){
+							html+="<li class='item'><div class=\"gallerys\"><a class='a-img' title='点击查看大图'><img style='width:265px;' class=\"gallery-pic\" src=\""+sqlJson[i].src+"\" onclick=\"$.openPhotoGallery(this)\" /></div></a>";   
+							html+="<div class='qianm clearfloat'><h5>干部:";
+							if( sqlJson[i].title == null || sqlJson[i].title == undefined || sqlJson[i].title == 0){
+								html+="&nbsp;&nbsp;&nbsp;&nbsp;";
+							} else {
+								html += ""+sqlJson[i].title+"";
 							}
+							if (sqlJson[i].phone == null || sqlJson[i].phone == undefined || sqlJson[i].phone == "" ) {
+								html += "&nbsp;&nbsp;&nbsp;&nbsp;"
+							} else {
+								html += "("+sqlJson[i].phone+")&nbsp;&nbsp;&nbsp;&nbsp;"
+							}
+							html+="户主:"+sqlJson[i].house+"</h5>";
+							if( sqlJson[i].time == null || sqlJson[i].time == undefined ) {
+								html+="<span class='sp2'><i class='fa fa-tags' style='padding: 11px 0 0 0;'></i>&nbsp;&nbsp;&nbsp;"+sqlJson[i].zftype+"</span>&nbsp;&nbsp;&nbsp;<span class='sp2' style='float:left;    margin-left: -5px;min-width: 130px;'>"+sqlJson[i].date+"</span>";
+							}else {
+								html+="<span class='sp2'><i class='fa fa-tags' style='padding: 11px 0 0 0;'></i>&nbsp;&nbsp;&nbsp;"+sqlJson[i].zftype+"</span>&nbsp;&nbsp;&nbsp;<span class='sp2' style='float:left;    margin-left: -5px;min-width: 130px;'>"+sqlJson[i].time+"</span>";
+							}
+							
+							html+="<span style='float: left;margin-top: 8px;min-width: 265px;border-bottom: solid 1px #DBDBDB;padding: 5px 0;'>"+sqlJson[i].intro+"</span>";
+							var dj = parseFloat(sqlJson[i].lng).toFixed(2);
+							var bw = parseFloat(sqlJson[i].lat).toFixed(2);
+							if( sqlJson[i].device == null || sqlJson[i].device == undefined ) {
+								html+="";
+							}else {
+								if(sqlJson[i].device==1){
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android'></i></span>";
+								}else{
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat'></i></span>";
+								}
+							}
+							html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
 						}
-						html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
-					}
-					$(html).find('img').each(function(index){
-						loadImage($(this).attr('src'));
-					})
-					var $newElems = $(html).css({ opacity: 0}).appendTo(container);
-					$newElems.imagesLoaded(function(){
-						$newElems.animate({ opacity: 1},800);
-						container.masonry( 'appended', $newElems,true);
-			        });
-				}else{
-					if(tree_xzqh||tree_level||name){
-						container.masonry('destroy');
-				    	$("#waterfull").children("ul").children("li").remove();
+						$(html).find('img').each(function(index){
+							loadImage($(this).attr('src'));
+						})
+						var $newElems = $(html).css({ opacity: 0}).appendTo(container);
+						$newElems.imagesLoaded(function(){
+							$newElems.animate({ opacity: 1},800);
+							container.masonry( 'appended', $newElems,true);
+				        });
+						//状态初始化
+						$("#loading").hide();
+						loading.data("on",false).fadeIn(800);
 					}else{
-						loading.text('只有这么多了！');
+						if(tree_xzqh||tree_level||name){
+							container.masonry('destroy');
+					    	$("#waterfull").children("ul").children("li").remove();
+						}else{
+							loading.text('只有这么多了！');
+						}
 					}
-					
-				}
-			})(sqlJson);
-		}else{
-			toastr["warning"]("", sqlJson.error);
-		}
-		$("#quyu2").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
+				})(sqlJson);
+			}else{
+				toastr["warning"]("", sqlJson.error);
+			}
+			$("#quyu2").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
+			
+			//关闭
+			setTimeout(function(){
+				layer.close(Lindex);
+			},2500)
+		},500)
+		
+		
 	}
 	
 	function loadImage(url) {
@@ -208,7 +253,7 @@ $(function () {
 	       	return img.src;
 	      };
 	 };
-	 
+	 showWait();
 	 loadData("");
 	 number++;//分页数加1
 	
@@ -282,7 +327,7 @@ $(function () {
 		})
 		//查询
 		$("#cha_but").click(function (){
-			
+			showWait();
 			container.masonry('destroy');
 	    	$("#waterfull").children("ul").children("li").remove();
 	    	$("#xzqh_title").html("");
@@ -310,7 +355,8 @@ $(function () {
 		   	        contentH =$(this).get(0).scrollHeight,//内容高度  
 		   			feideyongzhege = $(this)[0].scrollTop;//滚动高度 
 		   			
-		   			if(feideyongzhege>(tur+20)){
+		   			//滚动刷新
+		   			/*if(feideyongzhege>(tur+20)){
 		   				if((feideyongzhege + viewH) >= contentH){
 		   					loading.data("on",false).fadeIn(800);
 		   					loadData(1);
@@ -318,7 +364,7 @@ $(function () {
 		   					loading.data("on",true).fadeOut();
 		   					tur = feideyongzhege;
 		   				}
-		   			}
+		   			}*/
 		   		})
 	    	loadData("");
 	   	 	number++;//分页数加1
