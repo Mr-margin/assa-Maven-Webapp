@@ -101,7 +101,7 @@ function bar(){
 			title: {
 				x: 'center',
 				text: title,
-				subtext: '单位：户',
+				subtext: '单位：%',
 				subtextStyle: {
 					color: 'black'
 				},
