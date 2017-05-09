@@ -87,6 +87,7 @@ $(function () {
 		layer.ready(function(){
 			Lindex = layer.load(1, {content:'加载中',time: 10*1000,success: function(layero){
 					layero.find('.layui-layer-content').css('padding-top', '40px');
+					layero.find('.layui-layer-content').css('font-weight','bold');
 				}})
 			/*Lindex = layer.load(1, {
 				  shade: [0.1,'#fff'] //0.1透明度的白色背景
@@ -201,9 +202,9 @@ $(function () {
 								html+="";
 							}else {
 								if(sqlJson[i].device==1){
-									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android'></i></span>";
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android' title='本篇日记来源于安卓APP'></i></span>";
 								}else{
-									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat'></i></span>";
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat' title='本篇日记来源于微信公众号'></i></span>";
 								}
 							}
 							html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
