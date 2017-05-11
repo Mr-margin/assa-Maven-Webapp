@@ -72,25 +72,51 @@ $(function () {
 	  });
 	});
 	//滚动刷新
+	var f=true;
 	var tur=0;
 	$("#quyu2").scroll(function(){
-		/*var $this =$(this),  
+		var $this =$(this),  
         viewH =$(this).height(),//可见高度  
         contentH =$(this).get(0).scrollHeight,//内容高度  
 		feideyongzhege = $(this)[0].scrollTop;//滚动高度 
 		
 		if(feideyongzhege>(tur+30)){
 			if((feideyongzhege + viewH) >= contentH){
-				loading.data("on",false).fadeIn(800);
+				if(f){
+					if($(".gotop").is(":hidden")){
+						$(".gotop").slideToggle();
+					}
+					f=false;
+				}
+				/*loading.data("on",false).fadeIn(800);
 				$("#loading").hide();
 				loadData(1);
 				number++;//分页数加1
 				loading.data("on",true).fadeOut();
 				tur = feideyongzhege;
-				console.log(number)
+				console.log(number)*/
+			}else{
+				if(feideyongzhege<50){
+					if($(".gotop").is(":hidden")){
+						
+					}else{
+						$(".gotop").slideToggle();
+					}
+					f=true;
+				}
 			}
-		}*/
+		}
 	});
+	
+	//回到顶部
+	$(".gotop").click(function(event){
+		
+		$("#quyu2").animate({scrollTop:0},1000);
+		$(".gotop").slideToggle();
+		f=true;
+		return false;
+	})
+	
 	var Lindex;//遮罩层ID
 	function showWait(){
 		//loading层
