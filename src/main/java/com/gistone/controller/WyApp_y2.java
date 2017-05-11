@@ -55,7 +55,7 @@ public class WyApp_y2 {
 		
 		int size = Integer.parseInt(pageSize);
 		int number = Integer.parseInt(pageNumber)*size;//一页的结束
-		int page = Integer.parseInt(pageNumber) == 1 ? 0 : number/Integer.parseInt(pageNumber);//一页的开始
+		int page = Integer.parseInt(pageNumber) == 1 ? 0 : number-size;//一页的开始
 		String selSql="";
 //		System.out.println(number+"--"+(number+size));
 //		System.out.println();v1 desc,registertime desc,
