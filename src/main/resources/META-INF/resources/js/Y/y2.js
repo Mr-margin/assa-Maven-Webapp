@@ -96,7 +96,6 @@ $(function () {
 			}else{
 				if(feideyongzhege<50){
 					if($(".gotop").is(":hidden")){
-						
 					}else{
 						$(".gotop").slideToggle();//隐藏回到顶部按钮
 					}
@@ -377,6 +376,7 @@ $(function () {
 		})
 		//查询
 		$("#cha_but").click(function (){
+			$(".selRj").click();
 			showWait();
 			container.masonry('destroy');
 	    	$("#waterfull").children("ul").children("li").remove();
