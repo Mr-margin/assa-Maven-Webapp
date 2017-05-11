@@ -71,8 +71,9 @@ $(function () {
 		}
 	  });
 	});
-	//滚动刷新
+	//点击回到顶部状态控制
 	var f=true;
+	//滚动刷新
 	var tur=0;
 	$("#quyu2").scroll(function(){
 		var $this =$(this),  
@@ -82,11 +83,8 @@ $(function () {
 		
 		if(feideyongzhege>(tur+30)){
 			if((feideyongzhege + viewH) >= contentH){
-				if(f){
-					if($(".gotop").is(":hidden")){
-						$(".gotop").slideToggle();
-					}
-					f=false;
+				if($(".gotop").is(":hidden")){
+					$(".gotop").slideToggle();//显示回到顶部按钮
 				}
 				/*loading.data("on",false).fadeIn(800);
 				$("#loading").hide();
@@ -100,9 +98,12 @@ $(function () {
 					if($(".gotop").is(":hidden")){
 						
 					}else{
-						$(".gotop").slideToggle();
+						$(".gotop").slideToggle();//隐藏回到顶部按钮
 					}
-					f=true;
+				}else{
+					if(f&&$(".gotop").is(":hidden")){
+						$(".gotop").slideToggle();//显示回到顶部按钮
+					}
 				}
 			}
 		}
@@ -110,11 +111,16 @@ $(function () {
 	
 	//回到顶部
 	$(".gotop").click(function(event){
-		
 		$("#quyu2").animate({scrollTop:0},1000);
-		$(".gotop").slideToggle();
-		f=true;
-		return false;
+		if($(".gotop").is(":hidden")){
+		}else{
+			$(".gotop").slideToggle();//隐藏回到顶部按钮
+			f=false;
+			//延迟2秒改回状态，重新让滚动事件能够触发
+			setTimeout(function(){
+				f=true;
+			},2000)
+		}
 	})
 	
 	var Lindex;//遮罩层ID
@@ -400,15 +406,46 @@ $(function () {
 		   			feideyongzhege = $(this)[0].scrollTop;//滚动高度 
 		   			
 		   			//滚动刷新
-		   			/*if(feideyongzhege>(tur+20)){
-		   				if((feideyongzhege + viewH) >= contentH){
+		   			if(feideyongzhege>(tur+20)){
+		   				/*if((feideyongzhege + viewH) >= contentH){
 		   					loading.data("on",false).fadeIn(800);
 		   					loadData(1);
 		   					number++;//分页数加1
 		   					loading.data("on",true).fadeOut();
 		   					tur = feideyongzhege;
-		   				}
-		   			}*/
+		   				}*/
+
+		   				/*if((feideyongzhege + viewH) >= contentH){
+		   					if(f){
+		   						if($(".gotop").is(":hidden")){
+		   							$(".gotop").slideToggle();//显示回到顶部按钮
+		   						}
+		   						f=false;
+		   					}
+		   					loading.data("on",false).fadeIn(800);
+		   					$("#loading").hide();
+		   					loadData(1);
+		   					number++;//分页数加1
+		   					loading.data("on",true).fadeOut();
+		   					tur = feideyongzhege;
+		   					console.log(number)
+		   				}else{
+		   					if(feideyongzhege<50){
+		   						if($(".gotop").is(":hidden")){
+		   							
+		   						}else{
+		   							$(".gotop").slideToggle();//隐藏回到顶部按钮
+		   						}
+		   						f=true;
+		   					}else{
+		   						if($(".gotop").is(":hidden")){
+		   							$(".gotop").slideToggle();//显示回到顶部按钮
+		   						}
+		   						f=false;
+		   					}
+		   				}*/
+		   			
+		   			}
 		   		})
 	    	loadData("");
 	   	 	number++;//分页数加1
