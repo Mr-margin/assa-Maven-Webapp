@@ -1,4 +1,14 @@
 $(function () {
+	//控制搜索框样式
+	$(".slimScrollDiv").css('height', 'auto');
+	$(".content").css('height', 'auto');
+	$(".open-small-chat").css('background', '#1797F6');
+	$(".heading").css('background', '#1797F6');
+	//顶部显示汇总数栏样式
+	$(".ibox-content").css('padding', '15px 20px 0px');
+	$(".ibox-content").css('border-width', '0px 0');
+	
+	
 	$("#quyu2").css("height",$("#zhuquyu").height()-$("#quyu1").height()+"px");
 	$("#quyu2").css("width",$("#zhuquyu").width()+20+"px");
 	$("#fenge").click(function(e) {
@@ -85,10 +95,17 @@ $(function () {
 	function showWait(){
 		//loading层
 		layer.ready(function(){
-			Lindex = layer.load(1, {content:'加载中',time: 10*1000,success: function(layero){
+			/*Lindex = layer.load(1, {content:'加载中',time: 10*1000,success: function(layero){
 					layero.find('.layui-layer-content').css('padding-top', '40px');
 					layero.find('.layui-layer-content').css('font-weight','bold');
-				}})
+				}})*/
+				
+			//加载层
+			Lindex = layer.load(0, {shade: [0.1,'#fff'],content:'加载中',time: 10*1000,success: function(layero){
+				layero.find('.layui-layer-content').css('padding-top', '40px');
+				layero.find('.layui-layer-content').css('padding-left', '12px');
+				layero.find('.layui-layer-content').css('font-weight','bold');
+			}}); //0代表加载的风格，支持0-2
 			/*Lindex = layer.load(1, {
 				  shade: [0.1,'#fff'] //0.1透明度的白色背景
 				});*/
@@ -177,7 +194,7 @@ $(function () {
 					if(sqlJson){
 						for(var i in sqlJson){
 							html+="<li class='item'><div class=\"gallerys\"><a class='a-img' title='点击查看大图'><img style='width:265px;' class=\"gallery-pic\" src=\""+sqlJson[i].src+"\" onclick=\"$.openPhotoGallery(this)\" /></div></a>";   
-							html+="<div class='qianm clearfloat'><h5>干部:";
+							html+="<div class='qianm clearfloat'><h5 style='margin-top:15px;'>干部:";
 							if( sqlJson[i].title == null || sqlJson[i].title == undefined || sqlJson[i].title == 0){
 								html+="&nbsp;&nbsp;&nbsp;&nbsp;";
 							} else {

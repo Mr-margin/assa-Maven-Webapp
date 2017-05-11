@@ -54,18 +54,23 @@ public class WyApp_y2 {
 		String zfT = request.getParameter("zftype");
 		
 		int size = Integer.parseInt(pageSize);
-		int number = Integer.parseInt(pageNumber)*size;
-		int page = number == 0 ? 1 : (number/size)+1;
-		
+		int number = Integer.parseInt(pageNumber)*size;//一页的结束
+		int page = Integer.parseInt(pageNumber) == 1 ? 0 : number/Integer.parseInt(pageNumber);//一页的开始
+		String selSql="";
 //		System.out.println(number+"--"+(number+size));
 //		System.out.println();v1 desc,registertime desc,
-		
+		if(bfrname!=""&&bfrname!=null&&bfrname.length()>0){
+			selSql +="  AND PERSONAL_NAME like '%"+bfrname+"%'";
+		}
+		if(pkhname!=""&&pkhname!=null&&pkhname.length()>0){
+			selSql +=" AND HOUSEHOLD_NAME like '%"+pkhname+"%'";
+		}
 		String whereSQL = "select v10 from SYS_COM where v"+(Integer.parseInt(level)*2)+"='"+xzqh+"' group by v10";
 		
 		String sql = "SELECT * FROM (select ROWNUM AS rowno,HOUSEHOLD_NAME,PERSONAL_NAME,PERSONAL_PHONE,V1,V3,LNG,LAT,ADDRESS,PIC_PATH,AAR008,registertime,ZFTYPE,TYPE from ( "
 				+ " select d1.*,d2.pic_path from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 "
 				+ " on d1.random_number=d2.random_number where AAR008 in("+whereSQL+") and  d1.zftype in("+zfT+") and  d1.registertime is not null order by  TO_DATE (d1.REGISTERTIME,'yyyy-mm-dd hh24:mi:ss') desc "
-				+ " ) t1 where ROWNUM <= "+(number+size)+") table_alias WHERE table_alias.rowno > "+number;
+				+ " ) t1 where 1=1 "+selSql+" and ROWNUM <= "+number+") table_alias where table_alias.rowno>"+page;
 		
 	
 		String count_sql = " select count(*) from DA_HELP_VISIT d1 join (select RANDOM_NUMBER,max(pic_path) pic_path from DA_PIC_VISIT d2 group by RANDOM_NUMBER) d2 on d1.random_number=d2.random_number where AAR008 in("+whereSQL+")  and  d1.zftype in("+zfT+")";
@@ -105,12 +110,7 @@ public class WyApp_y2 {
 //		int ri = Integer.parseInt(rizhi_List.get(0).get("RI").toString());
 //		int zhou = Integer.parseInt(rizhi_List.get(0).get("ZHOU").toString());
 //		int yue = Integer.parseInt(rizhi_List.get(0).get("YUE").toString());
-		if(bfrname!=""&&bfrname!=null&&bfrname.length()>0){
-			sql +=" AND  table_alias.PERSONAL_NAME='"+bfrname+"'";
-		}
-		if(pkhname!=""&&pkhname!=null&&pkhname.length()>0){
-			sql +=" AND  table_alias.HOUSEHOLD_NAME='"+pkhname+"'";
-		}
+		
 		List<Map> Patient_st_List = this.getBySqlMapper.findRecords(sql);
 		if(Patient_st_List.size()>0){
 			JSONArray jsa=new JSONArray();
@@ -247,7 +247,7 @@ public class WyApp_y2 {
 			response.getWriter().write(val_ret.toString());
 		}else{
 			JSONObject val_ret = new JSONObject();
-			val_ret.put("error", "本地区暂无帮扶日记！");
+			val_ret.put("error", "本地区暂无更多帮扶日记！");
 			response.getWriter().write(val_ret.toString());
 		}
 	}
