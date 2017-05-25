@@ -250,9 +250,9 @@ $(function () {
 								html+="";
 							}else {
 								if(sqlJson[i].device==1){
-									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android' title='本篇日记来源于安卓APP'></i></span>";
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-android' title='本篇日记来源于帮扶通安卓客户端'></i></span>";
 								}else{
-									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat' title='本篇日记来源于微信公众号'></i></span>";
+									html+="<span style='float:left;    margin-top: 8px;'>日记来源：&nbsp;&nbsp;<i class='fa fa-wechat' title='本篇日记来源于帮扶通微信公众号'></i></span>";
 								}
 							}
 							html+="<span class='sp2'><img src='../js/plugins/masonry/icon/addr.png'><a onclick=\"open_map('"+dj+"','"+bw+"','"+sqlJson[i].writer+"')\">东经:"+dj+"  北纬:"+bw+"</a></span></div></li>";
