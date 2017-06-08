@@ -8,7 +8,7 @@ $(function() {
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困人口:</label><label class='l2'  style='float:left;font-size:16px;'>802,068<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年贫困户:</label><label class='l2'  style='float:left;font-size:16px;'>357,581<strong style='font-size:12px'>户</strong></label></li>" );
 		$('#bfgbCount').html("" +
-				"<li><label class='l1' style='float:left;font-size:12px;'>2016年帮扶干部:</label><label class='l2'  style='float:left;font-size:16px;'>226,876<strong style='font-size:12px'>人</strong></label></li>" +
+				"<li><label class='l1' style='float:left;font-size:12px;'>2016年帮扶干部:</label><label class='l2'  style='float:left;font-size:16px;'>152,072<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2016年落实比例:</label><label class='l2'  style='float:left;font-size:16px;'>100%</label></li>"+
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年帮扶干部:</label><label class='l2'  style='float:left;font-size:16px;'>152,072<strong style='font-size:12px'>人</strong></label></li>" +
 				"<li><label class='l1' style='float:left;font-size:12px;'>2015年落实比例:</label><label class='l2'  style='float:left;font-size:16px;'>100%</label></li>") ;
@@ -243,7 +243,7 @@ $(function() {
             var defaults = {  
                 line:2,  
                 scrollNum:2,  
-                scrollTime:6000
+                scrollTime:6000000
             }
     		var options=jQuery.extend(defaults,options);
     		var _self = this;

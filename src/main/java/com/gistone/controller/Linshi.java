@@ -40,7 +40,7 @@ public class Linshi {
 	 * @date 2016年8月23日
 	 * @param request
 	 * @param response
-	 * @return
+	 * @return  http://www.gistone.cn/assa/getLinshi_2.do?type=150900000000   传递行政区划code
 	 * @throws Exception 
 	 */
 	@RequestMapping("getLinshi_2.do")

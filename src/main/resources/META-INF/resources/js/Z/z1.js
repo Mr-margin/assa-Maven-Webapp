@@ -361,7 +361,7 @@ function bar3(){
 	var myChart = echarts.init(document.getElementById('jpzmjh'));//声明id为mapChart的div为图形dom
 	var option = {//柱状图
 			title: {
-				text: '2016年各盟市减贫摘帽计划',
+				text: '2017年各盟市减贫摘帽计划',
 				subtext: '贫困人口减贫（人）',
 				subtextStyle: {
 					color: 'black'
@@ -401,7 +401,7 @@ function bar3(){
 			         {
 			        	 name: "贫困人口减贫",
 			        	 type: 'bar',
-			        	 data: ["10690","6972","22302","22224","33911","52791","5668","28294","6474","18505","758","2933"]
+			        	 data: ["7641","4866","18971","25148","30031","58036","5767","35783","680","13463","91","54"]
 			         }
 			         ]
 	};
