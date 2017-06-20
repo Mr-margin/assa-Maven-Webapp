@@ -400,9 +400,9 @@ function cha_shu (name,code,role_id) {
 function cha_bfgl(name,code,role){
 	if(code!="152500000000"){
 	var data = JSON.parse(ajax_async_t("../getWyApp_y1_bf.do", {name:name,code:code,role:role }));
-	$("#bfdw").text(data[0].dw);
-	$("#zcd").text(data[0].zcd);
-	$("#zcgb").text(data[0].zcgb);
+//	$("#bfdw").text(data[0].dw);
+//	$("#zcd").text(data[0].zcd);
+//	$("#zcgb").text(data[0].zcgb);
 	}else{
 		$("#bfdw").text("877");
 		$("#zcd").text("473");
