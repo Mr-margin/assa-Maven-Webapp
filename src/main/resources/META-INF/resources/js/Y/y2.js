@@ -285,7 +285,7 @@ $(function () {
 			//关闭
 			setTimeout(function(){
 				layer.close(Lindex);
-			},2500)
+			},3500)
 		},500)
 		
 		
